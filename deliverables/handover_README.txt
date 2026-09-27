@@ -61,6 +61,10 @@
 NPC: 도토리(너구리 할멈 길드장 대리), 카이(행방불명 열혈 길드장, 교단에 잡힘), 레온(황금사자 길드장), 행상 퐁, 임프 키키, 고르크(두리 오라비, 조연).
 삭제된 캐릭터(다시 넣지 말 것): 골렘 오팔, 헬하운드 케르, 셀레스, 소화, 에이다, 월하, 악역 아자엘·그림자 여우.
 
+[릴리스 확정 외형(유저 제공, 이미지 제작 기준)]
+masterpiece, best quality, ultra detailed, anime style, 1girl, solo, adult woman, 20s, baby face, cute youthful face, big sparkling eyes, soft round cheeks, voluptuous figure, very beautiful, perfect face, glossy detailed hair, cinematic lighting, 16:9 wide shot, succubus, long wavy black-purple hair, small obsidian horns, bat wings, heart-tipped tail, violet eyes, sheer black off-shoulder dress, deep neckline, gold body jewelry, bare shoulders, standing, gentle smile, looking at viewer, cowboy shot, night market shop, candles, dark velvet
+→ 연보랏빛 피부·큰 뿔·하트 동공·뾰족 귀 없음. 모든 릴리스 프롬프트는 이 외형 기준.
+
 ■ 4. 크랙 빌더 제한
 메인 7000 / 시작상황 1000 · 프롤로그 1000 · 가이드 500 · 추천답변 3개×200 / 시작설정 이름 12자
 키워드 노트 최대 20개(각 400자, 키워드 5개) / 단축어: 이름 10 · 설명 30 · 프롬프트 400
