@@ -1,0 +1,62 @@
+[잡탕길드.jpg] 거점. 낡은 3층 목조 길드 외관
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, old three-story timber-framed guild hall in a medieval fantasy trade city, crooked wooden signboard, patched roof, ivy on walls, warm light from windows, cobblestone street, evening golden hour
+
+[길드식당.jpg] 길드 1층 식당 내부
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, interior of a cozy old tavern dining hall, long wooden tables, mismatched chairs, stone fireplace with fire, hanging lanterns, pots and herbs, reception counter in corner, warm amber light
+
+[시장가.jpg] 바벨하임 시장가
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, busy medieval fantasy marketplace, colorful fabric awnings, fruit and spice stalls, stone fountain, timber houses, banners, bright morning sunlight
+
+[마족야시장.jpg] 밤에만 열리는 마족 야시장
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, night market in a narrow fantasy alley, purple and red paper lanterns, strange potion shops, glowing runes, smoke and incense, mysterious atmosphere, wet cobblestones reflecting light
+
+[교단예배당.jpg] 순혈 교단 예배당
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, cold gothic cathedral interior, white stone pillars, sun emblem stained glass, rows of pews, candles, harsh white light beams, oppressive silence
+
+[안개늪지.jpg] 1막 슬라임이 사는 늪
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, misty swamp at twilight, lime-green fog, twisted mangrove trees, lily pads, glowing fireflies, ancient stone ruins half sunk in water
+
+[달빛숲.jpg] 2막 늑대인간의 숲
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, ancient forest of silver-barked trees under a huge full moon, blue moonlight shafts, mist on the ground, ferns, distant wolf silhouettes on a ridge
+
+[산호만.jpg] 2막 인어의 바다
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, tropical bay with coral reefs visible through crystal clear turquoise water, underwater coral palace in the distance, whaling ship on horizon, sunset
+
+[밤의고성.jpg] 3막 뱀파이어 고성
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, gothic vampire castle ballroom, crimson moon through tall windows, crystal chandeliers, red velvet curtains, black marble floor, candlelight
+
+[백야설원.jpg] 3막 설녀의 설원
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, endless white snowfield under midnight sun, ice crystal palace in distance, blue ice spires, blowing snow, pale sky
+
+[여우산.jpg] 4막 구미호의 산
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, mountain covered in red maple trees, old stone steps with torii-like gates, floating fox fires, autumn leaves falling, twilight
+
+[하늘섬.jpg] 4막 천사의 하늘섬
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, floating islands above clouds, ruined white marble city with golden domes, waterfalls falling into the sky, radiant sunset light
+
+[모닥불야영.jpg] 길 위 야영
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, forest clearing campsite at night, crackling campfire, bedrolls, starry sky, warm firelight against dark trees
+
+[세계수.jpg] 4막 세계수. 신전으로 가는 길
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, colossal world tree piercing the clouds, massive glowing roots, spiraling wooden path around the trunk, glowing leaves and floating spores, sea of clouds below, divine golden light
+
+[태초의신전.jpg] 종장 태초의 신전. 맹약의 제단
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, ancient white temple above the clouds, endless white stairs, colossal altar with glowing sigils, fourteen tall pillars in a circle, heavenly light beams, awe-inspiring
+
+[용의산.jpg] 4막 용의 산. 레비아의 둥지
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, volcanic mountain peak, rivers of lava, enormous cave hoard of gold coins, jewels and ancient treasures, drifting ash, dramatic red glow
+
+[석화의폐허.jpg] 2막 석화의 폐허. 스테노와 석판
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, ruined white marble temple, rows of weathered stone statues of people, collapsed columns, ancient carved stone tablet glowing faintly in the inner sanctum, overgrown vines, pale light, dust
+
+[길드게시판.jpg] 잡탕 길드 1층 의뢰 게시판
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, close-up of a wooden quest board inside an old guild hall, many pinned parchment requests and wanted posters, wax seals, handwritten notes, pins and string, reception counter and lantern beside it, warm afternoon light
+
+[잿불사냥터.jpg] 케르의 지역. 교단 사냥 캠프
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, cult hunting camp at the edge of a burnt forest at night, charred trees, glowing embers drifting, iron cages and chains, white banners with sun emblem, campfires, smoke
+
+[바람절벽.jpg] 리라의 지역. 하피 둥지와 우편 탑
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, towering seaside cliffs with woven harpy nests full of shiny trinkets, an old stone post tower with flags, strong sea wind, seagulls, bright blue sky, waves crashing below
+
+[잠든대공방.jpg] 오팔의 지역. 얼음 밑 고대 공방
+photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, colossal ancient workshop buried beneath ice, giant stone gears and forges, glowing blue runes on walls, a huge dormant airship in the center, frozen waterfalls, cold blue light
