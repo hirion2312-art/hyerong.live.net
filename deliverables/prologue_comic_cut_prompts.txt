@@ -1,0 +1,109 @@
+프롤로그 만화 컷 프롬프트 36개 (말풍선·글자 없음)
+
+[컷01] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, panoramic view of a bustling fantasy trade city at sunset, crowded streets with many different races (beastfolk, horned demons, elves, orcs), timber-framed houses, colorful market awnings, city walls and harbor in distance, orange and purple sky, wide establishing shot, no focus character, aspect ratio 16:9
+
+[컷02] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1boy, young man, early 20s, messy short brown hair, plain face, brown leather porter vest over white shirt, rolled sleeves, work gloves, canvas trousers, boots, staggering under a huge tower of crates and sacks on his back, struggling expression, sweat, inside grand white marble guild hall with golden lion banners, armored adventurers walking past ignoring him, full body, wide shot, aspect ratio 16:9
+
+[컷03] (3:4)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, close-up of a gloved hand sticking out from under a pile of heavy crates, small wooden name tag hanging from the vest, dust particles, comedic, shallow depth of field, aspect ratio 3:4
+
+[컷04] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1boy, young man, early 20s, messy short brown hair, plain face, brown leather porter vest over white shirt, rolled sleeves, work gloves, canvas trousers, boots, shocked face, sweat drop, beside a smug older porter man in his 30s with a sly grin sticking a note on his chest, sparkly shoujo-style background behind the older porter, comedic contrast, upper body, two-shot, aspect ratio 16:9
+
+[컷05] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, narrow fantasy night market alley, purple and red paper lanterns hanging overhead, strange potion bottles floating, stalls run by horned demons and masked merchants, bat-winged customers, wet cobblestones reflecting neon-like light, mysterious magical atmosphere, wide shot, aspect ratio 16:9
+
+[컷06] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1boy, young man, early 20s, messy short brown hair, plain face, brown leather porter vest over white shirt, rolled sleeves, work gloves, canvas trousers, boots, nervous smile, sweat drop, holding a small package, surrounded by three small mischievous imp merchants (adult, tiny red horns, bat wings, grinning, offering suspicious charms), circling him, purple lantern light, medium shot, aspect ratio 16:9
+
+[컷07] (3:4)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, close-up insert of a crumpled delivery note held in a gloved hand, wax seal, one line underlined with a tiny glowing sparkle, warm lantern light, blurred night market background, aspect ratio 3:4
+
+[컷08] (3:4)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, exterior of an old antique magic shop at the end of a dark alley, wooden sign with a seal emblem, candles in the windows, scrolls stacked inside, a small bell above the door, purple fog, full view, aspect ratio 3:4
+
+[컷09] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1boy, young man, early 20s, messy short brown hair, plain face, brown leather porter vest over white shirt, rolled sleeves, work gloves, canvas trousers, boots, stepping inside, looking around cautiously, interior of an antique contract shop filled with scrolls stacked to the ceiling, golden seals, violet candles, dusty shelves, nobody else present, warm dim light, wide shot, aspect ratio 16:9
+
+[컷10] (3:4)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, close-up of an old dusty glass display case holding a single ancient parchment faintly glowing gold, cobwebs, candlelight reflections, mysterious, dark surroundings, aspect ratio 3:4
+
+[컷11] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1boy, young man, early 20s, messy short brown hair, plain face, brown leather porter vest over white shirt, rolled sleeves, work gloves, canvas trousers, boots, view from behind, lower body and feet, one boot about to catch on a slightly raised wooden door threshold, floor-level camera, dramatic foreshadowing, shop interior, aspect ratio 16:9
+
+[컷12] (3:4)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1boy, young man, early 20s, messy short brown hair, plain face, brown leather porter vest over white shirt, rolled sleeves, work gloves, canvas trousers, boots, tripping, surprised face, arms flailing, boot caught on threshold, motion lines, dynamic angle, comedic, aspect ratio 3:4
+
+[컷13] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1boy, young man, early 20s, messy short brown hair, plain face, brown leather porter vest over white shirt, rolled sleeves, work gloves, canvas trousers, boots, falling through the air in slow motion, crates and scrolls scattering around him, dramatic diagonal composition, motion blur, dust, candlelight, dynamic action shot, aspect ratio 16:9
+
+[컷14] (3:4)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, close-up of a palm hitting broken glass shards from a display case, small cut, glass fragments sparkling in the air, dramatic lighting, aspect ratio 3:4
+
+[컷15] (2:3)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, extreme close-up of a single drop of blood falling from a fingertip toward an ancient parchment, monochrome grayscale scene, only the blood drop in vivid red, vertical tall panel, dramatic, high contrast, aspect ratio 2:3
+
+[컷16] (3:4)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, extreme close-up of a blood drop landing on an ancient parchment, tiny ripple of golden light spreading from the impact, runes beginning to glow, dark background, aspect ratio 3:4
+
+[컷17] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, shop interior plunged into total darkness, all candle flames extinguished at once, thin smoke trails rising, faint silhouette of shelves, almost black panel with subtle details, aspect ratio 16:9
+
+[컷18] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1boy, young man, early 20s, messy short brown hair, plain face, brown leather porter vest over white shirt, rolled sleeves, work gloves, canvas trousers, boots, frozen mid-fall in the air, time stopped, floating crates, dust and glass shards suspended, entire scene desaturated black and white except a glowing golden parchment, surreal, wide shot, aspect ratio 16:9
+
+[컷19] (3:4)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, close-up of the ancient parchment releasing golden dawn-colored particles rising like petals, swirling light, dark background, magical, aspect ratio 3:4
+
+[컷20] (2:3)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, golden light particles gathering into a human silhouette, forming from the feet upward, ethereal, vertical composition, dark shop background, divine glow, aspect ratio 2:3
+
+[컷21] (2:3)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1girl, adult woman, goddess, long flowing silver hair, eyes glowing like dawn light (pale gold and rose), translucent glowing body made of light, white and gold ethereal robe, gentle playful smile, body edges dissolving into golden light particles, full body, floating, arms slightly open, hair and robe flowing upward, dissolving golden particles, radiant halo of dawn light, dark frozen shop interior behind her, awe-inspiring yet warm, vertical splash panel, aspect ratio 2:3
+
+[컷22] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1girl, adult woman, goddess, long flowing silver hair, eyes glowing like dawn light (pale gold and rose), translucent glowing body made of light, white and gold ethereal robe, gentle playful smile, body edges dissolving into golden light particles, crouching playfully and peering at the face of 1boy, young man, early 20s, messy short brown hair, plain face, brown leather porter vest over white shirt, rolled sleeves, work gloves, canvas trousers, boots who is frozen mid-air with only his eyes moving, comedic two-shot, frozen floating crates, black and white background with golden glow, aspect ratio 16:9
+
+[컷23] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1girl, adult woman, goddess, long flowing silver hair, eyes glowing like dawn light (pale gold and rose), translucent glowing body made of light, white and gold ethereal robe, gentle playful smile, body edges dissolving into golden light particles, placing her glowing hand on the chest of 1boy, young man, early 20s, messy short brown hair, plain face, brown leather porter vest over white shirt, rolled sleeves, work gloves, canvas trousers, boots, warm golden light seeping into his chest, gentle smile, soft particles, close medium shot, aspect ratio 16:9
+
+[컷24] (3:4)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1girl, adult woman, goddess, long flowing silver hair, eyes glowing like dawn light (pale gold and rose), translucent glowing body made of light, white and gold ethereal robe, gentle playful smile, body edges dissolving into golden light particles, close-up of her face, serious earnest expression, glowing eyes slightly teary, face partially breaking into light particles, soft rim light, aspect ratio 3:4
+
+[컷25] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, the goddess dissolving completely into countless golden petal-like light particles filling the whole antique shop, warm glow, beautiful, bittersweet, wide shot, 1boy, young man, early 20s, messy short brown hair, plain face, brown leather porter vest over white shirt, rolled sleeves, work gloves, canvas trousers, boots small in the frame looking up, aspect ratio 16:9
+
+[컷26] (3:4)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1boy, young man, early 20s, messy short brown hair, plain face, brown leather porter vest over white shirt, rolled sleeves, work gloves, canvas trousers, boots, close-up of his chest with shirt slightly open, glowing silver circular emblem with fourteen empty slots engraved on skin, light rays, detailed sigil, aspect ratio 3:4
+
+[컷27] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1boy, young man, early 20s, messy short brown hair, plain face, brown leather porter vest over white shirt, rolled sleeves, work gloves, canvas trousers, boots, flat on his face on the wooden floor, comedic, crates fallen around him, dust cloud, candles relit, color restored, exhausted expression, aspect ratio 16:9
+
+[컷28] (3:4)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, close-up of the edge of a translucent floating golden holographic window appearing in the air in front of a young man's face, blurred, foreshadowing, shop interior, aspect ratio 3:4
+
+[컷29] (2:3)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, silhouette of a woman on the stairs with bat wings and a heart-tipped tail casting a long shadow on the wall, holding a broom like a weapon, dim candlelight, suspenseful, vertical panel, aspect ratio 2:3
+
+[컷30] (2:3)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1girl, adult woman, succubus, long wavy black hair with purple streaks, small curved black horns, violet eyes, purple bat wings, heart-tipped demon tail, sheer black off-shoulder dress, gold jewelry, voluptuous figure, beautiful face, full body, standing on the stairs, holding a broom defensively, a sleep mask pushed up on her head, frightened wide eyes, stunningly beautiful but clumsy, sparkles and small hearts in background, vertical splash panel, candlelit shop, aspect ratio 2:3
+
+[컷31] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1girl, adult woman, succubus, long wavy black hair with purple streaks, small curved black horns, violet eyes, purple bat wings, heart-tipped demon tail, sheer black off-shoulder dress, gold jewelry, voluptuous figure, beautiful face, touching her own horns in confusion, puzzled face, beside 1boy, young man, early 20s, messy short brown hair, plain face, brown leather porter vest over white shirt, rolled sleeves, work gloves, canvas trousers, boots staring at her in awe with mouth slightly open, two-shot, comedic, shop interior, aspect ratio 16:9
+
+[컷32] (3:4)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, chibi, super deformed, 1girl, succubus, long wavy black hair with purple streaks, small curved black horns, violet eyes, purple bat wings, heart-tipped demon tail, sheer black off-shoulder dress, gold jewelry, voluptuous figure, beautiful face, clutching her head in panic, crying comically, big open mouth, glowing parchment beside her, comedic effect lines, simple background, aspect ratio 3:4
+
+[컷33] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1girl, adult woman, succubus, long wavy black hair with purple streaks, small curved black horns, violet eyes, purple bat wings, heart-tipped demon tail, sheer black off-shoulder dress, gold jewelry, voluptuous figure, beautiful face, leaning in to lift his chin with one finger but freezing just before touching, face turning bright red, steam, flustered, tail stiffened into a heart shape, and 1boy, young man, early 20s, messy short brown hair, plain face, brown leather porter vest over white shirt, rolled sleeves, work gloves, canvas trousers, boots confused, two-shot, comedic, aspect ratio 16:9
+
+[컷34] (3:4)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1girl, adult woman, succubus, long wavy black hair with purple streaks, small curved black horns, violet eyes, purple bat wings, heart-tipped demon tail, sheer black off-shoulder dress, gold jewelry, voluptuous figure, beautiful face, close-up, attempting to wink but both eyes squeezed shut, blushing, cheek puffed, one finger raised, comedic, soft candlelight, aspect ratio 3:4
+
+[컷35] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, 1girl, adult woman, succubus, long wavy black hair with purple streaks, small curved black horns, violet eyes, purple bat wings, heart-tipped demon tail, sheer black off-shoulder dress, gold jewelry, voluptuous figure, beautiful face and 1boy, young man, early 20s, messy short brown hair, plain face, brown leather porter vest over white shirt, rolled sleeves, work gloves, canvas trousers, boots, both jumping back in surprise in identical poses, a glowing golden window popping up between them, comedic mirror pose, motion lines, shop interior, aspect ratio 16:9
+
+[컷36] (16:9)
+masterpiece, best quality, ultra detailed, anime style, webtoon style, manhwa panel, cinematic lighting, clean lineart, vibrant colors, no text, no speech bubble, no watermark, over-the-shoulder view from behind 1boy, young man, early 20s, messy short brown hair, plain face, brown leather porter vest over white shirt, rolled sleeves, work gloves, canvas trousers, boots, a large translucent golden holographic window floating in front of him with an empty glowing input field (no letters), ornate magical frame, and 1girl, adult woman, succubus, long wavy black hair with purple streaks, small curved black horns, violet eyes, purple bat wings, heart-tipped demon tail, sheer black off-shoulder dress, gold jewelry, voluptuous figure, beautiful face peeking over his shoulder on tiptoes with curious eyes, glowing particles, epic yet cute final panel, aspect ratio 16:9
