@@ -52,11 +52,5 @@ photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unre
 [길드게시판.jpg] 잡탕 길드 1층 의뢰 게시판
 photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, close-up of a wooden quest board inside an old guild hall, many pinned parchment requests and wanted posters, wax seals, handwritten notes, pins and string, reception counter and lantern beside it, warm afternoon light
 
-[잿불사냥터.jpg] 케르의 지역. 교단 사냥 캠프
-photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, cult hunting camp at the edge of a burnt forest at night, charred trees, glowing embers drifting, iron cages and chains, white banners with sun emblem, campfires, smoke
-
 [바람절벽.jpg] 리라의 지역. 하피 둥지와 우편 탑
 photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, towering seaside cliffs with woven harpy nests full of shiny trinkets, an old stone post tower with flags, strong sea wind, seagulls, bright blue sky, waves crashing below
-
-[잠든대공방.jpg] 오팔의 지역. 얼음 밑 고대 공방
-photorealistic, hyperrealistic fantasy landscape, cinematic matte painting, unreal engine 5 render, 8k, ultra detailed, volumetric lighting, global illumination, depth of field, 16:9 wide shot, no humans, scenery, colossal ancient workshop buried beneath ice, giant stone gears and forges, glowing blue runes on walls, a huge dormant airship in the center, frozen waterfalls, cold blue light
