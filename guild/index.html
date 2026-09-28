@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="「이종족 길드의 유일한 인간」 세계관 소개 — 역사, 세 여신, 지역, 이종족 도감.">
+<title>이종족 길드의 세계</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&family=Cinzel:wght@500;700&family=Montserrat:wght@600;700&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --bg:#07110d; --bg2:#0b1a15; --panel:#0f231c; --panel2:#132b23; --line:#1d3a31; --line2:#2b5446;
+  --teal:#66e6cc; --teal-d:#2f8f7c; --coral:#ef7d80; --coral-l:#f8b2ae; --gold:#e3bd6a; --gold-l:#f7e2a8;
+  --gaia:#7ed69c; --eora:#f4a9c0; --nyx:#b69cf2;
+  --ink:#eaf3ee; --muted:#a3bbb1; --dim:#6d887e;
+  --title:"Do Hyeon","Noto Sans KR",sans-serif;
+  --sans:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --lore:"Gowun Batang","Noto Serif KR","Batang",serif;
+  --myth:"Cinzel","Times New Roman",serif;
+  --latin:"Montserrat","Noto Sans KR",sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px}
+::selection{background:var(--coral);color:#1a0b0c}
+
+/* ── 배경 효과 ── */
+#flies{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.mist{position:fixed;inset:0;pointer-events:none;z-index:0;background:
+  radial-gradient(60% 40% at 15% 20%,rgba(102,230,204,.06),transparent 70%),
+  radial-gradient(50% 40% at 85% 70%,rgba(239,125,128,.05),transparent 70%),
+  radial-gradient(70% 50% at 50% 110%,rgba(47,143,124,.12),transparent 70%)}
+
+/* ── 오프닝 ── */
+#opening{position:fixed;inset:0;z-index:100;background:#020605;display:grid;place-items:center;overflow:hidden;cursor:pointer;transition:opacity 1s var(--ease),visibility 1s}
+#opening.done{opacity:0;visibility:hidden}
+.star{position:absolute;top:-30%;width:3px;height:38vh;border-radius:3px;opacity:0;filter:drop-shadow(0 0 10px currentColor)}
+.star::after{content:"";position:absolute;bottom:-6px;left:50%;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:currentColor;box-shadow:0 0 24px 8px currentColor}
+.star.g{left:36%;color:var(--gaia);background:linear-gradient(to bottom,transparent,var(--gaia));animation:fall 1.5s .2s var(--ease) forwards}
+.star.e{left:50%;color:var(--gold-l);background:linear-gradient(to bottom,transparent,var(--eora),var(--gold-l));animation:fall 1.5s .45s var(--ease) forwards;height:46vh}
+.star.n{left:64%;color:var(--nyx);background:linear-gradient(to bottom,transparent,var(--nyx));animation:fall 1.5s .7s var(--ease) forwards}
+@keyframes fall{0%{opacity:0;transform:translateY(0)}15%{opacity:1}100%{opacity:0;transform:translateY(120vh)}}
+.op-title{text-align:center;position:relative;opacity:0;animation:opIn 1.4s 1.6s var(--ease) forwards}
+.op-title .t{font-family:var(--title);font-size:clamp(46px,9vw,110px);color:var(--coral);line-height:1;letter-spacing:.02em;text-shadow:0 0 40px rgba(239,125,128,.45)}
+.op-title .s{font-family:var(--title);font-size:clamp(18px,3vw,30px);color:var(--ink);margin-top:.4em}
+.op-title .m{font-family:var(--latin);font-weight:700;letter-spacing:.4em;font-size:11px;color:var(--muted);margin-top:2.2em}
+@keyframes opIn{from{opacity:0;transform:translateY(16px);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+.op-skip{position:absolute;bottom:calc(24px + env(safe-area-inset-bottom,0px));font-size:12px;color:var(--dim);letter-spacing:.1em}
+
+/* ── 상단 바 ── */
+.bar{position:fixed;left:0;right:0;top:0;z-index:30;padding-top:env(safe-area-inset-top,0px);transition:background .4s,border-color .4s,transform .4s;border-bottom:1px solid transparent}
+.bar.solid{background:rgba(7,17,13,.84);backdrop-filter:blur(12px);border-color:var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:14px;padding-block:12px}
+.maker{font-family:var(--latin);font-weight:700;letter-spacing:.3em;font-size:10px;line-height:1.15;color:var(--ink);text-decoration:none;transition:opacity .4s}
+.bar:not(.solid) .maker{opacity:0;pointer-events:none}
+.maker b{display:block;font-size:15px;letter-spacing:.36em}
+.nav{display:flex;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{white-space:nowrap;text-decoration:none;font-size:13px;font-weight:700;color:var(--muted);padding:7px 12px;border-radius:999px;transition:color .2s,background .2s}
+.nav a:hover,.nav a:focus-visible,.nav a.on{color:#0b1a15;background:var(--teal);outline:none}
+
+main{position:relative;z-index:1}
+
+/* ── 히어로 ── */
+.hero{position:relative;overflow:hidden;background:#030907}
+.hero .frame{position:relative;aspect-ratio:2000/927;max-height:92vh;margin-inline:auto;overflow:hidden}
+.hero img{width:100%;height:100%;object-fit:cover;animation:kb 22s ease-in-out infinite alternate;transform-origin:60% 40%}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.09)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 40%,transparent 55%,rgba(3,9,7,.75))}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:28%;z-index:1;background:linear-gradient(to bottom,transparent,var(--bg))}
+.cue{position:absolute;z-index:2;left:50%;bottom:22px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;font-family:var(--latin);font-size:10px;letter-spacing:.35em;color:var(--muted);text-decoration:none}
+.cue i{width:1px;height:38px;background:linear-gradient(var(--teal),transparent);animation:cue 2s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ── 서문 ── */
+.intro{padding-block:40px 90px}
+.intro .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center}
+.eyebrow{font-family:var(--myth);font-size:12px;letter-spacing:.32em;color:var(--teal);font-weight:700;text-transform:uppercase;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--teal)}
+.intro h1{font-family:var(--title);font-weight:400;font-size:clamp(44px,7vw,88px);line-height:1;color:var(--coral);margin:.35em 0 .1em;text-shadow:0 0 36px rgba(239,125,128,.25)}
+.intro h1 span{display:block;font-size:.38em;color:var(--ink);margin-top:.35em;text-shadow:none}
+.lede{font-family:var(--lore);font-size:clamp(17px,1.6vw,19px);line-height:1.95;max-width:32em;margin:1.4em 0 0}
+.lede::first-letter{font-size:2.6em;float:left;line-height:.9;margin:.08em .12em 0 0;color:var(--gold);font-family:var(--lore);font-weight:700}
+.seals{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.seal{aspect-ratio:1;border-radius:50%;display:grid;place-content:center;text-align:center;position:relative;background:radial-gradient(circle at 50% 35%,var(--panel2),var(--bg2) 70%);border:1px solid var(--line2);box-shadow:inset 0 0 0 6px var(--bg),inset 0 0 0 7px var(--line)}
+.seal b{font-family:var(--myth);font-size:clamp(28px,3.4vw,40px);color:var(--gold-l);line-height:1;font-variant-numeric:tabular-nums}
+.seal span{font-size:12.5px;color:var(--muted);margin-top:6px;font-weight:500}
+.seal:nth-child(1) b{color:var(--eora)}.seal:nth-child(2) b{color:var(--teal)}.seal:nth-child(3) b{color:var(--coral-l)}
+
+/* ── 섹션 머리 ── */
+section.block{padding-block:100px;position:relative}
+.head{text-align:center;max-width:42em;margin:0 auto 56px}
+.head .eyebrow{justify-content:center}
+.head .eyebrow::after{content:"";width:28px;height:1px;background:var(--teal)}
+.head h2{font-family:var(--title);font-weight:400;font-size:clamp(38px,5.6vw,64px);color:var(--coral);margin:.25em 0 .2em;line-height:1.05}
+.head p{font-family:var(--lore);color:var(--muted);margin:0;font-size:16.5px}
+.orn{display:flex;align-items:center;justify-content:center;gap:10px;margin:18px auto 0;color:var(--line2)}
+.orn::before,.orn::after{content:"";width:60px;height:1px;background:currentColor}
+.orn i{width:7px;height:7px;transform:rotate(45deg);border:1px solid var(--gold);display:block}
+
+/* ── 연대기 ── */
+.chapter{margin-bottom:110px}
+.chapter:last-child{margin-bottom:0}
+.num{font-family:var(--myth);font-weight:700;font-size:13px;letter-spacing:.3em;color:var(--gold)}
+.chapter h3{font-family:var(--title);font-weight:400;font-size:clamp(28px,3.6vw,42px);margin:.2em 0 .45em;line-height:1.15;color:var(--ink)}
+.chapter p{font-family:var(--lore);font-size:17px;line-height:1.95;margin:0 0 .8em;max-width:31em}
+.chapter .quote{color:var(--coral-l);font-size:19px}
+/* 세로 3:4 */
+.ch-tall{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:64px;align-items:center}
+.ch-tall.flip{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.ch-tall.flip .ph{order:2}
+.ph{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:3/4;box-shadow:0 30px 80px -30px rgba(0,0,0,.8),0 0 0 1px var(--line2)}
+.ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.ph:hover img{transform:scale(1.04)}
+.ph::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 60px rgba(0,0,0,.45);pointer-events:none}
+.ch-tall .txt{position:relative}
+.ch-tall .txt::before{content:attr(data-big);position:absolute;top:-.55em;left:-.08em;font-family:var(--myth);font-size:clamp(120px,14vw,190px);line-height:1;color:rgba(227,189,106,.07);font-weight:700;pointer-events:none;z-index:-1}
+/* 가로 16:9 */
+.ch-wide{position:relative}
+.ch-wide .ph{aspect-ratio:16/9;border-radius:24px}
+.ch-wide .ph::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(5,12,9,.92) 0%,rgba(5,12,9,.55) 32%,transparent 62%)}
+.ch-wide .txt{position:absolute;left:clamp(20px,4vw,52px);bottom:clamp(20px,4vw,48px);z-index:2;max-width:560px}
+.ch-wide .txt p{text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.divider{text-align:center;margin:30px 0 110px;position:relative}
+.divider::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:linear-gradient(90deg,transparent,var(--line2),transparent)}
+.divider span{position:relative;display:inline-block;padding:14px 30px;background:var(--bg);font-family:var(--title);font-size:clamp(24px,3.2vw,36px);color:var(--coral);border:1px solid var(--line2);border-radius:999px;box-shadow:0 0 40px rgba(239,125,128,.12)}
+.now .ph{aspect-ratio:21/9}
+.now .ph img{object-position:50% 45%}
+
+/* ── 세 여신 ── */
+.gd{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:44px;align-items:center}
+.gd .ph{aspect-ratio:4/3}
+.spot{position:absolute;z-index:2;width:18%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);border:2px solid transparent;transition:border-color .35s,box-shadow .35s;pointer-events:none}
+.spot.on{border-color:var(--c);box-shadow:0 0 30px var(--c),inset 0 0 30px var(--c)}
+.glist{display:grid;gap:14px}
+.gcard{--c:var(--teal);display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;padding:20px 22px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(135deg,var(--panel),var(--bg2));cursor:default;transition:border-color .3s,transform .3s var(--ease),box-shadow .3s}
+.gcard:hover,.gcard:focus-within,.gcard.on{border-color:var(--c);transform:translateX(-6px);box-shadow:-10px 0 40px -18px var(--c)}
+.gcard .dot{width:14px;height:14px;border-radius:50%;background:var(--c);box-shadow:0 0 16px var(--c);margin-top:9px}
+.gcard .role{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--c)}
+.gcard h3{font-family:var(--title);font-weight:400;font-size:30px;margin:0 0 .15em;line-height:1.15}
+.gcard p{margin:0;font-family:var(--lore);color:var(--muted);font-size:15.5px;line-height:1.85}
+.gcard.gaia{--c:var(--gaia)}.gcard.eora{--c:var(--eora)}.gcard.nyx{--c:var(--nyx)}
+
+/* ── 세계 ── */
+.world{display:grid;grid-template-columns:minmax(0,.84fr) minmax(0,1fr);gap:20px}
+.world .col{display:grid;gap:20px}
+.card{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 0 0 1px var(--line2)}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.card:hover img{transform:scale(1.05)}
+.card .cap{position:absolute;inset:auto 0 0 0;padding:26px 26px 24px;background:linear-gradient(to top,rgba(5,12,9,.95),rgba(5,12,9,.6) 60%,transparent)}
+.card .tag{font-size:12px;font-weight:700;color:var(--teal);letter-spacing:.12em}
+.card h3{font-family:var(--title);font-weight:400;font-size:32px;margin:.05em 0 .15em;line-height:1.1}
+.card p{margin:0;font-family:var(--lore);font-size:15.5px;line-height:1.8;color:#d7e5de;max-width:30em}
+.card.tall{aspect-ratio:3/4}.card.wide{aspect-ratio:16/9}
+.orgs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:20px}
+.org{padding:24px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(160deg,var(--panel),var(--bg2));position:relative;overflow:hidden}
+.org .emb{position:absolute;right:-14px;top:-14px;width:90px;height:90px;opacity:.14}
+.org h4{font-family:var(--title);font-weight:400;font-size:26px;margin:0 0 .2em}
+.org p{margin:0;font-family:var(--lore);color:var(--muted);font-size:15px;line-height:1.8}
+.org .motto{display:inline-block;margin-top:12px;padding:5px 12px;border-radius:999px;background:rgba(239,125,128,.1);color:var(--coral-l);font-size:13.5px;font-family:var(--lore)}
+
+/* ── 지역 ── */
+.route-wrap{position:relative;overflow-x:auto;scroll-snap-type:x mandatory;padding:36px 20px 26px;margin-inline:-20px;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.route{display:flex;gap:16px;width:max-content;position:relative}
+.route::before{content:"";position:absolute;left:30px;right:30px;top:21px;height:2px;background:repeating-linear-gradient(90deg,var(--teal-d) 0 10px,transparent 10px 18px);opacity:.7}
+.stop{scroll-snap-align:start;width:210px;flex:none;position:relative;padding-top:52px}
+.stop .pin{position:absolute;top:10px;left:18px;width:24px;height:24px;border-radius:50%;background:var(--bg);border:2px solid var(--teal);display:grid;place-items:center;transition:transform .3s,box-shadow .3s}
+.stop .pin::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--teal)}
+.stop:hover .pin{transform:scale(1.25);box-shadow:0 0 20px var(--teal)}
+.stop .box{border-radius:18px;padding:18px 18px 20px;background:linear-gradient(170deg,var(--panel2),var(--bg2));border:1px solid var(--line);height:100%;transition:border-color .3s,transform .3s var(--ease)}
+.stop:hover .box{border-color:var(--teal-d);transform:translateY(-4px)}
+.stop .no{font-family:var(--myth);font-weight:700;font-size:30px;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
+.stop h4{font-family:var(--title);font-weight:400;font-size:24px;margin:.3em 0 .15em;line-height:1.15}
+.stop p{margin:0;color:var(--muted);font-size:14px;font-family:var(--lore);line-height:1.75}
+.stop.first .pin{border-color:var(--coral)}.stop.first .pin::after{background:var(--coral)}
+.stop.first .box{border-color:rgba(239,125,128,.45)}
+.stop.last .pin{border-style:dashed;border-color:var(--gold)}.stop.last .pin::after{background:var(--gold)}
+.stop.last .box{border-style:dashed;border-color:rgba(227,189,106,.5);background:radial-gradient(circle at 50% 0%,rgba(227,189,106,.15),var(--bg2) 70%)}
+.stop.last h4{color:var(--gold-l)}
+.hint{font-size:12.5px;color:var(--dim);text-align:right;margin-top:4px}
+
+/* ── 종족 ── */
+.races{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:14px}
+.race{--h:var(--teal);position:relative;border-radius:18px;padding:22px 20px 20px;background:linear-gradient(165deg,var(--panel),var(--bg2));border:1px solid var(--line);overflow:hidden;transition:transform .35s var(--ease),border-color .35s,box-shadow .35s;display:flex;flex-direction:column;gap:8px}
+.race::before{content:"";position:absolute;right:-40px;top:-40px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,var(--h),transparent 70%);opacity:.18;transition:opacity .35s,transform .6s var(--ease)}
+.race:hover{transform:translateY(-6px);border-color:var(--h);box-shadow:0 20px 50px -24px var(--h)}
+.race:hover::before{opacity:.38;transform:scale(1.3)}
+.race .top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.race h4{font-family:var(--title);font-weight:400;font-size:24px;margin:0;line-height:1.1;white-space:nowrap}
+.race .who{font-size:12px;font-weight:700;color:var(--h);border:1px solid color-mix(in srgb,var(--h) 45%,transparent);padding:2px 9px;border-radius:999px;white-space:nowrap}
+.race .home{font-size:12px;color:var(--dim);font-weight:700;letter-spacing:.06em}
+.race p{margin:0;font-family:var(--lore);font-size:14.5px;line-height:1.8}
+.race p.pl{color:var(--muted);border-top:1px dashed var(--line2);padding-top:10px;margin-top:auto}
+
+/* ── 사람들 ── */
+.people{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pp{border-radius:22px;overflow:hidden;background:var(--panel);box-shadow:0 0 0 1px var(--line2);transition:transform .35s var(--ease)}
+.pp:hover{transform:translateY(-6px)}
+.pp .img{aspect-ratio:5/3;overflow:hidden}
+.pp img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.pp:hover img{transform:scale(1.06)}
+.pp .body{padding:18px 22px 24px}
+.pp .role{font-size:12px;color:var(--teal);font-weight:700;letter-spacing:.1em}
+.pp h4{font-family:var(--title);font-weight:400;font-size:28px;margin:.05em 0 .2em}
+.pp p{margin:0;font-family:var(--lore);color:var(--muted);font-size:15px;line-height:1.8}
+
+/* ── 여정 ── */
+.sys{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.s{border-radius:20px;padding:24px 22px;background:linear-gradient(165deg,var(--panel),var(--bg2));border:1px solid var(--line)}
+.s .n{font-family:var(--myth);font-weight:700;font-size:44px;line-height:1;color:var(--gold-l);font-variant-numeric:tabular-nums}
+.s h4{font-family:var(--title);font-weight:400;font-size:24px;margin:.45em 0 .2em}
+.s p{margin:0;color:var(--muted);font-size:14.5px;font-family:var(--lore);line-height:1.8}
+.hearts{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.hearts span{font-size:12px;padding:3px 9px;border-radius:999px;background:var(--bg);border:1px solid var(--line2)}
+.window{margin:40px auto 0;max-width:760px;border-radius:22px;padding:34px 24px 36px;text-align:center;position:relative;background:radial-gradient(circle at 50% -10%,rgba(227,189,106,.32),rgba(20,15,6,.92) 60%);border:2px solid var(--gold);animation:glow 3.6s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 30px rgba(227,189,106,.2),inset 0 0 30px rgba(227,189,106,.08)}50%{box-shadow:0 0 70px rgba(227,189,106,.42),inset 0 0 40px rgba(227,189,106,.16)}}
+.window::before,.window::after{content:"";position:absolute;width:16px;height:16px;background:var(--gold);transform:rotate(45deg);top:-9px}
+.window::before{left:-9px}.window::after{right:-9px}
+.window small{color:var(--gold-l);font-family:var(--lore);letter-spacing:.14em}
+.window strong{display:block;font-family:var(--title);font-weight:400;font-size:clamp(26px,4vw,40px);margin:.25em 0 .7em;color:#fff4d8}
+.field{max-width:460px;margin:0 auto;border:1px solid var(--gold);border-radius:12px;min-height:52px;background:#120d04;display:flex;align-items:center;padding:0 18px;font-family:var(--lore);color:var(--gold-l);font-size:16px;text-align:left}
+.field i{width:2px;height:22px;background:var(--gold-l);margin-left:2px;animation:caret 1s steps(1) infinite;flex:none}
+@keyframes caret{50%{opacity:0}}
+.window .note{margin-top:14px;font-size:12.5px;color:#b9a67c}
+
+footer{border-top:1px solid var(--line);padding-block:56px 70px;text-align:center;position:relative;z-index:1}
+footer .maker{display:inline-block}
+footer p{color:var(--dim);font-size:13px;margin:.9em 0 0}
+
+/* ── 스크롤 등장 ── */
+.rv{transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.hide{opacity:0;transform:translateY(40px)}
+.rv.hide.l{transform:translateX(-50px)}.rv.hide.r{transform:translateX(50px)}
+
+@media (max-width:900px){
+  .intro .wrap,.gd,.world{grid-template-columns:1fr}
+  .ch-tall,.ch-tall.flip{grid-template-columns:1fr;gap:28px}
+  .ch-tall.flip .ph{order:0}
+  .ch-tall .ph{max-width:460px}
+  .ch-wide .ph{aspect-ratio:4/3}
+  .ch-wide .ph::before{background:linear-gradient(to top,rgba(5,12,9,.96) 0%,rgba(5,12,9,.7) 45%,transparent 75%)}
+  .now .ph{aspect-ratio:4/3}
+  .people,.orgs{grid-template-columns:1fr}
+  .sys{grid-template-columns:repeat(2,1fr)}
+  .seals{max-width:420px}
+  section.block{padding-block:72px}
+  .chapter{margin-bottom:80px}
+}
+@media (max-width:560px){
+  .hero .frame{aspect-ratio:1080/1620;max-height:none}
+  .cue{display:none}
+  .ch-wide .txt{position:relative;left:auto;bottom:auto;padding:18px 4px 0}
+  .ch-wide .ph::before{display:none}
+  .ch-wide .ph{aspect-ratio:16/10}
+  .ch-wide .txt p{text-shadow:none}
+  .sys{grid-template-columns:1fr}
+  .bar .maker b{font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .rv.hide{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div id="opening" hidden aria-hidden="true">
+  <div class="star g"></div><div class="star e"></div><div class="star n"></div>
+  <div class="op-title">
+    <div class="t">이종족 길드</div>
+    <div class="s">의 유일한 인간</div>
+    <div class="m">MADE BY HIRION</div>
+  </div>
+  <div class="op-skip">화면을 누르면 바로 들어가요</div>
+</div>
+
+<canvas id="flies" aria-hidden="true"></canvas>
+<div class="mist" aria-hidden="true"></div>
+
+<header class="bar" id="bar">
+  <div class="wrap">
+    <a class="maker" href="#top">MADE BY<b>HIRION</b></a>
+    <nav class="nav" aria-label="섹션">
+      <a href="#history">연대기</a><a href="#goddess">세 여신</a><a href="#world">바벨하임</a><a href="#regions">지역</a><a href="#races">종족</a><a href="#people">사람들</a><a href="#journey">여정</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="frame">
+      <picture>
+        <source media="(max-width:560px)" srcset="img/cover_tall.jpg">
+        <img src="img/cover_wide.jpg" alt="이종족 길드의 유일한 인간 표지. 이끼 낀 숲속의 이종족 히로인들" width="2000" height="927">
+      </picture>
+    </div>
+    <a class="cue" href="#intro">SCROLL<i></i></a>
+  </div>
+
+  <section class="intro" id="intro">
+    <div class="wrap">
+      <div class="rv l">
+        <span class="eyebrow">World Guide</span>
+        <h1>이종족 길드<span>의 유일한 인간</span></h1>
+        <p class="lede">천 년 전, 세 여신의 시대가 끝났다. 지금 세상은 인간의 것이다. 빚 때문에 인류 최고 길드에 팔려 온 막내 짐꾼인 당신은, 어느 밤 마족 야시장에서 봉인된 여신의 힘을 얻는다. 인간에게 상처 입은 이종족들과 손을 잡을 수 있는, 단 하나의 인간이 된다.</p>
+      </div>
+      <div class="seals rv r" role="list">
+        <div class="seal" role="listitem"><b>3</b><span>세 자매 여신</span></div>
+        <div class="seal" role="listitem"><b>30+</b><span>에오라가 낳은 종족</span></div>
+        <div class="seal" role="listitem"><b>15</b><span>맹약의 문장</span></div>
+        <div class="seal" role="listitem"><b>1000</b><span>봉인된 세월(년)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="history">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">Chronicle</span>
+        <h2>천 년의 연대기</h2>
+        <p>이종족들 사이에서만 전설로 남은 이야기. 인간의 역사책에는 적혀 있지 않다.</p>
+        <div class="orn"><i></i></div>
+      </div>
+
+      <article class="chapter ch-tall">
+        <div class="ph rv l"><img src="img/h_stars.jpg" alt="어둠을 가르며 떨어지는 초록, 금빛, 보랏빛 세 개의 별" width="900" height="1200"></div>
+        <div class="txt rv r" data-big="I"><span class="num">CHAPTER I · 無</span><h3>세 개의 별이 떨어지다</h3><p>빛도, 소리도, 이름을 가진 것도 없던 무(無)의 시절.</p><p>끝없는 어둠을 가르며 세 개의 별이 떨어졌다. 초록, 새벽빛, 보랏빛. 별에서 태어난 세 자매가 텅 빈 세상에 처음으로 발을 디뎠다.</p></div>
+      </article>
+
+      <article class="chapter ch-wide rv">
+        <div class="ph"><img src="img/h_gaia.jpg" alt="무릎 꿇고 땅에 손을 대 대지를 일으키는 가이아" width="1200" height="675"></div>
+        <div class="txt"><span class="num">CHAPTER II · 대지</span><h3>잿빛 바다 위로 대지가 솟다</h3><p>맏언니 가이아가 손바닥을 대자 산이 일어서고, 강이 흐르고, 숲이 숨을 쉬기 시작했다.</p></div>
+      </article>
+
+      <article class="chapter ch-tall flip">
+        <div class="ph rv r"><img src="img/h_eora.jpg" alt="막 태어난 새끼 용을 받쳐 들고 웃는 에오라" width="900" height="1200"></div>
+        <div class="txt rv l" data-big="III"><span class="num">CHAPTER III · 생명</span><h3>웃음마다 태어난 생명</h3><p>그 대지 위에서 둘째 에오라가 웃을 때마다 새로운 생명이 태어났다.</p><p>날개를 가진 이, 비늘을 가진 이, 꼬리를 흔드는 이, 물속에서 노래하는 이. 서른이 넘는 종족이 그렇게 세상에 왔다.</p></div>
+      </article>
+
+      <article class="chapter ch-wide rv">
+        <div class="ph"><img src="img/h_relic.jpg" alt="초원 언덕에서 빛나는 유물을 들어 올리는 에오라" width="1200" height="675"></div>
+        <div class="txt"><span class="num">CHAPTER IV · 맹약</span><h3>만종의 맹약</h3><p>서로 다른 종족이 두려움 없이 사랑하고, 손을 잡고, 힘을 나눌 수 있게 하는 약속.</p><p class="quote">모두는 그것을 [만종의 맹약]이라 불렀다.</p></div>
+      </article>
+
+      <article class="chapter ch-wide rv">
+        <div class="ph"><img src="img/h_fest.jpg" alt="모닥불 앞에서 에오라가 닉스의 손을 잡아 이끄는 장면" width="1200" height="675"></div>
+        <div class="txt"><span class="num">CHAPTER V · 축제의 밤</span><h3>세 자매가 함께 웃던 시절</h3><p>에오라는 늘 한 걸음 떨어져 있던 막내 닉스의 손을 잡아 불빛 속으로 이끌었다. 전설은 그것이 세 자매가 함께 웃은 마지막 밤이라고 전한다.</p></div>
+      </article>
+
+      <article class="chapter ch-tall">
+        <div class="ph rv l"><img src="img/h_break.jpg" alt="닉스의 손에서 열다섯 조각으로 부서지는 맹약" width="900" height="1200"></div>
+        <div class="txt rv r" data-big="VI"><span class="num">CHAPTER VI · 대분열</span><h3>부서진 맹약, 새로운 종족</h3><p>죽음을 맡은 막내는 언제나 두려움의 대상이었다. 어느 달 없는 밤, 닉스가 맹약에 손을 댔고 처음으로 죽음의 신이 생명을 빚었다.</p><p>수명은 짧고 나약하지만 누구보다 영악한 종족, 인간. 그날 맹약은 열다섯 개의 문장으로 부서져 각 종족에게 흩어졌다.</p></div>
+      </article>
+
+      <article class="chapter ch-tall flip">
+        <div class="ph rv r"><img src="img/h_tree.jpg" alt="병든 대지를 끌어안고 세계수가 되어 가는 가이아" width="900" height="1200"></div>
+        <div class="txt rv l" data-big="VII"><span class="num">CHAPTER VII · 세계수</span><h3>대지를 끌어안은 맏언니</h3><p>맹약을 잃은 종족들은 더는 손을 잡지 못했고, 인간이 그 위에 군림했다.</p><p>병들어 가는 대지를 끌어안고 가이아는 스스로 몸을 묻었다. 그 자리에서 하늘을 가리는 나무, 세계수 이그드라실이 자라났다.</p></div>
+      </article>
+
+      <article class="chapter ch-wide rv">
+        <div class="ph"><img src="img/h_seal.jpg" alt="검은 사슬에 묶여 양피지에 빛을 흘려 넣는 에오라" width="1200" height="675"></div>
+        <div class="txt"><span class="num">CHAPTER VIII · 봉인</span><h3>양피지 한 장</h3><p>끝까지 맞선 에오라는 봉인되었다. 사라지기 직전, 남은 힘을 낡은 양피지 한 장에 담았다고 전해진다.</p></div>
+      </article>
+
+      <div class="divider rv"><span>그리고, 천 년이 흘렀다</span></div>
+
+      <article class="chapter ch-wide now rv">
+        <div class="ph"><img src="img/w_city.jpg" alt="노을 진 교역 도시 바벨하임과 비공정" width="1280" height="720"></div>
+        <div class="txt"><span class="num">NOW · 인간의 세상</span><h3>지금, 세상은 인간의 것이다</h3><p>인외는 변방으로 쫓겨나거나 인간의 도시에서 가장 낮은 곳을 산다. 서른 넘는 종족이 그나마 섞여 사는 곳은 단 하나, 교역 도시 바벨하임뿐이다.</p></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="goddess">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">Three Sisters</span>
+        <h2>세 여신</h2>
+        <p>별에서 태어난 자매. 떨어지던 세 별의 빛깔이 지금도 그들을 상징한다.</p>
+        <div class="orn"><i></i></div>
+      </div>
+      <div class="gd">
+        <div class="ph rv l" id="gdimg">
+          <img src="img/h_sisters.jpg" alt="빛기둥 속 세 여신. 왼쪽 가이아, 가운데 에오라, 오른쪽 닉스" width="1200" height="900">
+          <span class="spot" data-k="gaia" style="left:16%;top:30%;--c:var(--gaia)"></span>
+          <span class="spot" data-k="eora" style="left:50%;top:30%;--c:var(--eora)"></span>
+          <span class="spot" data-k="nyx" style="left:84%;top:30%;--c:var(--nyx)"></span>
+        </div>
+        <div class="glist rv r">
+          <article class="gcard gaia" data-k="gaia" tabindex="0"><span class="dot"></span><div><span class="role">맏언니 · 대지</span><h3>가이아</h3><p>살아 숨 쉴 땅을 빚은 온화한 여신. 지금은 세계수 이그드라실이 되어 병든 대지를 천 년째 품고 있다.</p></div></article>
+          <article class="gcard eora" data-k="eora" tabindex="0"><span class="dot"></span><div><span class="role">둘째 · 생명</span><h3>에오라</h3><p>서른이 넘는 종족을 낳고 만종의 맹약을 빚은 여신. 인외들은 아직도 그녀의 이름으로 아이를 축복한다.</p></div></article>
+          <article class="gcard nyx" data-k="nyx" tabindex="0"><span class="dot"></span><div><span class="role">막내 · 죽음</span><h3>닉스</h3><p>모든 것의 끝을 맡은 여신. 지금 인간들은 그녀를 ‘생명의 여신’이라 부르며 섬긴다.</p></div></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="world">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">Babelheim</span>
+        <h2>이야기가 시작되는 곳</h2>
+        <p>“장사로는 섞여도 된다.” 그 암묵적인 허락 하나로 버티는 도시.</p>
+        <div class="orn"><i></i></div>
+      </div>
+      <div class="world">
+        <article class="card tall rv l"><img src="img/w_market.jpg" alt="보랏빛과 붉은 등롱이 늘어진 마족 야시장 골목" width="900" height="1200"><div class="cap"><span class="tag">바벨하임 외곽</span><h3>마족 야시장</h3><p>해가 지면 열리고 해가 뜨면 사라진다. 행운도, 저주도, 때로는 수명까지 사고판다.</p></div></article>
+        <div class="col">
+          <article class="card wide rv r"><img src="img/w_shop.jpg" alt="두루마리와 보랏빛 촛불이 가득한 가게 입구" width="1200" height="675"><div class="cap"><span class="tag">야시장 골목 끝</span><h3>밤의 인장점</h3><p>계약서와 인장을 다루는 시장에서 가장 오래된 가게. 진열장 속 양피지 한 장이 희미하게 빛난다.</p></div></article>
+          <article class="card wide rv r"><img src="img/w_city.jpg" alt="바벨하임 시가지와 첨탑" width="1280" height="720" style="object-position:70% 50%"><div class="cap"><span class="tag">인외 구역</span><h3>잡탕 길드</h3><p>인외를 받아 주는 유일한 길드. 삐걱이는 3층 목조 건물, 게시판의 의뢰서, 늘 끓는 국 냄새.</p></div></article>
+        </div>
+      </div>
+      <div class="orgs">
+        <div class="org rv"><svg class="emb" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#e3bd6a" stroke-width="4"/><g fill="#e3bd6a"><circle cx="34" cy="38" r="7"/><circle cx="62" cy="34" r="6"/><circle cx="45" cy="64" r="8"/><circle cx="68" cy="60" r="5"/></g></svg><h4>레오파드</h4><p>인류 최고의 길드. 대리석 로비와 표범 문장. 당신이 빚 때문에 팔려 온 곳이다.</p></div>
+        <div class="org rv"><svg class="emb" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="18" fill="#eaf3ee"/><g stroke="#eaf3ee" stroke-width="5">
+<line x1="50" y1="6" x2="50" y2="24"/><line x1="50" y1="76" x2="50" y2="94"/><line x1="6" y1="50" x2="24" y2="50"/><line x1="76" y1="50" x2="94" y2="50"/><line x1="19" y1="19" x2="31" y2="31"/><line x1="69" y1="69" x2="81" y2="81"/><line x1="81" y1="19" x2="69" y2="31"/><line x1="19" y1="81" x2="31" y2="69"/></g></svg><h4>순혈 교단</h4><p>흰 망토와 태양 문양. ‘생명의 여신’을 섬기며 인외에게 현상금을 건다.</p><span class="motto">“생명은 인간만이 온전하다.”</span></div>
+        <div class="org rv"><svg class="emb" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 8 L90 40 L80 40 L80 90 L20 90 L20 40 L10 40 Z" fill="none" stroke="#66e6cc" stroke-width="5" stroke-linejoin="round"/><rect x="42" y="62" width="16" height="28" fill="#66e6cc"/></svg><h4>잡탕 길드</h4><p>갈 곳 없는 이들이 모이는 곳. 동료가 늘수록 빈방이 차고, 식당 메뉴가 늘고, 지붕이 고쳐진다.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="regions">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">The Journey</span>
+        <h2>여정의 땅</h2>
+        <p>의뢰를 따라 한 지역씩, 그 땅의 이종족을 만나러 간다. 번호는 길드 게시판이 이끄는 순서다.</p>
+        <div class="orn"><i></i></div>
+      </div>
+      <div class="route-wrap rv" tabindex="0" aria-label="여정 지역 목록, 옆으로 넘겨 보기">
+        <div class="route">
+          <div class="stop first"><span class="pin"></span><div class="box"><span class="no">01</span><h4>바벨하임</h4><p>서른 종족이 뒤섞인 교역 도시. 야시장 등불과 향신료 냄새.</p></div></div>
+          <div class="stop"><span class="pin"></span><div class="box"><span class="no">02</span><h4>안개 늪지</h4><p>발목까지 차오르는 물안개와 반딧불.</p></div></div>
+          <div class="stop"><span class="pin"></span><div class="box"><span class="no">03</span><h4>오크 투기장</h4><p>북소리와 함성, 모래 먼지.</p></div></div>
+          <div class="stop"><span class="pin"></span><div class="box"><span class="no">04</span><h4>달빛 숲</h4><p>은빛 나무 사이로 번지는 늑대 울음.</p></div></div>
+          <div class="stop"><span class="pin"></span><div class="box"><span class="no">05</span><h4>석화의 폐허</h4><p>끝없이 늘어선 석상들의 도시.</p></div></div>
+          <div class="stop"><span class="pin"></span><div class="box"><span class="no">06</span><h4>바람 절벽</h4><p>우편탑과 짠 바닷바람.</p></div></div>
+          <div class="stop"><span class="pin"></span><div class="box"><span class="no">07</span><h4>산호만</h4><p>물속에서 빛나는 산호 궁전.</p></div></div>
+          <div class="stop"><span class="pin"></span><div class="box"><span class="no">08</span><h4>은실 숲</h4><p>달빛 거미줄 같은 은실이 드리운 숲.</p></div></div>
+          <div class="stop"><span class="pin"></span><div class="box"><span class="no">09</span><h4>밤의 고성</h4><p>붉은 달 아래 멈춰 버린 무도회장.</p></div></div>
+          <div class="stop"><span class="pin"></span><div class="box"><span class="no">10</span><h4>백야 설원</h4><p>지지 않는 해와 얼음 궁전.</p></div></div>
+          <div class="stop"><span class="pin"></span><div class="box"><span class="no">11</span><h4>여우 산</h4><p>여우불과 붉은 도리이.</p></div></div>
+          <div class="stop"><span class="pin"></span><div class="box"><span class="no">12</span><h4>용의 산</h4><p>화산과 보물 둥지.</p></div></div>
+          <div class="stop"><span class="pin"></span><div class="box"><span class="no">13</span><h4>하늘섬</h4><p>구름 위, 부서진 신전.</p></div></div>
+          <div class="stop"><span class="pin"></span><div class="box"><span class="no">14</span><h4>세계수</h4><p>하늘을 가린 가지와 천 년의 잠.</p></div></div>
+          <div class="stop last"><span class="pin"></span><div class="box"><span class="no">15</span><h4>태초의 신전</h4><p>세 여신이 처음 내려선 곳이라 전해진다. 아직 아무도 닿지 못했다.</p></div></div>
+        </div>
+      </div>
+      <p class="hint">옆으로 넘겨 보세요 →</p>
+    </div>
+  </section>
+
+  <section class="block" id="races">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">Bestiary</span>
+        <h2>이종족 도감</h2>
+        <p>에오라가 낳은 서른 종족 가운데 여정에서 만나게 될 열다섯. 모두 인간의 세상에서 저마다의 상처를 안고 산다.</p>
+        <div class="orn"><i></i></div>
+      </div>
+      <div class="races">
+        <div class="race rv" style="--h:#b98cf0"><div class="top"><h4>서큐버스</h4><span class="who">릴리스</span></div><span class="home">마족 야시장</span><p>계약과 인장에 밝은 밤의 종족.</p><p class="pl">교단은 ‘영혼을 훔치는 마물’이라 부르며 가장 먼저 사냥했다.</p></div>
+        <div class="race rv" style="--h:#d9b27a"><div class="top"><h4>고양이 수인</h4><span class="who">미오</span></div><span class="home">바벨하임</span><p>날렵한 감각과 밤눈.</p><p class="pl">귀족들 사이에선 목줄을 채운 ‘애완 수인’이 유행처럼 거래된다.</p></div>
+        <div class="race rv" style="--h:#a6e35f"><div class="top"><h4>슬라임</h4><span class="who">누리</span></div><span class="home">안개 늪지</span><p>투명한 몸, 기분에 따라 바뀌는 빛깔.</p><p class="pl">핵이 ‘만능 약재’로 비싸게 팔려 동족 대부분이 사라졌다.</p></div>
+        <div class="race rv" style="--h:#e0664f"><div class="top"><h4>오크</h4><span class="who">두리</span></div><span class="home">오크 투기장</span><p>약속을 목숨처럼 여기는 전사 부족.</p><p class="pl">인간은 ‘말하는 짐승’이라 부르며 투기장에 사고판다.</p></div>
+        <div class="race rv" style="--h:#c9d4de"><div class="top"><h4>늑대인간</h4><span class="who">루나</span></div><span class="home">달빛 숲</span><p>무리와 달을 따르는 종족.</p><p class="pl">인간 귀족들은 해마다 ‘늑대 사냥 축제’를 연다.</p></div>
+        <div class="race rv" style="--h:#9fb4c8"><div class="top"><h4>가고일</h4><span class="who">스테노</span></div><span class="home">석화의 폐허</span><p>돌의 몸, 마주친 것을 굳히는 눈.</p><p class="pl">괴물로 불리며 몇 번이고 사냥대가 보내졌다.</p></div>
+        <div class="race rv" style="--h:#6cc4f0"><div class="top"><h4>하피</h4><span class="who">리라</span></div><span class="home">바람 절벽</span><p>바람을 타는 하늘의 배달부.</p><p class="pl">화려한 깃털이 귀족 부인들의 모자 장식으로 팔린다.</p></div>
+        <div class="race rv" style="--h:#4fd6d0"><div class="top"><h4>인어</h4><span class="who">세이렌</span></div><span class="home">산호만</span><p>물과 노래의 종족.</p><p class="pl">눈물이 진주가 되기에, 인간은 인어를 가두고 울린다.</p></div>
+        <div class="race rv" style="--h:#c3b4ff"><div class="top"><h4>요정</h4><span class="who">네아</span></div><span class="home">은실 숲</span><p>달빛 은실로 옷을 짓는 장인들.</p><p class="pl">날개 가루가 젊음을 되찾는 약이라는 소문이 돈다.</p></div>
+        <div class="race rv" style="--h:#e0506a"><div class="top"><h4>뱀파이어</h4><span class="who">모르간</span></div><span class="home">밤의 고성</span><p>밤의 옛 귀족.</p><p class="pl">‘흡혈귀 사냥’을 명분으로 가문들이 무너지고 영지가 나뉘었다.</p></div>
+        <div class="race rv" style="--h:#a9e2ff"><div class="top"><h4>설녀</h4><span class="who">유키</span></div><span class="home">백야 설원</span><p>얼음 궁전의 주인들.</p><p class="pl">사랑하면 녹는다는 전설과 함께, 궁전을 노리는 원정대가 끊이지 않는다.</p></div>
+        <div class="race rv" style="--h:#f2b64c"><div class="top"><h4>구미호</h4><span class="who">연화</span></div><span class="home">여우 산</span><p>천 년을 사는 여우, 환술의 달인.</p><p class="pl">요괴로 몰려 불과 부적에 쫓겨 왔다.</p></div>
+        <div class="race rv" style="--h:#ff5a4a"><div class="top"><h4>용</h4><span class="who">레비아</span></div><span class="home">용의 산</span><p>하늘을 다스리던 가장 오래된 종족.</p><p class="pl">‘용사’들의 사냥 끝에 대부분 세상을 떠났다.</p></div>
+        <div class="race rv" style="--h:#f7e2a8"><div class="top"><h4>천사</h4><span class="who">세라피나</span></div><span class="home">하늘섬</span><p>한때 여신을 섬기던 사자들.</p><p class="pl">주인을 잃은 뒤, 뽑힌 날개가 비공정의 동력이 되었다.</p></div>
+        <div class="race rv" style="--h:#7ed69c"><div class="top"><h4>드라이어드</h4><span class="who">이그드라</span></div><span class="home">세계수</span><p>숲과 함께 숨 쉬는 나무의 정령.</p><p class="pl">숲이 베어지고 불탈 때마다 함께 잠든다.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="people">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">Faces of Babelheim</span>
+        <h2>바벨하임의 사람들</h2>
+        <p>여정에서 몇 번이고 마주치게 될 얼굴들.</p>
+        <div class="orn"><i></i></div>
+      </div>
+      <div class="people">
+        <article class="pp rv"><div class="img"><img src="img/n_leon.jpg" alt="표범 털 망토를 두르고 서류를 든 레온" width="1000" height="600"></div><div class="body"><span class="role">레오파드 길드장</span><h4>레온</h4><p>인류 최고 길드의 수장. 바벨하임 사람들은 그를 영웅이라 부른다.</p></div></article>
+        <article class="pp rv"><div class="img"><img src="img/n_kiki.jpg" alt="카드와 주사위를 든 임프 키키" width="1000" height="600"></div><div class="body"><span class="role">야시장 임프</span><h4>키키</h4><p>수명과 행운을 걸고 내기하는 걸 좋아하는 도박꾼 누나. “한 판 해, 귀염둥이.”</p></div></article>
+        <article class="pp rv"><div class="img"><img src="img/n_pong.jpg" alt="잡동사니 가방을 멘 행상 퐁" width="1000" height="600"></div><div class="body"><span class="role">떠돌이 행상</span><h4>퐁</h4><p>뭐든 파는 바가지 상인. 가끔은 물건보다 소문이 더 비싸다.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="journey">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">Your Journey</span>
+        <h2>당신의 여정</h2>
+        <p>정해진 결말은 없다. 누구를 만나고, 누구의 손을 잡을지는 당신이 정한다.</p>
+        <div class="orn"><i></i></div>
+      </div>
+      <div class="sys">
+        <div class="s rv"><div class="n">1</div><h4>단 하나의 능력</h4><p>여신이 남긴 금빛 창에 원하는 능력을 적는다. 그것이 당신의 힘이 된다.</p></div>
+        <div class="s rv"><div class="n">15</div><h4>맹약의 문장</h4><p>마음을 나눈 이의 문장이 가슴에 새겨질 때마다 그 종족의 힘을 하나씩 얻는다.</p></div>
+        <div class="s rv"><div class="n">5</div><h4>인연의 단계</h4><p>경계에서 맹약까지. 억지로는 오르지 않는다.</p><div class="hearts"><span>🤍 경계</span><span>🩵 관심</span><span>💛 신뢰</span><span>💗 연모</span><span>❤️ 맹약</span></div></div>
+        <div class="s rv"><div class="n">2–3</div><h4>함께 떠날 동료</h4><p>의뢰마다 동료를 골라 데려간다. 남은 이들은 길드에서 당신을 기다린다.</p></div>
+      </div>
+      <div class="window rv">
+        <small>― 에오라의 선물 ―</small>
+        <strong>당신의 능력을 입력하세요</strong>
+        <div class="field"><span id="typed">모든 종족의 말을 알아듣는 능력</span><i></i></div>
+        <p class="note">예시일 뿐이에요. 무엇을 적을지는 당신 몫.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="maker">MADE BY<b>HIRION</b></div>
+  <p>「이종족 길드의 유일한 인간」 · 크랙에서 만나요</p>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 오프닝: 스크립트가 켜진 경우에만, 모션 줄이기면 생략 */
+  var op = document.getElementById('opening');
+  if(op && !reduce){
+    op.hidden = false;
+    var close = function(){ op.classList.add('done'); setTimeout(function(){ op.hidden = true; }, 1100); };
+    var t = setTimeout(close, 3600);
+    op.addEventListener('click', function(){ clearTimeout(t); close(); });
+    document.addEventListener('keydown', function onk(){ clearTimeout(t); close(); document.removeEventListener('keydown', onk); });
+  }
+
+  /* 상단 바 */
+  var bar = document.getElementById('bar');
+  var links = [].slice.call(document.querySelectorAll('.nav a'));
+  var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  function onScroll(){
+    bar.classList.toggle('solid', window.scrollY > 40);
+    var y = window.scrollY + 140, cur = -1;
+    secs.forEach(function(s,i){ if(s && s.offsetTop <= y) cur = i; });
+    links.forEach(function(a,i){ a.classList.toggle('on', i === cur); });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  /* 스크롤 등장: 화면 밖 요소만 숨겼다가 보이면 등장, 4초 뒤엔 무조건 전부 표시 */
+  var rvs = [].slice.call(document.querySelectorAll('.rv'));
+  if(!reduce && 'IntersectionObserver' in window){
+    var vh = window.innerHeight;
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.remove('hide'); io.unobserve(e.target); } });
+    }, {threshold:.12, rootMargin:'0px 0px -6% 0px'});
+    rvs.forEach(function(el){
+      if(el.getBoundingClientRect().top > vh * .95){ el.classList.add('hide'); io.observe(el); }
+    });
+    setTimeout(function(){ rvs.forEach(function(el){ el.classList.remove('hide'); }); }, 4000);
+  }
+
+  /* 세 여신 하이라이트 */
+  var spots = {}; [].forEach.call(document.querySelectorAll('.spot'), function(s){ spots[s.dataset.k] = s; });
+  [].forEach.call(document.querySelectorAll('.gcard'), function(c){
+    var k = c.dataset.k;
+    var on = function(){ spots[k] && spots[k].classList.add('on'); c.classList.add('on'); };
+    var off = function(){ spots[k] && spots[k].classList.remove('on'); c.classList.remove('on'); };
+    c.addEventListener('mouseenter', on); c.addEventListener('mouseleave', off);
+    c.addEventListener('focus', on); c.addEventListener('blur', off);
+  });
+
+  /* 능력 창 타이핑 */
+  var typed = document.getElementById('typed');
+  if(typed && !reduce){
+    var list = ['모든 종족의 말을 알아듣는 능력','상처를 대신 짊어지는 능력','한 번 본 기술을 따라 하는 능력','어떤 짐이든 가볍게 드는 능력'];
+    var li = 0, ci = list[0].length, del = true;
+    setInterval(function(){
+      var s = list[li];
+      if(del){ ci--; if(ci <= 0){ del = false; li = (li + 1) % list.length; } }
+      else { ci++; if(ci >= list[li].length + 14){ del = true; ci = list[li].length; } }
+      typed.textContent = list[li].slice(0, Math.max(0, Math.min(ci, list[li].length)));
+    }, 70);
+  }
+
+  /* 반딧불 */
+  var cv = document.getElementById('flies'), ctx = cv && cv.getContext && cv.getContext('2d');
+  if(ctx){
+    var W, H, dpr = Math.min(window.devicePixelRatio || 1, 2), P = [];
+    function size(){ W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
+    size(); window.addEventListener('resize', size);
+    var n = W < 600 ? 22 : 44;
+    for(var i=0;i<n;i++) P.push({x:Math.random()*W, y:Math.random()*H, r:1+Math.random()*1.8, vx:(Math.random()-.5)*.25, vy:-.1-Math.random()*.25, p:Math.random()*6.28, sp:.01+Math.random()*.025, hue:Math.random()<.8?'243,240,163':'102,230,204'});
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      P.forEach(function(f){
+        f.x += f.vx + Math.sin(f.p)*.2; f.y += f.vy; f.p += f.sp;
+        if(f.y < -10){ f.y = H + 10; f.x = Math.random()*W; }
+        if(f.x < -10) f.x = W + 10; if(f.x > W + 10) f.x = -10;
+        var a = .25 + .55 * (0.5 + 0.5*Math.sin(f.p*1.7));
+        var g = ctx.createRadialGradient(f.x,f.y,0,f.x,f.y,f.r*6);
+        g.addColorStop(0,'rgba('+f.hue+','+a+')'); g.addColorStop(1,'rgba('+f.hue+',0)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(f.x,f.y,f.r*6,0,6.283); ctx.fill();
+      });
+      if(!reduce) requestAnimationFrame(draw);
+    }
+    draw();
+  }
+})();
+</script>
+</body>
+</html>
