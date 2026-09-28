@@ -59,7 +59,6 @@
     padding:12px 14px 12px 50px;font-weight:600;font-size:15px;line-height:1.45;box-shadow:0 6px 20px rgba(0,0,0,.18)}
   .bubble::before{content:"⚖️";position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:22px}
   .bubble small{display:block;font-size:11.5px;font-weight:600;color:#8a6a3c;margin-bottom:1px}
-  .stats{position:absolute;top:12px;left:12px;display:flex;gap:6px}
   .pill{background:rgba(20,16,12,.72);color:#fff;border-radius:999px;padding:6px 11px;font-size:12.5px;display:flex;align-items:center;gap:6px;backdrop-filter:blur(6px)}
   .pill b{font-variant-numeric:tabular-nums}
   .dot{width:7px;height:7px;border-radius:50%;background:#3ecf7c;box-shadow:0 0 0 3px rgba(62,207,124,.25)}
@@ -83,6 +82,7 @@
   .tile span{font-size:14px;line-height:1.45;opacity:.72}
   .tile .arr{margin-left:auto;opacity:.4;flex:none}
   .minis{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .mini.wide{grid-column:1/-1;justify-content:center}
   .mini{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:16px;background:var(--card);border:1px solid var(--line);font-weight:600;font-size:14.5px}
   .mini svg{width:22px;height:22px;color:var(--gold);flex:none}
   .mini:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
@@ -152,6 +152,53 @@
   .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(10px);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;transition:.2s;pointer-events:none;z-index:30;white-space:nowrap}
   .toast.show{opacity:1;transform:translateX(-50%)}
   footer{max-width:1120px;margin:0 auto;padding:0 16px 32px;color:var(--sub);font-size:12.5px;text-align:center;line-height:1.6}
+  /* 현황판 */
+  .left{display:grid;gap:12px}
+  @media (min-width:900px){ .left{position:sticky;top:20px} .stage{position:relative;top:auto} }
+  .statbar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 6px 10px;text-align:center}
+  .stat b{display:block;font-size:24px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1.15}
+  .stat span{display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px;font-weight:600;color:var(--sub);margin-top:3px;white-space:nowrap}
+  .stat i{width:7px;height:7px;border-radius:50%;flex:none}
+  @media (max-width:380px){ .stat b{font-size:20px} .stat span{font-size:11px} }
+  /* 바로가기 */
+  .hlinks{display:none;gap:8px}
+  .hlink{all:unset;box-sizing:border-box;cursor:pointer;height:48px;padding:0 16px;border-radius:16px;display:flex;align-items:center;gap:8px;font-weight:700;font-size:14.5px;background:var(--card);border:1px solid var(--line);color:var(--ink);text-decoration:none}
+  .hlink.pri{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .hlink svg{width:22px;height:22px}
+  .hlink:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+  .dock{position:fixed;left:0;right:0;bottom:0;z-index:15;display:flex;gap:8px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+    background:linear-gradient(to top,var(--bg) 70%,transparent)}
+  .dock .hlink{flex:1;justify-content:center;height:56px;font-size:15.5px;box-shadow:var(--shadow)}
+  .dock .hlink.sec{flex:0 0 auto;padding:0 18px}
+  body{padding-bottom:90px}
+  @media (min-width:900px){ .hlinks{display:flex} .dock{display:none} body{padding-bottom:0} }
+  /* 주의사항 */
+  .notice{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--err);border-radius:18px;padding:16px 18px}
+  .notice h4{margin:0 0 8px;font-size:15.5px;display:flex;align-items:center;gap:8px}
+  .notice h4 svg{width:22px;height:22px;color:var(--err)}
+  .notice ul{margin:0;padding-left:18px;color:var(--sub);font-size:13.5px;line-height:1.7}
+  .notice button{all:unset;cursor:pointer;margin-top:8px;font-size:13.5px;font-weight:700;color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+  .warnline{display:flex;gap:10px;align-items:flex-start;text-align:left;background:var(--err-soft);color:var(--ink);border-radius:14px;padding:12px 14px;font-size:13.5px;line-height:1.55;margin-top:14px}
+  .warnline svg{width:20px;height:20px;color:var(--err);flex:none;margin-top:1px}
+  .textbtn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:14px;font-weight:700;color:var(--err)}
+  .textbtn svg{width:18px;height:18px}
+  .recent{display:flex;align-items:center;gap:12px;background:var(--gold-soft);border-radius:16px;padding:14px 16px;font-size:14px;font-weight:600}
+  .recent span{flex:1;line-height:1.45}
+  .recent button{all:unset;cursor:pointer;flex:none;padding:9px 14px;border-radius:12px;background:var(--card);border:1px solid var(--line);font-weight:700;font-size:13.5px;color:var(--err)}
+  .rule{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+  .rule .ico{flex:none;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--err-soft);color:var(--err)}
+  .rule .ico svg{width:24px;height:24px}
+  .rule b{display:block;font-size:15.5px;margin-bottom:2px}
+  .rule p{margin:0;color:var(--sub);font-size:14px;line-height:1.55}
+  .agree{display:flex;align-items:center;gap:10px;margin-top:14px;font-weight:700;font-size:15px;cursor:pointer}
+  .agree input{width:22px;height:22px;accent-color:var(--gold)}
+  .reasons{display:grid;gap:10px;margin-top:6px}
+  .reason{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:14px;padding:16px;border-radius:16px;border:1.5px solid var(--line);font-weight:700;font-size:15.5px}
+  .reason:hover{border-color:var(--err)}
+  .reason .ico{flex:none;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--err-soft);color:var(--err)}
+  .reason .ico svg{width:24px;height:24px}
+  .reason small{display:block;font-weight:500;color:var(--sub);font-size:13px;margin-top:2px}
 </style>
 </head>
 <body>
@@ -173,26 +220,42 @@
   <symbol id="i-enter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/></symbol>
   <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
   <symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/></symbol>
+  <symbol id="i-ghost" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 10h.01"/><path d="M15 10h.01"/><path d="M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/></symbol>
+  <symbol id="i-hook" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3v8a6 6 0 0 1-12 0V9"/><path d="m3 12 3-3 3 3"/><circle cx="18" cy="3" r="1"/></symbol>
+  <symbol id="i-angry" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><path d="M7.5 8 10 9"/><path d="m14 9 2.5-1"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
   <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></symbol>
 </svg>
 
 <header class="top">
   <h1 style="margin:0"><span class="logo" role="img" aria-label="변론 게임"></span></h1>
   <div class="sp"></div>
+  <div class="hlinks">
+    <a class="hlink pri" href="GAME_URL" target="_blank" rel="noopener noreferrer"><svg><use href="#i-chat"/></svg>변론 게임 채팅방</a>
+    <a class="hlink" href="MORE_URL" target="_blank" rel="noopener noreferrer"><svg><use href="#i-star"/></svg>히리온 작가의 다른 작품</a>
+  </div>
   <button class="ibtn" id="soundBtn" aria-label="효과음 켜기/끄기"><svg><use href="#i-sound"/></svg></button>
   <button class="ibtn" id="helpBtn" aria-label="게임 방법"><svg><use href="#i-help"/></svg></button>
 </header>
 
 <main class="wrap">
   <!-- 판사 무대 -->
+  <div class="left">
   <section class="stage" aria-live="polite">
     <img id="judgeImg" src="img/judge_idle.webp" alt="판사 오판결">
-    <div class="stats">
-      <div class="pill"><span class="dot"></span>대기 방 <b id="statHosts">0</b></div>
-      <div class="pill"><span class="dot gold"></span>찾는 중 <b id="statSeekers">0</b></div>
-    </div>
     <div class="bubble"><small>판사 오판결</small><span id="bubble">탕! 상대 변호인이 필요하신가요?</span></div>
   </section>
+  <div class="statbar" aria-live="polite">
+    <div class="stat"><b id="statOnline">–</b><span><i style="background:#3ecf7c"></i>접속 중</span></div>
+    <div class="stat"><b id="statToday">–</b><span><i style="background:var(--err)"></i>오늘 매칭</span></div>
+    <div class="stat"><b id="statHosts">0</b><span><i style="background:var(--ink)"></i>대기 방</span></div>
+    <div class="stat"><b id="statSeekers">0</b><span><i style="background:var(--gold)"></i>찾는 중</span></div>
+  </div>
+  </div>
 
   <section class="panel">
     <div id="banner" class="banner" hidden></div>
@@ -209,9 +272,20 @@
         <div><strong>빠른 게임 찾기</strong><span>열린 방에 바로 입장! 없으면 새 방이 열리는 즉시 연결</span></div>
         <svg class="arr" width="24" height="24"><use href="#i-arrow"/></svg>
       </button>
+      <div id="recent" class="recent" hidden><span id="recentText">방금 매칭, 괜찮았나요?</span><button id="recentReport">신고하기</button></div>
+      <div class="notice">
+        <h4><svg><use href="#i-alert"/></svg>매칭 전 꼭 지켜 주세요</h4>
+        <ul>
+          <li>매칭되면 끝까지! 말없이 사라지면 신고 대상이에요.</li>
+          <li><b>변론 게임 파티챗 링크만</b> 올려 주세요. 다른 작품 링크는 낚시로 차단돼요.</li>
+          <li>들어간 방이 변론 게임이 아니면 바로 나와서 신고해 주세요.</li>
+        </ul>
+        <button id="rulesBtn">주의사항 전체 보기</button>
+      </div>
       <div class="minis">
         <button class="mini" id="howBtn"><svg><use href="#i-book"/></svg>게임 방법</button>
         <button class="mini" id="shareSite"><svg><use href="#i-share"/></svg>친구에게 공유</button>
+        <a class="mini wide" href="MORE_URL" target="_blank" rel="noopener noreferrer"><svg><use href="#i-star"/></svg>히리온 작가의 다른 작품 보러가기</a>
       </div>
     </div>
 
@@ -219,13 +293,15 @@
     <div id="v-hostInput" class="card" hidden>
       <button class="back" data-home><svg><use href="#i-back"/></svg>처음으로</button>
       <h2>게임 호스팅하기</h2>
-      <p class="muted">크랙에서 변론 게임 파티챗을 만들고, 공유 링크를 붙여넣어 주세요.</p>
+      <p class="muted">크랙에서 변론 게임 파티챗 방을 만들고, 공유 링크를 붙여넣어 주세요.</p>
+      <a class="btn ghost" href="GAME_URL" target="_blank" rel="noopener noreferrer" style="margin:0 0 18px"><svg><use href="#i-chat"/></svg>변론 게임에서 방 만들기</a>
       <label for="linkInput">파티챗 링크</label>
       <div class="field">
         <input id="linkInput" type="url" inputmode="url" autocomplete="off" placeholder="https://share.crack.wrtn.ai/…">
         <button class="paste" id="pasteBtn" hidden><svg><use href="#i-paste"/></svg>붙여넣기</button>
       </div>
       <div id="linkHint" class="hint"></div>
+      <div class="warnline"><svg><use href="#i-alert"/></svg><span>다른 작품의 링크를 올리면 신고가 쌓여 <b>링크와 기기가 차단</b>돼요.</span></div>
       <button id="postBtn" class="btn gold" disabled><svg><use href="#i-gavel"/></svg>링크 올리고 매칭 시작</button>
     </div>
 
@@ -262,7 +338,12 @@
       <h2>매칭 완료!</h2>
       <p class="muted">화면으로 돌아가 채팅을 시작하세요</p>
       <span class="stamp">개정합니다</span>
-      <button class="btn ghost" data-home style="margin-top:22px">처음으로</button>
+      <a id="myRoomBtn" class="btn ok" target="_blank" rel="noopener noreferrer" style="margin-top:22px"><svg><use href="#i-enter"/></svg>내 파티챗으로 돌아가기</a>
+      <div class="warnline"><svg><use href="#i-alert"/></svg><span>몇 분이 지나도 상대가 들어오지 않으면 신고할 수 있어요.</span></div>
+      <div class="row">
+        <button class="btn ghost" data-report><svg><use href="#i-flag"/></svg>신고하기</button>
+        <button class="btn ghost" data-home>처음으로</button>
+      </div>
     </div>
 
     <!-- 매칭 완료 (찾는 사람) -->
@@ -272,10 +353,12 @@
       <p class="muted">아래 버튼으로 법정에 입장하세요</p>
       <div class="linkbox" style="margin-top:16px"><svg><use href="#i-link"/></svg><a id="foundLink" target="_blank" rel="noopener noreferrer"></a></div>
       <a id="enterBtn" class="btn ok" target="_blank" rel="noopener noreferrer"><svg><use href="#i-enter"/></svg>파티챗 입장하기</a>
+      <div class="warnline"><svg><use href="#i-alert"/></svg><span>들어간 방이 <b>변론 게임이 아니거나</b> 상대가 사라졌다면 바로 신고해 주세요. 신고 3번이면 그 링크는 차단돼요.</span></div>
       <div class="row">
         <button id="copyBtn" class="btn ghost"><svg><use href="#i-copy"/></svg>링크 복사</button>
-        <button class="btn ghost" data-home>처음으로</button>
+        <button class="btn ghost" data-report><svg><use href="#i-flag"/></svg>신고하기</button>
       </div>
+      <button class="btn ghost" data-home>처음으로</button>
     </div>
 
     <!-- 시간 초과 -->
@@ -292,7 +375,40 @@
   </section>
 </main>
 
-<footer>매칭 대기는 3분 · 크랙 파티챗 링크(share.crack.wrtn.ai)만 올릴 수 있어요</footer>
+<footer>매칭 대기는 3분 · 변론 게임 파티챗 링크만 올릴 수 있어요 · 신고 3회 누적 시 링크·기기 차단</footer>
+
+<nav class="dock">
+  <a class="hlink pri" href="GAME_URL" target="_blank" rel="noopener noreferrer"><svg><use href="#i-chat"/></svg>변론 게임 채팅방</a>
+  <a class="hlink sec" href="MORE_URL" target="_blank" rel="noopener noreferrer" aria-label="히리온 작가의 다른 작품"><svg><use href="#i-star"/></svg>다른 작품</a>
+</nav>
+
+<!-- 주의사항 -->
+<div id="rulesModal" class="modal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">
+    <h3 id="rulesTitle"><svg width="26" height="26" style="color:var(--err)"><use href="#i-alert"/></svg>매칭 전 주의사항</h3>
+    <div class="rule"><div class="ico"><svg><use href="#i-ghost"/></svg></div><div><b>말없이 사라지기 금지</b><p>매칭되면 끝까지 함께해 주세요. 못 하게 되면 채팅에서 "기권"이라고 알리고 나가요. 잠수는 신고 대상이에요.</p></div></div>
+    <div class="rule"><div class="ico"><svg><use href="#i-hook"/></svg></div><div><b>낚시 링크 금지</b><p>변론 게임 파티챗 링크만 올려 주세요. 다른 캐릭터 채팅 링크로 사람을 끌어가면 신고가 쌓여 링크와 기기가 차단돼요.</p></div></div>
+    <div class="rule"><div class="ico"><svg><use href="#i-flag"/></svg></div><div><b>이상하면 바로 신고</b><p>들어간 방이 변론 게임이 아니거나 상대가 안 들어오면, 이 사이트로 돌아와 신고해 주세요. 매칭 후 1시간까지 신고할 수 있어요.</p></div></div>
+    <div class="rule"><div class="ico"><svg><use href="#i-angry"/></svg></div><div><b>욕설·혐오·도배 금지</b><p>변론은 치열하게, 상대에게는 매너 있게. 판사님도 법정 모독은 감점해요.</p></div></div>
+    <div class="rule"><div class="ico"><svg><use href="#i-lock"/></svg></div><div><b>개인정보 공유 금지</b><p>카톡 ID, 전화번호, SNS 계정을 요구하거나 알려 주지 마세요.</p></div></div>
+    <div class="rule"><div class="ico"><svg><use href="#i-alert"/></svg></div><div><b>허위 신고 금지</b><p>졌다고 신고하는 건 안 돼요. 신고는 낚시·잠수·비매너일 때만!</p></div></div>
+    <label class="agree" id="agreeRow"><input type="checkbox" id="agreeChk">위 내용을 확인했고 지킬게요</label>
+    <button class="btn" id="rulesOk">확인</button>
+  </div>
+</div>
+
+<!-- 신고 -->
+<div id="reportModal" class="modal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="reportTitle">
+    <h3 id="reportTitle"><svg width="26" height="26" style="color:var(--err)"><use href="#i-flag"/></svg>무엇이 문제였나요?</h3>
+    <div class="reasons">
+      <button class="reason" data-reason="bait" id="reasonBait"><div class="ico"><svg><use href="#i-hook"/></svg></div><div>다른 작품 링크 (낚시)<small>들어가 보니 변론 게임이 아니었어요</small></div></button>
+      <button class="reason" data-reason="ghost"><div class="ico"><svg><use href="#i-ghost"/></svg></div><div>잠수 · 사라짐<small>상대가 안 들어오거나 중간에 말없이 나갔어요</small></div></button>
+      <button class="reason" data-reason="manner"><div class="ico"><svg><use href="#i-angry"/></svg></div><div>비매너<small>욕설, 혐오 발언, 도배, 개인정보 요구</small></div></button>
+    </div>
+    <button class="btn ghost" id="reportClose">취소</button>
+  </div>
+</div>
 
 <!-- 게임 방법 -->
 <div id="helpModal" class="modal" hidden>
@@ -321,12 +437,20 @@ const firebaseConfig = {
   appId: "1:1067431724500:web:9985454dfa2863489fc241"
 };
 const SITE_TITLE = "변론 게임 · 매칭";
+const GAME_URL = "https://share.crack.wrtn.ai/wszuzz";      // 변론 게임 캐릭터 채팅
+const MORE_URL = "https://share.crack.wrtn.ai/le3go2";      // 히리온 작가의 다른 작품
+const BLOCK_AT = 3;                                          // 신고 몇 번이면 차단
+const REPORT_WINDOW = 60 * 60 * 1000;                        // 매칭 후 신고 가능 시간
+const RULES_VER = "1";
 const WAIT_MS = 3 * 60 * 1000;
-const LINK_RE = /^https:\/\/share\.crack\.wrtn\.ai\/[A-Za-z0-9_-]{3,40}\/?$/;
+const LINK_RE = /^https:\/\/share\.crack\.wrtn\.ai\/[A-Za-z0-9_-]{3,40}$/;
+const OFFICIAL = new Set(["wszuzz", "le3go2"]);   // 작품 소개 링크는 파티챗 링크가 아님
 if(new URLSearchParams(location.search).has("demo")) firebaseConfig.apiKey = "";   // ?demo 로 열면 데모 모드
 /* ===================================================================== */
 
 const $ = id => document.getElementById(id);
+document.querySelectorAll('a[href="GAME_URL"]').forEach(a => a.href = GAME_URL);
+document.querySelectorAll('a[href="MORE_URL"]').forEach(a => a.href = MORE_URL);
 const store = { get(k){ try{ return localStorage.getItem(k); }catch{ return null; } }, set(k, v){ try{ localStorage.setItem(k, v); }catch{} } };
 
 /* ---------- 판사 무대 ---------- */
@@ -390,7 +514,8 @@ async function makeFirebaseStore(){
   return {
     uid: cred.user.uid,
     now: () => Date.now() + offset,
-    watch: (path, cb) => dbM.onValue(dbM.ref(db, path), s => cb(s.val())),
+    watch: (path, cb, onErr) => dbM.onValue(dbM.ref(db, path), s => cb(s.val()), e => { console.warn(path, e.code); onErr && onErr(e); }),
+    update: obj => dbM.update(dbM.ref(db), obj),
     get: async path => (await dbM.get(dbM.ref(db, path))).val(),
     set: (path, v) => dbM.set(dbM.ref(db, path), v),
     remove: path => dbM.remove(dbM.ref(db, path)),
@@ -422,6 +547,7 @@ function makeDemoStore(){
     get: async path => at(load(), path),
     set: (path, v) => L(() => { const d = load(); put(d, path, v); save(d); }),
     remove: path => L(() => { const d = load(); put(d, path, null); save(d); }),
+    update: obj => L(() => { const d = load(); Object.entries(obj).forEach(([k, v]) => put(d, k, v)); save(d); }),
     removeOnDisconnect: async path => { leaveList.add(path); },
     cancelOnDisconnect: async path => { leaveList.delete(path); },
     txn: (path, fn) => L(() => { const d = load(); const cur = at(d, path); const next = fn(cur === null ? null : structuredClone(cur)); if(next === undefined) return null; put(d, path, next); save(d); return next; })
@@ -456,7 +582,22 @@ async function share(title, text, url){
 }
 
 /* ---------- 현황 ---------- */
-let hostsCache = {}, seekersCache = {};
+let hostsCache = {}, seekersCache = {}, reportCounts = {};
+const codeOf = link => (link || "").replace("https://share.crack.wrtn.ai/", "");
+const blockedKey = k => (reportCounts[k] || 0) >= BLOCK_AT;
+const linkBlocked = link => blockedKey("l_" + codeOf(link));
+const userBlocked = uid => blockedKey("u_" + uid);
+S.watch("reportCount", v => { reportCounts = v || {}; }, () => {});
+// 접속자 수
+S.set(`online/${S.uid}`, S.now()).then(() => S.removeOnDisconnect(`online/${S.uid}`)).catch(() => {});
+S.watch("online", v => { $("statOnline").textContent = v ? Object.keys(v).length : 1; }, () => { $("statOnline").textContent = "–"; });
+// 오늘 매칭 수 (한국 시간 기준)
+const dayKey = () => new Date(S.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+let todayKey = dayKey(), unToday = null;
+function watchToday(){ if(unToday) unToday(); unToday = S.watch(`stats/daily/${todayKey}`, v => { $("statToday").textContent = v || 0; }, () => { $("statToday").textContent = "–"; }); }
+watchToday();
+setInterval(() => { const k = dayKey(); if(k !== todayKey){ todayKey = k; watchToday(); } }, 60000);
+const bumpToday = () => S.txn(`stats/daily/${dayKey()}`, c => (typeof c === "number" ? c : 0) + 1).catch(() => {});
 function refreshStats(){
   const now = S.now();
   $("statHosts").textContent = Object.values(hostsCache).filter(h => alive(h, now)).length;
@@ -469,12 +610,68 @@ setInterval(refreshStats, 5000);
 /* ---------- 상태 ---------- */
 let mode = null, tick = null, unwatchMine = null, busy = false, again = false, lastRetry = "host", lastLink = store.get("bg_last_link") || "";
 function stopAll(){ mode = null; clearInterval(tick); tick = null; if(unwatchMine){ unwatchMine(); unwatchMine = null; } }
-function goHome(){ stopAll(); show("v-home"); judge("home"); }
+function goHome(){ stopAll(); show("v-home"); judge("home"); drawRecent(); }
 function celebrate(){
   gavel(3);
   try{ navigator.vibrate && navigator.vibrate([150, 80, 150, 80, 250]); }catch{}
   let n = 0; const f = setInterval(() => { document.title = (n++ % 2) ? SITE_TITLE : "✅ 매칭 완료!"; if(n > 11 || (!document.hidden && n > 3)){ clearInterval(f); document.title = SITE_TITLE; } }, 700);
 }
+
+/* ---------- 주의사항 동의 ---------- */
+let afterRules = null;
+function openRules(next){
+  afterRules = next || null;
+  const agreed = store.get("bg_rules") === RULES_VER;
+  $("agreeRow").hidden = agreed; $("agreeChk").checked = agreed;
+  $("rulesOk").disabled = !agreed; $("rulesOk").textContent = next ? "확인하고 시작하기" : "확인";
+  $("rulesModal").hidden = false;
+}
+$("agreeChk").onchange = () => { $("rulesOk").disabled = !$("agreeChk").checked; };
+$("rulesOk").onclick = () => { store.set("bg_rules", RULES_VER); $("rulesModal").hidden = true; const f = afterRules; afterRules = null; f && f(); };
+$("rulesModal").onclick = e => { if(e.target === $("rulesModal")){ $("rulesModal").hidden = true; afterRules = null; } };
+$("rulesBtn").onclick = () => openRules();
+const gate = fn => () => { if(store.get("bg_rules") === RULES_VER) fn(); else openRules(fn); };
+function denyIfBlocked(){
+  if(userBlocked(S.uid)){ toast("신고가 누적되어 이 기기는 매칭이 제한됐어요"); judge("expired"); return true; }
+  return false;
+}
+
+/* ---------- 최근 매칭 & 신고 ---------- */
+function saveMatch(m){ lastMatch = { ...m, at: Date.now(), reported: false }; store.set("bg_last_match", JSON.stringify(lastMatch)); drawRecent(); }
+let lastMatch = null; try{ lastMatch = JSON.parse(store.get("bg_last_match") || "null"); }catch{}
+function canReport(){ return lastMatch && !lastMatch.reported && Date.now() - lastMatch.at < REPORT_WINDOW; }
+function drawRecent(){
+  const show = canReport();
+  $("recent").hidden = !show;
+  if(show){ const min = Math.max(1, Math.round((Date.now() - lastMatch.at) / 60000)); $("recentText").textContent = `${min}분 전 매칭, 괜찮았나요? 문제가 있었다면 알려 주세요.`; }
+}
+drawRecent(); setInterval(drawRecent, 60000);
+function openReport(){
+  if(!canReport()){ toast(lastMatch && lastMatch.reported ? "이미 신고했어요" : "신고할 수 있는 매칭이 없어요"); return; }
+  $("reasonBait").hidden = lastMatch.role !== "seek";   // 낚시 신고는 링크를 받은 쪽만
+  $("reportModal").hidden = false;
+}
+document.querySelectorAll("[data-report]").forEach(b => b.onclick = openReport);
+$("recentReport").onclick = openReport;
+$("reportClose").onclick = () => { $("reportModal").hidden = true; };
+$("reportModal").onclick = e => { if(e.target === $("reportModal")) $("reportModal").hidden = true; };
+document.querySelectorAll("[data-reason]").forEach(b => b.onclick = async () => {
+  const reason = b.dataset.reason, m = lastMatch;
+  const keys = [];
+  if(m.other) keys.push("u_" + m.other);
+  if(m.role === "seek" && m.link) keys.push("l_" + codeOf(m.link));
+  if(!keys.length){ toast("신고 대상을 찾을 수 없어요"); return; }
+  let okAll = true;
+  for(const k of keys){
+    try{
+      const cur = await S.get(`reportCount/${k}`);
+      await S.update({ [`reports/${k}/${S.uid}`]: reason, [`reportCount/${k}`]: (typeof cur === "number" ? cur : 0) + 1 });
+    }catch(e){ console.warn("report", k, e.code || e); okAll = false; }
+  }
+  $("reportModal").hidden = true;
+  lastMatch.reported = true; store.set("bg_last_match", JSON.stringify(lastMatch)); drawRecent();
+  toast(okAll ? "신고가 접수됐어요. 탕!" : "이미 신고했거나 접수에 실패했어요");
+});
 
 /* ================= 호스트 ================= */
 function openHostInput(){
@@ -482,9 +679,12 @@ function openHostInput(){
   if(lastLink && !$("linkInput").value){ $("linkInput").value = lastLink; validate(); }
   if(!matchMedia("(pointer:coarse)").matches) $("linkInput").focus();
 }
-$("goHost").onclick = openHostInput;
+$("goHost").onclick = gate(() => { if(!denyIfBlocked()) openHostInput(); });
 function validate(){
-  const v = cleanLink($("linkInput").value), hint = $("linkHint"), ok = LINK_RE.test(v);
+  const v = cleanLink($("linkInput").value), hint = $("linkHint");
+  let ok = LINK_RE.test(v);
+  if(ok && OFFICIAL.has(codeOf(v))){ ok = false; $("postBtn").disabled = true; hint.textContent = "이건 작품 소개 링크예요. 파티챗 방을 만든 뒤 그 방의 공유 링크를 넣어 주세요"; hint.className = "hint err"; return false; }
+  if(ok && linkBlocked(v)){ $("postBtn").disabled = true; hint.textContent = "신고가 누적되어 차단된 링크예요"; hint.className = "hint err"; return false; }
   $("postBtn").disabled = !ok;
   if(!v){ hint.textContent = ""; hint.className = "hint"; }
   else if(ok){ hint.textContent = "✓ 올바른 파티챗 링크예요"; hint.className = "hint ok"; }
@@ -499,6 +699,8 @@ $("pasteBtn").onclick = async () => {
   catch{ toast("붙여넣기 권한이 없어요. 직접 붙여넣어 주세요."); }
 };
 async function postLink(link){
+  if(denyIfBlocked()) return false;
+  if(OFFICIAL.has(codeOf(link)) || linkBlocked(link)){ toast("올릴 수 없는 링크예요"); return false; }
   const now = S.now();
   const entry = { link, createdAt: now, expiresAt: now + WAIT_MS, status: "waiting" };
   try{ await S.set(`hosts/${S.uid}`, entry); }
@@ -524,7 +726,10 @@ function startHostWait(entry){
   draw(); tick = setInterval(draw, 250);
   unwatchMine = S.watch(`hosts/${S.uid}`, v => {
     if(mode !== "host") return;
-    if(v && v.status === "matched"){ stopAll(); show("v-hostDone"); judge("done"); celebrate(); }
+    if(v && v.status === "matched"){
+      stopAll(); saveMatch({ role:"host", link: entry.link, other: v.matchedBy || "" });
+      $("myRoomBtn").href = entry.link; show("v-hostDone"); judge("done"); celebrate();
+    }
   });
   tryClaimSeeker();
 }
@@ -549,14 +754,14 @@ async function tryClaimSeeker(){
   busy = true;
   try{
     const now = S.now();
-    const list = Object.entries(seekersCache).filter(([id, s]) => id !== S.uid && alive(s, now)).sort((a, b) => a[1].createdAt - b[1].createdAt);
+    const list = Object.entries(seekersCache).filter(([id, s]) => id !== S.uid && alive(s, now) && !userBlocked(id)).sort((a, b) => a[1].createdAt - b[1].createdAt);
     for(const [sid] of list){
       if(mode !== "host") break;
       const locked = await S.txn(`hosts/${S.uid}`, c => { if(c === null) return c; return c.status === "waiting" ? { ...c, status: "locking" } : undefined; });
       if(!locked || locked.status !== "locking") break;
       const link = locked.link;
       const got = await S.txn(`seekers/${sid}`, s => { if(s === null) return s; return (s.status === "waiting" && s.expiresAt > S.now()) ? { ...s, status: "matched", hostId: S.uid, link } : undefined; });
-      if(got && got.status === "matched" && got.hostId === S.uid){ await S.set(`hosts/${S.uid}`, { ...locked, status: "matched", matchedBy: sid }); break; }
+      if(got && got.status === "matched" && got.hostId === S.uid){ await S.set(`hosts/${S.uid}`, { ...locked, status: "matched", matchedBy: sid }); bumpToday(); break; }
       await S.txn(`hosts/${S.uid}`, c => (c && c.status === "locking") ? { ...c, status: "waiting" } : undefined);
     }
   } finally { busy = false; if(again){ again = false; setTimeout(tryClaimSeeker, 50); } }
@@ -564,9 +769,10 @@ async function tryClaimSeeker(){
 function onSeekersChanged(){ if(mode === "host") tryClaimSeeker(); }
 
 /* ================= 빠른 찾기 ================= */
-$("goSeek").onclick = () => startSeek();
+$("goSeek").onclick = gate(() => startSeek());
 let seekEntry = null;
 async function startSeek(){
+  if(denyIfBlocked()) return;
   stopAll(); mode = "seek"; lastRetry = "seek"; seekEntry = null;
   show("v-seekWait"); judge("seekWait");
   const now = S.now();
@@ -578,7 +784,7 @@ async function startSeek(){
   await S.set(`seekers/${S.uid}`, entry);
   seekEntry = entry;
   S.removeOnDisconnect(`seekers/${S.uid}`);
-  unwatchMine = S.watch(`seekers/${S.uid}`, v => { if(mode !== "seek") return; if(v && v.status === "matched" && v.link) found(v.link); });
+  unwatchMine = S.watch(`seekers/${S.uid}`, v => { if(mode !== "seek") return; if(v && v.status === "matched" && v.link) found(v.link, v.hostId || ""); });
   tryClaimHost(true);
 }
 async function tryClaimHost(hasEntry){
@@ -587,7 +793,7 @@ async function tryClaimHost(hasEntry){
   busy = true;
   try{
     const now = S.now();
-    const list = Object.entries(hostsCache).filter(([id, h]) => id !== S.uid && alive(h, now) && LINK_RE.test(h.link || "")).sort((a, b) => a[1].createdAt - b[1].createdAt);
+    const list = Object.entries(hostsCache).filter(([id, h]) => id !== S.uid && alive(h, now) && LINK_RE.test(h.link || "") && !OFFICIAL.has(codeOf(h.link)) && !linkBlocked(h.link) && !userBlocked(id)).sort((a, b) => a[1].createdAt - b[1].createdAt);
     for(const [hid] of list){
       if(mode !== "seek") return false;
       if(hasEntry){
@@ -597,7 +803,7 @@ async function tryClaimHost(hasEntry){
       const got = await S.txn(`hosts/${hid}`, h => { if(h === null) return h; return (h.status === "waiting" && h.expiresAt > S.now()) ? { ...h, status: "matched", matchedBy: S.uid } : undefined; });
       if(got && got.status === "matched" && got.matchedBy === S.uid){
         if(hasEntry){ S.cancelOnDisconnect(`seekers/${S.uid}`); await S.remove(`seekers/${S.uid}`); }
-        found(got.link); return true;
+        bumpToday(); found(got.link, hid); return true;
       }
       if(hasEntry) await S.txn(`seekers/${S.uid}`, c => (c && c.status === "locking") ? { ...c, status: "waiting" } : undefined);
     }
@@ -605,9 +811,10 @@ async function tryClaimHost(hasEntry){
   } finally { busy = false; if(again){ again = false; if(seekEntry) setTimeout(() => tryClaimHost(true), 50); } }
 }
 function onHostsChanged(){ if(mode === "seek" && seekEntry) tryClaimHost(true); }
-function found(link){
+function found(link, other){
   if(!LINK_RE.test(link)) return;
   stopAll();
+  saveMatch({ role:"seek", link, other: other || "" });
   $("foundLink").textContent = link; $("foundLink").href = link; $("enterBtn").href = link;
   show("v-seekDone"); judge("done"); celebrate();
   S.cancelOnDisconnect(`seekers/${S.uid}`);
@@ -616,7 +823,7 @@ function found(link){
 async function seekExpire(){
   if(mode !== "seek") return;
   const cur = await S.get(`seekers/${S.uid}`);
-  if(cur && cur.status === "matched" && cur.link){ found(cur.link); return; }
+  if(cur && cur.status === "matched" && cur.link){ found(cur.link, cur.hostId || ""); return; }
   stopAll();
   await S.txn(`seekers/${S.uid}`, c => (c && c.status !== "matched") ? null : undefined);
   $("expTitle").textContent = "열린 법정이 없어요";
@@ -630,6 +837,7 @@ $("seekCancel").onclick = async () => { stopAll(); await S.txn(`seekers/${S.uid}
 /* ---------- 버튼 ---------- */
 document.querySelectorAll("[data-home]").forEach(b => b.onclick = goHome);
 $("retryBtn").onclick = () => { if(lastRetry === "seek") startSeek(); else if(lastLink) postLink(lastLink); else openHostInput(); };
+addEventListener("keydown", e => { if(e.key === "Escape"){ $("rulesModal").hidden = true; $("reportModal").hidden = true; } });
 $("switchBtn").onclick = () => { if(lastRetry === "seek") openHostInput(); else startSeek(); };
 $("copyBtn").onclick = () => copy($("foundLink").textContent, "링크를 복사했어요");
 $("shareSite").onclick = () => share("변론 게임 매칭", "변론 게임 상대 찾기 ⚖️ 여기서 바로 매칭!", location.href.split("?")[0]);
