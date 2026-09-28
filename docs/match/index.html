@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>파티챗 매칭</title>
+<style>
+  :root{
+    --bg:#f5f6f8; --card:#ffffff; --ink:#15171c; --sub:#6b7280; --line:#e5e7eb;
+    --accent:#3b5bfd; --accent-ink:#ffffff; --accent-soft:#eef1ff;
+    --ok:#16a34a; --ok-soft:#e9f8ef; --err:#dc2626; --err-soft:#fdecec;
+    --radius:18px; --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0f1115; --card:#181b21; --ink:#eef0f4; --sub:#9aa1ad; --line:#2a2e36;
+      --accent:#6f86ff; --accent-ink:#0f1115; --accent-soft:#1e2436;
+      --ok:#34d399; --ok-soft:#12261d; --err:#f87171; --err-soft:#2a1717;
+      --shadow:none;
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+    min-height:100vh;display:flex;justify-content:center;padding:24px 16px 48px;-webkit-font-smoothing:antialiased}
+  .wrap{width:100%;max-width:440px}
+  header{text-align:center;margin:8px 0 20px}
+  header h1{font-size:22px;margin:0 0 6px;letter-spacing:-.02em}
+  header p{margin:0;color:var(--sub);font-size:14px}
+  .stats{display:flex;gap:8px;justify-content:center;margin-bottom:18px}
+  .pill{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--sub);display:flex;align-items:center;gap:6px}
+  .pill b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+  .dot.blue{background:var(--accent)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+  .choice{display:grid;gap:12px}
+  .choice button{all:unset;cursor:pointer;display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);transition:transform .08s,border-color .15s}
+  .choice button:hover{border-color:var(--accent)}
+  .choice button:active{transform:scale(.99)}
+  .choice button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .ico{flex:none;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+  .choice strong{display:block;font-size:17px;margin-bottom:3px}
+  .choice span.d{color:var(--sub);font-size:13px;line-height:1.45}
+  h2{font-size:18px;margin:0 0 6px}
+  .muted{color:var(--sub);font-size:14px;line-height:1.55;margin:0 0 16px}
+  label{display:block;font-size:13px;color:var(--sub);margin-bottom:6px}
+  input[type=url]{width:100%;font:inherit;font-size:15px;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+  input[type=url]:focus{outline:none;border-color:var(--accent)}
+  .hint{font-size:12.5px;margin-top:6px;min-height:18px;color:var(--sub)}
+  .hint.err{color:var(--err)}
+  .btn{all:unset;box-sizing:border-box;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:8px;width:100%;
+    padding:14px;border-radius:12px;font-weight:600;font-size:15px;background:var(--accent);color:var(--accent-ink);margin-top:14px;text-align:center}
+  .btn:disabled,.btn[aria-disabled=true]{opacity:.45;cursor:not-allowed}
+  .btn.ghost{background:transparent;color:var(--sub);border:1px solid var(--line)}
+  .btn.ok{background:var(--ok);color:#fff}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .row{display:flex;gap:8px}
+  .row .btn{margin-top:10px}
+  .back{all:unset;cursor:pointer;color:var(--sub);font-size:14px;display:inline-flex;align-items:center;gap:4px;margin-bottom:12px}
+  .center{text-align:center}
+  .timer{position:relative;width:168px;height:168px;margin:6px auto 14px}
+  .timer svg{transform:rotate(-90deg)}
+  .timer .t{position:absolute;inset:0;display:grid;place-items:center;font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .timer .t small{display:block;font-size:12px;font-weight:500;color:var(--sub);letter-spacing:0;margin-top:-4px}
+  .linkbox{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 12px;font-size:14px;word-break:break-all;text-align:left}
+  .linkbox a{color:var(--accent);text-decoration:none;flex:1}
+  .linkbox button{all:unset;cursor:pointer;font-size:12.5px;color:var(--sub);border:1px solid var(--line);border-radius:8px;padding:5px 9px;flex:none}
+  .spinner{width:46px;height:46px;border-radius:50%;border:4px solid var(--accent-soft);border-top-color:var(--accent);animation:spin 1s linear infinite;margin:10px auto 16px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .done{padding:30px 22px 24px}
+  .badge{width:84px;height:84px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:grid;place-items:center;margin:0 auto 16px;animation:pop .45s cubic-bezier(.2,1.4,.4,1)}
+  @keyframes pop{from{transform:scale(.4);opacity:0}}
+  .done h2{font-size:26px;margin-bottom:8px}
+  .done .muted{font-size:15px;margin-bottom:6px}
+  .badge.fail{background:var(--err-soft);color:var(--err)}
+  .banner{background:var(--accent-soft);color:var(--ink);border-radius:12px;padding:10px 12px;font-size:12.5px;line-height:1.5;margin-bottom:14px}
+  .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:13.5px;opacity:0;transition:opacity .2s;pointer-events:none}
+  .toast.show{opacity:1}
+  [hidden]{display:none!important}
+  footer{text-align:center;color:var(--sub);font-size:12px;margin-top:22px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 id="siteTitle">파티챗 매칭</h1>
+    <p>2인 파티챗 상대를 빠르게 찾아요</p>
+  </header>
+
+  <div class="stats" aria-live="polite">
+    <div class="pill"><span class="dot"></span>대기 중인 방 <b id="statHosts">0</b></div>
+    <div class="pill"><span class="dot blue"></span>찾는 중 <b id="statSeekers">0</b></div>
+  </div>
+
+  <div id="demoBanner" class="banner" hidden>
+    <b>데모 모드</b> — Firebase 설정 전이라 이 브라우저의 탭끼리만 매칭돼요. 탭 두 개를 열어 한쪽은 호스팅, 한쪽은 찾기로 테스트해 보세요.
+  </div>
+
+  <!-- 홈 -->
+  <section id="v-home" class="choice">
+    <button id="goHost">
+      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg></div>
+      <div><strong>게임 호스팅하기</strong><span class="d">파티챗 링크를 올리고 3분 동안 상대를 기다려요</span></div>
+    </button>
+    <button id="goSeek">
+      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+      <div><strong>빠른 게임 찾기</strong><span class="d">열려 있는 방에 바로 들어가요. 없으면 새 방이 열리는 즉시 연결돼요</span></div>
+    </button>
+  </section>
+
+  <!-- 호스트: 링크 입력 -->
+  <section id="v-hostInput" class="card" hidden>
+    <button class="back" data-home>← 처음으로</button>
+    <h2>게임 호스팅하기</h2>
+    <p class="muted">크랙에서 파티챗을 만든 뒤 공유 링크를 붙여넣어 주세요.</p>
+    <label for="linkInput">파티챗 링크</label>
+    <input id="linkInput" type="url" inputmode="url" autocomplete="off" placeholder="https://share.crack.wrtn.ai/xxxxxxx">
+    <div id="linkHint" class="hint"></div>
+    <button id="postBtn" class="btn" disabled>링크 올리고 매칭 시작</button>
+  </section>
+
+  <!-- 호스트: 대기 -->
+  <section id="v-hostWait" class="card center" hidden>
+    <h2>상대를 기다리는 중</h2>
+    <p class="muted">이 화면을 켜 두세요. 매칭되면 바로 알려드려요.</p>
+    <div class="timer">
+      <svg width="168" height="168" viewBox="0 0 168 168" aria-hidden="true">
+        <circle cx="84" cy="84" r="74" fill="none" stroke="var(--accent-soft)" stroke-width="10"/>
+        <circle id="ring" cx="84" cy="84" r="74" fill="none" stroke="var(--accent)" stroke-width="10" stroke-linecap="round" stroke-dasharray="464.96" stroke-dashoffset="0"/>
+      </svg>
+      <div class="t"><div><span id="hostClock">3:00</span><small>남은 시간</small></div></div>
+    </div>
+    <div class="linkbox"><a id="hostLinkShow" target="_blank" rel="noopener noreferrer"></a></div>
+    <button id="hostCancel" class="btn ghost">호스팅 취소</button>
+  </section>
+
+  <!-- 찾는 사람: 대기 -->
+  <section id="v-seekWait" class="card center" hidden>
+    <h2>방을 찾는 중</h2>
+    <p class="muted">새 방이 열리면 자동으로 연결돼요.</p>
+    <div class="spinner" aria-hidden="true"></div>
+    <p class="muted" style="margin-bottom:0">남은 시간 <b id="seekClock" style="color:var(--ink)">3:00</b></p>
+    <button id="seekCancel" class="btn ghost">찾기 취소</button>
+  </section>
+
+  <!-- 매칭 완료 (호스트) -->
+  <section id="v-hostDone" class="card center done" hidden>
+    <div class="badge"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+    <h2>매칭 완료!</h2>
+    <p class="muted">화면으로 돌아가 채팅을 시작하세요</p>
+    <button class="btn ghost" data-home>처음으로</button>
+  </section>
+
+  <!-- 매칭 완료 (찾는 사람) -->
+  <section id="v-seekDone" class="card center done" hidden>
+    <div class="badge"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+    <h2>매칭 완료!</h2>
+    <p class="muted">아래 링크로 파티챗에 입장하세요</p>
+    <div class="linkbox" style="margin-top:14px"><a id="foundLink" target="_blank" rel="noopener noreferrer"></a><button id="copyBtn">복사</button></div>
+    <a id="enterBtn" class="btn ok" target="_blank" rel="noopener noreferrer">파티챗 입장하기</a>
+    <button class="btn ghost" data-home>처음으로</button>
+  </section>
+
+  <!-- 시간 초과 -->
+  <section id="v-expired" class="card center done" hidden>
+    <div class="badge fail"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+    <h2 id="expTitle">시간이 지났어요</h2>
+    <p class="muted" id="expText">3분 안에 상대를 찾지 못했어요.</p>
+    <button id="retryBtn" class="btn">다시 시도</button>
+    <button class="btn ghost" data-home>처음으로</button>
+  </section>
+
+  <footer>매칭된 링크는 3분 동안만 유효해요 · 크랙 파티챗 링크만 올릴 수 있어요</footer>
+</div>
+<div id="toast" class="toast" role="status"></div>
+
+<script type="module">
+/* =====================================================================
+   설정 — Firebase 콘솔에서 받은 값을 붙여넣으세요 (설정가이드.md 참고)
+   apiKey가 비어 있으면 '데모 모드'로 동작합니다 (같은 브라우저 탭끼리만 매칭)
+   ===================================================================== */
+const firebaseConfig = {
+  apiKey: "AIzaSyBj1X_PomPKCGZ9yJd-R9DVLO-xEzyxcmw",
+  authDomain: "crack-match.firebaseapp.com",
+  databaseURL: "https://crack-match-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "crack-match",
+  storageBucket: "crack-match.firebasestorage.app",
+  messagingSenderId: "1067431724500",
+  appId: "1:1067431724500:web:9985454dfa2863489fc241"
+};
+const SITE_TITLE = "파티챗 매칭";
+const WAIT_MS = 3 * 60 * 1000;
+const LINK_RE = /^https:\/\/share\.crack\.wrtn\.ai\/[A-Za-z0-9_-]{3,40}\/?$/;
+/* ===================================================================== */
+
+const $ = id => document.getElementById(id);
+document.title = SITE_TITLE; $("siteTitle").textContent = SITE_TITLE;
+
+/* ---------- 저장소 어댑터: Firebase 또는 데모(localStorage) ---------- */
+async function makeFirebaseStore(){
+  const V = "10.12.2";
+  const appM = await import(`https://www.gstatic.com/firebasejs/${V}/firebase-app.js`);
+  const authM = await import(`https://www.gstatic.com/firebasejs/${V}/firebase-auth.js`);
+  const dbM = await import(`https://www.gstatic.com/firebasejs/${V}/firebase-database.js`);
+  const app = appM.initializeApp(firebaseConfig);
+  const auth = authM.getAuth(app);
+  const cred = await authM.signInAnonymously(auth);
+  const db = dbM.getDatabase(app);
+  let offset = 0;
+  dbM.onValue(dbM.ref(db, ".info/serverTimeOffset"), s => { offset = s.val() || 0; });
+  return {
+    uid: cred.user.uid,
+    now: () => Date.now() + offset,
+    watch: (path, cb) => dbM.onValue(dbM.ref(db, path), s => cb(s.val())),
+    get: async path => (await dbM.get(dbM.ref(db, path))).val(),
+    set: (path, v) => dbM.set(dbM.ref(db, path), v),
+    remove: path => dbM.remove(dbM.ref(db, path)),
+    removeOnDisconnect: path => dbM.onDisconnect(dbM.ref(db, path)).remove(),
+    cancelOnDisconnect: path => dbM.onDisconnect(dbM.ref(db, path)).cancel(),
+    async txn(path, fn){
+      try{
+        const r = await dbM.runTransaction(dbM.ref(db, path), fn, { applyLocally:false });
+        return r.committed ? r.snapshot.val() : null;
+      }catch(e){ return null; }
+    }
+  };
+}
+
+function makeDemoStore(){
+  const KEY = "partychat_demo_db";
+  let uid = sessionStorage.getItem("demo_uid");
+  if(!uid){ uid = "u" + Math.random().toString(36).slice(2, 10); sessionStorage.setItem("demo_uid", uid); }
+  const load = () => { try{ return JSON.parse(localStorage.getItem(KEY)) || {}; }catch{ return {}; } };
+  const save = d => { localStorage.setItem(KEY, JSON.stringify(d)); fire(); };
+  const at = (d, path) => path.split("/").reduce((o, k) => (o == null ? undefined : o[k]), d) ?? null;
+  const put = (d, path, v) => {
+    const ks = path.split("/"); let o = d;
+    for(let i = 0; i < ks.length - 1; i++){ o[ks[i]] = o[ks[i]] || {}; o = o[ks[i]]; }
+    if(v === null || v === undefined) delete o[ks.at(-1)]; else o[ks.at(-1)] = v;
+  };
+  const watchers = [];
+  function fire(){ const d = load(); watchers.forEach(w => w.cb(at(d, w.path))); }
+  addEventListener("storage", e => { if(e.key === KEY) fire(); });
+  const leaveList = new Set();
+  addEventListener("pagehide", () => { if(!leaveList.size) return; const d = load(); leaveList.forEach(p => put(d, p, null)); localStorage.setItem(KEY, JSON.stringify(d)); });
+  return {
+    uid, demo:true,
+    now: () => Date.now(),
+    watch(path, cb){ const w = {path, cb}; watchers.push(w); queueMicrotask(() => cb(at(load(), path))); return () => watchers.splice(watchers.indexOf(w), 1); },
+    get: async path => at(load(), path),
+    set: (path, v) => navigator.locks.request("partychat_demo_lock", () => { const d = load(); put(d, path, v); save(d); }),
+    remove: path => navigator.locks.request("partychat_demo_lock", () => { const d = load(); put(d, path, null); save(d); }),
+    removeOnDisconnect: async path => { leaveList.add(path); },
+    cancelOnDisconnect: async path => { leaveList.delete(path); },
+    async txn(path, fn){
+      // 탭 간 원자성 보장 (Web Locks)
+      return navigator.locks.request("partychat_demo_lock", () => {
+        const d = load(); const cur = at(d, path); const next = fn(cur === null ? null : structuredClone(cur));
+        if(next === undefined) return null;
+        put(d, path, next); save(d); return next;
+      });
+    }
+  };
+}
+
+let S;
+try{
+  S = firebaseConfig.apiKey ? await makeFirebaseStore() : makeDemoStore();
+}catch(e){
+  console.error(e);
+  const bn = $("demoBanner"); bn.hidden = false; bn.style.background = "var(--err-soft)";
+  bn.innerHTML = "<b>서버 연결 실패</b> — 새로고침해 보세요. 계속 안 되면 Firebase의 익명 로그인 사용 설정, 승인된 도메인 등록을 확인해 주세요.";
+  $("v-home").style.opacity = ".4"; $("v-home").style.pointerEvents = "none";
+  throw e;
+}
+if(S.demo) $("demoBanner").hidden = false;
+
+/* ---------- 화면 전환 ---------- */
+const views = ["v-home","v-hostInput","v-hostWait","v-seekWait","v-hostDone","v-seekDone","v-expired"];
+function show(id){ views.forEach(v => $(v).hidden = v !== id); window.scrollTo(0, 0); }
+function toast(msg){ const t = $("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 2200); }
+const fmt = ms => { const s = Math.max(0, Math.ceil(ms / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
+const cleanLink = s => s.trim().replace(/\/+$/, "");
+const alive = (e, now) => e && e.status === "waiting" && e.expiresAt > now;
+
+/* ---------- 현황 카운터 ---------- */
+let hostsCache = {}, seekersCache = {};
+function refreshStats(){
+  const now = S.now();
+  $("statHosts").textContent = Object.values(hostsCache).filter(h => alive(h, now)).length;
+  $("statSeekers").textContent = Object.values(seekersCache).filter(s => alive(s, now)).length;
+}
+S.watch("hosts", v => { hostsCache = v || {}; refreshStats(); onHostsChanged(); });
+S.watch("seekers", v => { seekersCache = v || {}; refreshStats(); onSeekersChanged(); });
+setInterval(refreshStats, 5000);
+
+/* ---------- 상태 ---------- */
+let mode = null;          // "host" | "seek" | null
+let tick = null, unwatchMine = null, busy = false, again = false, lastRetry = "host";
+
+function stopAll(){
+  mode = null; clearInterval(tick); tick = null;
+  if(unwatchMine){ unwatchMine(); unwatchMine = null; }
+}
+function celebrate(){
+  try{ navigator.vibrate && navigator.vibrate([120, 60, 120]); }catch{}
+  const orig = SITE_TITLE; let n = 0;
+  const f = setInterval(() => { document.title = (n++ % 2) ? orig : "✅ 매칭 완료!"; if(n > 11 || !document.hidden && n > 3){ clearInterval(f); document.title = orig; } }, 700);
+}
+
+/* ================= 호스트 ================= */
+$("goHost").onclick = () => { show("v-hostInput"); $("linkInput").focus(); };
+$("linkInput").addEventListener("input", () => {
+  const v = cleanLink($("linkInput").value), hint = $("linkHint");
+  const ok = LINK_RE.test(v);
+  $("postBtn").disabled = !ok;
+  if(!v){ hint.textContent = ""; hint.className = "hint"; }
+  else if(ok){ hint.textContent = "올바른 파티챗 링크예요"; hint.className = "hint"; }
+  else { hint.textContent = "https://share.crack.wrtn.ai/ 로 시작하는 파티챗 링크만 올릴 수 있어요"; hint.className = "hint err"; }
+});
+$("postBtn").onclick = async () => {
+  const link = cleanLink($("linkInput").value);
+  if(!LINK_RE.test(link)) return;
+  $("postBtn").disabled = true;
+  const now = S.now();
+  const entry = { link, createdAt: now, expiresAt: now + WAIT_MS, status: "waiting" };
+  try{ await S.set(`hosts/${S.uid}`, entry); }
+  catch(e){ console.error(e); toast("등록에 실패했어요. 잠시 후 다시 시도해 주세요."); $("postBtn").disabled = false; return; }
+  startHostWait(entry);
+  $("postBtn").disabled = false;
+};
+
+function startHostWait(entry){
+  stopAll(); mode = "host"; lastRetry = "host";
+  $("hostLinkShow").textContent = entry.link; $("hostLinkShow").href = entry.link;
+  show("v-hostWait");
+  const C = 464.96;
+  const draw = () => {
+    const left = entry.expiresAt - S.now();
+    $("hostClock").textContent = fmt(left);
+    $("ring").setAttribute("stroke-dashoffset", String(C * (1 - Math.max(0, left) / WAIT_MS)));
+    if(left <= 0){ clearInterval(tick); tick = null; hostExpire(); }
+  };
+  draw(); tick = setInterval(draw, 250);
+  unwatchMine = S.watch(`hosts/${S.uid}`, v => {
+    if(mode !== "host") return;
+    if(v && v.status === "matched"){ stopAll(); show("v-hostDone"); celebrate(); }
+  });
+  tryClaimSeeker();
+}
+async function hostExpire(){
+  if(mode !== "host") return;
+  const cur = await S.get(`hosts/${S.uid}`);
+  if(cur && cur.status === "matched") return;
+  stopAll();
+  await S.txn(`hosts/${S.uid}`, c => (c && c.status !== "matched") ? null : undefined);
+  $("expTitle").textContent = "시간이 지났어요";
+  $("expText").textContent = "3분 안에 상대를 찾지 못했어요. 같은 링크로 다시 올릴 수 있어요.";
+  show("v-expired");
+}
+$("hostCancel").onclick = async () => {
+  stopAll();
+  await S.txn(`hosts/${S.uid}`, c => (c && c.status !== "matched") ? null : undefined);
+  show("v-home");
+};
+
+// 호스트가 기다리는 찾기 요청을 먼저 잡는다 (내 방을 잠근 뒤 시도)
+async function tryClaimSeeker(){
+  if(mode !== "host") return;
+  if(busy){ again = true; return; }
+  busy = true;
+  try{
+    const now = S.now();
+    const list = Object.entries(seekersCache)
+      .filter(([id, s]) => id !== S.uid && alive(s, now))
+      .sort((a, b) => a[1].createdAt - b[1].createdAt);
+    for(const [sid] of list){
+      if(mode !== "host") break;
+      const locked = await S.txn(`hosts/${S.uid}`, c => { if(c === null) return c; return c.status === "waiting" ? { ...c, status: "locking" } : undefined; });
+      if(!locked || locked.status !== "locking") break;
+      const link = locked.link;
+      const got = await S.txn(`seekers/${sid}`, s => {
+        if(s === null) return s;
+        return (s.status === "waiting" && s.expiresAt > S.now()) ? { ...s, status: "matched", hostId: S.uid, link } : undefined;
+      });
+      if(got && got.status === "matched" && got.hostId === S.uid){
+        await S.set(`hosts/${S.uid}`, { ...locked, status: "matched", matchedBy: sid });
+        break;
+      }
+      await S.txn(`hosts/${S.uid}`, c => (c && c.status === "locking") ? { ...c, status: "waiting" } : undefined);
+    }
+  } finally { busy = false; if(again){ again = false; setTimeout(tryClaimSeeker, 50); } }
+}
+function onSeekersChanged(){ if(mode === "host") tryClaimSeeker(); }
+
+/* ================= 빠른 찾기 ================= */
+$("goSeek").onclick = () => startSeek();
+let seekEntry = null;
+
+async function startSeek(){
+  stopAll(); mode = "seek"; lastRetry = "seek"; seekEntry = null;
+  show("v-seekWait");
+  const now = S.now();
+  const entry = { createdAt: now, expiresAt: now + WAIT_MS, status: "waiting" };
+  const clock = () => {
+    const left = entry.expiresAt - S.now();
+    $("seekClock").textContent = fmt(left);
+    if(left <= 0){ clearInterval(tick); tick = null; seekExpire(); }
+  };
+  clock(); tick = setInterval(clock, 250);
+
+  // 1) 열린 방이 있으면 바로 잡기
+  if(await tryClaimHost(false)) return;
+  if(mode !== "seek") return;
+  // 2) 없으면 대기 등록
+  await S.set(`seekers/${S.uid}`, entry);
+  seekEntry = entry;
+  S.removeOnDisconnect(`seekers/${S.uid}`);
+  unwatchMine = S.watch(`seekers/${S.uid}`, v => {
+    if(mode !== "seek") return;
+    if(v && v.status === "matched" && v.link) found(v.link);
+  });
+  tryClaimHost(true);
+}
+
+async function tryClaimHost(hasEntry){
+  if(mode !== "seek") return false;
+  if(busy){ if(hasEntry) again = true; return false; }
+  busy = true;
+  try{
+    const now = S.now();
+    const list = Object.entries(hostsCache)
+      .filter(([id, h]) => id !== S.uid && alive(h, now) && LINK_RE.test(h.link || ""))
+      .sort((a, b) => a[1].createdAt - b[1].createdAt);
+    for(const [hid] of list){
+      if(mode !== "seek") return false;
+      if(hasEntry){
+        const locked = await S.txn(`seekers/${S.uid}`, c => { if(c === null) return c; return c.status === "waiting" ? { ...c, status: "locking" } : undefined; });
+        if(!locked || locked.status !== "locking") return false;
+      }
+      const got = await S.txn(`hosts/${hid}`, h => {
+        if(h === null) return h;
+        return (h.status === "waiting" && h.expiresAt > S.now()) ? { ...h, status: "matched", matchedBy: S.uid } : undefined;
+      });
+      if(got && got.status === "matched" && got.matchedBy === S.uid){
+        if(hasEntry){ S.cancelOnDisconnect(`seekers/${S.uid}`); await S.remove(`seekers/${S.uid}`); }
+        found(got.link);
+        return true;
+      }
+      if(hasEntry) await S.txn(`seekers/${S.uid}`, c => (c && c.status === "locking") ? { ...c, status: "waiting" } : undefined);
+    }
+    return false;
+  } finally { busy = false; if(again){ again = false; if(seekEntry) setTimeout(() => tryClaimHost(true), 50); } }
+}
+function onHostsChanged(){ if(mode === "seek" && seekEntry) tryClaimHost(true); }
+
+function found(link){
+  if(!LINK_RE.test(link)) return;   // 이상한 링크는 절대 보여주지 않음
+  stopAll();
+  $("foundLink").textContent = link; $("foundLink").href = link; $("enterBtn").href = link;
+  show("v-seekDone"); celebrate();
+  S.cancelOnDisconnect(`seekers/${S.uid}`);
+  S.txn(`seekers/${S.uid}`, c => (c && c.status === "matched") ? null : undefined);
+}
+async function seekExpire(){
+  if(mode !== "seek") return;
+  const cur = await S.get(`seekers/${S.uid}`);
+  if(cur && cur.status === "matched" && cur.link){ found(cur.link); return; }
+  stopAll();
+  await S.txn(`seekers/${S.uid}`, c => (c && c.status !== "matched") ? null : undefined);
+  $("expTitle").textContent = "지금은 열린 방이 없어요";
+  $("expText").textContent = "3분 동안 새 방이 열리지 않았어요. 직접 방을 호스팅해 보는 건 어때요?";
+  show("v-expired");
+}
+$("seekCancel").onclick = async () => {
+  stopAll();
+  await S.txn(`seekers/${S.uid}`, c => (c && c.status !== "matched") ? null : undefined);
+  show("v-home");
+};
+
+/* ---------- 공통 버튼 ---------- */
+document.querySelectorAll("[data-home]").forEach(b => b.onclick = () => { stopAll(); show("v-home"); });
+$("retryBtn").onclick = () => { if(lastRetry === "seek") startSeek(); else show("v-hostInput"); };
+$("copyBtn").onclick = async () => {
+  try{ await navigator.clipboard.writeText($("foundLink").textContent); toast("링크를 복사했어요"); }
+  catch{ toast("복사에 실패했어요. 링크를 길게 눌러 복사해 주세요."); }
+};
+
+/* ---------- 새로고침해도 호스팅 이어가기 ---------- */
+const mine = await S.get(`hosts/${S.uid}`);
+if(mine && mine.status === "waiting" && mine.expiresAt > S.now()){
+  $("linkInput").value = mine.link; startHostWait(mine);
+}
+</script>
+</body>
+</html>
