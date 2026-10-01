@@ -97,11 +97,11 @@ ul{list-style:none;margin:0;padding:0}
 .evl{margin-top:10px;font-size:13px}
 .evl li{display:flex;gap:10px;padding:6px 0;border-top:1px dashed var(--line)}
 .evl li b{color:var(--navy);flex:none;width:92px;font-variant-numeric:tabular-nums}
-.bnr{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.bnr{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
 .bnr a{display:flex;flex-direction:column;gap:4px;padding:22px 24px;color:#fff;min-height:112px;justify-content:center}
 .bnr a b{font-size:20px;font-weight:700}
 .bnr a span{font-size:13px;opacity:.85}
-.bnr a:nth-child(1){background:var(--navy2)}.bnr a:nth-child(2){background:#7d5a14}.bnr a:nth-child(3){background:#2d5f56}
+.bnr a:nth-child(1){background:var(--navy2)}.bnr a:nth-child(2){background:#7d5a14}.bnr a:nth-child(3){background:#2d5f56}.bnr a:nth-child(4){background:#6b3a5e}@media(max-width:1000px){.bnr{grid-template-columns:repeat(2,1fr)}}
 .news{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:16px}
 .news a{display:block}
 .news .im{aspect-ratio:16/10;background-size:cover;background-position:center;margin-bottom:10px;border:1px solid var(--line)}
@@ -728,7 +728,7 @@ function home(){
    <div><div class="bh"><h3>대학소식</h3><a class="more" data-nav="대학소식">더보기 +</a></div><ul class="nl" style="margin-top:6px">${NEWS.slice(0,7).map((x,i)=>`<li><a data-nv="${i}"><span class="t">${esc(x[0])}</span><span class="d">${x[1]}</span></a></li>`).join('')}</ul></div>
    <div class="cal"><div class="bh"><h3>학사일정</h3><a class="more" data-nav="학사일정">더보기 +</a></div>${calHtml()}</div>
   </div>
-  <div class="bnr"><a data-nav="신체 X스 적격도 검사"><b>신체 X스 적격도 검사</b><span>검사지 작성 요령 · 등급 안내 · 재검사 신청</span></a><a data-nav="X스학과"><b>X스학과 안내</b><span>교육과정 · 교수진 · 졸업 후 진로</span></a><a data-nav="성적·장학"><b>장학금 안내</b><span>학기 평점 4.2 이상 성적우수장학금</span></a></div></div></section>
+  <div class="bnr"><a data-nav="신체 X스 적격도 검사"><b>신체 X스 적격도 검사</b><span>검사지 작성 요령 · 등급 안내 · 재검사 신청</span></a><a data-nav="X스학과"><b>X스학과 안내</b><span>교육과정 · 교수진 · 졸업 후 진로</span></a><a data-nav="성적·장학"><b>장학금 안내</b><span>학기 평점 4.2 이상 성적우수장학금</span></a><a data-nav="등장인물"><b>등장인물 소개</b><span>교수진 · 학과 구성원 · 인물 관계</span></a></div></div></section>
   <section class="band"><div class="w"><div class="stats"><div><b>87.2%</b><span>졸업생 취업률</span></div><div><b>4.5</b><span>학점 만점제</span></div><div><b>4.2</b><span>장학금 기준 평점</span></div><div><b>24h</b><span>도서관 열람실 운영</span></div></div></div></section>
   <section class="sec"><div class="w"><div class="bh"><h3>캠퍼스 포토뉴스</h3><a class="more" data-nav="대학소식">더보기 +</a></div><div class="news">${[8,9,10,11].map(i=>`<a data-nv="${i}"><div class="im" style="background-image:url(${IMG[NEWS[i][2]]})"></div><b>${esc(NEWS[i][0])}</b><span>${NEWS[i][1].replace('.','.')}</span></a>`).join('')}</div></div></section>`;
 }
