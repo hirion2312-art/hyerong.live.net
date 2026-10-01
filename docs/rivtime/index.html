@@ -1,0 +1,427 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>크랙대학교</title><style>[hidden]{display:none!important}body{margin:0}</style></head><body><title>뤼브리타임 크랙대</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap">
+<style>
+/* layout: 3-column campus community (profile | board | live widgets), mobile stacks to one column */
+:root{
+  --bg:#f4f4f5; --card:#fff; --fg:#222; --sub:#777; --faint:#aaa; --line:#e4e4e6; --red:#c62917; --blue:#1d62b8;
+  --band:#f1f1f2; --chip:#f4f4f5; --teal:#3aa8b8; --star:#f5b301; --hover:#fafafa;
+  --font:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141415;--card:#1d1d1f;--fg:#e8e8ea;--sub:#9a9aa0;--faint:#66666c;--line:#2e2e32;--red:#ef5a47;--blue:#6aa6f0;--band:#19191b;--chip:#26262a;--teal:#52bccb;--hover:#222225;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141415;--card:#1d1d1f;--fg:#e8e8ea;--sub:#9a9aa0;--faint:#66666c;--line:#2e2e32;--red:#ef5a47;--blue:#6aa6f0;--band:#19191b;--chip:#26262a;--teal:#52bccb;--hover:#222225;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:14px;line-height:1.5;margin:0}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px}
+header{background:var(--card);border-bottom:1px solid var(--line)}
+.top{display:flex;align-items:center;gap:24px;height:92px}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer;flex:none}
+.logo .mk{width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-weight:700;font-size:20px;position:relative}
+.logo .mk::after{content:"";position:absolute;right:-2px;top:-2px;width:11px;height:11px;border-radius:50%;background:var(--fg);border:2px solid var(--card)}
+.logo small{display:block;color:var(--red);font-size:12px;font-weight:700;line-height:1}
+.logo b{display:block;font-size:20px;font-weight:500;line-height:1.2;letter-spacing:-.5px}
+nav.main{display:flex;gap:26px;margin-inline:auto;overflow-x:auto;scrollbar-width:none;min-width:0}
+nav.main button{background:none;border:0;padding:30px 0 28px;font-size:16px;font-weight:700;white-space:nowrap;border-bottom:3px solid transparent;color:var(--fg)}
+nav.main button.on{color:var(--red);border-color:var(--red)}
+.ico{display:flex;gap:8px;flex:none}
+.ico button{width:46px;height:46px;border-radius:10px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;color:var(--sub)}
+.ico button:last-child{display:none}
+@media(min-width:760px){.ico button:last-child{display:grid}}
+.band{background:var(--band);border-bottom:1px solid var(--line)}
+.cols{display:flex;gap:0;padding:14px 0 12px;font-size:13px;overflow-x:auto;scrollbar-width:none}
+.cols div{padding:0 22px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:7px;flex:none;white-space:nowrap}
+.cols div:first-child{border-left:0;padding-left:0}
+.cols a{cursor:pointer;color:var(--fg)}
+.cols a:hover,.cols a.on{color:var(--red)}
+.cols a.dot::after{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--teal);margin-left:6px;vertical-align:middle}
+.cols a.find{color:var(--red);font-weight:700}
+main.grid{display:grid;grid-template-columns:205px minmax(0,1fr) 340px;gap:20px;padding-block:20px 60px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line)}
+.profile{padding:30px 14px 16px;text-align:center}
+.avatar{width:70px;height:70px;border-radius:10px;background:var(--chip);margin:0 auto 14px;display:grid;place-items:center;color:var(--faint)}
+.profile .nm{font-size:18px;font-weight:700}
+.profile .sub{color:var(--faint);font-size:12px;line-height:1.5;margin-top:6px}
+.profile .btns{display:flex;gap:6px;margin-top:20px;justify-content:center}
+.profile .btns button{border:1px solid var(--line);background:var(--card);padding:4px 12px;font-size:12px;color:var(--sub)}
+.sidemenu{margin-top:8px}
+.sidemenu button{display:flex;gap:12px;align-items:center;width:100%;padding:12px 16px;background:var(--card);border:0;border-bottom:1px solid var(--line);font-size:14px;text-align:left}
+.sidemenu button:last-child{border-bottom:0}
+.sidemenu i{font-style:normal;color:var(--blue);width:16px;text-align:center}
+.ad{display:block;margin-top:8px;border:1px solid var(--line);padding:14px 12px;font-size:12px;cursor:default}
+.ad strong{display:block;font-size:15px;line-height:1.35;margin-bottom:6px}
+.ad.a1{background:#2b1418;color:#fff;border-color:#2b1418}
+.ad.a2{background:#e9f1ff;color:#17315c;border-color:#e9f1ff}
+.ad.a3{background:#fff6d6;color:#4a3a00;border-color:#fff6d6}
+.ad em{font-style:normal;opacity:.7;display:block;margin-top:6px;font-size:11px}
+.banner{height:220px;background:linear-gradient(120deg,#2a0d12 0%,#5d1a22 55%,#8e2a26 100%);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 40px;position:relative;overflow:hidden;margin-bottom:16px}
+.banner::before{content:"CRACK";position:absolute;right:-10px;bottom:-34px;font-size:120px;font-weight:700;letter-spacing:-5px;color:rgba(255,255,255,.07)}
+.banner h2{margin:0;font-size:30px;line-height:1.25;font-weight:700;text-wrap:balance}
+.banner h2 em{font-style:normal;color:#ffb3a8}
+.banner p{margin:10px 0 0;font-size:12px;opacity:.75}
+.boards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bcard{background:var(--card);border:1px solid var(--line);min-width:0}
+.bcard h3{margin:0;padding:16px 12px;font-size:15px;font-weight:700;color:var(--red);cursor:pointer;border-bottom:1px solid var(--line)}
+.bcard a{display:flex;justify-content:space-between;gap:10px;padding:0 12px;height:44.5px;align-items:center;border-bottom:1px solid var(--line);cursor:pointer;font-size:14px}
+.bcard a:last-child{border-bottom:0}
+.bcard a span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.bcard a span:last-child{color:var(--faint);font-size:12px;flex:none;font-variant-numeric:tabular-nums}
+.bcard a:hover,.row:hover{background:var(--hover)}
+.side .search{display:flex;align-items:center;border:2px solid var(--line);background:var(--card);padding:0 12px;height:46px;margin-bottom:6px}
+.side .search input{flex:1;border:0;outline:0;background:none;font:inherit;color:var(--fg);min-width:0}
+.side .search button{background:none;border:0;color:var(--sub);display:grid;place-items:center}
+.wd{background:var(--card);border:1px solid var(--line);margin-top:6px}
+.wd h4{margin:0;padding:14px 12px;font-size:15px;font-weight:500;color:var(--blue);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}
+.wd h4 span{font-size:12px;color:var(--faint);font-weight:400}
+.wd .it{padding:11px 12px;border-bottom:1px solid var(--line);cursor:pointer;display:block}
+.wd .it:last-child{border-bottom:0}
+.wd .it:hover{background:var(--hover)}
+.wd .it b{display:block;font-size:14px;margin-bottom:4px}
+.wd .it p{margin:0;color:var(--sub);font-size:13px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wd .it .m{margin-top:6px;color:var(--faint);font-size:12px;display:flex;gap:10px;align-items:center}
+.wd .it .m .l{color:var(--red)}.wd .it .m .c{color:var(--teal)}
+.wd .ln{display:flex;justify-content:space-between;gap:10px;padding:12px;border-bottom:1px solid var(--line);cursor:pointer;font-size:14px}
+.wd .ln:last-child{border-bottom:0}
+.wd .ln span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.wd .ln span:last-child{color:var(--faint);font-size:12px;flex:none}
+.stars{color:var(--star);letter-spacing:1px;font-size:12px}
+.ptitle{background:var(--card);border:1px solid var(--line);padding:17px 17px;font-size:23px;font-weight:700;letter-spacing:-.5px}
+.tabs{display:flex;gap:16px;padding:16px 4px;font-size:15px;overflow-x:auto}
+.tabs button{background:none;border:0;padding:0 0 3px;color:var(--sub);white-space:nowrap}
+.tabs button.on{color:var(--red);font-weight:700;border-bottom:2px solid var(--red)}
+.notice{display:flex;gap:14px;align-items:center;padding:16px 20px;margin-bottom:6px}
+.notice span{background:var(--chip);padding:9px 14px;border-radius:10px;font-size:13px;color:var(--sub);cursor:pointer}
+.writebox{display:flex;justify-content:space-between;align-items:center;padding:16px 14px;border:2px solid var(--line);background:var(--card);color:var(--faint);margin-bottom:6px;cursor:text;width:100%;text-align:left}
+.compose{background:var(--card);border:2px solid var(--line);padding:12px;margin-bottom:6px;display:grid;gap:8px}
+.compose input,.compose textarea{width:100%;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:inherit;padding:10px;outline:0}
+.compose textarea{min-height:100px;resize:vertical}
+.compose .rw{display:flex;justify-content:flex-end;gap:8px;align-items:center;font-size:13px;color:var(--sub)}
+.compose button,.cform button.go{background:var(--red);color:#fff;border:0;padding:8px 18px;font-weight:700}
+.compose button.gh{background:none;color:var(--sub);border:1px solid var(--line)}
+.row{display:block;background:var(--card);border:1px solid var(--line);border-top:0;padding:16px 16px 14px;cursor:pointer}
+.row:first-of-type{border-top:1px solid var(--line)}
+.row h5{margin:0 0 4px;font-size:15px;font-weight:700}
+.row p{margin:0;color:var(--fg);white-space:pre-line;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:14px;line-height:1.55}
+.row .meta{margin-top:10px;display:flex;gap:10px;font-size:12px;color:var(--faint);align-items:center;flex-wrap:wrap}
+.row .meta .l{color:var(--red)}.row .meta .c{color:var(--teal)}
+.post{background:var(--card);border:1px solid var(--line);margin-top:0}
+.ph{display:flex;align-items:center;gap:10px;padding:16px 17px 0}
+.ph .av{width:40px;height:40px;border-radius:10px;background:var(--chip);display:grid;place-items:center;color:var(--faint);flex:none}
+.ph b{display:block;font-size:14px}.ph small{color:var(--faint);font-size:12px}
+.ph .acts{margin-left:auto;color:var(--faint);font-size:12px;display:flex;gap:12px}
+.post h1{font-size:21px;margin:16px 17px 14px;letter-spacing:-.4px;line-height:1.35}
+.post .body{padding:0 17px;white-space:pre-line;line-height:1.7;font-size:14.5px;overflow-wrap:anywhere}
+.post .stat{padding:18px 17px 12px;font-size:12px;display:flex;gap:12px}
+.post .stat .l{color:var(--red)}.post .stat .c{color:var(--teal)}.post .stat .s{color:var(--star)}
+.post .pb{display:flex;gap:8px;padding:0 17px 18px}
+.post .pb button{background:var(--chip);border:0;padding:8px 13px;border-radius:6px;font-size:13px;color:var(--sub)}
+.post .pb button.on{color:var(--red);font-weight:700}
+.cm{border-top:1px solid var(--line);padding:13px 17px 12px}
+.cm.re{padding-left:44px;background:var(--hover)}
+.cm .h{display:flex;align-items:center;gap:8px;font-size:13px}
+.cm .h .av{width:22px;height:22px;border-radius:6px;background:var(--chip);display:grid;place-items:center;color:var(--faint)}
+.cm .h b{font-size:13px}
+.cm .h b.wr{color:var(--teal)}
+.cm .h .a{margin-left:auto;color:var(--faint);font-size:12px;display:flex;gap:10px}
+.cm .t{margin:7px 0 6px;white-space:pre-line;overflow-wrap:anywhere}
+.cm .f{font-size:12px;color:var(--faint);display:flex;gap:8px}
+.cm .f .l{color:var(--red)}
+.cform{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);background:var(--chip);padding:0 0 0 17px}
+.cform input[type=text]{flex:1;border:0;background:none;outline:0;font:inherit;color:var(--fg);height:48px;min-width:0}
+.cform label{font-size:12px;color:var(--faint);display:flex;gap:4px;align-items:center}
+.cform button.go{height:48px;width:48px;padding:0;display:grid;place-items:center}
+.back{margin-top:10px;display:inline-flex;gap:6px;border:1px solid var(--red);color:var(--red);background:var(--card);padding:9px 14px;font-weight:700;font-size:13px}
+.lec{background:var(--card);border:1px solid var(--line);border-top:0;padding:16px}
+.lec:first-of-type{border-top:1px solid var(--line)}
+.lec h5{margin:0;font-size:16px}
+.lec .pr{color:var(--sub);font-size:13px;margin:2px 0 8px}
+.lec .tg{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 0}
+.lec .tg span{background:var(--chip);border-radius:20px;padding:2px 10px;font-size:12px;color:var(--sub)}
+.lec .rv{border-top:1px solid var(--line);margin-top:12px;padding-top:10px}
+.lec .rv p{margin:4px 0 0;font-size:13.5px}
+.empty{padding:50px 16px;text-align:center;color:var(--faint);background:var(--card);border:1px solid var(--line)}
+footer{max-width:1180px;margin:0 auto;padding:0 16px 50px;font-size:12px;color:var(--faint);line-height:1.7}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#222;color:#fff;padding:10px 18px;border-radius:30px;font-size:13px;z-index:9;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+@media(max-width:980px){main.grid{grid-template-columns:minmax(0,1fr)}.left{display:none}.side{order:3}.top{height:70px;gap:12px}nav.main{gap:18px;margin-inline:0}nav.main button{padding:22px 0 18px;font-size:15px}.logo b{font-size:17px}.logo .mk{width:36px;height:36px;font-size:17px}.ico{display:none}}
+@media(max-width:620px){.boards{grid-template-columns:1fr}.banner{padding:0 20px;height:190px}.banner h2{font-size:23px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<header>
+  <div class="wrap top">
+    <div class="logo" id="logo"><div class="mk">뤼</div><div><small>뤼브리타임</small><b>크랙대 캠퍼스</b></div></div>
+    <nav class="main" id="nav"></nav>
+    <div class="ico"><button title="쪽지" aria-label="쪽지"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3v-3H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm14 5h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2v3l-4-3h-5a2 2 0 0 1-2-1.5h6a3 3 0 0 0 3-3z"/></svg></button><button title="내 정보" aria-label="내 정보"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.5"/><path d="M3.5 21c0-4.7 3.8-7.5 8.5-7.5s8.5 2.8 8.5 7.5z"/></svg></button></div>
+  </div>
+</header>
+<div class="band"><div class="wrap"><div class="cols" id="cols"></div></div></div>
+<div class="wrap"><main class="grid">
+  <aside class="left">
+    <div class="card profile"><div class="avatar"><svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.5"/><path d="M3.5 21c0-4.7 3.8-7.5 8.5-7.5s8.5 2.8 8.5 7.5z"/></svg></div><div class="nm">익명의 신입생</div><div class="sub">X스학과 26학번<br>크랙대학교</div><div class="btns"><button>내 정보</button><button>로그아웃</button></div></div>
+    <div class="card sidemenu"><button><i>≡</i>내가 쓴 글</button><button><i style="color:var(--teal)">◌</i>댓글 단 글</button><button><i style="color:var(--star)">☆</i>내 스크랩</button></div>
+    <a class="ad a1"><strong>밤결 개총·종총<br>단체예약 받아요</strong>사장 언니가 직접 챙겨요. 외상은 안 됩니다(될 때도 있음).<em>광고 · 대학가 술집 밤결</em></a>
+    <a class="ad a2"><strong>21학점 중간고사 준비<br>막힘없이!</strong>족보 정리 스터디 오픈. 과제 4회 평균 계산기 무료.<em>광고 · 학습지원센터</em></a>
+    <a class="ad a3"><strong>학식 신메뉴<br>계란후라이 덮밥</strong>인사를 잘하면 하나 더. 이모 기분에 따라 다름.<em>광고 · 제1학생식당</em></a>
+  </aside>
+  <section id="center"></section>
+  <aside class="side" id="side"></aside>
+</main></div>
+<footer>뤼브리타임은 크랙대학교 재학생·졸업생 인증 기반 익명 커뮤니티입니다. 이 페이지는 가상 세계관(X스학과)을 위한 창작물이며, 등장하는 인물·학교·사건은 모두 허구입니다. 모든 등장인물은 성인입니다.</footer>
+<div class="toast" id="toast"></div>
+<script>
+const BOARDS={
+ free:'자유게시판',secret:'비밀게시판',grad:'졸업생게시판',fresh:'새내기게시판',news:'시사·이슈',market:'장터게시판',info:'정보게시판',event:'이벤트게시판',
+ promo:'홍보게시판',club:'동아리·학회',job:'취업·진로',paper:'크랙신문',council:'학생회 공지',
+ xs:'X스학과 게시판',pe:'체육대학 게시판',dorm:'크랙대 기숙사 방',room:'자취방 정보',food:'대학가맛집게시판'};
+const COLS=[
+ [['free',1],['secret',1],['grad',1],['fresh',1],['news'],['market',1],['info',1],['event']],
+ [['promo',1],['club',1]],
+ [['job']],
+ [['paper'],['council']],
+ [['xs',1],['pe',1]],
+ [['dorm',1],['room'],['food',1],['find']]
+];
+const NAV=[['board','게시판'],['table','시간표'],['lec','강의실'],['gpa','학점계산기'],['friend','친구'],['book','책방'],['pick','캠퍼스픽']];
+const NOW=new Date(2026,9,1,12,20);
+const pad=n=>String(n).padStart(2,'0');
+function fmt(m){ if(m<60) return Math.max(m,1)+'분 전'; const d=new Date(NOW-m*60000);
+  const hm=pad(d.getHours())+':'+pad(d.getMinutes());
+  if(d.getDate()===NOW.getDate()&&d.getMonth()===NOW.getMonth()) return hm;
+  return pad(d.getMonth()+1)+'/'+pad(d.getDate())+' '+hm; }
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const AVA='<svg width="60%" height="60%" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.5"/><path d="M3.5 21c0-4.7 3.8-7.5 8.5-7.5s8.5 2.8 8.5 7.5z"/></svg>';
+let posts=[], state={view:'home',board:null,id:null,tab:'전체',q:'',nav:'board'}, composing=false;
+const mine=new Set(), scr=new Set();
+function init(){
+  posts=RAW.map((r,i)=>({id:i+1,b:r[0],t:r[1],body:r[2],m:r[3],like:r[4],cm:r[5].map((c,j)=>{
+    let wr=false,re=false;
+    while(c[0]==='@'||c[0]==='↳'){ if(c[0]==='@')wr=true; else re=true; c=c.slice(1); }
+    return {t:c.trim(),wr,re,like:(i*7+j*5)%4===0?((i+j)%5)+1:0,m:Math.max(r[3]-(6+((i*13+j*17)%23))*(j+1),1)};
+  }),scrap:Math.max(0,Math.floor(r[4]/6)),tag:r[6]||''}));
+  posts.forEach(p=>{ p.cm.forEach(c=>{ if(c.m<1)c.m=1; }); });
+}
+function nameCm(p){ let n=0; return p.cm.map(c=>c.wr?'익명(글쓴이)':('익명'+(++n))); }
+function sorted(list){ return [...list].sort((a,b)=>a.m-b.m); }
+function toast(s){ const t=document.getElementById('toast'); t.textContent=s; t.classList.add('on'); clearTimeout(toast.h); toast.h=setTimeout(()=>t.classList.remove('on'),1600); }
+function go(s){ Object.assign(state,s); composing=false; render(); window.scrollTo({top:0}); }
+function renderNav(){
+  document.getElementById('nav').innerHTML=NAV.map(([k,l])=>`<button class="${state.nav===k?'on':''}" data-nav="${k}">${l}</button>`).join('');
+  document.getElementById('cols').innerHTML=COLS.map(col=>'<div>'+col.map(([k,d])=>k==='find'?`<a class="find" data-find="1">게시판 찾기</a>`:`<a class="${d?'dot':''} ${state.board===k&&state.view!=='home'?'on':''}" data-board="${k}">${BOARDS[k]}</a>`).join('')+'</div>').join('');
+}
+function homeCards(){
+  const keys=['free','secret','grad','fresh','xs','market','news','info'];
+  return keys.map(k=>{ const l=sorted(posts.filter(p=>p.b===k)).slice(0,4);
+    return `<div class="bcard"><h3 data-board="${k}">${BOARDS[k]}</h3>${l.map(p=>`<a data-post="${p.id}"><span>${esc(p.t)}</span><span>${fmt(p.m)}</span></a>`).join('')}</div>`; }).join('');
+}
+function listRow(p,showB){
+  return `<a class="row" data-post="${p.id}"><h5>${esc(p.t)}</h5><p>${esc(p.body)}</p><div class="meta"><span>${fmt(p.m)}</span><span>${showB?esc(BOARDS[p.b])+' ·':''} ${p.b==='secret'||p.b==='paper'||p.b==='council'?'':'익명'}</span><span class="l">♥ ${p.like}</span><span class="c">◌ ${p.cm.length}</span></div></a>`;
+}
+function viewHome(){
+  return `<div class="banner"><h2>2학기 수강신청 정정<br><em>이번 주 금요일 18시</em> 마감</h2><p>※ 학기당 5과목 · 전공 최대 4과목 + 교양 1과목 필수 / 행정실 3번 창구는 점심시간 폐쇄</p></div><div class="boards">${homeCards()}</div>`;
+}
+function viewBoard(){
+  const b=state.board; let list=sorted(posts.filter(p=>p.b===b));
+  const tabs=b==='market'?['전체','팝니다','삽니다','나눔','원룸']:null;
+  if(tabs&&state.tab!=='전체') list=list.filter(p=>p.tag===state.tab);
+  return `<div class="ptitle">${BOARDS[b]}</div>
+  ${tabs?`<div class="tabs">${tabs.map(t=>`<button class="${state.tab===t?'on':''}" data-tab="${t}">${t}</button>`).join('')}</div>`:'<div style="height:6px"></div>'}
+  <div class="card notice"><span style="background:none;padding:0;color:var(--sub)">📢</span><span>${esc(BOARDS[b])} 유의사항</span></div>
+  ${composing?`<div class="compose"><input id="ct" placeholder="글 제목" maxlength="60"><textarea id="cb" placeholder="내용을 입력하세요"></textarea><div class="rw"><span>이 화면에서만 보여요</span><button class="gh" data-cancel="1">취소</button><button data-submit="1">등록</button></div></div>`:`<button class="writebox" data-write="1">새 글을 작성해주세요!<span>✎</span></button>`}
+  <div>${list.length?list.map(p=>listRow(p)).join(''):'<div class="empty">아직 글이 없어요.</div>'}</div>`;
+}
+function viewSearch(){
+  const q=state.q.trim().toLowerCase(); const l=sorted(posts.filter(p=>(p.t+p.body).toLowerCase().includes(q)));
+  return `<div class="ptitle">‘${esc(state.q)}’ 검색 결과 ${l.length}건</div><div style="height:6px"></div>${l.length?l.map(p=>listRow(p,true)).join(''):'<div class="empty">검색 결과가 없어요.</div>'}`;
+}
+function viewPost(){
+  const p=posts.find(x=>x.id===state.id); const nm=nameCm(p);
+  return `<div class="ptitle">${esc(BOARDS[p.b])}</div><div style="height:6px"></div>
+  <article class="post"><div class="ph"><div class="av">${AVA}</div><div><b>${p.b==='paper'?'크랙신문':p.b==='council'?'학생회':'익명'}</b><small>${p.m<60?fmt(p.m):fmt(p.m)}</small></div><div class="acts"><span>쪽지</span><span>신고</span></div></div>
+  <h1>${esc(p.t)}</h1><div class="body">${esc(p.body)}</div>
+  <div class="stat"><span class="l">♥ ${p.like}</span><span class="c">◌ ${p.cm.length}</span><span class="s">☆ ${p.scrap}</span></div>
+  <div class="pb"><button data-like="${p.id}" class="${mine.has(p.id)?'on':''}">♥ 공감</button><button data-scrap="${p.id}" class="${scr.has(p.id)?'on':''}">☆ 스크랩</button></div>
+  ${p.cm.map((c,i)=>`<div class="cm ${c.re?'re':''}"><div class="h"><span class="av">${AVA}</span><b class="${c.wr?'wr':''}">${nm[i]}</b><span class="a"><span>대댓글</span><span>공감</span><span>쪽지</span><span>신고</span></span></div><div class="t">${esc(c.t)}</div><div class="f"><span>${fmt(c.m)}</span>${c.like?`<span class="l">♥ ${c.like}</span>`:''}</div></div>`).join('')}
+  <form class="cform" id="cf"><input type="text" id="ci" placeholder="댓글을 입력하세요." maxlength="200"><label><input type="checkbox" id="ca" checked>익명</label><button class="go" aria-label="등록">✎</button></form></article>
+  <button class="back" data-board="${p.b}">≡ 글 목록</button>`;
+}
+function viewLec(){
+  return `<div class="ptitle">강의실 · 이번 학기 강의평</div><div style="height:6px"></div>`+LEC.map(l=>{
+    const avg=(l[3].reduce((a,r)=>a+r[0],0)/l[3].length);
+    return `<div class="lec"><h5>${esc(l[0])} <span class="stars">${'★'.repeat(Math.round(avg))}${'☆'.repeat(5-Math.round(avg))}</span> <small style="color:var(--faint)">${avg.toFixed(2)}</small></h5><div class="pr">${esc(l[1])} · ${esc(l[2])}</div><div class="tg">${l[4].map(t=>`<span>${esc(t)}</span>`).join('')}</div>${l[3].map(r=>`<div class="rv"><span class="stars">${'★'.repeat(r[0])}${'☆'.repeat(5-r[0])}</span><p>${esc(r[1])}</p></div>`).join('')}</div>`; }).join('');
+}
+function viewSoon(){ const n=NAV.find(x=>x[0]===state.nav)[1]; return `<div class="ptitle">${n}</div><div style="height:6px"></div><div class="empty">${n} 메뉴는 다음 학기에 열려요.<br>지금은 게시판과 강의실을 둘러볼 수 있어요.</div>`; }
+function renderSide(){
+  const hot=[...posts].sort((a,b)=>(b.like+b.cm.length*2)-(a.like+a.cm.length*2));
+  const live=hot.slice(0,2);
+  const hotl=sorted(hot.slice(0,12)).slice(0,4);
+  const lr=[]; LEC.forEach(l=>l[3].forEach(r=>lr.push([l[0]+' : '+l[1].split(' ')[0],r])));
+  document.getElementById('side').innerHTML=`
+  <form class="search" id="sf"><input id="sq" placeholder="전체 게시판의 글을 검색하세요!" value="${esc(state.q)}"><button aria-label="검색"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button></form>
+  <div class="wd"><h4>실시간 인기 글</h4>${live.map(p=>`<a class="it" data-post="${p.id}"><b>${esc(p.t)}</b><p>${esc(p.body)}</p><div class="m"><span>${esc(BOARDS[p.b])}</span><span class="l">♥ ${p.like}</span><span class="c">◌ ${p.cm.length}</span></div></a>`).join('')}</div>
+  <div class="wd"><h4>HOT 게시물 <span>더 보기</span></h4>${hotl.map(p=>`<a class="ln" data-post="${p.id}"><span>${esc(p.t)}</span><span>${fmt(p.m)}</span></a>`).join('')}</div>
+  <div class="wd"><h4>BEST 게시판 <span>더 보기</span></h4></div>
+  <div class="wd"><h4>최근 강의평 <span data-nav="lec" style="cursor:pointer">더 보기</span></h4>${lr.slice(0,3).map(x=>`<a class="it" data-nav="lec"><div class="stars">${'★'.repeat(x[1][0])}</div><b style="margin-top:4px">${esc(x[0])}</b><p>${esc(x[1][1])}</p></a>`).join('')}</div>`;
+}
+function render(){
+  renderNav(); renderSide();
+  const c=document.getElementById('center');
+  c.innerHTML= state.nav==='lec'?viewLec(): state.nav!=='board'?viewSoon(): state.view==='home'?viewHome(): state.view==='board'?viewBoard(): state.view==='post'?viewPost(): viewSearch();
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-nav],[data-board],[data-post],[data-tab],[data-write],[data-cancel],[data-submit],[data-like],[data-scrap],[data-find],#logo');
+  if(!t)return;
+  if(t.id==='logo') return go({nav:'board',view:'home',board:null,q:''});
+  if(t.dataset.nav) return go({nav:t.dataset.nav,view:'home',board:null});
+  if(t.dataset.find) return toast('게시판 찾기는 다음 학기에 열려요');
+  if(t.dataset.board) return go({nav:'board',view:'board',board:t.dataset.board,tab:'전체'});
+  if(t.dataset.post){ const p=posts.find(x=>x.id==t.dataset.post); return go({nav:'board',view:'post',id:p.id,board:p.b}); }
+  if(t.dataset.tab) return go({tab:t.dataset.tab});
+  if(t.dataset.write){ composing=true; render(); return document.getElementById('ct').focus(); }
+  if(t.dataset.cancel){ composing=false; return render(); }
+  if(t.dataset.submit){ const ti=document.getElementById('ct').value.trim(), bo=document.getElementById('cb').value.trim();
+    if(!ti||!bo) return toast('제목과 내용을 입력해 주세요');
+    posts.push({id:posts.length+1,b:state.board,t:ti,body:bo,m:1,like:0,cm:[],scrap:0,tag:state.tab!=='전체'?state.tab:''}); composing=false; render(); return toast('등록했어요'); }
+  if(t.dataset.like){ const p=posts.find(x=>x.id==t.dataset.like); if(mine.has(p.id)){mine.delete(p.id);p.like--;}else{mine.add(p.id);p.like++;} return render(); }
+  if(t.dataset.scrap){ const p=posts.find(x=>x.id==t.dataset.scrap); if(scr.has(p.id)){scr.delete(p.id);p.scrap--;}else{scr.add(p.id);p.scrap++;} return render(); }
+});
+document.addEventListener('submit',e=>{
+  e.preventDefault();
+  if(e.target.id==='sf'){ const q=document.getElementById('sq').value; if(!q.trim()) return; return go({nav:'board',view:'search',q}); }
+  if(e.target.id==='cf'){ const v=document.getElementById('ci').value.trim(); if(!v) return;
+    const p=posts.find(x=>x.id===state.id); const wr=!document.getElementById('ca').checked;
+    p.cm.push({t:v,wr:false,re:false,like:0,m:1}); render(); toast('댓글을 남겼어요'); }
+});
+</script>
+<script>
+const RAW=[
+// ───── 자유게시판 ─────
+['free','학식 이모 계란후라이 기준이 뭐임','어제 "안녕하세요!!" 크게 했더니 계란후라이 하나 더 얹어주심\n오늘은 인사 안 하고 그냥 받았는데 이모가 "학생 오늘은 기운이 없네" 하면서 또 주심\n기준이 인사인지 표정인지 모르겠다 아는 사람?',14,31,['표정임 진짜. 이모는 다 보고 계심','나 3주째 매일 가는데 이름까지 외우시더라','@아 그래서 어제 내 옆사람이 두 개 받았구나','이모 30년차라 교수님들 신입생 시절 썰도 아신다던데ㅋㅋ','↳그 썰 계란 세 개 정도면 풀어주실 듯','학식 이모가 우리 학교 진짜 학장님이다']],
+['free','X스학과 애들 확실히 얼굴 이쁜듯','학식에서 과잠 입고 줄 서 있는 사람들 보면 다 연예인 같음\n이게 입학 전에 적격도 검사 보고 들어와서 그런 건가 싶기도 하고\n다른 과 입장에서는 좀 박탈감 옴',22,87,['그거 신체검사 등급이랑 상관 없다던데? 과 분위기가 사람을 만드는 듯','과팅 경쟁률 미쳤다던데 타과생 입장에서는 줄 서도 안 됨','@솔직히 그냥 꾸미는 거에 진심인 과임','우리 과는 과잠 입으면 오히려 안 이쁨','↳ㅋㅋㅋㅋ공감 공대 과잠 = 작업복','근데 X스학과 애들 성격은 또 다 특이함','이 글 보고 학식 갔는데 진짜 눈 둘 데가 없었다']],
+['free','개강 3주차인데 벌써 번아웃','과제 4회 중에 1회차 아직 안 끝냄\n교양 요가는 왜 이렇게 힘들까 체대 합동이라고 안 알려줬잖아요\n다들 어떻게 버티고 있음?',55,19,['요가 합동수업 진짜 체력 테스트임','번아웃은 중간 지나서 온다 지금은 애기','밤결 가서 한 잔 하고 자라 사장님이 들어주심','↳외상은 안 됨 ㅋㅋ']],
+['free','도서관 4층 에어컨 누가 줄여놨냐','10월에 에어컨 틀어놓는 건 무슨 심보임\n담요 챙겨가세요 여러분\n그리고 새벽 4층에 앉아 있는 분들 존경합니다',88,12,['4층 노트북 열람실은 항상 냉장고임','새벽 도서관 분위기 그냥 별개의 세계','@담요 챙겨갔더니 옆자리 사람이 부러워하더라']],
+['free','편의점 야간 알바 형 인생상담 레전드','학교 앞 편의점 새벽에 가면 폐기 도시락 슬쩍 주시는 형 있는데\n연애 고민 말했더니 "그거 네가 제일 잘 알잖아" 한 마디 하고 계산해줌\n그날 집 가서 좀 울었다',210,64,['아 그 형 알아 휴학생이시지','"폐기 남았는데 먹을래" 가 인사임','듣기로는 소희 선배랑 신입생 때 동기였다던데','↳헐 그럼 둘이 아는 사이?','↳그건 모르겠고 그 형 말투는 맞음','나도 그 형한테 위로받음']],
+['free','밤결 사장님 진짜 천사인듯','과제 망하고 혼자 술 마시러 갔는데 아무 말 안 하고 안주 하나 더 주셨음\n마감 후에 둘이 남았을 때 학교 다닐 때 얘기 해주시는데 그게 또 전설이더라\n여기 단골 되기로 함',320,58,['밤결 마감 후 분위기는 진짜 별개임','사장님이 과 전설의 졸업생이라는 소문 있던데','@소문이 아니라 사실이래 교수님들이랑도 아심','태식 선배가 7년 단골이라던데 ㅋㅋㅋ','↳그 형 사장님 앞에서만 말 느려짐','알바생 노을은 체대생이고 존나 빠름']],
+['free','과잠 단체주문 마감 임박','26학번 과잠 사이즈 아직 안 낸 사람 오늘 18시까지임\n사이즈표 학생회실 앞에 붙어 있음\n늦으면 못 받아요',45,8,['어제 마감인 줄 알았는데 다행','@사이즈 한 치수 크게 가세요 줄어듦','학생회 지호 선배가 제출 안 하면 학칙 위반이라고 함','↳그런 학칙은 없다 ㅋㅋㅋ']],
+['free','혼자 밥 먹는 거 어때요?','새내기인데 학식 혼자 먹으면 눈치 보여서 도서관에서 대충 때움\n다들 익숙해지나요?',130,25,['2학기쯤이면 혼밥이 편해짐','혼자 먹는 게 맞는 날도 있고 아닌 날도 있음','학식 이모가 챙겨주실 거임 믿어봐','@댓글 보고 내일 학식 가보려구요']],
+['free','동아리방 냉장고 누가 막걸리 넣어놨냐','이름이라도 쓰세요 제발\n나눔 아니면 가져가지 마시고요\n상한 두부김치는 버렸습니다',400,9,['@반성합니다','ㅋㅋㅋㅋㅋㅋㅋ','막걸리는 나눔이 맞음 두부김치는 모르는 사람']],
+['free','교양 요가 체대 합동수업 후기','체대 애들은 숨도 안 가쁜데 우리는 첫 동작에서 죽음\n근데 선생님이 천천히 알려주셔서 좋음\n옆자리 체대 선배가 자세 봐줘서 감동',700,36,['요가 선생님 진짜 천사','체대 육상부 분들 유연성 미쳤더라','@나도 보고 있었는데 말 못 걸었음','다음 주 매트 가져오래요','↳매트는 나눔글 올라옴']],
+['free','캠퍼스 삼색 고양이 이름 아는 사람','벚꽃길 벤치에 매일 있는 애 이름 뭐임\n사료 가져가도 되는지도 궁금\n이름은 "삼색이" 라고 부르는 중',1500,41,['과학관 뒤에서는 "치즈"라고 부르던데 같은 애인지 모르겠음','도서관 앞 애는 "학점"이래 간식 주면 와서 앉음','@이름이 학점이라니 센스 좋다','캠퍼스 고양이 급식소 위치 정보게시판에 올려둠']],
+['free','크랙대 와이파이 왜이럼','대형강의실에서 연결 안 됨\n과제 제출 마감 직전에 끊겨서 식은땀 났다\n학교는 이거 좀 고쳐주세요',1800,27,['본관 와이파이는 되는데 강의동만 안 됨','학식 와이파이가 제일 빠름 이상함','교수님이 업로드 마감 연장해주셨음']],
+['free','가을인데 벚꽃길에 왜 사람 많음','다들 사진 찍으러 오는 건가\n나뭇잎 노랗게 변한 거 예쁘긴 함\n근데 길 막지는 말아주세요',2200,16,['가을 벚꽃길 은근 명소임','@인스타 감성 인정','교수님들도 산책하심 마주치면 인사 필수']],
+['free','학교 앞 카페 사장님이 우리 과 졸업생이라는데','"X스학과 나오면 뭐 하냐" 물어봤더니 웃기만 하심\n커피는 맛있음',2900,18,['졸업생들 진로 다양하다더라','카페 창업이 은근 많음','@커피 맛있으면 됐지']],
+// ───── 비밀게시판 ─────
+['secret','19 고민..','신입생인데 같은 과 선배한테 호감 생겼음\n그 선배는 모두에게 친절하고 장난도 잘 치는데 나만 의식하는 것 같아서 혼란스러움\n어떻게 해야 하나',6,44,['ㅇㅅㅎ 선배 같은데? 그 선배 원래 남사친 많고 이성으로 잘 안 봄','↳맞음 근데 마음에 드는 상대는 은근슬쩍 꼬시기도 함 고수임','@헐 정확해요 어떻게 아세요','일단 천천히 친해지고 과제 파트너 같이 해봐','조심해 그 선배 돌직구라 상처 받을 수도']],
+['secret','나 등급 D 나왔는데 학교 계속 다녀도 되나','입학 때 적격도 검사에서 D 받았음\n과제 파트너 구하기도 힘들 거라는 말만 들어서 위축됨\n그냥 휴학할까 고민 중',20,71,['D급은 뒤집을 수 있음 학기당 1회 재검 신청 가능','재검은 행정실 3번 창구 가서 신청하고 학과장님 결재 받아야 함','@감사해요 3번 창구 점심시간 닫는 거 기억할게요','과제 점수는 등급이랑 상관없음 태도가 중요하더라','나도 C였는데 과제 열심히 해서 A+ 받음','처음엔 놀리는 사람 있어도 한 달 지나면 아무도 신경 안 씀']],
+['secret','S급 받았는데 부담스러워요','학과 단톡에서 이미 소문이 나서 다들 쳐다봄\n교수님들도 주목하신다는 말 들으니 잘해야 한다는 압박이 큼\n그냥 평범하게 다니고 싶은데',90,52,['S급 받고 부담스럽다는 사람 처음 봄 ㅋㅋ','강혁 선배 같은 자칭 S급보다 낫다','@그 사람 얘기는 하지 마세요 웃음 나와서','부담 가질 필요 없음 이후 행동으로 뒤집힌 사람도 많음','교수님이 눈여겨보시는 건 좋은 거 아님?']],
+['secret','교수님한테 반한 것 같아','과 수업 들으면서 점점 의식하게 됨\n말투도 부드럽고 시연 들어가면 반전이 있어서 더 그런 듯\n이거 그냥 지나가는 감정이겠죠?',150,66,['ㅈㅇㄹ 교수님 말하는 거죠? 이 과 70%는 그럴 듯','국내 최고 테크니션이라는 이야기가 있어서 더 궁금한 거임','↳그건 소문일 뿐 아님?','↳소문 아님 본인도 말씀하심','@모두 같은 생각이었네요 위로가 됩니다','교수님은 공정한 채점자라 사심으로 접근하면 안 됨','땀 흘리시는 거 보면 손수건 드리고 싶음']],
+['secret','집에 불러놓고..','룸메가 오늘 사람 데려온다고 해서 도서관으로 쫓겨남\n새벽 2시인데 자리 있을까\n이럴 때 갈 데 있는 사람',31,29,['밤결 마감 후에 받아주실 수도?','도서관 새벽 열람실 가세요 24시임','@감사해요 도서관 가보겠습니다','편의점 새벽 알바 형한테 가면 같이 앉아있어줌']],
+['secret','군대 가기 전 마지막 학기인데','같은 과 동기들 전부 계속 이어가는데 나만 입대함\n과제 파트너도 정해지고 다 정리됐는데 마음이 비어있음\n응원 좀',240,38,['복학하면 태식 선배 같은 분이 과대표 하고 계심 믿고 다녀와','곰신 세라 선배도 기다리는 중이던데 힘내','@댓글 보고 힘 얻었다','휴가 때 과방 꼭 들러','제대 후에 복학하면 족보 관리하는 사람이 되어있음 ㅋㅋ']],
+['secret','같은 과 조교님 보면 설렘','조교님 말투가 은근 사람 떠보는 느낌이라 계속 생각남\n나만 이런 게 아니라는 건 알겠는데\n어떻게 해야 하냐',500,47,['ㅂㅎㅇ 조교님이죠? 사심 채점 걸리면 학과장님한테 보고된다던데 조심','@사심 채점이라니 무섭다','조교님이 나른하게 웃으면 정신 못 차림','나는 과제 점수 올려주면 좋겠다 ㅋㅋ','↳그러다 걸림']],
+['secret','썸남이 같은 과인데 둘 다 눈치 없어서 미치겠음','계속 서로 눈 마주치면 피하고 단톡에서 말도 안 걸고\n내가 먼저 말 걸어야 하나\n답답해서 여기 씀',900,33,['먼저 말 걸어 후회 안 함','@용기 내볼게요','과제 파트너 신청이 제일 자연스러움','연애 심리 교양 들어봐 도움 됨']],
+['secret','늦게 입학한 사람인데 분위기 어때요','20대 후반에 처음 대학 다님\n동기들이 너무 어려서 말 걸기가 어렵다\n비슷한 사람 있나',1300,45,['저도 비슷한데 과 분위기 생각보다 열려있음','과대표 태식 선배가 군필이라 말 잘 통함','@감사합니다 힘이 나네요','나이 상관 안 하는 과 분위기임']],
+['secret','학점 장학금 4.2 기준이 너무 빡빡함','과제 4회 평균 A 정도 되어야 가능한 수준인데\n파트너 호흡도 점수라 혼자만 열심히 해서 되는 게 아님\n다들 어떻게 하냐',1700,27,['과제 열심히 하는 것보다 태도가 더 중요','파트너 잘 만나는 것도 실력임','@그게 제일 어려운데 ㅠ','학과장님이 성실한 학생에게는 웃어주신다던데']],
+// ───── 졸업생 ─────
+['grad','X스학과 졸업 후 진로 현실','졸업한 지 2년차입니다\n연애 컨설팅, 성교육 강사, 상담 심리 쪽으로 많이 갑니다\n학점 4.2 이상이면 장학금뿐 아니라 취업 때도 가산점 있어요',380,56,['성교육 강사 현실 어떤가요','@수요가 꽤 있어요 학교 출강도 많습니다','연애 컨설팅 쪽은 경쟁 치열함','대학원 가서 조교 하다가 교수 되는 루트도 있음']],
+['secret_x','dummy','dummy',0,0,[]],
+['grad','밤결 마감 후 대학 때 생각남','졸업하고 오랜만에 밤결 갔다가 사장님 만났는데\n우리 학번 때 얘기 해주시더라\n그때 선배가 사장님인 줄은 상상도 못했음',960,48,['사장님이 이 과 전설의 졸업생이라는 말이 진짜였네','@전설 맞아요 교수님들이랑 술친구세요','밤결 단골은 졸업해도 단골임']],
+['grad','취업 3년차 후배들에게','학점보다 과제에서 보인 태도가 인터뷰에서 더 중요했어요\n파트너와 호흡을 어떻게 맞췄는지 자기소개서에 쓰세요\n웃기지만 진짜입니다',1500,33,['과제 호흡이 취업 스펙이 되는 과 ㅋㅋ','@실제로 면접관이 물어봄','선배 감사합니다 메모해둘게요']],
+// ───── 새내기 ─────
+['fresh','새내기 과잠 사이즈 추천','170/55면 M인가요 L인가요\n입학 전에 샀더니 작더라구요\n다들 어떻게 사셨나요',70,18,['한 치수 크게 가세요 줄어듦','@감사합니다 L로 갈게요','과잠은 약간 오버핏이 이쁨']],
+['fresh','개총 술게임 겁나요','처음 가는 개강총회인데 술게임 못해요\n다들 어떻게 대처하시나요\n그리고 밤결에서 한다던데 분위기는 어떤가요',110,43,['밤결 사장님 천사라 걱정 안 해도 됨','술게임은 지는 거 겁내지 말고 웃기만 하면 됨','태식 선배가 연설하면 졸지 말고 끄덕이면 됨','@다들 감사해요 갈 용기 생겼어요']],
+['fresh','수강신청 실패했어요 ㅠ','듣고 싶던 연애심리 마감됨\n정정 기간에 노려야겠죠\n행정실 가야 하나요',200,22,['정정 기간에 클릭 전쟁 합니다 마감 1분 전이 제일 빈자리 많음','행정실 3번 창구 가서 사정 설명해도 됨','@3번 창구는 점심 닫는다고 들었어요','아아 사 가면 서류 처리 빨라짐 ㅋㅋ']],
+['fresh','신체 적격도 검사 등급 반응 어땠음?','입학식 날 검사지 쓰면서 엄청 떨렸는데\n결과 나오고 주변 반응이 달라졌음\nB급 받은 사람은 어땠어요?',380,59,['B는 평범하게 지나감','C급은 동정받는 거 같더라','D급은 놀림 받음 근데 한 달 지나면 괜찮음','@글 보고 위로 받았어요','검사 담당관이 진짜 무표정이라 웃음 참느라 힘들었음','"수치는 거짓말을 하지 않습니다" 이 말은 유행어 됨']],
+['fresh','동기들 단톡방 분위기 ㅠ','다들 이미 친한 것 같고 나만 말을 못 걸겠다\n입학 3주차인데 아직도 벽 느낌\n어떻게 하죠',620,29,['저도 그래요 일단 과제 얘기부터 말 걸어봐요','@감사합니다','밥 먹자고 제안하면 의외로 다 받아줌']],
+['fresh','학식 맛집 정리','제1학생식당 계란후라이 덮밥 추천\n제2식당 닭갈비는 줄이 길어서 비추\n학생회관 분식은 점심 시간 지나면 한산',1000,40,['학식 이모 계란후라이 진짜 천국','@정리 감사해요','분식 참치김밥 최고']],
+['fresh','입학식 날 같은 과 사람들 첫인상','다들 너무 잘 생기고 예뻐서 움찔했음\n과 분위기가 밝아서 다행이긴 한데\n나만 평범한 것 같아서 위축됨',1900,31,['적격도 검사 때문인지 진짜 비주얼 평균 높음','@평범해도 괜찮아요 인생은 길다','성격 좋은 사람이 결국 인기 많음']],
+// ───── 시사·이슈 ─────
+['news','저출산 대응 X스 교육 의무화 3년차, 교육부 평가 결과 발표','교육부는 올해 X스 관련 학과 운영 대학이 총 42곳으로 늘었다고 밝혔다\n일부 대학에서는 실습 과제 평가 기준을 두고 논란이 있었으며 크랙대는 평가 항목을 태도, 창의성, 파트너와의 호흡, 완성도 네 가지로 공개했다',160,42,['크랙대 평가 공개 체계 잘 되어있다고 칭찬받던데','@실제로 과제 점수 투명해서 불만 적음','다른 대학은 아직도 구두 평가라던데 불합리하더라','학과 신설 대학 늘어나는 속도 무섭다']],
+['news','졸업생 취업률 전국 평균 상회','크랙대 X스학과 졸업생 취업률이 87.2%로 전국 평균을 크게 웃돈 것으로 나타났다\n상담 심리, 교육, 컨설팅 분야 진출이 많았다',620,38,['과 학점 안 좋아도 취업은 잘 된다더라','@실제로 선배들 보니 진짜 잘 감','취업률 높아서 신입생 경쟁률도 장난 아님']],
+['news','캠퍼스 내 사진 촬영 에티켓 안내','최근 벚꽃길에서 학생 사진 촬영이 늘어나며 통행 불편 민원이 접수됐다\n학교는 촬영 시 길을 막지 않도록 협조를 요청했다',1100,14,['사진 찍는 건 괜찮은데 길 막지는 마세요','@인정','벤치에 고양이 있으니 조용히 해주세요']],
+// ───── 장터 ─────
+['market','X스학개론 교재 새책 반값','작년에 샀는데 한 번도 안 폈어요\n조 교수님 수업 교재 개정판 아님 확인 완료\n정문 앞 카페에서 직거래 가능',35,3,['@연락 드릴게요 쪽지 주세요','개정판 아니면 사겠습니다'],'팝니다'],
+['market','페티시 문화사 족보 판매','중간, 기말 두 회분 정리본입니다\n교수님 취향 정리까지 있음 시험 문제 유형 분석 포함\n1.5만원',62,6,['@쪽지 드렸어요','이거 족보 맞음? 한 번 보여주실 수 있나요'],'팝니다'],
+['market','교양 요가 매트 나눔','쓰던 건데 깨끗합니다\n오늘 중으로 가져가실 분 도서관 앞에서 드릴게요',120,11,['@제가 갈게요','감사합니다 받고 싶어요'],'나눔'],
+['market','정문 도보 5분 원룸 양도','10월부터 가능합니다 월세 50 보증금 500\n에어컨 옵션 있고 소음 적은 편입니다\n학교 다닐 때 살던 집입니다',420,13,['@가격 흥정 가능한가요','소음 적은 건 진짜 중요하죠'],'원룸'],
+['market','체육복 새것 팝니다','교양 요가나 체력 수업 때 입으세요\nM 사이즈 한 번만 입었어요\n정문 앞에서 직거래',840,4,['@쪽지 드렸어요'],'팝니다'],
+['market','커플 실습 세미나 파트너 구합니다','2인 1조 추첨인데 추첨 전에 정해진 파트너 있으신 분 미리 연락 주세요\n과제 열심히 하실 분이면 좋겠어요',1300,17,['추첨 제도라 사전 구하기는 안 됨','@앗 몰랐네요 감사합니다','다른 데 올리세요 이 게시판은 장터예요'],'삽니다'],
+['market','교재 구해요: 연애심리와 유혹 커뮤니케이션','신판 구해요\n상태 상관없어요 필기 있어도 됩니다',1600,2,['@쪽지 드릴게요'],'삽니다'],
+// ───── 정보 ─────
+['info','수강신청 정정 꿀팁 정리','마감 1분 전이 빈자리 제일 많음\n전공 최대 4과목 + 교양 1과목 필수 확인하세요\n파트너 배정 방식은 첫 수업 때 공지되니 너무 걱정하지 마세요',50,76,['@실제로 마감 직전에 빈자리 나옴 ㅋㅋ','정리 감사합니다 저장함','행정실 3번 창구 점심시간 닫는 거 주의'],'정보'],
+['info','학점 4.2 장학금 기준 정리','과제 4회를 모두 완수해야 학점이 확정됩니다\n4회 평균으로 과목 학점이 결정되고 학기 평점이 4.2 이상이면 장학금 대상입니다\n불참은 감점, 대충 하면 교수님한테 들킵니다',280,92,['@정말 유용하다','불참 감점이 큰 편이라 조심','정리 감사합니다'],'정보'],
+['info','과제 평가 항목 4가지 정리','태도, 창의성, 파트너와의 호흡, 완성도\n회차마다 S~F로 평가합니다\n호흡이 의외로 점수 비중 큼',520,64,['@진짜 호흡이 비중 큼','파트너가 소극적이면 점수 같이 깎임','교수님마다 기준 조금씩 다름'],'정보'],
+['info','재검 신청 방법','행정실 3번 창구에서 신청서 받고 작성\n학과장님 결재 필요하며 학기당 1회만 가능합니다\n그 사이 노력(운동, 자기관리, 과제 성과)이 있어야 등급이 오릅니다',760,81,['@3번 창구는 점심 닫음','류 주무관님 무표정이지만 아아 사 가면 빨라짐','학과장님이 결재 잘 안 해주기로 유명'],'정보'],
+['info','학사일정 한 눈에 보기','개강 → 수강 정정 → 중간 → 8주차 MT → 축제 → 기말 → 종강\n올해 MT는 11월 첫째 주 예정입니다',1100,34,['@MT 일정 감사합니다','축제 때 체육대회도 함께 열림']],
+['info','교내 편의시설 정리','도서관 24시 열람실 4층\n편의점은 정문, 기숙사, 학생회관\n인쇄는 도서관 1층 무인 복사기 이용',2000,19,['@정리 감사해요']],
+// ───── 이벤트 ─────
+['event','개강총회 참석 이벤트','개강총회 참석자 중 추첨으로 밤결 상품권 증정\n참석 체크인은 학생회 부스에서 진행\n10/12 19시 밤결',120,23,['@참석할게요','상품권 노리고 감','태식 선배 연설 있음 주의']],
+['event','MT 조 편성 공지','11월 첫째 주 MT 조 편성은 추첨으로 진행됩니다\n술게임, 밤 이벤트 등 다양한 프로그램이 있어요\n불참 시 사전 신고해주세요',460,45,['@조 편성이 제일 걱정','밤 이벤트가 뭘까','체대 애들 모이면 체력전임']],
+['event','축제 부스 신청 안내','학과 단위 부스 신청은 10/15까지\n체육대회 종목 투표도 병행됩니다',900,18,['@신청 완료','학과 부스 아이템 추천 받아요']],
+// ───── 홍보 ─────
+['promo','밤결 개총·종총 단체예약','단체 예약 받습니다\n사장님이 직접 챙겨드려요 외상은 안 됩니다',70,21,['@사장님 최고','단체 예약 전화번호 어디에','외상 안 된다고 하면서 해주심 ㅋㅋ']],
+['promo','제1학생식당 신메뉴 안내','계란후라이 덮밥 출시\n점심 11시 30분부터',250,11,['@이모 신메뉴 잘 먹겠습니다','계란후라이는 이모 마음']],
+['promo','체대 육상부 신입 부원 모집','체력 자신 없어도 괜찮아요\n주 2회 운동장 연습입니다\n매일 아침 달립니다',700,15,['@체력 키우고 싶어서 관심 있어요','예은 선배 있는 곳이죠']],
+// ───── 동아리 ─────
+['club','[X스학과 공식 학회] 커플 실습 스터디 모집','실습 과제 준비 스터디입니다\n학기당 5과목 대비 학습법 공유\n주 1회 모임 도서관 세미나실',200,24,['@신청합니다','이런 스터디 필요했음']],
+['club','요가 동아리 신입 모집','매주 목요일 저녁 체육관\n초보 환영, 체대 선배들이 도와줍니다',600,12,['@요가 합동수업 들으며 관심 생김']],
+['club','독서토론 동아리 "연애의 기술 읽기"','매주 한 챕터 읽고 토론합니다\n연애심리와 유혹 커뮤니케이션 수강생 환영',1400,9,['@가입하고 싶어요']],
+// ───── 취업 ─────
+['job','학과 조교 근로장학생 모집','조교실 업무 보조입니다 주 10시간\n하연 조교님 지도 아래 출석, 채점 보조',130,17,['@지원할게요','조교님 지도면 긴장되는데','채점 사심은 조심']],
+['job','졸업생 인터뷰: 연애 컨설턴트가 되기까지','졸업 후 1년 만에 개인 상담소를 열었습니다\n학점 4.2 장학금이 취업과 창업에 큰 도움이 됐어요',950,26,['@멋있어요','인터뷰 감사합니다']],
+// ───── 크랙신문 ─────
+['paper','[단독] 학과장 장학금 결재 기준 공개','학과장은 장학금 결재 시 성실도와 과제 태도를 최우선으로 본다고 밝혔다\n"학문에는 품격이 필요하다"는 말이 인터뷰 내내 반복됐다',300,35,['@기사 잘 봤어요','학과장님 웃으면 장학금이라는 전설 사실이었네','지호 선배가 취재 따라붙음 ㅋㅋ']],
+['paper','[인터뷰] 학생회장 "효율적으로 살고 싶다"','4학년 학생회장 윤ㅊㅇ 씨는 행사 총괄 비결을 묻는 질문에 "비효율은 싫다"고 답했다\n"별 뜻 없다"는 말도 여러 번 반복했다',1500,28,['@회장님 귀 빨개지는 거 사진 있나요','부회장이 인터뷰에 같이 있었다던데']],
+// ───── 학생회 ─────
+['council','[학생회] 2학기 학과 대항 체육대회 일정 안내','10월 말 운동장에서 진행됩니다\n종목은 투표로 선정합니다\n참가 신청은 학생회실에서 받습니다',180,22,['@체대 쪽이 유리하겠죠','종목에 줄다리기 넣어주세요']],
+['council','[학생회] 학칙 제7조 위반 사례 안내','행사 중 공지 미확인, 과잠 미착용, 지각 등은 학칙 제7조 위반입니다\n성실한 참여를 부탁드립니다\n부회장 문ㅈㅎ',1200,31,['@학칙 제7조 그런 내용 아닌데 ㅋㅋ','부회장님 오늘도 열일','회장님 허락 받으셨나요?']],
+// ───── X스학과 게시판 ─────
+['xs','유ㅅㅎ 선배 A+ 비결 아는 사람','대충대충 하는 것 같은데 매번 A+ 받는 비결이 뭘까요\n과제 때마다 지켜봤는데 힘 빼고 하는데 호흡이 정말 좋아요\n배우고 싶어요',18,72,['본인은 "대충대충 해~" 라고만 함','@그게 비결이래요 힘 빼고 상대 보라고','소희 선배 앞에서는 신입도 편해짐','↳근데 마음에 들면 은근슬쩍 꼬시니까 조심','과제 파트너 되면 실력 늘 듯']],
+['xs','ㅈㅇㄹ 교수님 땀 많으셔서 손수건 선물하려는데','교수님이 수업하시다 땀이 맺히셔서 손수건 달고 사시는 거 보고\n손수건 선물하고 싶은데 어떤 게 좋을까요\n고급 말고 소소한 걸로',40,48,['교수님은 손수건 이미 많으실 듯','@그래도 마음이 중요하잖아요','"어머, 고마워요" 하시면서 웃으실 듯','땀 많으신 거 알아도 모른 척이 에티켓']],
+['xs','실습 과제 파트너 배정 불공평한 거 같음','첫 수업 때 공지한다고는 하는데\n배정 방식이 교수마다 달라서 억울할 때 있음\n추첨은 그나마 공평한데 나머지는 운이에요',100,36,['교수님이 파트너 배정을 성향 기준으로 하는 경우도 있음','@성향 기준이면 어쩔 수 없네요','호흡이 점수라 파트너가 중요하다','첫 수업에서 방식 꼭 확인하세요']],
+['xs','조교님 사심 채점 걸렸다는 소문 사실임?','학과장님한테 보고됐다는 얘기 들었는데\n진짜면 큰일 아님?\n누가 정확히 아는 분',280,67,['소문은 소문일 뿐 확인된 바 없음','@그래도 조교님이 학생들 떠보는 건 맞음','채점 공정성은 교수님이 감독하심','학과장님 장학금 결재 때 걸러낸다는 말도 있음']],
+['xs','페티시 문화사 개강 첫 수업 레전드','교수님이 들어오시자마자 "오늘은 취향에 대해 이야기해 볼까요" 하시고\n강의실 분위기 한순간에 정적\n웃음 참느라 죽는 줄',360,81,['@진짜 정적 개웃김','교수님 표정 변화 없이 진행하는 게 더 웃김','수업은 의외로 학술적이라 놀람','과제 4회 중 1회차는 취향 분석 리포트임']],
+['xs','커플 실습 세미나 추첨 결과','추첨 결과 나왔는데 내 파트너 누구인지 모르겠음\n학번 순서로 보면 되는 거 맞음?\n공지는 어디 올라옴',600,29,['학과 홈페이지 게시판에 올라옴','@감사합니다 확인했어요','파트너랑 호흡 맞추려면 일단 밥부터 먹어라']],
+['xs','시험 깜짝 공지 떴다 ㅠㅠ','교수님이 오늘 수업 끝나고 "다음 주 시험입니다" 하심\n사전 공지 없다고 들었는데 진짜였음\n족보 구해요',900,47,['시험은 가끔 깜짝 공지되는 과임','@슬프다','수업 때 말씀 놓치지 말고 필기하자']],
+['xs','과제 4회 다 끝내면 학점 확정인데 3회차에서 망함','파트너랑 호흡이 안 맞아서 D 받았음\n4회차에서 만회 가능한가요\n평균으로 계산되니까 포기하긴 아까움',1200,39,['4회 평균이라 만회 가능함','@감사합니다 힘내볼게요','파트너랑 대화 한 번 해보세요','교수님한테 조언 구하면 의외로 도와주심']],
+['xs','최ㄱㅎ 자칭 S급 사건 정리','신체검사에서 S급이라 떠벌리고 다녔는데\n실제로는 B급인 거 밝혀져서 학과 단톡이 난리\n본인은 아직도 S급이라고 우김',1800,95,['ㅋㅋㅋㅋㅋ 그 형 허당이라 미워할 수 없음','@진짜 B급이라니 충격','금수저라 그런가 자신감이 넘침','↳이기면 충성하는 타입이라 한 번 이겨주면 친구 됨','윤ㅊㅇ 회장님한테 들이대다 무시당하는 것도 일상']],
+['xs','박ㅈㅎ 오늘도 고백 실패 (6주차 누적)','다인 동기한테 6주째 매주 고백 중인 사람\n오늘도 "별거 아니거든!!" 소리 듣고 나감\n응원해야 하나',2300,88,['ㅋㅋㅋㅋ 그 사람 윙맨 자처하다 매번 망침','@포기를 모르는 사람','다인 동기도 은근 신경쓰는 눈치던데','↳그건 아님 ㅋㅋ','응원은 하지만 도와주지는 않는다']],
+['xs','이ㅁㅈ 과탐정 아님?','뤼브리타임 "과탐정" 글 쓰는 사람 지금까지 아무도 모르는데\n내가 보기엔 이ㅁㅈ 동기 같음\n수첩 들고 다니면서 "관찰일지" 쓰는 거 봤음',2700,57,['@헉 맞는 것 같기도','민지 보면 정보 거래는 떡볶이로 한다던데','과탐정 글 올라올 때마다 민지가 학식에 있음','↳아닌 척 하는 연기가 레전드']],
+['xs','MT 조 편성 보고 절망','조 편성 결과 나왔는데 내 조에 아는 사람이 하나도 없음\n술게임 걱정에 벌써 속이 울렁\n다들 어떻게 하냐',3000,26,['술게임은 웃기만 하면 됨','@위로 감사해요','같은 조 사람들 단톡방부터 만들어요','태식 선배가 연설하면 끄덕이면 끝']],
+['xs','한ㅎㄹ 선배 전과생이라던데 어떻게 우리 과 옴','전과 신청서를 잘못 내서 우리 과에 왔다는 소문 들음\n근데 과에서 몸매 제일 좋다는 이야기도 들음\n본인은 부끄러워서 숨고 싶어한다는데',3500,54,['눈 마주치면 새빨개지심 귀여움','@도와주면 의지하는 성격이래요','민지 동기가 보호자처럼 붙어다님','우진 선배가 짝사랑 중인 것도 유명']],
+['xs','마ㄷㅊ 교수님 딸 자랑 10분 타이머','체력 수업에서 딸 자랑 10분 하시는데\n처음엔 웃겼는데 이제는 시간 재고 있음\n오늘은 11분 하심',4200,41,['@"한 세트 더!" 하고 시작하시죠','조 교수님 오시면 쩔쩔매는 거 더 웃김','딸바보 교수님 응원합니다']],
+['xs','황보 학과장님 웃는 거 본 사람','웃는 거 보면 장학금 받는다는 전설 있잖아요\n오늘 학과장실 앞에서 지나가다 봤는데 살짝 입꼬리 올라감\n이거 되는 건가요',5000,69,['@우와 나도 보고 싶다','학과장님은 진짜 성실한 학생한테만 웃어주심','"…나쁘지 않군요" 가 최고의 칭찬','유라 교수님이랑 갈등 있으시지만 실력은 인정하심']],
+['xs','정ㅇㅈ 선배 눈치 없는 거 레전드','한ㅎㄹ 선배 좋아하는 거 학과 전체가 아는데 본인만 모름\n오늘은 "커피 두 잔 샀는데 하나 마실래?" 하고 나한테 줌\n하루 선배랑 마실 거 아니었나',5500,78,['@눈치 제로 ㅋㅋㅋ','"어? 내가 뭐 잘못했어?" 가 입버릇','연애 상담도 후배한테 함','하루 선배한테 직접 주세요']],
+['xs','새내기 질문: 체력과 지구력 트레이닝 어때요','마 교수님 수업 어렵다던데 어떤가요\n체력 자신 없어도 되나요\n수강신청 해야 하나 고민',6000,33,['@체력 없으면 힘들긴 한데 성실하면 학점 잘 받음','"체력이 곧 학점!" 진짜로 그럼','매주 한 세트 더 소리 들음']],
+// ───── 체대 ─────
+['pe','체대 육상부 신입 100m 기록 미쳤다','신입 차ㅇㅇ 100m 기록이 학교 신기록이래요\n포니테일 휘날리며 달리는데 멋있음\n웃으면서 헤드락 걸어서 같은 팀 선배가 쓰러짐',90,64,['@털털한 에너자이저라 선배들도 다 좋아함','같은 아파트에서 자란 소꿉친구 있다던데','↳그 사람 눈치 없다던데 ㅋㅋ','체대는 다들 다정하고 장난 잘 침']],
+['pe','체대 학식 양 감당 불가','체대 애들 밥 한 번 먹을 때 3인분 먹음\n옆에서 보다가 입 벌어짐\n학식 이모도 놀라셨음',700,41,['@학식 이모가 "체대 오는 날은 쌀 더 해야지" 하심','우리는 1.5인분도 힘든데','밥 거르지 말고 먹어요 체대처럼']],
+['pe','체육대회 종목 투표','줄다리기, 계주, 줄넘기, 피구 중에 고르세요\n학과 대항전이라 우리 과가 불리할 듯\n체대가 이길 것 같음',1600,26,['@체대 계주 응원 감','우리 과는 응원전으로 승부','계주는 차ㅇㅇ 선배 나올 듯']],
+// ───── 기숙사 ─────
+['dorm','기숙사 11시 통금 누가 정함','기숙사 입주했는데 11시 통금이라니\n과 MT 땐 어떻게 하는 건가요\n외박 신청해야 하는 거죠',60,22,['@외박 신청서 쓰면 됨','통금 지나서 몰래 들어오다 걸린 사람 있음','사감 선생님 무서움']],
+['dorm','기숙사 룸메 코골이','밤마다 코를 너무 심하게 골아요\n귀마개 써도 안 막아짐\n방 바꾸는 방법 없나요',500,18,['@행정실 가서 신청하면 방 바꿔줌','귀마개 두 겹으로 쓰세요']],
+['dorm','기숙사 세탁실 이용 팁','저녁 9시 이후가 제일 한산함\n세제 가져가야 합니다\n건조기는 한 번에 40분',1500,12,['@감사합니다','세탁실 CCTV 있어서 마음 놓고 써도 됨']],
+// ───── 자취방 ─────
+['room','정문 앞 원룸 월세 시세','신축은 월 60, 구축은 40~50\n보증금 500 정도\n이번 달 매물 많이 나왔어요',200,14,['@감사합니다 시세 파악 중','구축은 소음 주의']],
+['room','옆방 소음 어떻게 해결하나요','밤마다 쿵쿵 소리에 잠을 못 잠\n건물주한테 말해도 소용없다\n방법 있으면 알려주세요',900,19,['@귀마개와 백색소음','경비실에 신고하세요 대학가 원룸 소음 다 비슷']],
+['room','곰팡이 방지 팁','제습기 필수 환기 필수\n욕실은 락스 희석해서 한 번\n옷장 뒤 벽 체크하세요',2000,10,['@글 감사합니다']],
+// ───── 맛집 ─────
+['food','밤결 안주 추천','어묵탕, 계란말이, 김치전 추천\n사장님이 서비스로 주는 감자튀김이 최고\n개총, 종총 때는 예약 필수',150,28,['@밤결 안주 진짜 맛있음','서비스 감자튀김은 사장님 기분이에요','마감 후 분위기가 제일 좋음']],
+['food','포차 골목 정리','학교 정문 오른쪽 골목에 포차 세 곳\n첫 번째는 어묵이 맛있고 두 번째는 닭발\n세 번째는 분위기가 별로임',800,17,['@글 감사합니다','포차 골목에서 소희 선배 봄']],
+['food','노래방 어디가 제일 싸요','학교 앞 코인노래방 2천원에 4곡\n학생증 보여주면 할인\n개총 끝나고 가기 좋음',1800,11,['@정보 감사합니다']],
+['food','학식 후식으로 먹기 좋은 카페','정문 앞 카페에서 아아 사면 쿠키가 서비스\n주인이 우리 과 졸업생이라고 함\n커피 맛은 보장',2600,15,['@아아 맛있음','과 졸업생이라 후배들한테 잘해줌']]
+].filter(r=>r[0]!=='secret_x');
+const LEC=[
+['X스학개론','조유라 교수',5,[[5,'교수님이 평소엔 젠틀하신데 시연에 들어가면 반전이 있어요. 과제 채점은 공정하고 성실하면 따로 조언해주십니다.'],[5,'대충 하면 공개적으로 놀림 당하니까 준비 열심히 하세요. 얻는 건 확실히 많아요.']],['과제 많음','학점 후함','출결 체크','조언 많음']],
+['스킨십의 이론과 실제','한도윤 교수',4,[[4,'이론 40 실습 60. 파트너 호흡 점수 비중이 큰 편이라 소통 중요.'],[5,'교수님이 학생 수준에 맞춰 천천히 알려주세요. 부끄러워하는 학생 챙겨줌.']],['실습 위주','파트너 중요','조별 과제']],
+['연애심리와 유혹 커뮤니케이션','서지안 교수',5,[[5,'말 한마디로 분위기 바뀌는 걸 배웁니다. 과제 창의성 점수가 높음.'],[4,'발표 수업이라 말 잘하는 사람 유리. 시험은 깜짝 공지될 때 있음.']],['발표 있음','창의성','시험 깜짝']],
+['체력과 지구력 트레이닝','마동철 교수',3,[[3,'"체력이 곧 학점!" 매주 한 세트 더. 힘들지만 성실하면 학점 잘 나옴.'],[4,'교수님이 딸 자랑 10분은 기본. 유라 교수님 오시면 쩔쩔맴.']],['체력 필요','출결 엄격','학점 보통']],
+['페티시 문화사','송이안 교수',4,[[4,'수업은 의외로 학술적. 개강 첫 수업은 분위기 정적.'],[5,'취향 분석 리포트가 재밌음. 교수님 표정 변화가 없어서 더 웃김.']],['레포트','교수님 무표정','학점 후함']],
+['커플 실습 세미나','공동 개설(2인 1조)',4,[[4,'추첨으로 파트너 배정. 호흡이 맞으면 A+ 쉬움 안 맞으면 지옥.'],[3,'파트너 복불복이 가장 큰 변수. 첫 만남이 중요해요.']],['2인 1조','추첨','호흡 중요']],
+['대학생활과 연애','강하린 교수(교양)',5,[[5,'교양인데 실생활에 도움 됨. 과제 가볍고 학점 후함.'],[5,'수업 분위기가 편안해서 타과생도 많이 들어요.']],['교양','과제 가벼움','학점 후함']],
+['교양 요가','체대 합동수업',4,[[4,'체대 선배들이 자세 봐줘서 좋음. 첫 동작에서 죽음.'],[5,'힘들지만 끝나고 개운함. 선생님이 천사.']],['체대 합동','체력 필요','출결 중요']],
+['와인과 분위기 연출','정서현 교수(교양)',5,[[5,'분위기 연출 과제가 재밌어요. 와인 시음은 소량.'],[4,'수업 끝나고 뒤풀이 있음. 학점 후함.']],['교양','학점 후함','뒤풀이']],
+['연애와 자존감','오수아 교수(교양)',5,[[5,'수업 들으면서 위로 많이 받음. 과제는 일기 쓰기 수준.'],[5,'D급 받고 힘들었는데 이 수업 덕분에 괜찮아졌어요.']],['교양','위로 받음','과제 쉬움']]
+];
+init(); render();
+</script>
+</body></html>
