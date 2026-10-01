@@ -230,7 +230,7 @@ function panel(html,cls){mode('panel');$('#choices').hidden=true;adv=null;const 
 /* ---- scenes ---- */
 async function title(){
   bg('GATE');hud(-1);
-  panel(`<div class="ttl center"><div class="kick">2026학년도 2학기 신입생</div><h1>리온대학교</h1><div class="en">X스학과 입학 검사소</div><p>정문에서 시작해 신체, 이론, 상황 판단, 담당관 면접을 차례로 통과해요. 약 3~5분이 걸리고, 마지막에 받는 결과를 크랙 채팅에 붙여넣으면 내 캐릭터가 됩니다.</p><button class="btn" id="go">검사 시작</button></div>`);
+  panel(`<div class="ttl center"><div class="kick">2026학년도 1학기 신입생</div><h1>리온대학교</h1><div class="en">X스학과 입학 검사소</div><p>정문에서 시작해 신체, 이론, 상황 판단, 담당관 면접을 차례로 통과해요. 약 3~5분이 걸리고, 마지막에 받는 결과를 크랙 채팅에 붙여넣으면 내 캐릭터가 됩니다.</p><button class="btn" id="go">검사 시작</button></div>`);
   mode('title');
   await new Promise(r=>$('#go').onclick=r);
 }
