@@ -153,7 +153,7 @@ input[type=search],input[type=time]{width:100%;background:var(--surface);border:
 .lpw{background:none!important;border:0!important}
 .lpin{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:var(--c);color:var(--surface);border:2px solid var(--surface);box-shadow:0 1px 4px rgba(0,0,0,.35);font-family:var(--f-mono);font-size:12px;font-weight:600;line-height:1}
 .lpin.rec{opacity:.8}
-.lpin.res{border-radius:50% 50% 50% 4px}
+.lpin.lab{border-radius:50% 50% 50% 4px}
 .lpin.pin{background:var(--surface);color:var(--ink);border:2.5px solid var(--ink);font-size:15px}
 .lpin.me{border:3px solid #fff;box-shadow:0 0 0 2px rgba(42,127,255,.35)}
 .lpin.sm{width:24px;height:24px;flex:0 0 auto;font-size:11px}
@@ -1061,7 +1061,7 @@ function catFrom(cls,type){
   if(/^(zoo|aquarium|theme_park|playground|water_park)$/.test(type))return "kids";
   if(/^(hotel|hostel|guest_house|motel|apartment)$/.test(type))return "stay";
   if(cls==="shop"||/^(mall|marketplace|department_store|supermarket)$/.test(type))return "shop";
-  if(cls==="railway"||cls==="aeroway"||cls==="public_transport"||/^(station|aerodrome|terminal|bus_station|ferry_terminal|subway_entrance|halt)$/.test(type))return "tr";
+  if(cls==="railway"||cls==="aeroway"||cls==="public_transport"||/^(station|aerodrome|terminal|bus_station|ferry_terminal|subway_entrance|halt|train_station|bus_stop|stop_position|platform|tram_stop)$/.test(type))return "tr";
   if(cls==="tourism"||cls==="historic"||cls==="leisure"||cls==="natural"||cls==="boundary"||type==="place_of_worship"||type==="beach")return "sight";
   return "etc";
 }
@@ -1100,7 +1100,7 @@ function searchRemote(q,c){
   return next().then(function(a){a=dedupe(a);if(c)a.sort(function(x,y){return dist(c,x)-dist(c,y)});return a.slice(0,10)});
 }
 function resRow(it,lab,c,i){
-  return '<button class="res" type="button" data-i="'+i+'"><span class="lpin sm'+(lab?' res':'')+'" style="--c:'+(lab?"var(--ink)":pColor(it))+'">'+(lab||(it.kind==="mine"?"★":""))+'</span><span class="rtx"><span class="nm">'+esc(it.name)+'</span>'+(it.local&&it.local!==it.name?' <span class="muted small">'+esc(it.local)+'</span>':'')+'<span class="small muted addr">'+(it.kind==="rec"?"추천 · ":it.kind==="mine"?"저장한 곳 · ":"")+esc(it.addr||it.memo||catName(it.cat))+'</span></span><span class="small muted mono">'+(c&&hasXY(it)?fmtKm(dist(c,it)):"")+'</span></button>';
+  return '<button class="res" type="button" data-i="'+i+'"><span class="lpin sm'+(lab?' lab':'')+'" style="--c:'+(lab?"var(--ink)":pColor(it))+'">'+(lab||(it.kind==="mine"?"★":""))+'</span><span class="rtx"><span class="nm">'+esc(it.name)+'</span>'+(it.local&&it.local!==it.name?' <span class="muted small">'+esc(it.local)+'</span>':'')+'<span class="small muted addr">'+(it.kind==="rec"?"추천 · ":it.kind==="mine"?"저장한 곳 · ":"")+esc(it.addr||it.memo||catName(it.cat))+'</span></span><span class="small muted mono">'+(c&&hasXY(it)?fmtKm(dist(c,it)):"")+'</span></button>';
 }
 
 /* ---------- map (Leaflet + OpenStreetMap) ---------- */
@@ -1156,7 +1156,7 @@ function select(it,noPan){
 }
 function renderSel(){
   var box=$("#mSel"),it=SEL;if(!it){box.hidden=true;return}
-  if(it.kind==="mine"){var fresh=placeById(it.id);if(!fresh){SEL=null;box.hidden=true;return}it=SEL=mineItem(fresh)}
+  if(it.kind==="mine"){var fresh=placeById(it.id);if(fresh)it=SEL=mineItem(fresh);else if(!it.pending){SEL=null;box.hidden=true;return}}
   box.hidden=false;var saved=it.kind==="mine";var uses=saved?usesOf(it.id):0;
   var kind={mine:"저장한 곳",rec:"추천",search:"검색 결과",pin:"지도에서 고른 위치",plan:"일정 장소"}[it.kind]||"";
   box.innerHTML='<div class="row" style="justify-content:space-between;align-items:flex-start;flex-wrap:nowrap"><div style="min-width:0"><div class="row" style="gap:6px"><span class="tag">'+kind+'</span>'+(it.city&&it.city!=="etc"?'<span class="citybadge '+it.city+'">'+cityName(it.city)+'</span>':'')+'<span class="tag">'+catName(it.cat)+'</span></div>'
@@ -1193,7 +1193,7 @@ function doMapSearch(q){
   searchRemote(q,c).then(function(arr){
     draw(arr,false);
     if(!MAP)return;LY.search.clearLayers();
-    arr.forEach(function(it,i){L.marker([it.lat,it.lng],{icon:pinIcon("res","var(--ink)",String.fromCharCode(65+i)),zIndexOffset:800}).bindTooltip(it.name,{direction:"top",offset:[0,-14]}).on("click",function(){select(it)}).addTo(LY.search)});
+    arr.forEach(function(it,i){L.marker([it.lat,it.lng],{icon:pinIcon("lab","var(--ink)",String.fromCharCode(65+i)),zIndexOffset:800}).bindTooltip(it.name,{direction:"top",offset:[0,-14]}).on("click",function(){select(it)}).addTo(LY.search)});
     var pts=arr.filter(function(it){return dist(c,it)<80}).map(function(it){return [it.lat,it.lng]});
     if(pts.length>1)MAP.fitBounds(L.latLngBounds(pts).pad(0.2),{maxZoom:16});else if(pts.length)MAP.setView(pts[0],16);else if(arr.length)MAP.setView([arr[0].lat,arr[0].lng],14);
   });
@@ -1212,7 +1212,7 @@ function openPlaceEditor(id,it){
       var name=$("#pe-name").value.trim();if(!name){toast("이름을 적어 주세요");return false}
       var data={name:name,local:$("#pe-local").value.trim(),cat:$("#pe-cat").value,city:$("#pe-city").value,memo:$("#pe-pmemo").value.trim(),addr:p.addr||"",lat:hasXY(p)?p.lat:null,lng:hasXY(p)?p.lng:null,recId:p.recId||""};
       if(id){API.upd("places",id,data);toast("수정했어요")}
-      else{var nid=API.add("places",data);if(nid){SEL=mineItem(Object.assign({id:nid},data));if(LY.tmp)LY.tmp.clearLayers();renderSel()}toast("가고 싶은 곳에 저장했어요")}
+      else{var nid=API.add("places",data);if(nid){SEL=mineItem(Object.assign({id:nid,pending:true},data));if(LY.tmp)LY.tmp.clearLayers();renderSel()}toast("가고 싶은 곳에 저장했어요")}
     },
     onDelete:id?function(){API.del("places",id);if(SEL&&SEL.id===id){SEL=null;renderSel()}toast("장소를 지웠어요. 일정에 넣은 건 그대로 남아요")}:null
   });
