@@ -1,0 +1,984 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d6b59">
+<meta name="robots" content="noindex">
+<meta name="description" content="이두형·최선화·이재헌·이아윤 가족의 칭다오·후쿠오카 여행 키트">
+<style>*,*::before,*::after{box-sizing:border-box}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px/1.5 system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;-webkit-text-size-adjust:100%}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>칭다오·후쿠오카 여행 키트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one-screen travel app — sticky boarding-pass header, single content column, fixed bottom tab bar. Qingdao = sea green, Fukuoka = indigo, stamp red for dates and alerts. */
+:root{
+  --bg:#f1f4f2; --surface:#ffffff; --sunk:#e7ecea; --ink:#16201d; --muted:#5b6964; --line:#d6dedb;
+  --qd:#0d6b59; --qd-soft:#dcefe9; --fk:#33449a; --fk-soft:#e1e5f7;
+  --stamp:#c4432a; --stamp-soft:#f8e3dd; --food:#a8681a; --kids:#7448a8; --ok:#1f7a4d;
+  --shadow:0 1px 2px rgba(20,40,34,.06),0 4px 14px rgba(20,40,34,.06);
+  --f-display:"Do Hyeon","IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans CJK KR",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --r:12px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1412; --surface:#162019; --sunk:#1d2925; --ink:#e6eeea; --muted:#9aaaa4; --line:#2a3833;
+  --qd:#4cc4a6; --qd-soft:#16332c; --fk:#97a6f2; --fk-soft:#1f2645;
+  --stamp:#f07d62; --stamp-soft:#3a1f19; --food:#e0a453; --kids:#b994e8; --ok:#5fcf93;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1412; --surface:#162019; --sunk:#1d2925; --ink:#e6eeea; --muted:#9aaaa4; --line:#2a3833;
+  --qd:#4cc4a6; --qd-soft:#16332c; --fk:#97a6f2; --fk-soft:#1f2645;
+  --stamp:#f07d62; --stamp-soft:#3a1f19; --food:#e0a453; --kids:#b994e8; --ok:#5fcf93;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25); color-scheme:dark}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--qd);outline-offset:2px}
+.wrap{max-width:760px;margin:0 auto;padding-inline:16px}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;letter-spacing:.01em;text-wrap:balance;margin:0}
+h2{font-size:1.55rem;line-height:1.2}
+h3{font-size:1.15rem}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.small{font-size:.85rem}
+.label{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+/* header: boarding-pass strip */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.pass{display:flex;align-items:center;gap:12px;padding-block:10px;flex-wrap:wrap}
+.pass .brand{font-family:var(--f-display);font-size:1.25rem;line-height:1}
+.route{display:flex;gap:6px;align-items:center;font-family:var(--f-mono);font-size:.8rem;font-weight:600;margin-left:auto;flex-wrap:wrap}
+.route span{padding:2px 7px;border-radius:5px;border:1px solid var(--line);background:var(--surface)}
+.route .qd{color:var(--qd)} .route .fk{color:var(--fk)}
+.route i{font-style:normal;color:var(--muted)}
+.sync{font:inherit;font-size:.75rem;padding:4px 10px;border:0;border-radius:99px;background:var(--sunk);color:var(--muted);white-space:nowrap;cursor:pointer}
+.sharebox{background:var(--surface);border-bottom:1px solid var(--line);padding-block:12px;box-shadow:var(--shadow)}
+.sharerow{display:flex;gap:6px}
+.sharerow input{flex:1;min-width:0;font:inherit;font-size:.8rem;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--sunk);color:var(--ink)}
+.sharerow button{font:inherit;font-size:.85rem;padding:8px 12px;border:0;border-radius:10px;background:var(--qd);color:var(--surface);cursor:pointer;white-space:nowrap}
+.sharerow #shareClose{background:var(--sunk);color:var(--ink)}
+.sync.on{background:var(--qd-soft);color:var(--qd)}
+
+main{padding-block:18px 10px}
+.view{display:flex;flex-direction:column;gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow);min-width:0}
+.plain{min-width:0}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:7px 12px;font-size:.88rem;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;line-height:1.2}
+.btn:hover{border-color:var(--muted)}
+.btn.pri{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.qd{color:var(--qd);border-color:color-mix(in srgb,var(--qd) 40%,var(--line))}
+.btn.fk{color:var(--fk);border-color:color-mix(in srgb,var(--fk) 40%,var(--line))}
+.btn.ghost{background:transparent}
+.btn.sm{padding:4px 9px;font-size:.8rem}
+.btn.danger{color:var(--stamp)}
+input[type=text],input[type=number],input[type=date],select,textarea{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:8px 10px;font-size:.92rem;min-width:0}
+textarea{resize:vertical}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label{font-size:.78rem;color:var(--muted);font-weight:600}
+
+/* home */
+.hero{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.stamp{width:104px;height:104px;border-radius:50%;border:2.5px solid var(--stamp);color:var(--stamp);display:grid;place-items:center;text-align:center;transform:rotate(-8deg);background:var(--stamp-soft)}
+.stamp b{font-family:var(--f-display);font-size:2rem;line-height:1;display:block}
+.stamp small{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.06em}
+.clocks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.clock{background:var(--sunk);border-radius:10px;padding:10px;text-align:center;min-width:0}
+.clock .t{font-family:var(--f-mono);font-size:1.2rem;font-weight:600}
+.clock .c{font-size:.75rem;color:var(--muted)}
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.person{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface);text-align:left;display:flex;flex-direction:column;gap:6px}
+.person .n{font-weight:600}
+.bar{height:6px;border-radius:9px;background:var(--sunk);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--qd);border-radius:9px;transition:width .3s}
+.quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+
+/* checklist */
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.chip{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 12px;font-size:.88rem;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip .cnt{font-family:var(--f-mono);font-size:.75rem;opacity:.75;margin-left:4px}
+.group{display:flex;flex-direction:column;gap:2px}
+.group h3{font-size:1rem;margin:6px 0 4px;color:var(--muted);font-family:var(--f-body);font-weight:600}
+.item{display:flex;gap:10px;align-items:flex-start;padding:9px 4px;border-bottom:1px dashed var(--line)}
+.item:last-child{border-bottom:0}
+.item input[type=checkbox]{width:20px;height:20px;margin-top:2px;accent-color:var(--qd);flex:0 0 auto}
+.item .txt{flex:1;min-width:0}
+.item.done .t{text-decoration:line-through;color:var(--muted)}
+.item .who{font-size:.72rem;padding:1px 7px;border-radius:99px;background:var(--sunk);color:var(--muted);white-space:nowrap}
+.item .note{font-size:.8rem;color:var(--muted)}
+.item .note a{color:var(--qd)}
+.item .x{border:0;background:transparent;color:var(--muted);font-size:1rem;padding:0 4px}
+.addform{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.addform .wide{grid-column:1/-1}
+
+/* itinerary */
+.days{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.day-tab{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 10px;text-align:center;min-width:58px}
+.day-tab .d{font-family:var(--f-mono);font-weight:600;font-size:.95rem;display:block}
+.day-tab .w{font-size:.72rem;color:var(--muted)}
+.day-tab.qd{border-top:3px solid var(--qd)} .day-tab.fk{border-top:3px solid var(--fk)}
+.day-tab[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.day-tab[aria-pressed="true"] .w{color:var(--bg);opacity:.8}
+.day-tab.today::after{content:"오늘";display:block;font-size:.65rem;color:var(--stamp);font-weight:700}
+.slot{display:grid;grid-template-columns:62px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.slot:last-child{border-bottom:0}
+.slot .when{font-size:.78rem;font-weight:600;color:var(--muted);padding-top:2px}
+.slot .what{min-width:0}
+.plinks{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.pl{font-size:.78rem;border-radius:99px;padding:2px 9px;border:1px solid var(--line);background:var(--sunk);text-decoration:none}
+.citybadge{font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:5px}
+.citybadge.qd{background:var(--qd-soft);color:var(--qd)} .citybadge.fk{background:var(--fk-soft);color:var(--fk)}
+
+/* map */
+.mapbox{background:var(--sunk);border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+.mapbox svg{display:block;width:100%;height:auto}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.78rem;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+.plist{display:flex;flex-direction:column}
+.place{display:grid;grid-template-columns:30px 1fr;gap:10px;padding:11px 2px;border-bottom:1px solid var(--line);align-items:start}
+.place:last-child{border-bottom:0}
+.place .num{width:26px;height:26px;border-radius:50%;color:var(--surface);font-family:var(--f-mono);font-size:.78rem;font-weight:600;display:grid;place-items:center}
+.place.sel{background:var(--sunk);border-radius:10px}
+.place .nm{font-weight:600}
+.place .loc{font-size:.85rem;color:var(--muted)}
+.place .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+
+/* tools */
+.conv{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.conv .field input{font-family:var(--f-mono);font-size:1.05rem}
+.phr{display:flex;flex-direction:column}
+.ph{display:grid;grid-template-columns:1fr auto;gap:8px;padding:9px 0;border-bottom:1px dashed var(--line);align-items:center}
+.ph:last-child{border-bottom:0}
+.ph .ko{font-size:.82rem;color:var(--muted)}
+.ph .fx{font-size:1.15rem;font-weight:600}
+.ph .rd{font-size:.82rem}
+.exp{display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);align-items:center}
+.exp:last-child{border-bottom:0}
+.exp .amt{font-family:var(--f-mono);font-weight:600;text-align:right;white-space:nowrap}
+.exp .meta{font-size:.78rem;color:var(--muted)}
+.tag{font-size:.72rem;padding:1px 7px;border-radius:5px;background:var(--sunk);color:var(--muted)}
+.tbl{width:100%;border-collapse:collapse;font-size:.88rem}
+.tbl th,.tbl td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line)}
+.tbl td.n{font-family:var(--f-mono);text-align:right;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{border:0;background:var(--surface);padding:6px 12px;font-size:.85rem}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+/* info */
+details.acc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:0 16px}
+details.acc>summary{list-style:none;cursor:pointer;padding:14px 0;font-weight:600;display:flex;justify-content:space-between;gap:10px}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::after{content:"+";font-family:var(--f-mono);color:var(--muted)}
+details.acc[open]>summary::after{content:"−"}
+details.acc .body{padding-bottom:14px;display:flex;flex-direction:column;gap:8px}
+details.acc ul{margin:0;padding-left:1.2em}
+details.acc li{margin:3px 0}
+.src{font-size:.78rem;color:var(--muted)}
+.src a{color:var(--qd)}
+.emg{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+.emg:last-child{border-bottom:0}
+.emg .num{font-family:var(--f-mono);font-weight:600;font-size:1.05rem;user-select:all}
+
+.banner{border-radius:10px;padding:10px 12px;font-size:.85rem;background:var(--stamp-soft);color:var(--ink);border:1px solid color-mix(in srgb,var(--stamp) 30%,transparent)}
+.banner.info{background:var(--qd-soft);border-color:color-mix(in srgb,var(--qd) 30%,transparent)}
+
+/* bottom nav */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.tabs .in{max-width:760px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr)}
+nav.tabs button{border:0;background:transparent;padding:8px 2px 9px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.72rem;color:var(--muted)}
+nav.tabs button svg{width:22px;height:22px}
+nav.tabs button[aria-current="page"]{color:var(--ink);font-weight:700}
+nav.tabs button[aria-current="page"] svg{color:var(--qd)}
+
+/* overlay */
+.ov{position:fixed;inset:0;z-index:50;background:var(--surface);display:flex;flex-direction:column;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px))}
+.ov .bigtxt{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:14px;overflow:auto}
+.ov .bigtxt .main{font-size:clamp(2rem,9vw,4.2rem);font-weight:700;line-height:1.25;word-break:keep-all;overflow-wrap:anywhere}
+.ov .bigtxt .sub{font-size:1.15rem;color:var(--muted)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(86px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:9px 14px;border-radius:9px;font-size:.88rem;z-index:60;max-width:calc(100% - 32px)}
+@media (max-width:420px){.conv{grid-template-columns:1fr}.addform{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.stamp{width:88px;height:88px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<header class="top">
+  <div class="wrap pass">
+    <span class="brand">여행 키트</span>
+    <div class="route" aria-label="여정">
+      <span>KOR</span><i>→</i><span class="qd">TAO</span><i>→</i><span class="fk">FUK</span><i>→</i><span>KOR</span>
+    </div>
+    <button type="button" class="sync" id="sync">불러오는 중</button>
+  </div>
+</header>
+
+<div class="sharebox" id="shareBox" hidden>
+  <div class="wrap">
+    <strong>가족 공유 링크</strong>
+    <p class="muted small" style="margin:4px 0 8px">이 링크로 연 사람끼리 체크리스트·할 일·경비·항공/숙소 정보가 실시간으로 맞춰져요. 링크가 곧 열쇠라 가족에게만 보내 주세요.</p>
+    <div class="sharerow"><input id="shareUrl" readonly aria-label="공유 링크"><button type="button" id="shareCopy">복사</button><button type="button" id="shareClose" aria-label="닫기">닫기</button></div>
+  </div>
+</div>
+
+<main class="wrap">
+
+<!-- HOME -->
+<section class="view" id="v-home" data-view="home">
+  <div class="card hero">
+    <div class="stamp" id="stamp"><div><b id="dday">D-7</b><small id="ddate">2026.10.15</small></div></div>
+    <div class="plain">
+      <div class="label">이두형 · 최선화 · 이재헌 · 이아윤</div>
+      <h2 id="heroTitle">칭다오 6일 + 후쿠오카 3일</h2>
+      <p class="muted small" id="heroSub" style="margin:6px 0 0">10월 15~20일 칭다오, 21~23일 후쿠오카. 항공 시간이 정해지면 일정 탭의 항공편 칸에 적어 두세요.</p>
+    </div>
+  </div>
+
+  <div class="clocks" id="clocks">
+    <div class="clock"><div class="t" id="ck-kr">--:--</div><div class="c">서울</div></div>
+    <div class="clock"><div class="t" id="ck-cn">--:--</div><div class="c">칭다오 (−1시간)</div></div>
+    <div class="clock"><div class="t" id="ck-jp">--:--</div><div class="c">후쿠오카 (같음)</div></div>
+  </div>
+
+  <div class="card" id="todayCard">
+    <div class="row" style="justify-content:space-between">
+      <h3 id="todayTitle">다음 일정</h3>
+      <button class="btn sm ghost" data-go="plan">전체 일정</button>
+    </div>
+    <div id="todayBody"></div>
+  </div>
+
+  <div class="plain">
+    <div class="row" style="justify-content:space-between;margin-bottom:8px">
+      <h3>준비 현황</h3>
+      <button class="btn sm ghost" data-go="todo">할 일 보기</button>
+    </div>
+    <div class="people" id="peopleProg"></div>
+  </div>
+
+  <div class="plain">
+    <h3 style="margin-bottom:8px">바로가기</h3>
+    <div class="quick">
+      <button class="btn" data-tool="taxi">택시 기사에게 보여주기</button>
+      <button class="btn" data-go="tools" data-scroll="t-conv">환율 계산</button>
+      <button class="btn" data-go="tools" data-scroll="t-exp">경비 기록</button>
+      <button class="btn" data-go="tools" data-scroll="t-phr">회화 카드</button>
+      <button class="btn" data-go="map">지도</button>
+      <button class="btn danger" data-go="info" data-scroll="i-emg">비상 연락처</button>
+    </div>
+  </div>
+</section>
+
+<!-- TODO -->
+<section class="view" id="v-todo" data-view="todo" hidden>
+  <div class="plain">
+    <h2>할 일 체크리스트</h2>
+    <p class="muted small" style="margin:4px 0 0">사람별로 맡을 일을 나눠 두었어요. 체크하면 가족 모두의 화면에 같이 반영됩니다.</p>
+  </div>
+  <div class="chips" id="whoChips" role="toolbar" aria-label="사람 선택"></div>
+  <div class="card" id="todoList"></div>
+  <div class="card">
+    <h3 style="margin-bottom:10px">할 일 추가</h3>
+    <form class="addform" id="addTask" autocomplete="off">
+      <div class="field wide"><label for="at-text">할 일</label><input type="text" id="at-text" maxlength="120" placeholder="예: 라오산 케이블카 시간 확인" required></div>
+      <div class="field"><label for="at-who">담당</label><select id="at-who"></select></div>
+      <div class="field"><label for="at-cat">언제</label><select id="at-cat"></select></div>
+      <div class="wide"><button class="btn pri" type="submit">추가</button></div>
+    </form>
+  </div>
+</section>
+
+<!-- PLAN -->
+<section class="view" id="v-plan" data-view="plan" hidden>
+  <div class="plain">
+    <h2>일정</h2>
+    <p class="muted small" style="margin:4px 0 0">붐비는 라오산은 평일(19일), 무료 야외 코스는 주말로 배치했어요. 장소를 누르면 지도 앱이 열립니다.</p>
+  </div>
+  <div class="days" id="dayTabs" role="toolbar" aria-label="날짜 선택"></div>
+  <div class="card" id="dayBody"></div>
+  <div class="card">
+    <div class="row" style="justify-content:space-between;margin-bottom:6px">
+      <h3>항공편 · 숙소</h3>
+      <span class="small muted" id="infoSaved"></span>
+    </div>
+    <p class="small muted" style="margin:0 0 10px">여기 적은 내용은 가족 모두에게 보이고, 숙소 주소는 택시 카드에 그대로 쓰여요. 중국 숙소는 중국어 주소를 꼭 넣어 주세요.</p>
+    <form id="infoForm" autocomplete="off" style="display:flex;flex-direction:column;gap:14px">
+      <div class="grid2" id="flightFields"></div>
+      <div class="grid2">
+        <div class="field"><label for="hq-name">칭다오 숙소 이름</label><input type="text" id="hq-name" maxlength="80"></div>
+        <div class="field"><label for="hq-addr">칭다오 숙소 중국어 주소</label><input type="text" id="hq-addr" maxlength="160" placeholder="예: 青岛市市南区…"></div>
+        <div class="field"><label for="hf-name">후쿠오카 숙소 이름</label><input type="text" id="hf-name" maxlength="80"></div>
+        <div class="field"><label for="hf-addr">후쿠오카 숙소 일본어 주소</label><input type="text" id="hf-addr" maxlength="160" placeholder="예: 福岡市博多区…"></div>
+      </div>
+      <div class="field"><label for="i-memo">메모 (예약번호, 렌터카 정보 등)</label><textarea id="i-memo" rows="3" maxlength="800"></textarea></div>
+      <div><button class="btn pri" type="submit">저장</button></div>
+    </form>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="view" id="v-map" data-view="map" hidden>
+  <div class="plain">
+    <h2>지도</h2>
+    <p class="muted small" style="margin:4px 0 0">위치 개략도예요. 번호를 누르면 아래에서 고덕지도·구글지도로 바로 열 수 있어요. 중국에서는 고덕지도, 일본에서는 구글지도를 쓰세요.</p>
+  </div>
+  <div class="row">
+    <div class="seg" role="group" aria-label="지역">
+      <button data-region="qd-city" aria-pressed="true">칭다오 시내</button>
+      <button data-region="qd-all" aria-pressed="false">칭다오 전체</button>
+      <button data-region="fk-city" aria-pressed="false">후쿠오카 시내</button>
+      <button data-region="fk-all" aria-pressed="false">후쿠오카 근교</button>
+    </div>
+  </div>
+  <div class="mapbox" id="mapbox"></div>
+  <div class="legend">
+    <span><i style="background:var(--qd)"></i>볼거리</span>
+    <span><i style="background:var(--food)"></i>먹거리</span>
+    <span><i style="background:var(--kids)"></i>아이 추천</span>
+    <span><i style="background:var(--muted)"></i>공항·역</span>
+  </div>
+  <div class="card plist" id="plist"></div>
+</section>
+
+<!-- TOOLS -->
+<section class="view" id="v-tools" data-view="tools" hidden>
+  <h2>도구</h2>
+
+  <div class="card" id="t-taxi">
+    <div class="row" style="justify-content:space-between;margin-bottom:8px"><h3>택시 카드</h3></div>
+    <p class="small muted" style="margin:0 0 10px">기사님께 화면을 크게 보여주세요. 주소는 일정 탭의 숙소 칸에서 바꿀 수 있어요.</p>
+    <div class="row">
+      <button class="btn qd" data-taxi="qd">칭다오 숙소로</button>
+      <button class="btn fk" data-taxi="fk">후쿠오카 숙소로</button>
+      <button class="btn" data-taxi="tao">칭다오 공항으로</button>
+      <button class="btn" data-taxi="fuk">후쿠오카 공항 국제선으로</button>
+    </div>
+  </div>
+
+  <div class="card" id="t-conv">
+    <div class="row" style="justify-content:space-between;margin-bottom:10px">
+      <h3>환율 계산</h3>
+      <span class="small muted" id="rateNote"></span>
+    </div>
+    <div class="conv">
+      <div class="field"><label for="c-krw">원 (KRW)</label><input type="number" inputmode="decimal" id="c-krw" value="10000"></div>
+      <div class="field"><label for="c-cny">위안 (CNY)</label><input type="number" inputmode="decimal" id="c-cny"></div>
+      <div class="field"><label for="c-jpy">엔 (JPY)</label><input type="number" inputmode="decimal" id="c-jpy"></div>
+    </div>
+    <details style="margin-top:10px"><summary class="small muted" style="cursor:pointer">환율 바꾸기</summary>
+      <div class="conv" style="margin-top:8px;grid-template-columns:1fr 1fr">
+        <div class="field"><label for="r-cny">1위안 = 원</label><input type="number" step="0.1" id="r-cny"></div>
+        <div class="field"><label for="r-jpy">1엔 = 원</label><input type="number" step="0.01" id="r-jpy"></div>
+      </div>
+      <p class="small muted" style="margin:6px 0 0">기본값은 10월 8일 Wise 중간 환율(1위안 199.5원, 1엔 8.47원)이에요. 이 기기에만 저장돼요.</p>
+    </details>
+    <div class="row small" style="margin-top:10px;gap:6px">
+      <span class="muted">자주 쓰는 금액:</span>
+      <button class="btn sm" data-q="cny:10">10위안 택시</button>
+      <button class="btn sm" data-q="cny:200">200위안 (알리페이 무료 한도)</button>
+      <button class="btn sm" data-q="cny:280">280위안 해양공원</button>
+      <button class="btn sm" data-q="jpy:3250">3,250엔 유후인 버스</button>
+    </div>
+  </div>
+
+  <div class="card" id="t-exp">
+    <div class="row" style="justify-content:space-between;margin-bottom:10px"><h3>경비 기록 · 정산</h3><span class="small muted" id="expTotal"></span></div>
+    <form id="expForm" class="addform" autocomplete="off">
+      <div class="field"><label for="e-amt">금액</label><input type="number" inputmode="decimal" id="e-amt" min="0" step="any" required placeholder="0"></div>
+      <div class="field"><label for="e-cur">통화</label><select id="e-cur"><option value="CNY">위안</option><option value="JPY">엔</option><option value="KRW">원</option></select></div>
+      <div class="field"><label for="e-who">낸 사람</label><select id="e-who"></select></div>
+      <div class="field"><label for="e-cat">분류</label><select id="e-cat"><option>식비</option><option>교통</option><option>입장료</option><option>숙박</option><option>쇼핑</option><option>기타</option></select></div>
+      <div class="field wide"><label for="e-memo">메모</label><input type="text" id="e-memo" maxlength="60" placeholder="예: 운소로 바지락볶음"></div>
+      <div class="wide"><button class="btn pri" type="submit">기록</button></div>
+    </form>
+    <div id="expSummary" style="margin-top:14px"></div>
+    <div id="expList" style="margin-top:10px"></div>
+  </div>
+
+  <div class="card" id="t-phr">
+    <div class="row" style="justify-content:space-between;margin-bottom:8px">
+      <h3>회화 카드</h3>
+      <div class="seg" role="group" aria-label="언어">
+        <button data-lang="zh" aria-pressed="true">중국어</button>
+        <button data-lang="ja" aria-pressed="false">일본어</button>
+      </div>
+    </div>
+    <p class="small muted" style="margin:0 0 6px">누르면 화면 가득 크게 보여줘요.</p>
+    <div class="phr" id="phrList"></div>
+  </div>
+</section>
+
+<!-- INFO -->
+<section class="view" id="v-info" data-view="info" hidden>
+  <div class="plain">
+    <h2>여행 정보</h2>
+    <p class="muted small" style="margin:4px 0 0">여기는 현지에서 바로 찾아볼 요점만 모았습니다. 기준일 2026년 10월 8일.</p>
+  </div>
+
+  <div class="card" id="i-emg">
+    <h3 style="margin-bottom:6px">비상 연락처</h3>
+    <div id="emgList"></div>
+    <p class="small muted" style="margin:8px 0 0">여권을 잃어버리면: 현지 경찰서에서 분실 신고서를 받고, 영사콜센터나 총영사관에 연락해 여행증명서를 발급받아요. 여권 사진면을 폰에 저장해 두면 빨라집니다.</p>
+  </div>
+
+  <div id="infoAcc" style="display:flex;flex-direction:column;gap:10px"></div>
+</section>
+
+</main>
+
+<nav class="tabs" aria-label="메뉴"><div class="in" id="tabs"></div></nav>
+
+<div class="ov" id="ov" hidden role="dialog" aria-modal="true" aria-label="크게 보기">
+  <div class="row" style="justify-content:space-between">
+    <span class="label" id="ovLabel"></span>
+    <button class="btn" id="ovClose">닫기</button>
+  </div>
+  <div class="bigtxt"><div class="main" id="ovMain"></div><div class="sub" id="ovSub"></div></div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+(function(){
+"use strict";
+/* ---------- static data ---------- */
+var PEOPLE=[
+  {id:"all",name:"가족 공통",role:""},
+  {id:"dh",name:"이두형",role:"아버지"},
+  {id:"sh",name:"최선화",role:"어머니"},
+  {id:"jh",name:"이재헌",role:"아들"},
+  {id:"ay",name:"이아윤",role:"딸"}
+];
+var PAYERS=PEOPLE.filter(function(p){return p.id!=="all"});
+var CATS=[{id:"before",name:"출발 전 준비"},{id:"pack",name:"짐 챙기기"},{id:"cn",name:"칭다오 현지"},{id:"jp",name:"후쿠오카 현지"}];
+var TEMPLATE=[
+  ["all-1","all","before","여권 유효기간 6개월 이상 남았는지 확인 (4명 모두)"],
+  ["all-2","all","before","중국 온라인 입국카드 작성 (1인 1장, 아이 포함)","국가이민관리국 사이트 · 영어로 작성","https://s.nia.gov.cn/ArrivalCardFillingPC/"],
+  ["all-3","all","before","Visit Japan Web 등록 (동반 가족 추가)","입국심사·세관 QR이 하나로 통합","https://www.vjw.digital.go.jp/"],
+  ["all-4","all","before","4명 여권 사진면을 폰과 클라우드에 저장"],
+  ["all-5","all","pack","돼지코 (일본 100V 납작 2구 콘센트)"],
+  ["all-6","all","cn","도착하면 숙소 중국어 주소를 택시 카드로 확인","일정 탭 숙소 칸에 입력"],
+  ["all-7","all","jp","남은 위안화 정리, 엔화 소액 현금 준비 (야타이는 현금만 받는 곳 있음)"],
+  ["dh-1","dh","before","칭다오→후쿠오카 항공권 확인·좌석 지정","10/21, 직항 약 2시간"],
+  ["dh-2","dh","before","후쿠오카 렌터카 예약 (10/22 하루, 공항 또는 하카타 픽업)","4인 당일치기는 렌터카가 가장 저렴"],
+  ["dh-3","dh","before","국제운전면허증 발급 (운전자)"],
+  ["dh-4","dh","before","가족 여행자보험 가입"],
+  ["dh-5","dh","before","알리페이 가입 → 여권 실명인증 → 카드 등록 (결제 담당 1)","인증이 하루까지 걸릴 수 있어 출국 3~4일 전에"],
+  ["dh-6","dh","pack","한국 운전면허증 + 국제면허증 + 여권 함께 보관"],
+  ["dh-7","dh","jp","렌터카 반납 전 기름 가득 채우기 (라이즈 가솔린 약 2,600엔)"],
+  ["sh-1","sh","before","알리페이 또는 카카오페이 중국 결제 세팅 (백업 결제)","카카오페이: 결제 탭 → 지구 아이콘 → 중국"],
+  ["sh-2","sh","before","위안화 현금 1,000위안 안팎, 엔화 소액 환전"],
+  ["sh-3","sh","before","칭다오 숙소 예약 확인 (성인 3 + 아동 1로 정확히)"],
+  ["sh-4","sh","pack","상비약: 해열제·소화제·멀미약·밴드"],
+  ["sh-5","sh","pack","휴지·물티슈 (중국 공중화장실은 휴지 없는 곳 많음)"],
+  ["sh-6","sh","cn","해산물 식당은 근(斤, 500g)당 가격부터 확인"],
+  ["jh-1","jh","before","중국 eSIM 4명분 구매 ('우회' 또는 'VPN 불필요' 상품)","카톡·구글·인스타가 그냥 됨"],
+  ["jh-2","jh","before","고덕지도(Amap) 설치·영어 모드, 숙소와 명소 즐겨찾기"],
+  ["jh-3","jh","before","극지해양공원·맥주박물관 입장권 예매 (트립닷컴)","해양공원 온라인 229~249위안"],
+  ["jh-4","jh","before","라오산 10/19(월) 입장권·케이블카 확인"],
+  ["jh-5","jh","before","디디 택시(알리페이 미니프로그램) 결제 테스트"],
+  ["jh-6","jh","pack","보조배터리·멀티 충전기·케이블"],
+  ["ay-1","ay","before","파파고 중국어·일본어 오프라인 번역 다운로드"],
+  ["ay-2","ay","before","일본 eSIM 구매"],
+  ["ay-3","ay","before","미야지다케 '빛의 길' 2026 가을 날짜 확인 (21일 포함인지)","2025년엔 10/16~22"],
+  ["ay-4","ay","before","후쿠오카 저녁 후보 저장: 돈코츠 라멘·모츠나베·야타이"],
+  ["ay-5","ay","pack","바람막이·얇은 겹옷 (칭다오 밤 13도 안팎, 바닷바람)"],
+  ["ay-6","ay","jp","매일 밤 사진 클라우드 백업"]
+].map(function(a){return {id:a[0],owner:a[1],cat:a[2],text:a[3],note:a[4]||"",link:a[5]||"",tpl:true}});
+
+/* places: [id, city, ko, local, lat, lng, cat, note] — coordinates approximate, for the sketch only */
+var PLACES=[
+  ["tao","qd","자오둥 국제공항","青岛胶东国际机场",36.362,120.088,"tr","시내까지 차로 1시간+, 택시 150~200위안"],
+  ["zhq","qd","잔교·회란각","栈桥",36.0606,120.3189,"sight","무료. 해 질 녘 추천"],
+  ["jdj","qd","천주교당","天主教堂",36.0677,120.3178,"sight","외관 무료"],
+  ["pcy","qd","피차이위안 먹자골목","劈柴院",36.0687,120.3150,"food","꼬치·가리비 구이"],
+  ["xhs","qd","신호산 공원","信号山公园",36.0703,120.3270,"sight","붉은 지붕 전망"],
+  ["xys","qd","소어산 공원","小鱼山公园",36.0612,120.3317,"sight","바다 전망대"],
+  ["hdsj","qd","칭다오 해저세계","青岛海底世界",36.0598,120.3345,"kids","96위안~, 해저터널"],
+  ["bdg","qd","팔대관","八大关",36.0540,120.3510,"sight","별장 거리, 10월 단풍"],
+  ["beer","qd","칭다오 맥주박물관","青岛啤酒博物馆",36.0872,120.3478,"sight","60~80위안, 원액 맥주 시음"],
+  ["dzl","qd","덩저우루 맥주거리","登州路啤酒街",36.0862,120.3495,"food","바지락볶음 + 생맥주"],
+  ["td","qd","타이동 보행가·야시장","台东步行街",36.0893,120.3570,"food","로컬 저녁 산책"],
+  ["ws","qd","5.4광장","五四广场",36.0618,120.3843,"sight","'오월의 바람' 조형물, 야경"],
+  ["af","qd","올림픽 요트센터","奥帆中心",36.0577,120.3930,"sight","야경 산책"],
+  ["mixc","qd","완샹청 믹스몰","青岛万象城",36.0680,120.3805,"food","몰 식당, 비 오는 날"],
+  ["yx","qd","운소로 미식거리","云霄路美食街",36.0705,120.3905,"food","해산물 수조 식당"],
+  ["xmd","qd","소맥도","小麦岛",36.0560,120.4320,"kids","무료, 잔디 언덕·일몰"],
+  ["polar","qd","극지해양공원","青岛极地海洋公园",36.0950,120.4630,"kids","정가 280위안, 펭귄·돌고래쇼"],
+  ["slr","qd","스라오런 해변","石老人海水浴场",36.0985,120.4740,"sight","해변 산책"],
+  ["ls","qd","라오산 태청궁","崂山太清宫",36.1425,120.6690,"sight","90위안~, 셔틀·케이블카 별도"],
+  ["fuk","fk","후쿠오카공항 국제선","福岡空港国際線ターミナル",33.5858,130.4502,"tr","하카타역까지 버스 400엔"],
+  ["hkt","fk","하카타역","博多駅",33.5902,130.4207,"tr","버스터미널·지하철"],
+  ["kushida","fk","쿠시다 신사","櫛田神社",33.5930,130.4106,"sight","야마카사 장식 수레"],
+  ["tochoji","fk","도초지","東長寺",33.5953,130.4144,"sight","붉은 5층탑, 목조 대불"],
+  ["shofukuji","fk","쇼후쿠지","聖福寺",33.5986,130.4134,"sight","선종 사찰 돌담길"],
+  ["yatai","fk","나카스 야타이","中洲屋台",33.5918,130.4057,"food","저녁 포장마차"],
+  ["rakusui","fk","라쿠스이엔","楽水園",33.5868,130.4150,"sight","작은 정원, 말차"],
+  ["ohori","fk","오호리 공원 일본정원","大濠公園日本庭園",33.5838,130.3770,"sight","호수 공원"],
+  ["castle","fk","후쿠오카성터","福岡城跡",33.5846,130.3830,"sight","성벽·천수각 터 전망"],
+  ["dazaifu","fk","다자이후 텐만구","太宰府天満宮",33.5215,130.5349,"sight","우메가에모치"],
+  ["komyo","fk","고묘젠지","光明禅寺",33.5197,130.5336,"sight","이끼 선종 정원"],
+  ["ukiha","fk","우키하 이나리 신사","浮羽稲荷神社",33.3365,130.7960,"sight","붉은 도리이 계단"],
+  ["hita","fk","히타 마메다마치","日田市豆田町",33.3245,130.9375,"sight","에도시대 상인 거리"],
+  ["kinrin","fk","유후인 긴린코","金鱗湖",33.2664,131.3690,"sight","아침 물안개 호수"],
+  ["yunotsubo","fk","유노츠보 거리","湯の坪街道",33.2648,131.3623,"food","금상고로케·푸딩"],
+  ["floral","fk","유후인 플로럴 빌리지","湯布院フローラルハウス",33.2633,131.3625,"kids","영국 코츠월즈풍 거리"],
+  ["miyaji","fk","미야지다케 신사","宮地嶽神社",33.7797,130.4974,"sight","'빛의 길' 10월 20일 전후"]
+].map(function(a){return {id:a[0],city:a[1],ko:a[2],local:a[3],lat:a[4],lng:a[5],cat:a[6],note:a[7]}});
+var PMAP={};PLACES.forEach(function(p){PMAP[p.id]=p});
+var REGIONS={
+  "qd-city":{city:"qd",ids:["zhq","jdj","pcy","xhs","xys","hdsj","bdg","beer","dzl","td","ws","af","mixc","yx","xmd"]},
+  "qd-all":{city:"qd",ids:null},
+  "fk-city":{city:"fk",ids:["fuk","hkt","kushida","tochoji","shofukuji","yatai","rakusui","ohori","castle"]},
+  "fk-all":{city:"fk",ids:null}
+};
+
+/* itinerary */
+var DAYS=[
+  {date:"2026-10-15",city:"qd",title:"칭다오 도착",slots:[
+    ["오전","입국 → 택시로 숙소 (약 1시간, 150~200위안)","공식 택시 승강장(GTC)이나 디디 이용",["tao"]],
+    ["오후","체크인, 근처 마트에서 물·간식","",[]],
+    ["저녁","5.4광장 야경 → 완샹청 몰에서 저녁","",["ws","mixc"]]]},
+  {date:"2026-10-16",city:"qd",title:"아이의 날: 바다와 펭귄",slots:[
+    ["오전","극지해양공원, 오픈(08:00) 직후 입장","쇼 시간표를 입구에서 먼저 확인",["polar"]],
+    ["오후","스라오런 해변 산책","",["slr"]],
+    ["저녁","소맥도 일몰 → 운소로 해산물","근당 가격 먼저 확인",["xmd","yx"]]]},
+  {date:"2026-10-17",city:"qd",title:"구시가지 걷기",slots:[
+    ["오전","잔교 → 천주교당","",["zhq","jdj"]],
+    ["오후","신호산 → 소어산 → 팔대관 (단풍)","언덕이 있어 아이 체력 고려, 구간은 택시",["xhs","xys","bdg"]],
+    ["저녁","피차이위안 먹자골목","",["pcy"]]]},
+  {date:"2026-10-18",city:"qd",title:"맥주와 로컬",slots:[
+    ["오전","칭다오 맥주박물관 (시간대 예약)","실내라 비 와도 OK",["beer"]],
+    ["오후","덩저우루 맥주거리 점심 → 타이동 보행가","",["dzl","td"]],
+    ["저녁","숙소 근처 휴식, 발마사지","",[]]]},
+  {date:"2026-10-19",city:"qd",title:"라오산 (평일)",slots:[
+    ["오전","라오산, 케이블카 코스 (반나절~하루)","입장 90위안~, 셔틀·케이블카 별도. 성수기 요금 기간(10월 말까지)",["ls"]],
+    ["오후","라오산 해안 마을 점심 후 복귀","",[]],
+    ["저녁","꼬치구이 저녁","",[]]]},
+  {date:"2026-10-20",city:"qd",title:"여유의 날",slots:[
+    ["오전","해저세계 또는 쇼핑·기념품","",["hdsj","mixc"]],
+    ["오후","짐 정리","",[]],
+    ["저녁","마지막 칭다오 만찬","",[]]]},
+  {date:"2026-10-21",city:"fk",title:"후쿠오카로",slots:[
+    ["오전","칭다오 공항, 출발 3시간 전 도착","시계 1시간 앞으로 (일본 시간)",["tao"]],
+    ["오후","후쿠오카 도착 → 체크인 → 쿠시다 신사·도초지·쇼후쿠지","기온역 근처, 도보로 묶음",["fuk","kushida","tochoji","shofukuji"]],
+    ["저녁","나카스 야타이 또는 라멘","옵션: 날짜가 맞으면 미야지다케 '빛의 길' (JR 후쿠마역 약 30분, 14시쯤 번호표)",["yatai","miyaji"]]]},
+  {date:"2026-10-22",city:"fk",title:"다자이후 → 유후인 렌터카",slots:[
+    ["오전","렌터카 픽업 → 다자이후 텐만구·고묘젠지","",["dazaifu","komyo"]],
+    ["오후","가는 길에 우키하 이나리 또는 히타 마메다마치 → 유후인 긴린코·유노츠보·플로럴 빌리지","평일이라 통행료 약 7,160엔",["ukiha","hita","kinrin","yunotsubo","floral"]],
+    ["저녁","하카타 복귀 (약 2시간), 주유 후 반납, 저녁","",["hkt"]]]},
+  {date:"2026-10-23",city:"fk",title:"귀국",slots:[
+    ["오전","오호리 공원 일본정원 + 후쿠오카성터, 또는 라쿠스이엔","",["ohori","castle","rakusui"]],
+    ["오후","쇼핑·기념품 → 공항","",["fuk"]]]}
+];
+var WD=["일","월","화","수","목","금","토"];
+
+var PHRASES={
+  zh:[["안녕하세요","你好","니하오"],["감사합니다","谢谢","씨에시에"],["이거 주세요","我要这个","워 야오 쩌거"],["얼마예요?","多少钱？","뚜어샤오 치엔?"],["한 근에 얼마예요?","一斤多少钱？","이 진 뚜어샤오 치엔?"],["네 명이에요","四个人","쓰 거 런"],["고수 빼 주세요","不要香菜","부야오 샹차이"],["맵지 않게 해 주세요","不要辣","부야오 라"],["계산할게요","买单","마이딴"],["알리페이 되나요?","可以用支付宝吗？","커이 융 즈푸바오 마?"],["여기로 가 주세요","请到这里","칭 따오 쩌리"],["화장실 어디예요?","洗手间在哪里？","시서우지엔 짜이 나리?"],["영수증 주세요","请给我小票","칭 게이 워 샤오피아오"],["아이가 아파요","孩子不舒服","하이즈 뿌 수푸"],["병원에 데려다 주세요","请带我去医院","칭 따이 워 취 이위엔"]],
+  ja:[["안녕하세요","こんにちは","곤니치와"],["감사합니다","ありがとうございます","아리가토 고자이마스"],["이거 주세요","これをください","코레오 쿠다사이"],["얼마예요?","いくらですか？","이쿠라데스카?"],["네 명이에요","4人です","요닌데스"],["계산 부탁해요","お会計お願いします","오카이케이 오네가이시마스"],["카드 되나요?","カードは使えますか？","카도와 츠카에마스카?"],["면세 되나요?","免税できますか？","멘제이 데키마스카?"],["면은 부드럽게요 (라멘)","麺はやわらかめで","멘와 야와라카메데"],["아이용 의자 있나요?","子ども用の椅子はありますか？","코도모요노 이스와 아리마스카?"],["여기까지 가 주세요","ここまでお願いします","코코마데 오네가이시마스"],["화장실 어디예요?","トイレはどこですか？","토이레와 도코데스카?"],["병원에 가고 싶어요","病院に行きたいです","뵤인니 이키타이데스"]]
+};
+
+var EMG=[
+  ["중국 경찰","110"],["중국 구급차","120"],["중국 화재","119"],
+  ["일본 경찰","110"],["일본 구급차·화재","119"],
+  ["외교부 영사콜센터 (24시간)","+82-2-3210-0404"],
+  ["주후쿠오카 대한민국 총영사관","+81-92-771-0461"]
+];
+
+var INFO=[
+  {t:"입국 서류",b:"<ul><li>중국: 한국 일반여권 무비자 30일, 2026년 12월 31일까지. 입국 다음 날부터 계산.</li><li>중국 온라인 입국카드: 2025년 11월 20일 시행, 국가이민관리국 사이트·NIA 12367 앱·위챗/알리페이 미니프로그램. 못 했으면 공항 QR·키오스크·종이카드.</li><li>칭다오 숙소 바우처, 칭다오→후쿠오카 항공권을 캡처해 두면 심사 때 편해요.</li><li>일본: 무비자 90일. Visit Japan Web 등록 시 입국·세관 QR 통합.</li><li>일본 출국세 3,000엔/인 (2026년 7월 1일 이후 산 항공권, 항공권에 포함).</li><li>일본 면세는 11월부터 공항 사후 환급으로 바뀌어요. 10월 21~23일은 바뀌기 전이지만 매장에서 확인.</li></ul>",s:[["쿠키뉴스","https://www.kukinews.com/article/view/kuk202511030238"],["동방항공 공지","https://www.ceair.com/global/ko_KRW/Announcement/AnnouncementMessage/202511/t20251119_29305.html"],["SBS Biz","https://biz.sbs.co.kr/amp/article/20000320050"],["에스콰이어","https://www.esquirekorea.co.kr/article/1904533"]]},
+  {t:"결제: 알리페이",b:"<ul><li>순서: 앱 설치 → +82 문자인증 → 여권 실명인증 → 해외결제 카드 등록 → 6자리 비밀번호.</li><li>200위안 이하 무료, 넘으면 결제액 전체에 3%. 큰 금액은 실물 카드가 되면 카드로.</li><li>결제 방식: 가게 QR 스캔 후 금액 입력, 또는 내 QR 보여주기.</li><li>카카오페이·네이버페이도 알리페이 플러스 가맹점에서 QR 결제 가능 → 백업용.</li></ul>",s:[["wanderinchina","https://www.wanderinchina.com/ko/survival-guide/payment/wechat-pay-vs-alipay/"],["카드고릴라","https://m.card-gorilla.com/contents/detail/3492"]]},
+  {t:"인터넷·앱",b:"<ul><li>중국 현지 회선은 카톡·구글·인스타가 막혀요. '우회(VPN 불필요)' eSIM은 홍콩 회선을 거쳐 그냥 됩니다.</li><li>VPN은 현지에서 설치가 막히니 출국 전에. 공공장소에서 과시적으로 쓰지 않기.</li><li>필수 앱: 알리페이, 고덕지도(Amap, 영어 모드), 파파고(오프라인), 트립닷컴.</li><li>구글지도는 중국에서 위치가 어긋나요. 아이폰 애플지도는 중국 내에서 고덕 데이터를 써서 쓸 만해요.</li></ul>",s:[["초이스몬","https://choicemon.com/china-esim/"],["wanderinchina 아맵","https://www.wanderinchina.com/ko/survival-guide/useful-mobile-apps/amap-gaode-map/"]]},
+  {t:"칭다오 교통",b:"<ul><li>공항↔시내 45~50km: 택시·디디 약 1시간 150~200위안(4인 추천), 지하철 8호선+3호선 약 1시간 30분 1인 약 8위안.</li><li>지하철 1회 2~5위안, 타기 전 보안검색.</li><li>택시 기본요금 약 10위안. 4명이면 가까운 거리는 택시가 편해요.</li><li>호텔은 중국어 주소를 보여주세요. 영문명은 기사가 못 읽는 경우가 많아요.</li><li>5.4광장 야경 뒤엔 택시 잡기가 치열하니 디디를 미리 부르기.</li></ul>",s:[["트립스토어 공항 이동","https://www.tripstore.kr/blog/qingdao-airport-transportation-guide"],["트립닷컴","https://kr.trip.com/guide/info/china-google-maps.html"]]},
+  {t:"칭다오 물가·입장료",b:"<div class='scroll'><table class='tbl'><tr><th>항목</th><th>가격</th></tr><tr><td>칭다오 맥주 500ml</td><td>5~10위안</td></tr><tr><td>바지락볶음</td><td>약 38위안</td></tr><tr><td>맥주거리 바지락+생맥주</td><td>1인 약 60위안</td></tr><tr><td>극지해양공원</td><td>정가 280 / 온라인 229~249위안</td></tr><tr><td>맥주박물관</td><td>60~80위안</td></tr><tr><td>해저세계</td><td>96위안~</td></tr><tr><td>라오산</td><td>90위안~</td></tr><tr><td>잔교·팔대관·신호산·5.4광장</td><td>무료</td></tr></table></div><p class='small muted' style='margin:0'>6일 현지 경비(4인, 숙소·항공 제외) 추정 4,600~6,700위안. 아이 할인은 키 기준인 곳이 많아요.</p>",s:[["携程","https://gs.ctrip.com/html5/you/sight/18953.html"],["新浪","https://www.sina.cn/news/article/niksaik9297298.html"],["트립스토어","https://www.tripstore.kr/blog/%EC%B9%AD%EB%8B%A4%EC%98%A4-%EC%97%AC%ED%96%89-%EB%82%A0%EC%94%A8-%EC%97%AC%ED%96%89%EC%8B%9C%EA%B8%B0-%EB%AC%BC%EA%B0%80-%EA%B4%80%EA%B4%91%EC%A7%80-%EC%87%BC%ED%95%91-%ED%8C%81"]]},
+  {t:"칭다오 메뉴판 한자",b:"<div class='scroll'><table class='tbl'><tr><th>메뉴</th><th>한자</th></tr><tr><td>바지락볶음</td><td>辣炒蛤蜊</td></tr><tr><td>삼치만두</td><td>鲅鱼水饺</td></tr><tr><td>오징어먹물만두</td><td>墨鱼水饺</td></tr><tr><td>원액 생맥주 / 봉지맥주</td><td>原浆啤酒 / 袋装啤酒</td></tr><tr><td>꼬치구이</td><td>烤串</td></tr><tr><td>기름에 찐 새우</td><td>油焖大虾</td></tr><tr><td>훈툰·유탸오 (아침)</td><td>馄饨 / 油条</td></tr><tr><td>볶음밥 (아이용)</td><td>炒饭</td></tr></table></div><p class='small muted' style='margin:0'>수조 식당 조리법: 辣炒 매콤볶음 · 清蒸 찜 · 白灼 데침 · 蒜蓉 마늘구이</p>",s:[["트립스토어 주문 팁","https://www.tripstore.kr/blog/%EC%B9%AD%EB%8B%A4%EC%98%A4-%ED%95%B4%EC%82%B0%EB%AC%BC-%EB%A7%9B%EC%A7%91-%EC%A3%BC%EB%AC%B8%ED%8C%81-%EA%B0%80%EC%9D%B4%EB%93%9C"]]},
+  {t:"후쿠오카 교통·렌터카",b:"<ul><li>공항 국제선 → 하카타역 직행 버스 400엔(카드 380엔), 아이 반값. 지하철은 국내선 터미널에서(무료 셔틀).</li><li>지하철 210엔~, 시내버스 도심 균일 150엔.</li><li>하카타→다자이후 전철 520엔(아이 260엔), 타비토 버스 700엔. 유후인호 고속버스 3,250엔(초등생 이하 반값, 예약제).</li><li>렌터카 한 바퀴(다자이후→유후인→하카타): 평일 통행료 약 7,160엔 + 라이즈 기름 약 2,600엔 + 대여료. KEP 패스는 이 동선에서 손해.</li><li>렌터카 서류: 국제운전면허증 + 한국 면허증 + 여권. 좌측통행.</li></ul>",s:[["Cities Insider","https://citiesinsider.com/country/japan/fukuoka/public-buses/ko"],["NAVITIME","https://www.navitime.co.jp/highway/route/searchlist?depIcId=535050&arvIcId=61090&depIcType=ic&arvIcType=ic"],["駅探","https://ekitan.com/transit/fare/sf-7930/st-7785"],["크로스로드 후쿠오카 KEP","https://www.crossroadfukuoka.jp/kr/articles/kep"]]},
+  {t:"후쿠오카 먹거리",b:"<ul><li>하카타 돈코츠 라멘: 면 익힘을 고를 수 있어요. 오후 3~5시가 한산.</li><li>모츠나베(곱창전골), 미즈타키(닭 백숙 전골, 아이 OK).</li><li>야타이: 나카스 강변·텐진, 저녁에 열고 자리가 좁아요. 현금 챙기기.</li><li>다자이후 우메가에모치, 유후인 금상고로케·푸딩, 하카타역 멘타이코.</li></ul>",s:[]},
+  {t:"날씨·옷차림·주의",b:"<ul><li>칭다오 10월 중순: 낮 20도·밤 13도 안팎, 바닷바람 강함 → 얇은 겹옷 + 바람막이.</li><li>중국: 여권 상시 소지, 지하철 보안검색, 수돗물 X, 휴지 지참. 17~18일 주말은 현지 나들이객 많음.</li><li>일본: 100V 납작 2구 → 돼지코. 쓰레기통이 적어 비닐봉지 하나.</li><li>시차: 칭다오는 한국보다 1시간 늦고, 후쿠오카는 같아요.</li></ul>",s:[["트립스토어 칭다오 10월","https://www.tripstore.kr/blog/%EC%B9%AD%EB%8B%A4%EC%98%A4-10%EC%9B%94-%EB%82%A0%EC%94%A8-%EC%BE%8C%EC%A0%81%ED%95%9C-%EA%B0%80%EC%9D%84-%EC%95%BC%EC%99%B8-%EB%AA%85%EC%86%8C"]]},
+  {t:"출처 더 보기",b:"<ul><li><a href='https://www.consulate-info.com/consulate/21517/South-Korea-in-Fukuoka' target='_blank' rel='noopener'>주후쿠오카 총영사관 연락처</a></li><li><a href='https://wise.com/kr/currency-converter/cny-to-krw-rate' target='_blank' rel='noopener'>Wise 위안 환율</a> · <a href='https://wise.com/kr/currency-converter/jpy-to-krw-rate' target='_blank' rel='noopener'>Wise 엔 환율</a></li><li><a href='https://www.crossroadfukuoka.jp/spot/11692' target='_blank' rel='noopener'>미야지다케 빛의 길</a></li><li><a href='https://www.waug.com/ko/themes/538' target='_blank' rel='noopener'>후쿠오카 근교 버스투어</a></li></ul>",s:[]}
+];
+
+/* ---------- utilities ---------- */
+function $(s,r){return (r||document).querySelector(s)}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]})}
+function lsGet(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var toastT;
+function toast(msg){var t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(function(){t.hidden=true},2600)}
+function personName(id){for(var i=0;i<PEOPLE.length;i++)if(PEOPLE[i].id===id)return PEOPLE[i].name;return id}
+function fmt(n,d){return Number(n).toLocaleString("ko-KR",{maximumFractionDigits:d==null?0:d})}
+function amapUrl(p){return "https://uri.amap.com/search?keyword="+encodeURIComponent(p.local)+"&city=370200&callnative=1"}
+function gmapUrl(p){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(p.local+(p.city==="qd"?" 青岛":""))}
+function naverUrl(p){return "https://map.naver.com/p/search/"+encodeURIComponent(p.local)}
+function appleUrl(p){return "https://maps.apple.com/?q="+encodeURIComponent(p.local)}
+function todayStr(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+
+/* ---------- state + storage ---------- */
+var S={mode:"local",checks:{},tasks:[],expenses:[],info:{},readOnly:false};
+var LKEY="trip-kit-v1";
+var db=null;
+(function loadLocal(){var l=lsGet(LKEY,null);if(l){S.checks=l.checks||{};S.tasks=l.tasks||[];S.expenses=l.expenses||[];S.info=l.info||{}}})();
+function saveLocal(){if(S.mode==="local")lsSet(LKEY,{checks:S.checks,tasks:S.tasks,expenses:S.expenses,info:S.info})}
+function setSync(){var el=$("#sync");if(S.mode==="db"){el.textContent="가족 공유 중 · 링크";el.className="sync on"}else{el.textContent="가족과 공유하기";el.className="sync"}}
+function writeFail(e){
+  if(e&&e.code==="permission-denied"){toast("저장 권한이 없어요. 가족 공유 링크로 다시 열어 주세요.")}
+  else if(e&&e.code==="resource-exhausted"){toast("오늘 무료 사용량을 넘었어요. 내일 다시 시도해 주세요.")}
+  else toast("저장하지 못했어요. 잠시 후 다시 시도해 주세요.");
+}
+function guard(){if(S.readOnly){toast("보기 전용이라 바꿀 수 없어요.");return false}return true}
+
+var API={
+  setCheck:function(id,done){if(!guard())return;S.checks[id]={done:done,at:Date.now()};renderAll();
+    if(db){db.collection("checks").doc(id).set({done:done,at:Date.now()}).catch(writeFail)}else saveLocal()},
+  addTask:function(t){if(!guard())return;t.at=Date.now();t.done=false;
+    if(db){db.collection("tasks").add(t).catch(writeFail)}else{t.id="c"+Date.now().toString(36);S.tasks.push(t);saveLocal();renderAll()}},
+  toggleTask:function(id,done){if(!guard())return;S.tasks.forEach(function(t){if(t.id===id)t.done=done});renderAll();
+    if(db){db.collection("tasks").doc(id).update({done:done}).catch(writeFail)}else saveLocal()},
+  delTask:function(id){if(!guard())return;S.tasks=S.tasks.filter(function(t){return t.id!==id});renderAll();
+    if(db){db.collection("tasks").doc(id).delete().catch(writeFail)}else saveLocal()},
+  addExp:function(e){if(!guard())return;e.at=Date.now();
+    if(db){db.collection("expenses").add(e).catch(writeFail)}else{e.id="e"+Date.now().toString(36);S.expenses.push(e);saveLocal();renderTools()}},
+  delExp:function(id){if(!guard())return;S.expenses=S.expenses.filter(function(x){return x.id!==id});renderTools();
+    if(db){db.collection("expenses").doc(id).delete().catch(writeFail)}else saveLocal()},
+  saveInfo:function(info){if(!guard())return Promise.resolve(false);S.info=info;
+    if(db){return db.doc("info/trip").set(info).then(function(){return true}).catch(function(e){writeFail(e);return false})}
+    saveLocal();return Promise.resolve(true)}
+};
+
+/* ---------- Firebase sync (가족 공유) ---------- */
+var FB_CONFIG={
+  apiKey:"AIzaSyCeRhucal0AgGrgwrw0bWo6yhAR4ZLHWnQ",
+  authDomain:"family-trip-kit.firebaseapp.com",
+  projectId:"family-trip-kit",
+  storageBucket:"family-trip-kit.firebasestorage.app",
+  messagingSenderId:"837205187073",
+  appId:"1:837205187073:web:074f045716ac288e4a7e00"
+};
+var KEY_RE=/^[A-Za-z0-9_-]{24,64}$/;
+function readTripKey(){
+  var m=(location.hash||"").match(/k=([A-Za-z0-9_-]{24,64})/);
+  if(m){lsSet("trip-kit-key",m[1]);return m[1]}
+  var saved=lsGet("trip-kit-key",null);
+  return (saved&&KEY_RE.test(saved))?saved:null;
+}
+function newTripKey(){
+  var a=new Uint8Array(18);crypto.getRandomValues(a);
+  return btoa(String.fromCharCode.apply(null,a)).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+}
+var TRIP_KEY=null;
+function shareUrl(){return location.origin+location.pathname+"#k="+TRIP_KEY}
+function makeDb(fs,key){
+  var base="trips/"+key+"/";
+  return {
+    collection:function(name){return fs.collection(base+name)},
+    doc:function(path){return fs.doc(base+path)}
+  };
+}
+function connect(){
+  TRIP_KEY=readTripKey();
+  if(!TRIP_KEY||!window.firebase){setSync();return}
+  try{
+    var app=firebase.apps.length?firebase.app():firebase.initializeApp(FB_CONFIG);
+    var fs=firebase.firestore(app);
+    try{fs.enablePersistence({synchronizeTabs:true}).catch(function(){})}catch(e){}
+    db=makeDb(fs,TRIP_KEY);
+  }catch(e){db=null;setSync();return}
+  // 이 기기에 먼저 적어 둔 내용이 있으면 공유 공간으로 한 번 옮겨요
+  var pending=lsGet(LKEY,null);
+  S.mode="db";S.checks={};S.tasks=[];S.expenses=[];S.info={};setSync();renderAll();
+  if(pending&&!lsGet("trip-kit-migrated-"+TRIP_KEY,false)){migrateLocal(pending)}
+  db.collection("checks").onSnapshot(function(snap){var c={};snap.docs.forEach(function(doc){c[doc.id]=doc.data()||{}});S.checks=c;renderAll()},onDbErr);
+  db.collection("tasks").orderBy("at").onSnapshot(function(snap){S.tasks=snap.docs.map(function(doc){var x=Object.assign({},doc.data());x.id=doc.id;return x});renderAll()},onDbErr);
+  db.collection("expenses").orderBy("at","desc").limit(500).onSnapshot(function(snap){S.expenses=snap.docs.map(function(doc){var x=Object.assign({},doc.data());x.id=doc.id;return x});renderTools()},onDbErr);
+  db.doc("info/trip").onSnapshot(function(snap){S.info=snap.exists?Object.assign({},snap.data()):{};fillInfoForm();renderHome()},onDbErr);
+}
+function migrateLocal(l){
+  var jobs=[];
+  Object.keys(l.checks||{}).forEach(function(id){var c=l.checks[id];if(c&&c.done)jobs.push(db.collection("checks").doc(id).set({done:true,at:c.at||Date.now()},{merge:true}))});
+  (l.tasks||[]).forEach(function(t){var x=Object.assign({},t);delete x.id;jobs.push(db.collection("tasks").add(x))});
+  (l.expenses||[]).forEach(function(e){var x=Object.assign({},e);delete x.id;jobs.push(db.collection("expenses").add(x))});
+  if(l.info&&Object.keys(l.info).length)jobs.push(db.doc("info/trip").set(l.info,{merge:true}));
+  Promise.all(jobs).then(function(){lsSet("trip-kit-migrated-"+TRIP_KEY,true);try{localStorage.removeItem(LKEY)}catch(e){}if(jobs.length)toast("이 기기에 적어 둔 내용을 가족 공유로 옮겼어요.")}).catch(function(){});
+}
+function startShare(){
+  if(!TRIP_KEY){TRIP_KEY=newTripKey();lsSet("trip-kit-key",TRIP_KEY);history.replaceState(null,"","#k="+TRIP_KEY);connect()}
+  openShare();
+}
+function openShare(){
+  var url=shareUrl();
+  $("#shareUrl").value=url;$("#shareBox").hidden=false;
+}
+function copyShare(){
+  var url=shareUrl(),inp=$("#shareUrl");
+  function sel(){inp.focus();inp.select();toast("주소를 길게 눌러 복사해 주세요.")}
+  try{navigator.clipboard.writeText(url).then(function(){toast("링크를 복사했어요. 가족 단톡방에 붙여 넣으세요.")},sel)}catch(e){sel()}
+}
+function onDbErr(e){if(e&&e.code==="permission-denied"){toast("공유 데이터를 읽지 못했어요. 링크가 맞는지 확인해 주세요.")}else if(e&&e.code==="unavailable"){toast("오프라인이에요. 연결되면 자동으로 맞춰져요.")}}
+
+/* ---------- navigation ---------- */
+var TABS=[
+  ["home","오늘",'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>'],
+  ["todo","할 일",'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 9l2 2 4-4M8 16h8"/>'],
+  ["plan","일정",'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'],
+  ["map","지도",'<path d="M9 4l-6 2v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>'],
+  ["tools","도구",'<circle cx="12" cy="12" r="8"/><path d="M12 8v8M8.5 10.5h5a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3h5"/>'],
+  ["info","정보",'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>']
+];
+function initTabs(){
+  $("#tabs").innerHTML=TABS.map(function(t){return '<button data-tab="'+t[0]+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+t[2]+'</svg>'+t[1]+'</button>'}).join("");
+  $$("#tabs button").forEach(function(b){b.addEventListener("click",function(){go(b.dataset.tab)})});
+}
+function go(tab,scrollId){
+  $$("[data-view]").forEach(function(v){v.hidden=v.dataset.view!==tab});
+  $$("#tabs button").forEach(function(b){if(b.dataset.tab===tab)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});
+  lsSet("trip-kit-tab",tab);
+  if(scrollId){var el=document.getElementById(scrollId);if(el)setTimeout(function(){el.scrollIntoView({behavior:"smooth",block:"start"})},30)}
+  else window.scrollTo(0,0);
+}
+document.addEventListener("click",function(ev){
+  var g=ev.target.closest("[data-go]");if(g){go(g.dataset.go,g.dataset.scroll);return}
+  var t=ev.target.closest("[data-tool='taxi']");if(t){go("tools","t-taxi")}
+});
+
+/* ---------- home ---------- */
+function dayIndexFor(ds){for(var i=0;i<DAYS.length;i++)if(DAYS[i].date===ds)return i;return -1}
+function renderHome(){
+  var now=new Date(),ts=todayStr();
+  var start=new Date(2026,9,15),end=new Date(2026,9,23);
+  var t0=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  var diff=Math.round((start-t0)/86400000);
+  var idx=dayIndexFor(ts);
+  if(idx>=0){$("#dday").textContent="DAY "+(idx+1);$("#ddate").textContent=ts.replace(/-/g,".");}
+  else if(diff>0){$("#dday").textContent="D-"+diff;$("#ddate").textContent="2026.10.15"}
+  else if(t0>end){$("#dday").textContent="끝";$("#ddate").textContent="다녀왔어요"}
+  else {$("#dday").textContent="D-DAY";$("#ddate").textContent="2026.10.15"}
+  var showIdx=idx>=0?idx:(diff>0?0:DAYS.length-1);
+  var d=DAYS[showIdx];
+  $("#todayTitle").textContent=(idx>=0?"오늘 · ":"첫날 · ")+dateLabel(d)+" "+d.title;
+  $("#todayBody").innerHTML=slotsHtml(d,true);
+  // flight line
+  var f=(S.info&&S.info.flights)||{};
+  var f1=f.f1||{};var sub="10월 15~20일 칭다오, 21~23일 후쿠오카.";
+  if(f1.no||f1.dep){sub+=" 출국편 "+esc([f1.no,f1.dep].filter(Boolean).join(" · "))+"."}
+  else sub+=" 항공 시간이 정해지면 일정 탭의 항공편 칸에 적어 두세요.";
+  $("#heroSub").innerHTML=sub;
+  // people progress
+  var all=allTasks();
+  $("#peopleProg").innerHTML=PEOPLE.map(function(p){
+    var mine=all.filter(function(t){return t.owner===p.id});
+    var done=mine.filter(isDone).length;var pct=mine.length?Math.round(done/mine.length*100):0;
+    return '<button class="person" data-go="todo" data-who="'+p.id+'"><span class="n">'+esc(p.name)+(p.role?' <span class="muted small">'+esc(p.role)+'</span>':'')+'</span><span class="bar"><i style="width:'+pct+'%"></i></span><span class="small muted mono">'+done+' / '+mine.length+'</span></button>'}).join("");
+  $$("#peopleProg .person").forEach(function(b){b.addEventListener("click",function(){WHO=b.dataset.who;renderTodo()})});
+}
+function tickClocks(){
+  var o={hour:"2-digit",minute:"2-digit",hour12:false};
+  try{
+    $("#ck-kr").textContent=new Intl.DateTimeFormat("ko-KR",Object.assign({timeZone:"Asia/Seoul"},o)).format(new Date());
+    $("#ck-cn").textContent=new Intl.DateTimeFormat("ko-KR",Object.assign({timeZone:"Asia/Shanghai"},o)).format(new Date());
+    $("#ck-jp").textContent=new Intl.DateTimeFormat("ko-KR",Object.assign({timeZone:"Asia/Tokyo"},o)).format(new Date());
+  }catch(e){}
+}
+
+/* ---------- checklist ---------- */
+var WHO=lsGet("trip-kit-who","all-view");
+function allTasks(){return TEMPLATE.concat(S.tasks.map(function(t){return {id:t.id,owner:t.owner,cat:t.cat,text:t.text,done:!!t.done,tpl:false}}))}
+function isDone(t){return t.tpl?!!(S.checks[t.id]&&S.checks[t.id].done):!!t.done}
+function renderTodo(){
+  var all=allTasks();
+  var chips=[{id:"all-view",name:"모두"}].concat(PEOPLE);
+  $("#whoChips").innerHTML=chips.map(function(p){
+    var list=p.id==="all-view"?all:all.filter(function(t){return t.owner===p.id});
+    var left=list.filter(function(t){return !isDone(t)}).length;
+    return '<button class="chip" data-who="'+p.id+'" aria-pressed="'+(WHO===p.id)+'">'+esc(p.name)+'<span class="cnt">'+left+'</span></button>'}).join("");
+  $$("#whoChips .chip").forEach(function(b){b.addEventListener("click",function(){WHO=b.dataset.who;lsSet("trip-kit-who",WHO);renderTodo()})});
+  var list=WHO==="all-view"?all:all.filter(function(t){return t.owner===WHO});
+  var html=CATS.map(function(c){
+    var items=list.filter(function(t){return t.cat===c.id});if(!items.length)return "";
+    items.sort(function(a,b){return (isDone(a)?1:0)-(isDone(b)?1:0)});
+    return '<div class="group"><h3>'+c.name+'</h3>'+items.map(function(t){
+      var d=isDone(t);var tp=TEMPLATE.filter(function(x){return x.id===t.id})[0];
+      var note=tp&&tp.note?'<div class="note">'+esc(tp.note)+(tp.link?' · <a href="'+esc(tp.link)+'" target="_blank" rel="noopener">열기</a>':'')+'</div>':(tp&&tp.link?'<div class="note"><a href="'+esc(tp.link)+'" target="_blank" rel="noopener">열기</a></div>':'');
+      return '<div class="item'+(d?' done':'')+'"><input type="checkbox" id="ck-'+esc(t.id)+'" data-id="'+esc(t.id)+'" data-tpl="'+(t.tpl?1:0)+'"'+(d?' checked':'')+'><label class="txt" for="ck-'+esc(t.id)+'"><span class="t">'+esc(t.text)+'</span>'+note+'</label>'+(WHO==="all-view"||WHO!==t.owner?'<span class="who">'+esc(personName(t.owner))+'</span>':'')+(t.tpl?'':'<button class="x" data-del="'+esc(t.id)+'" aria-label="삭제">×</button>')+'</div>'}).join("")+'</div>'}).join("");
+  $("#todoList").innerHTML=html||'<p class="muted" style="margin:0">아직 할 일이 없어요. 아래에서 추가해 보세요.</p>';
+  $$("#todoList input[type=checkbox]").forEach(function(cb){cb.addEventListener("change",function(){
+    if(cb.dataset.tpl==="1")API.setCheck(cb.dataset.id,cb.checked);else API.toggleTask(cb.dataset.id,cb.checked)})});
+  $$("#todoList [data-del]").forEach(function(b){b.addEventListener("click",function(){
+    if(b.dataset.armed){API.delTask(b.dataset.del)}else{b.dataset.armed="1";b.textContent="삭제?";b.style.color="var(--stamp)";setTimeout(function(){if(b.isConnected){delete b.dataset.armed;b.textContent="×";b.style.color=""}},3000)}})});
+  var sel=$("#at-who");if(WHO!=="all-view")sel.value=WHO;
+}
+function initAddTask(){
+  $("#at-who").innerHTML=PEOPLE.map(function(p){return '<option value="'+p.id+'">'+esc(p.name)+'</option>'}).join("");
+  $("#at-cat").innerHTML=CATS.map(function(c){return '<option value="'+c.id+'">'+c.name+'</option>'}).join("");
+  $("#addTask").addEventListener("submit",function(e){e.preventDefault();var txt=$("#at-text").value.trim();if(!txt)return;
+    API.addTask({owner:$("#at-who").value,cat:$("#at-cat").value,text:txt});$("#at-text").value="";toast("추가했어요: "+personName($("#at-who").value))});
+}
+
+/* ---------- plan ---------- */
+var DAYSEL=Math.max(0,dayIndexFor(todayStr()));
+function dateLabel(d){var dt=new Date(d.date+"T00:00:00");return (dt.getMonth()+1)+"/"+dt.getDate()+" ("+WD[dt.getDay()]+")"}
+function placeChip(id){var p=PMAP[id];if(!p)return "";var u=p.city==="qd"?amapUrl(p):gmapUrl(p);return '<a class="pl" href="'+u+'" target="_blank" rel="noopener">'+esc(p.ko)+'</a>'}
+function slotsHtml(d,compact){
+  return d.slots.map(function(s){return '<div class="slot"><div class="when">'+s[0]+'</div><div class="what"><div>'+esc(s[1])+'</div>'+(s[2]?'<div class="small muted">'+esc(s[2])+'</div>':'')+(s[3].length?'<div class="plinks">'+s[3].map(placeChip).join("")+'</div>':'')+'</div></div>'}).join("");
+}
+function renderPlan(){
+  var ts=todayStr();
+  $("#dayTabs").innerHTML=DAYS.map(function(d,i){var dt=new Date(d.date+"T00:00:00");return '<button class="day-tab '+d.city+(d.date===ts?' today':'')+'" data-i="'+i+'" aria-pressed="'+(i===DAYSEL)+'"><span class="d">'+(dt.getMonth()+1)+'/'+dt.getDate()+'</span><span class="w">'+WD[dt.getDay()]+'</span></button>'}).join("");
+  $$("#dayTabs .day-tab").forEach(function(b){b.addEventListener("click",function(){DAYSEL=+b.dataset.i;renderPlan()})});
+  var d=DAYS[DAYSEL];
+  $("#dayBody").innerHTML='<div class="row" style="margin-bottom:4px"><span class="citybadge '+d.city+'">'+(d.city==="qd"?"칭다오":"후쿠오카")+'</span><h3>'+dateLabel(d)+' '+esc(d.title)+'</h3></div>'+slotsHtml(d);
+}
+var FLIGHTS=[["f1","한국 → 칭다오 (10/15)"],["f2","칭다오 → 후쿠오카 (10/21)"],["f3","후쿠오카 → 한국 (10/23)"]];
+function initInfoForm(){
+  $("#flightFields").innerHTML=FLIGHTS.map(function(f){return '<div class="field"><label for="'+f[0]+'-no">'+f[1]+'</label><div class="row" style="flex-wrap:nowrap"><input type="text" id="'+f[0]+'-no" placeholder="편명" maxlength="12" style="flex:1"><input type="text" id="'+f[0]+'-dep" placeholder="출발 시각" maxlength="20" style="flex:1.3"></div></div>'}).join("");
+  $("#infoForm").addEventListener("submit",function(e){e.preventDefault();
+    var info={flights:{},hotels:{qd:{name:$("#hq-name").value.trim(),addr:$("#hq-addr").value.trim()},fk:{name:$("#hf-name").value.trim(),addr:$("#hf-addr").value.trim()}},memo:$("#i-memo").value.trim(),updatedAt:Date.now()};
+    FLIGHTS.forEach(function(f){info.flights[f[0]]={no:$("#"+f[0]+"-no").value.trim(),dep:$("#"+f[0]+"-dep").value.trim()}});
+    API.saveInfo(info).then(function(ok){if(ok){toast("저장했어요");renderHome();$("#infoSaved").textContent="방금 저장됨"}})});
+}
+function fillInfoForm(){
+  var i=S.info||{},f=i.flights||{},h=i.hotels||{};
+  if(document.activeElement&&$("#infoForm").contains(document.activeElement))return;
+  FLIGHTS.forEach(function(x){var v=f[x[0]]||{};$("#"+x[0]+"-no").value=v.no||"";$("#"+x[0]+"-dep").value=v.dep||""});
+  $("#hq-name").value=(h.qd&&h.qd.name)||"";$("#hq-addr").value=(h.qd&&h.qd.addr)||"";
+  $("#hf-name").value=(h.fk&&h.fk.name)||"";$("#hf-addr").value=(h.fk&&h.fk.addr)||"";
+  $("#i-memo").value=i.memo||"";
+  if(i.updatedAt){var dt=new Date(i.updatedAt);$("#infoSaved").textContent="마지막 저장 "+(dt.getMonth()+1)+"/"+dt.getDate()+" "+String(dt.getHours()).padStart(2,"0")+":"+String(dt.getMinutes()).padStart(2,"0")}
+}
+
+/* ---------- map ---------- */
+var REGION=lsGet("trip-kit-region","qd-city"),SELP=null;
+var CATCOL={sight:null,food:"var(--food)",kids:"var(--kids)",tr:"var(--muted)"};
+function colFor(p){return CATCOL[p.cat]||(p.city==="qd"?"var(--qd)":"var(--fk)")}
+function regionPlaces(){var r=REGIONS[REGION];return r.ids?r.ids.map(function(id){return PMAP[id]}):PLACES.filter(function(p){return p.city===r.city})}
+function renderMap(){
+  $$("[data-region]").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.region===REGION)});
+  var ps=regionPlaces();
+  var W=640,H=420,pad=34;
+  var minLat=Infinity,maxLat=-Infinity,minLng=Infinity,maxLng=-Infinity;
+  ps.forEach(function(p){minLat=Math.min(minLat,p.lat);maxLat=Math.max(maxLat,p.lat);minLng=Math.min(minLng,p.lng);maxLng=Math.max(maxLng,p.lng)});
+  var mid=(minLat+maxLat)/2,k=Math.cos(mid*Math.PI/180);
+  var spanX=(maxLng-minLng)*k||0.01,spanY=(maxLat-minLat)||0.01;
+  var sc=Math.min((W-2*pad)/spanX,(H-2*pad-20)/spanY);
+  var ox=(W-spanX*sc)/2,oy=(H-20-spanY*sc)/2;
+  function X(p){return ox+(p.lng-minLng)*k*sc}
+  function Y(p){return oy+(maxLat-p.lat)*sc}
+  // scale bar: km per px
+  var kmPerPx=111/sc;var target=W*0.22*kmPerPx;var nice=[0.2,0.5,1,2,5,10,20,50,100].filter(function(n){return n<=target}).pop()||0.2;var barPx=nice/kmPerPx;
+  var g=[];
+  for(var i=1;i<6;i++){g.push('<line x1="'+(W*i/6)+'" y1="0" x2="'+(W*i/6)+'" y2="'+H+'" stroke="var(--line)" stroke-width="1"/>');}
+  for(i=1;i<4;i++){g.push('<line x1="0" y1="'+(H*i/4)+'" x2="'+W+'" y2="'+(H*i/4)+'" stroke="var(--line)" stroke-width="1"/>');}
+  var pins=ps.map(function(p,n){var sel=SELP===p.id;return '<g class="pin" data-pid="'+p.id+'" tabindex="0" role="button" aria-label="'+esc(p.ko)+'" style="cursor:pointer"><circle cx="'+X(p).toFixed(1)+'" cy="'+Y(p).toFixed(1)+'" r="'+(sel?14:11)+'" fill="'+colFor(p)+'" stroke="var(--surface)" stroke-width="2"/><text x="'+X(p).toFixed(1)+'" y="'+(Y(p)+4).toFixed(1)+'" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" font-weight="600" fill="var(--surface)">'+(n+1)+'</text>'+(sel?'<text x="'+X(p).toFixed(1)+'" y="'+(Y(p)-20).toFixed(1)+'" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)" stroke="var(--sunk)" stroke-width="4" paint-order="stroke">'+esc(p.ko)+'</text>':'')+'</g>'}).join("");
+  var compass='<g transform="translate('+(W-28)+',28)"><circle r="14" fill="var(--surface)" stroke="var(--line)"/><path d="M0 -9 L4 3 L0 1 L-4 3Z" fill="var(--ink)"/><text y="-17" text-anchor="middle" font-size="10" fill="var(--muted)">N</text></g>';
+  var bar='<g transform="translate(16,'+(H-16)+')"><rect width="'+barPx.toFixed(1)+'" height="5" fill="var(--ink)"/><text y="-6" font-size="11" font-family="IBM Plex Mono,monospace" fill="var(--muted)">'+nice+' km</text></g>';
+  $("#mapbox").innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="장소 위치 개략도">'+'<rect width="'+W+'" height="'+H+'" fill="var(--sunk)"/>'+g.join("")+pins+compass+bar+'</svg>';
+  $$("#mapbox .pin").forEach(function(el){
+    function pick(){SELP=el.dataset.pid;renderMap();var li=document.getElementById("pl-"+SELP);if(li)li.scrollIntoView({behavior:"smooth",block:"nearest"})}
+    el.addEventListener("click",pick);el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();pick()}})});
+  $("#plist").innerHTML=ps.map(function(p,n){
+    var acts=p.city==="qd"
+      ?'<a class="btn sm qd" href="'+amapUrl(p)+'" target="_blank" rel="noopener">고덕지도</a><a class="btn sm" href="'+appleUrl(p)+'" target="_blank" rel="noopener">애플지도</a><a class="btn sm" href="'+gmapUrl(p)+'" target="_blank" rel="noopener">구글지도</a>'
+      :'<a class="btn sm fk" href="'+gmapUrl(p)+'" target="_blank" rel="noopener">구글지도</a><a class="btn sm" href="'+naverUrl(p)+'" target="_blank" rel="noopener">네이버지도</a><a class="btn sm" href="'+appleUrl(p)+'" target="_blank" rel="noopener">애플지도</a>';
+    return '<div class="place'+(SELP===p.id?' sel':'')+'" id="pl-'+p.id+'"><span class="num" style="background:'+colFor(p)+'">'+(n+1)+'</span><div style="min-width:0"><div class="nm">'+esc(p.ko)+' <span class="loc">'+esc(p.local)+'</span></div><div class="small muted">'+esc(p.note)+'</div><div class="acts">'+acts+'<button class="btn sm ghost" data-show="'+p.id+'">기사님께 보여주기</button></div></div></div>'}).join("");
+  $$("#plist [data-show]").forEach(function(b){b.addEventListener("click",function(){var p=PMAP[b.dataset.show];openBig(p.city==="qd"?"请带我去这里":"ここまでお願いします",p.local,p.ko)})});
+}
+
+/* ---------- tools ---------- */
+var RATES=lsGet("trip-kit-rates",{cny:199.5,jpy:8.47});
+function initConv(){
+  $("#r-cny").value=RATES.cny;$("#r-jpy").value=RATES.jpy;
+  function from(src){var krw;var v=parseFloat($("#c-"+src).value);if(isNaN(v)){return}
+    krw=src==="krw"?v:src==="cny"?v*RATES.cny:v*RATES.jpy;
+    if(src!=="krw")$("#c-krw").value=Math.round(krw);
+    if(src!=="cny")$("#c-cny").value=(krw/RATES.cny).toFixed(1);
+    if(src!=="jpy")$("#c-jpy").value=Math.round(krw/RATES.jpy)}
+  ["krw","cny","jpy"].forEach(function(c){$("#c-"+c).addEventListener("input",function(){from(c)})});
+  ["cny","jpy"].forEach(function(c){$("#r-"+c).addEventListener("input",function(){var v=parseFloat(this.value);if(v>0){RATES[c]=v;lsSet("trip-kit-rates",RATES);from("krw");renderTools()}})});
+  $$("[data-q]").forEach(function(b){b.addEventListener("click",function(){var a=b.dataset.q.split(":");$("#c-"+a[0]).value=a[1];from(a[0])})});
+  from("krw");
+  $("#rateNote").textContent="1위안 ≈ "+RATES.cny+"원 · 1엔 ≈ "+RATES.jpy+"원";
+}
+function toKrw(e){var a=+e.amount||0;return e.cur==="CNY"?a*RATES.cny:e.cur==="JPY"?a*RATES.jpy:a}
+function renderTools(){
+  $("#rateNote").textContent="1위안 ≈ "+RATES.cny+"원 · 1엔 ≈ "+RATES.jpy+"원";
+  var ex=S.expenses.slice().sort(function(a,b){return (b.at||0)-(a.at||0)});
+  var tot={CNY:0,JPY:0,KRW:0},krw=0,paid={};PAYERS.forEach(function(p){paid[p.id]=0});
+  ex.forEach(function(e){tot[e.cur]=(tot[e.cur]||0)+(+e.amount||0);var k=toKrw(e);krw+=k;if(paid[e.payer]!=null)paid[e.payer]+=k});
+  $("#expTotal").textContent=ex.length?"합계 약 "+fmt(krw)+"원":"";
+  if(!ex.length){$("#expSummary").innerHTML='<p class="small muted" style="margin:0">아직 기록이 없어요. 쓴 돈을 적으면 통화별 합계와 원화 환산, 사람별 정산이 자동으로 계산돼요.</p>';$("#expList").innerHTML="";return}
+  var share=krw/PAYERS.length;
+  var rows=PAYERS.map(function(p){var bal=paid[p.id]-share;return '<tr><td>'+esc(p.name)+'</td><td class="n">'+fmt(paid[p.id])+'</td><td class="n" style="color:'+(bal>=0?'var(--ok)':'var(--stamp)')+'">'+(bal>=0?'+':'−')+fmt(Math.abs(bal))+'</td></tr>'}).join("");
+  $("#expSummary").innerHTML='<div class="row small" style="gap:14px;margin-bottom:8px"><span>위안 <b class="mono">'+fmt(tot.CNY,1)+'</b></span><span>엔 <b class="mono">'+fmt(tot.JPY)+'</b></span><span>원 <b class="mono">'+fmt(tot.KRW)+'</b></span></div><div class="scroll"><table class="tbl"><tr><th>낸 사람</th><th style="text-align:right">낸 금액(원 환산)</th><th style="text-align:right">4명 균등 기준</th></tr>'+rows+'</table></div><p class="small muted" style="margin:6px 0 0">+는 더 낸 금액, −는 덜 낸 금액이에요. 환산은 위 환율 기준.</p>';
+  $("#expList").innerHTML=ex.slice(0,60).map(function(e){var dt=new Date(e.at||Date.now());
+    return '<div class="exp"><span class="tag">'+esc(e.cat||"기타")+'</span><div style="min-width:0"><div>'+esc(e.memo||"(메모 없음)")+'</div><div class="meta">'+esc(personName(e.payer))+' · '+(dt.getMonth()+1)+'/'+dt.getDate()+'</div></div><div><div class="amt">'+fmt(e.amount,e.cur==="CNY"?1:0)+' '+(e.cur==="CNY"?"위안":e.cur==="JPY"?"엔":"원")+'</div><button class="btn sm ghost" data-dexp="'+esc(e.id)+'" style="margin-left:auto">지우기</button></div></div>'}).join("");
+  $$("#expList [data-dexp]").forEach(function(b){b.addEventListener("click",function(){if(b.dataset.armed){API.delExp(b.dataset.dexp)}else{b.dataset.armed="1";b.textContent="정말 지우기";b.classList.add("danger")}})});
+}
+function initExp(){
+  $("#e-who").innerHTML=PAYERS.map(function(p){return '<option value="'+p.id+'">'+esc(p.name)+'</option>'}).join("");
+  $("#e-cur").value=new Date()>=new Date(2026,9,21)?"JPY":"CNY";
+  $("#expForm").addEventListener("submit",function(e){e.preventDefault();var a=parseFloat($("#e-amt").value);if(!(a>0)){toast("금액을 입력해 주세요");return}
+    API.addExp({amount:a,cur:$("#e-cur").value,payer:$("#e-who").value,cat:$("#e-cat").value,memo:$("#e-memo").value.trim()});$("#e-amt").value="";$("#e-memo").value="";toast("기록했어요")});
+}
+var LANG="zh";
+function renderPhr(){
+  $$("[data-lang]").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.lang===LANG)});
+  $("#phrList").innerHTML=PHRASES[LANG].map(function(p,i){return '<div class="ph"><div style="min-width:0"><div class="ko">'+esc(p[0])+'</div><div class="fx">'+esc(p[1])+'</div><div class="rd muted">'+esc(p[2])+'</div></div><button class="btn sm" data-ph="'+i+'">크게</button></div>'}).join("");
+  $$("#phrList [data-ph]").forEach(function(b){b.addEventListener("click",function(){var p=PHRASES[LANG][+b.dataset.ph];openBig(p[0],p[1],p[2])})});
+}
+function initTaxi(){
+  $$("[data-taxi]").forEach(function(b){b.addEventListener("click",function(){
+    var k=b.dataset.taxi,h=(S.info&&S.info.hotels)||{};
+    if(k==="qd"){if(!(h.qd&&h.qd.addr)){toast("일정 탭에서 칭다오 숙소 중국어 주소를 먼저 저장해 주세요");go("plan","infoForm");return}openBig("请带我去这个地址",(h.qd.name?h.qd.name+"\n":"")+h.qd.addr,"이 주소로 가 주세요")}
+    else if(k==="fk"){if(!(h.fk&&h.fk.addr)){toast("일정 탭에서 후쿠오카 숙소 주소를 먼저 저장해 주세요");go("plan","infoForm");return}openBig("この住所までお願いします",(h.fk.name?h.fk.name+"\n":"")+h.fk.addr,"이 주소로 가 주세요")}
+    else if(k==="tao"){openBig("请带我去机场","青岛胶东国际机场","칭다오 자오둥 국제공항으로 가 주세요")}
+    else {openBig("空港までお願いします","福岡空港 国際線ターミナル","후쿠오카공항 국제선 터미널로 가 주세요")}})});
+}
+
+/* ---------- info ---------- */
+function renderInfo(){
+  $("#emgList").innerHTML=EMG.map(function(e){return '<div class="emg"><div><div class="small muted">'+esc(e[0])+'</div><div class="num">'+esc(e[1])+'</div></div><button class="btn sm" data-copy="'+esc(e[1])+'">복사</button></div>'}).join("")+'<div class="emg"><div><div class="small muted">주칭다오 대한민국 총영사관</div><div class="small">영사콜센터로 연결 요청</div></div><span></span></div>';
+  $$("#emgList [data-copy]").forEach(function(b){b.addEventListener("click",function(){var v=b.dataset.copy;
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(v).then(function(){toast("복사했어요: "+v)},function(){selectNum(b)})}else selectNum(b)})});
+  $("#infoAcc").innerHTML=INFO.map(function(s){return '<details class="acc"><summary>'+esc(s.t)+'</summary><div class="body">'+s.b+(s.s.length?'<div class="src">출처: '+s.s.map(function(x){return '<a href="'+x[1]+'" target="_blank" rel="noopener">'+esc(x[0])+'</a>'}).join(" · ")+'</div>':'')+'</div></details>'}).join("");
+}
+function selectNum(b){var n=b.parentNode.querySelector(".num");if(!n)return;var r=document.createRange();r.selectNodeContents(n);var s=getSelection();s.removeAllRanges();s.addRange(r);toast("번호를 선택했어요. 길게 눌러 복사하세요")}
+
+/* ---------- overlay ---------- */
+var wake=null;
+function openBig(label,main,sub){
+  $("#ovLabel").textContent=label;var m=$("#ovMain");m.textContent="";String(main).split("\n").forEach(function(line,i){if(i)m.appendChild(document.createElement("br"));m.appendChild(document.createTextNode(line))});
+  $("#ovSub").textContent=sub||"";$("#ov").hidden=false;$("#ovClose").focus();
+  try{if(navigator.wakeLock)navigator.wakeLock.request("screen").then(function(w){wake=w}).catch(function(){})}catch(e){}
+}
+function closeBig(){$("#ov").hidden=true;try{if(wake){wake.release();wake=null}}catch(e){}}
+$("#ovClose").addEventListener("click",closeBig);
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!$("#ov").hidden)closeBig()});
+
+/* ---------- boot ---------- */
+function renderAll(){renderHome();renderTodo()}
+initTabs();initAddTask();initInfoForm();initConv();initExp();initTaxi();
+$$("[data-region]").forEach(function(b){b.addEventListener("click",function(){REGION=b.dataset.region;SELP=null;lsSet("trip-kit-region",REGION);renderMap()})});
+$$("[data-lang]").forEach(function(b){b.addEventListener("click",function(){LANG=b.dataset.lang;renderPhr()})});
+fillInfoForm();renderAll();renderPlan();renderMap();renderTools();renderPhr();renderInfo();setSync();
+tickClocks();setInterval(tickClocks,20000);
+var h=(location.hash||"").replace("#","");if(h.indexOf("k=")===0)h="";var start=TABS.some(function(t){return t[0]===h})?h:lsGet("trip-kit-tab","home");
+if(!TABS.some(function(t){return t[0]===start}))start="home";
+go(start);
+$("#sync").addEventListener("click",function(){if(S.mode==="db")openShare();else startShare()});
+$("#shareCopy").addEventListener("click",copyShare);
+$("#shareClose").addEventListener("click",function(){$("#shareBox").hidden=true});
+connect();
+})();
+</script>
+</body>
+</html>
