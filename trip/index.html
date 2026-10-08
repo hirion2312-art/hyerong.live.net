@@ -23,17 +23,18 @@
   --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans CJK KR",system-ui,sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
   --r:12px;
+  --tilefilter:none;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0e1412; --surface:#162019; --sunk:#1d2925; --ink:#e6eeea; --muted:#9aaaa4; --line:#2a3833;
   --qd:#4cc4a6; --qd-soft:#16332c; --fk:#97a6f2; --fk-soft:#1f2645;
   --stamp:#f07d62; --stamp-soft:#3a1f19; --food:#e0a453; --kids:#b994e8; --ok:#5fcf93;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25); color-scheme:dark}}
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25); --tilefilter:invert(1) hue-rotate(180deg) brightness(.92) contrast(.88) saturate(.7); color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0e1412; --surface:#162019; --sunk:#1d2925; --ink:#e6eeea; --muted:#9aaaa4; --line:#2a3833;
   --qd:#4cc4a6; --qd-soft:#16332c; --fk:#97a6f2; --fk-soft:#1f2645;
   --stamp:#f07d62; --stamp-soft:#3a1f19; --food:#e0a453; --kids:#b994e8; --ok:#5fcf93;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25); color-scheme:dark}
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25); --tilefilter:invert(1) hue-rotate(180deg) brightness(.92) contrast(.88) saturate(.7); color-scheme:dark}
 *{box-sizing:border-box}
 html,body{background:var(--bg)}
 body{color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
@@ -157,6 +158,7 @@ input[type=search],input[type=time]{width:100%;background:var(--surface);border:
 .lpin.me{border:3px solid #fff;box-shadow:0 0 0 2px rgba(42,127,255,.35)}
 .lpin.sm{width:24px;height:24px;flex:0 0 auto;font-size:11px}
 .leaflet-container{font-family:var(--f-body);background:var(--sunk)}
+.leaflet-tile-pane{filter:var(--tilefilter)}
 .leaflet-bar a,.leaflet-bar a:hover{background:var(--surface);color:var(--ink);border-bottom-color:var(--line)}
 .leaflet-bar{border:1px solid var(--line)!important;box-shadow:var(--shadow)!important}
 .leaflet-control-attribution{background:color-mix(in srgb,var(--surface) 85%,transparent)!important;color:var(--muted)}
@@ -1078,7 +1080,7 @@ function reverseGeo(lat,lng){
 }
 function photon(q,c){
   return fetch("https://photon.komoot.io/api/?limit=8&q="+encodeURIComponent(q)+(c?"&lat="+c[0]+"&lon="+c[1]:"")).then(function(r){return r.json()}).then(function(j){
-    return (j.features||[]).map(function(f){var p=f.properties||{},g=f.geometry.coordinates,lat=g[1],lng=g[0];
+    return (j.features||[]).filter(function(f){var cc=(f.properties&&f.properties.countrycode)||"";return cc==="CN"||cc==="JP"}).map(function(f){var p=f.properties||{},g=f.geometry.coordinates,lat=g[1],lng=g[0];
       return {kind:"search",name:p.name||p.street||"",local:p.name||"",addr:[p.street,p.housenumber,p.district,p.city,p.country].filter(Boolean).join(" "),lat:lat,lng:lng,city:cityOf(lat,lng),cat:catFrom(p.osm_key,p.osm_value)}}).filter(function(x){return x.name});
   }).catch(function(){return []});
 }
@@ -1088,12 +1090,14 @@ function localHits(q){
   return S.places.filter(function(p){return m(p.name)||m(p.local)||m(p.addr)||m(p.memo)}).map(mineItem)
     .concat(PLACES.filter(function(r){return !saved[r.id]&&(m(r.ko)||m(r.local)||m(r.note))}).map(recItem));
 }
+function variants(q){var v=[q];if(/[가-힣]역$/.test(q))v.push(q.replace(/역$/," 역"));var ns=q.replace(/\s+/g,"");if(ns!==q&&v.indexOf(ns)<0)v.push(ns);return v}
+function nomSearch(q,vb){return nomFetch("search?format=jsonv2&limit=10&namedetails=1&accept-language=ko&countrycodes=cn,jp&q="+encodeURIComponent(q)+vb).then(function(a){return (a||[]).map(nomItem)}).catch(function(){return []})}
+function dedupe(a){var out=[];a.forEach(function(x){if(!x.name||!String(x.name).trim())return;for(var i=0;i<out.length;i++){var y=out[i];if(y.name===x.name&&dist([y.lat,y.lng],x)<0.4)return}out.push(x)});return out}
 function searchRemote(q,c){
   var vb=c?"&viewbox="+(c[1]-0.7).toFixed(3)+","+(c[0]+0.5).toFixed(3)+","+(c[1]+0.7).toFixed(3)+","+(c[0]-0.5).toFixed(3):"";
-  return nomFetch("search?format=jsonv2&limit=10&namedetails=1&accept-language=ko&q="+encodeURIComponent(q)+vb)
-    .then(function(a){return (a||[]).map(nomItem)}).catch(function(){return []})
-    .then(function(a){return a.length?a:photon(q,c)})
-    .then(function(a){if(c)a.sort(function(x,y){return dist(c,x)-dist(c,y)});return a.slice(0,10)});
+  var vs=variants(q),i=0;
+  function next(){if(i>=vs.length)return photon(q,c);return nomSearch(vs[i++],vb).then(function(a){return a.length?a:next()})}
+  return next().then(function(a){a=dedupe(a);if(c)a.sort(function(x,y){return dist(c,x)-dist(c,y)});return a.slice(0,10)});
 }
 function resRow(it,lab,c,i){
   return '<button class="res" type="button" data-i="'+i+'"><span class="lpin sm'+(lab?' res':'')+'" style="--c:'+(lab?"var(--ink)":pColor(it))+'">'+(lab||(it.kind==="mine"?"★":""))+'</span><span class="rtx"><span class="nm">'+esc(it.name)+'</span>'+(it.local&&it.local!==it.name?' <span class="muted small">'+esc(it.local)+'</span>':'')+'<span class="small muted addr">'+(it.kind==="rec"?"추천 · ":it.kind==="mine"?"저장한 곳 · ":"")+esc(it.addr||it.memo||catName(it.cat))+'</span></span><span class="small muted mono">'+(c&&hasXY(it)?fmtKm(dist(c,it)):"")+'</span></button>';
@@ -1106,7 +1110,7 @@ var MAPCFG=lsGet("trip-kit-mapcfg",{rec:true});
 var PFILTER=lsGet("trip-kit-pfilter","all");
 var CENTERS={qd:[36.072,120.375,12],fk:[33.590,130.400,13]};
 function prefersDark(){var t=document.documentElement.getAttribute("data-theme");if(t)return t==="dark";try{return matchMedia("(prefers-color-scheme: dark)").matches}catch(e){return false}}
-function tileUrl(){return prefersDark()?"https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png":"https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"}
+function tileUrl(){return "https://tile.openstreetmap.org/{z}/{x}/{y}.png"}
 function cssVar(n,d){try{return getComputedStyle(document.documentElement).getPropertyValue(n).trim()||d}catch(e){return d}}
 function defaultCity(){var ts=todayStr();if(ts>="2026-10-21"&&ts<="2026-10-23")return "fk";if(ts>="2026-10-15"&&ts<="2026-10-20")return "qd";return lsGet("trip-kit-mapcity","qd")}
 function mapCenter(){if(MAP){var c=MAP.getCenter();return [c.lat,c.lng]}var k=CENTERS[defaultCity()];return [k[0],k[1]]}
@@ -1116,8 +1120,7 @@ function ensureMap(){
   if(!window.L){$("#lmap").innerHTML='<p class="muted" style="padding:16px;margin:0">지도를 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요.</p>';return null}
   var k=CENTERS[defaultCity()];
   MAP=L.map("lmap",{zoomControl:true}).setView([k[0],k[1]],k[2]);
-  TILES=L.tileLayer(tileUrl(),{maxZoom:19,subdomains:"abcd",attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>'}).addTo(MAP);
-  try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){TILES.setUrl(tileUrl())})}catch(e){}
+  TILES=L.tileLayer(tileUrl(),{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 기여자'}).addTo(MAP);
   ["rec","mine","route","search","tmp","me"].forEach(function(n){LY[n]=L.layerGroup().addTo(MAP)});
   MAP.on("click",function(e){pickPoint(e.latlng.lat,e.latlng.lng)});
   drawLayers();
