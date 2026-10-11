@@ -365,6 +365,69 @@ a{color:var(--gold-hi)}
 .bg-grid p{margin:4px 0 0;font-size:14px;color:var(--muted)}
 .bg-grid small{margin-top:auto;padding-top:10px;border-top:1px dashed var(--line-soft);color:var(--parch);font-size:12.5px}
 .bg-note{margin-top:16px;color:var(--dim);font-size:13px;text-align:center}
+/* ===== 2026-10 리디자인 ===== */
+:root{--plate-w:min(400px,100%)}
+.kicker{margin:0;font-family:var(--f-prose);font-size:15px;color:var(--gold);letter-spacing:.04em}
+.hero{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:56px;padding-block:72px 40px}
+.hero h1{font-family:var(--f-prose);font-weight:700;font-size:clamp(34px,4.3vw,54px);line-height:1.18;letter-spacing:-.01em;margin:.3em 0 .55em;color:var(--parch);text-shadow:0 2px 30px rgba(9,13,31,.8)}
+.chap-head h2,.end h2{font-family:var(--f-prose);font-weight:700;letter-spacing:-.01em}
+.ledger{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin:0 0 30px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ledger div{padding:12px 12px 10px;min-width:0;border-left:1px dotted var(--line)}
+.ledger div:first-child{border-left:0;padding-left:0}
+.ledger dt{font-size:12px;color:var(--muted);white-space:nowrap}
+.ledger dd{margin:2px 0 0;font-family:var(--f-latin);font-weight:700;font-size:26px;color:var(--gold-hi);font-variant-numeric:lining-nums tabular-nums;line-height:1.2}
+.ledger dd small{font-family:var(--f-body);font-weight:500;font-size:13px;color:var(--parch);margin-left:3px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+
+.plate{margin:0;justify-self:center;width:var(--plate-w);display:flex;flex-direction:column;align-items:center;gap:14px}
+.plate-frame{position:relative;width:100%;aspect-ratio:2/3;padding:12px;background:linear-gradient(145deg,#f4dfa6,#b98d3e 40%,#6f4f1d 60%,#e9cd86);border-radius:4px;box-shadow:0 0 0 1px rgba(244,223,166,.5),0 0 0 7px var(--night),0 0 0 8px rgba(217,178,95,.45),0 40px 80px -20px rgba(0,0,0,.85),0 0 120px -10px rgba(143,162,255,.35);transform-origin:50% 60%}
+.plate-frame::before{content:"";position:absolute;inset:6px;border:1px solid rgba(29,22,48,.55);border-radius:2px;pointer-events:none;z-index:2}
+.plate-img{display:block;width:100%;height:100%;object-fit:cover;border-radius:2px;background:var(--deep);box-shadow:inset 0 0 0 1px rgba(0,0,0,.4)}
+.plate .cn{position:absolute;width:30px;height:30px;z-index:3;pointer-events:none;background:radial-gradient(circle at 50% 50%,#fff4cf 0 2.5px,transparent 3px),conic-gradient(from 45deg,transparent 0 25%,transparent 0);}
+.plate .cn::before,.plate .cn::after{content:"";position:absolute;background:#fff1c4;box-shadow:0 0 6px rgba(244,223,166,.8)}
+.plate .cn::before{width:22px;height:2px}.plate .cn::after{width:2px;height:22px}
+.plate .tl{left:-9px;top:-9px}.plate .tl::before{left:4px;top:14px}.plate .tl::after{left:14px;top:4px}
+.plate .tr{right:-9px;top:-9px}.plate .tr::before{right:4px;top:14px}.plate .tr::after{right:14px;top:4px}
+.plate .bl{left:-9px;bottom:-9px}.plate .bl::before{left:4px;bottom:14px}.plate .bl::after{left:14px;bottom:4px}
+.plate .br{right:-9px;bottom:-9px}.plate .br::before{right:4px;bottom:14px}.plate .br::after{right:14px;bottom:4px}
+.plate .sheen{position:absolute;inset:12px;z-index:2;pointer-events:none;border-radius:2px;background:linear-gradient(115deg,transparent 30%,rgba(255,244,207,.55) 48%,transparent 62%);background-size:300% 100%;background-position:120% 0;opacity:0}
+.plate figcaption{font-family:var(--f-prose);font-size:13px;color:var(--dim);text-align:center}
+@keyframes unveil{from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes sweep{0%{opacity:1;background-position:120% 0}100%{opacity:1;background-position:-40% 0}}
+.plate-frame{animation:unveil 1.4s cubic-bezier(.2,.7,.2,1) .15s both}
+.plate .sheen{animation:sweep 1.6s ease-in-out 1.2s 1 both}
+.hero-copy>*{animation:unveil 1s cubic-bezier(.2,.7,.2,1) both}
+.hero-copy>:nth-child(2){animation-delay:.1s}.hero-copy>:nth-child(3){animation-delay:.2s}.hero-copy>:nth-child(4){animation-delay:.3s}.hero-copy>:nth-child(5){animation-delay:.4s}
+
+/* 배지 메달 */
+.bg-grid article{display:grid;grid-template-columns:58px minmax(0,1fr);column-gap:14px;row-gap:4px;align-items:center}
+.bg-grid article>.medal{grid-row:1/3;width:58px;height:72px}
+.bg-grid article>.medal svg{width:100%;height:100%;display:block;filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
+.bg-grid article>h3{align-self:end}
+.bg-grid article>em{align-self:start}
+.bg-grid article>p,.bg-grid article>small{grid-column:1/-1}
+.bg-grid article>small{align-self:end}
+.bg-grid article.master{border-color:rgba(244,223,166,.7);background:linear-gradient(160deg,rgba(217,178,95,.28),var(--night-2) 70%);box-shadow:0 0 0 1px rgba(244,223,166,.15) inset,0 18px 40px -20px rgba(217,178,95,.55)}
+
+/* 관문 배너 */
+.gates{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:min(980px,100%);margin-top:18px}
+.gate{display:flex;flex-direction:column;gap:10px;text-decoration:none;color:var(--muted);font-size:14px;text-align:left}
+.gate img{display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--line);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);transition:transform .25s,box-shadow .25s,border-color .25s}
+.gate:hover img,.gate:focus-visible img{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 28px 60px -22px rgba(217,178,95,.45)}
+.gate:focus-visible{outline:none}
+.gate:focus-visible img{outline:2px solid var(--gold-hi);outline-offset:3px}
+
+@media (max-width:860px){
+  .hero{grid-template-columns:minmax(0,1fr);gap:28px;padding-block:28px 10px}
+  .hero h1{font-size:clamp(32px,9vw,44px)}
+  .bg-grid article{padding:16px}
+  .plate{order:-1;--plate-w:min(280px,72vw)}
+  .ledger{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .ledger div:nth-child(4){border-left:0;padding-left:0}
+  .ledger div:nth-child(n+4){border-top:1px dotted var(--line)}
+  .gates{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){.plate .sheen{display:none}}
 </style>
 
 <canvas id="sky" aria-hidden="true"></canvas>
@@ -386,24 +449,31 @@ a{color:var(--gold-hi)}
   </header>
 
   <section class="hero" id="top">
-    <div>
-      <div class="eyebrow">그란디아 대륙 동쪽 · 안개 속의 외딴섬</div>
-      <h1>모든 길이 만나는 섬, <em>에테르나</em></h1>
+    <div class="hero-copy">
+      <p class="kicker">그란디아 대륙 동쪽, 안개 속의 외딴섬</p>
+      <h1>모든 길이 만나는 섬,<br>에테르나</h1>
       <p class="lede">
         <span>짙은 안개가 은빛 갈매기호의 뱃머리를 핥는다. 사흘째 바다 위였다.</span>
         <span>안개가 칼로 자른 듯 갈라지며 섬이 모습을 드러낸다.</span>
         일곱 빛깔로 갈라진 하늘, 구름 위를 헤엄치는 고래, 절벽 끝에서 돌아가는 풍차들. 그리고 섬 한가운데 솟은 거대한 백색 첨탑, <strong>에테르나 소환 아카데미</strong>.
       </p>
-      <dl class="facts">
-        <div><dt>FLOWS</dt><dd>7<small>칠류</small></dd></div>
-        <div><dt>YEARS</dt><dd>300<small>년</small></dd></div>
-        <div><dt>DORMS</dt><dd>3<small>해·달·별</small></dd></div>
-        <div><dt>PAGES</dt><dd>80<small>도감</small></dd></div>
-        <div><dt>LEGENDS</dt><dd>2<small>단 둘</small></dd></div>
+      <dl class="ledger">
+        <div><dt>마나의 흐름</dt><dd>7<small>갈래</small></dd></div>
+        <div><dt>개교</dt><dd>300<small>년</small></dd></div>
+        <div><dt>기숙사</dt><dd>3<small>동</small></dd></div>
+        <div><dt>교수 배지</dt><dd>7<small>개</small></dd></div>
+        <div><dt>도감</dt><dd>80<small>칸</small></dd></div>
       </dl>
-      <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="#flows">안내서 펼치기</a><a class="ghost" href="#cast">인물부터 보기</a></div>
+      <div class="cta-row"><a class="btn" href="#flows">안내서 펼치기</a><a class="ghost" href="#cast">인물부터 보기</a></div>
     </div>
-    <div class="hero-art"><img src="img/logo.webp" alt="소환수 아카데미 로고"></div>
+    <figure class="plate">
+      <div class="plate-frame">
+        <i class="cn tl"></i><i class="cn tr"></i><i class="cn bl"></i><i class="cn br"></i>
+        <img class="plate-img" src="img/plate_still.webp" data-anim="img/plate.webp" width="400" height="600" alt="소환수 아카데미 표지. 일곱 속성의 소환수들이 차례로 모습을 드러낸다.">
+        <span class="sheen" aria-hidden="true"></span>
+      </div>
+      <figcaption>속표지 · 에테르나 섬 안내서 협약력 301년판</figcaption>
+    </figure>
   </section>
 
   <!-- I 칠류 -->
@@ -568,13 +638,14 @@ a{color:var(--gold-hi)}
       <div><b>80칸</b><span>도감을 모두 채운 학생은 300년간 한 명도 없었다는 소문이다.</span></div>
     </div>
     <div class="bg-grid">
-      <article style="--c:var(--t-fire)"><i>火</i><h3>공방장</h3><em>불씨 배지 · 화</em><p>도도하고 여유로운 마도기술자. 말끝을 늘이며 웃는다.</p><small>3턴마다 화 속성 위력 ×1.2</small></article>
-      <article style="--c:var(--t-water)"><i>水</i><h3>엘리노어</h3><em>물방울 배지 · 수</em><p>다정한 보건실 선생. 다친 소환수 앞에선 표정이 변한다.</p><small>매 턴 끝 HP 5% 회복</small></article>
-      <article style="--c:var(--t-wind)"><i>風</i><h3>시엘</h3><em>깃털 배지 · 풍</em><p>신임 비행학 교수. 반말하는 시원한 누나.</p><small>첫 턴 선공</small></article>
-      <article style="--c:var(--t-earth)"><i>地</i><h3>마가렛</h3><em>초석 배지 · 지</em><p>철의 여교수. 엄격하지만 누구보다 공정하다.</p><small>첫 피격 피해 절반</small></article>
-      <article style="--c:var(--t-light)"><i>光</i><h3>레이먼드</h3><em>여명 배지 · 빛</em><p>귀찮아하는 담임. 사실은 교수진 최강.</p><small>마지막 1마리가 위기일 때 능력 상승</small></article>
-      <article style="--c:var(--t-dark)"><i>暗</i><h3>빈센트</h3><em>그믐 배지 · 어둠</em><p>신임 저주학 교수. 음침한 독설가라 흑월회로 오해받는다.</p><small>2턴마다 상대에게 상태이상</small></article>
-      <article style="--c:var(--t-none)"><i>無</i><h3>그레타</h3><em>주먹 배지 · 무</em><p>신임 체력 교관. 호쾌하게 웃고 몸으로 가르친다.</p><small>능력 변화 무효</small></article>
+      <article style="--c:var(--t-fire)"><span class="medal" data-g="火"></span><h3>공방장</h3><em>불씨 배지 · 화</em><p>도도하고 여유로운 마도기술자. 말끝을 늘이며 웃는다.</p><small>3턴마다 화 속성 위력 ×1.2</small></article>
+      <article style="--c:var(--t-water)"><span class="medal" data-g="水"></span><h3>엘리노어</h3><em>물방울 배지 · 수</em><p>다정한 보건실 선생. 다친 소환수 앞에선 표정이 변한다.</p><small>매 턴 끝 HP 5% 회복</small></article>
+      <article style="--c:var(--t-wind)"><span class="medal" data-g="風"></span><h3>시엘</h3><em>깃털 배지 · 풍</em><p>신임 비행학 교수. 반말하는 시원한 누나.</p><small>첫 턴 선공</small></article>
+      <article style="--c:var(--t-earth)"><span class="medal" data-g="地"></span><h3>마가렛</h3><em>초석 배지 · 지</em><p>철의 여교수. 엄격하지만 누구보다 공정하다.</p><small>첫 피격 피해 절반</small></article>
+      <article style="--c:var(--t-light)"><span class="medal" data-g="光"></span><h3>레이먼드</h3><em>여명 배지 · 빛</em><p>귀찮아하는 담임. 사실은 교수진 최강.</p><small>마지막 1마리가 위기일 때 능력 상승</small></article>
+      <article style="--c:var(--t-dark)"><span class="medal" data-g="暗"></span><h3>빈센트</h3><em>그믐 배지 · 어둠</em><p>신임 저주학 교수. 음침한 독설가라 흑월회로 오해받는다.</p><small>2턴마다 상대에게 상태이상</small></article>
+      <article style="--c:var(--t-none)"><span class="medal" data-g="無"></span><h3>그레타</h3><em>주먹 배지 · 무</em><p>신임 체력 교관. 호쾌하게 웃고 몸으로 가르친다.</p><small>능력 변화 무효</small></article>
+      <article class="master" style="--c:var(--gold-hi)"><span class="medal" data-g="極"></span><h3>오스왈드 학장</h3><em>인정전 · 배지 7개 보유자만</em><p>15대 학장. 아무도 본 적 없는 그의 소환수가 이 승부에서 처음 모습을 드러낸다.</p><small>셀로라 · 녹터넬 · 칼데리아, Lv 60~65</small></article>
     </div>
     <p class="bg-note">오후에 신청하면 순서는 자유. 지면 7일 뒤에 다시 도전할 수 있다. 3대3, 소환수 교체 가능.</p>
   </section>
@@ -593,10 +664,13 @@ a{color:var(--gold-hi)}
   </section>
 
   <section class="end">
-    <div class="eyebrow">협약력 301년 · 신입생 모집</div>
+    <p class="kicker">협약력 301년, 신입생 모집</p>
     <h2>내일, 저 첨탑 아래 제단에서<br>평생의 파트너를 만난다.</h2>
     <p>평범한 신입생 한 명의 3년이 지금 시작된다.</p>
-    <a class="btn" href="https://claude.ai/artifact/5ujpXu5aFUYyqchBrEhaYu">입학 등록하러 가기</a>
+    <div class="gates">
+      <a class="gate" href="../academy/"><img src="img/bn_enroll.webp" width="900" height="333" loading="lazy" alt="입학 하러가기"><span>입학 소환청에서 이름을 등록하고 첫 파트너를 소환합니다.</span></a>
+      <a class="gate" href="../academy-codex/"><img src="img/bn_codex.webp" width="900" height="333" loading="lazy" alt="도감 보러가기"><span>채팅에서 받은 🔑 코드로 도감과 배지를 기록합니다.</span></a>
+    </div>
   </section>
   <footer class="foot"><span>소환수 아카데미 · 에테르나 섬 안내서</span><span>제작 히리온</span></footer>
 </div>
@@ -975,6 +1049,32 @@ const links = [...document.querySelectorAll("#toc a")];
 const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { links.forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id));
   const on = links.find(a => a.classList.contains("on")), tc = $(".toc"); if (on && tc.scrollWidth > tc.clientWidth) tc.scrollTo({ left:on.offsetLeft - tc.clientWidth / 2 + on.offsetWidth / 2, behavior:"smooth" }); } }); }, { rootMargin:"-40% 0px -55% 0px" });
 document.querySelectorAll(".chap").forEach(s => io.observe(s));
+})();
+
+/* ---------------- 리디자인: 메달·속표지 ---------------- */
+(function(){
+  const GEAR = (() => { let d = ""; const n = 16, R1 = 52, R2 = 46, cx = 60, cy = 62;
+    for (let i = 0; i < n * 2; i++) { const r = i % 2 ? R2 : R1, a = Math.PI * i / n - Math.PI / 2;
+      d += (i ? "L" : "M") + (cx + r * Math.cos(a)).toFixed(1) + " " + (cy + r * Math.sin(a)).toFixed(1); }
+    return d + "Z"; })();
+  let uid = 0;
+  document.querySelectorAll(".bg-grid .medal").forEach(el => {
+    const c = getComputedStyle(el.closest("article")).getPropertyValue("--c").trim() || "#d9b25f";
+    const g = el.dataset.g, u = "md" + (++uid);
+    el.innerHTML = `<svg viewBox="0 0 120 150" aria-hidden="true"><defs>
+      <linearGradient id="${u}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff4cf"/><stop offset=".45" stop-color="#d9b25f"/><stop offset="1" stop-color="#8c6726"/></linearGradient>
+      <radialGradient id="${u}d" cx=".38" cy=".3" r=".9"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".25" stop-color="${c}"/><stop offset="1" stop-color="#0b1027"/></radialGradient></defs>
+      <path d="M38 92 L28 146 L48 134 L58 148 L64 98Z" fill="${c}" opacity=".75"/><path d="M82 92 L92 146 L72 134 L62 148 L56 98Z" fill="${c}" opacity=".5"/>
+      <path d="${GEAR}" fill="url(#${u}g)"/><circle cx="60" cy="62" r="41" fill="url(#${u}d)"/>
+      <circle cx="60" cy="62" r="41" fill="none" stroke="url(#${u}g)" stroke-width="2.5"/>
+      <circle cx="60" cy="62" r="35" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width=".8" stroke-dasharray="1.5 3"/>
+      <text x="60" y="77" text-anchor="middle" font-size="42" font-family="Gowun Batang,serif" fill="#fff6dc" stroke="#0b1027" stroke-opacity=".4" stroke-width="1.2" paint-order="stroke">${g}</text></svg>`;
+  });
+  const img = document.querySelector(".plate-img");
+  if (img && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const swap = () => { const a = new Image(); a.onload = () => { img.src = a.src; }; a.src = img.dataset.anim; };
+    if (document.readyState === "complete") setTimeout(swap, 300); else addEventListener("load", () => setTimeout(swap, 300));
+  }
 })();
 </script>
 
