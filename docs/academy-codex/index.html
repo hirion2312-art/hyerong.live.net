@@ -503,12 +503,12 @@ code{font-family:var(--f-mono);font-size:12.5px;background:rgba(143,162,255,.12)
 
   <section class="entry" aria-labelledby="eh">
     <h2 id="eh">도감 등록 <span>REGISTER</span></h2>
-    <p class="how">채팅에서 <b>📖 도감 등록!</b> · <b>🏅 배지 획득!</b> 옆에 나온 🔑 코드를 붙여넣으세요. <code>AC·이름·단계C</code>는 직접 확인, <code>…S</code>는 목격, <code>BG·교수이름</code>은 배지입니다. 채팅 문장째 붙여넣어도, 여러 개를 한 번에 넣어도 됩니다.</p>
+    <p class="how">채팅에서 <b>📖 도감 등록!</b> · <b>🏅 배지 획득!</b> 옆에 나온 🔑 코드를 붙여넣으세요. 채팅 문장째 붙여넣어도, 여러 개를 한 번에 넣어도 됩니다.</p>
     <div class="inrow">
-      <textarea id="ta" spellcheck="false" placeholder="예) 📖 도감 등록! 🔑AC·위카·1C  /  🏅 배지 획득! 🔑BG·엘리노어" aria-label="도감 코드"></textarea>
+      <textarea id="ta" spellcheck="false" placeholder="채팅에서 받은 🔑 코드를 여기에 붙여넣으세요" aria-label="도감 코드"></textarea>
       <button class="seal-btn" id="go"><small>SEAL</small>등록하기</button>
     </div>
-    <div class="row">예시 <button class="chip" data-s="AC·위카·1C">AC·위카·1C</button><button class="chip" data-s="AC·플린트·2S">AC·플린트·2S</button><button class="chip" data-s="AC·솔라리아·3S">AC·솔라리아·3S</button><button class="chip" data-s="BG·엘리노어">BG·엘리노어</button><button class="chip" data-s="BG·학장">BG·학장</button> · <button class="lnk" id="clr">지우기</button></div>
+    <div class="row"><button class="lnk" id="clr">지우기</button></div>
     <div id="log" role="status" aria-live="polite"></div>
   </section>
 
@@ -664,7 +664,7 @@ function register(){
   const line = (c, h) => { const d = document.createElement("div"); d.className = "ln " + c; d.innerHTML = h; log.append(d); };
   if (!text.trim()){ line("no", "코드를 붙여넣어 주세요."); return; }
   const found = parse(text), bfound = parseBadges(text);
-  if (!found.length && !bfound.length){ line("bad", "읽을 수 있는 코드가 없어요. <code>AC·이름·단계C</code> 또는 <code>BG·교수이름</code> 형식인지 확인해 주세요."); return; }
+  if (!found.length && !bfound.length){ line("bad", "읽을 수 있는 코드가 없어요. 채팅에 나온 🔑 코드를 그대로 붙여넣어 주세요."); return; }
   const before = counts().c, bBefore = bCount();
   const doneBefore = new Set([...new Set(D.map(e => e.fam))].filter(famDone));
   const queue = [], bq = [];
@@ -929,7 +929,7 @@ function openMd(no, from){
       "<p class='dsc'>" + esc(e.desc) + "</p>" +
       "<div class='blk'><h4>BASE STATS · " + (e.grade === "전설" ? "측정치" : "종족값") + "</h4>" + radar(e) + "</div>" +
       (e.moves ? "<div class='blk'><h4>SIGNATURE · 고유기</h4><p>" + esc(e.moves) + "</p></div>" : "") +
-      "<div class='meta'><span>등록 " + (S[no].t ? new Date(S[no].t).toLocaleDateString("ko-KR") : "이전 기록") + "</span><span>코드 <code>AC·" + esc(e.base) + "·" + e.stage + "C</code></span></div>";
+      "<div class='meta'><span>등록 " + (S[no].t ? new Date(S[no].t).toLocaleDateString("ko-KR") : "이전 기록") + "</span></div>";
   } else if (x === 1){
     body = "<div class='tags'><span class='t'>" + e.type + " 속성</span><span>" + (e.grade === "전설" ? "전설" : ST[e.stage - 1]) + "</span></div>" +
       "<div class='lock'>멀리서 모습만 보았습니다. 계약하거나 진화시켜 직접 확인하면 설명·능력치·고유기가 기록됩니다.<div class='bars'><i style='width:92%'></i><i style='width:78%'></i><i style='width:60%'></i></div></div>";
@@ -1127,7 +1127,7 @@ function openBadge(id, from){
     "<div style='display:flex;gap:16px;align-items:center'>" + medal(b, on, "big2") + "<div><h2 id='mt'>" + esc(b.name) + "</h2><p class='cat'>" + esc(b.prof) + " · " + esc(b.role) + "</p></div></div>" +
     "<p class='quote'>“" + esc(b.quote) + "”</p>" +
     "<div class='blk'><h4>FIELD RULE · 교수의 규칙</h4><ul class='rules'><li><b>필드 규칙</b><span>" + esc(b.rule) + "</span></li>" + wk + lv + "</ul></div>" +
-    "<div class='meta'><span>" + (on ? "획득 " + (B[id].t ? new Date(B[id].t).toLocaleDateString("ko-KR") : "이전 기록") : "승리하면 채팅에 배지 코드가 나와요") + "</span><span>코드 <code>BG·" + esc(b.prof) + "</code></span></div></div>";
+    "<div class='meta'><span>" + (on ? "획득 " + (B[id].t ? new Date(B[id].t).toLocaleDateString("ko-KR") : "이전 기록") : "승리하면 채팅에 배지 코드가 나와요") + "</span></div></div>";
   const md = $("#md"); md.classList.add("on"); md.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden";
   pg.scrollTop = 0; $("#mx").onclick = closeMd; $("#mx").focus();
 }
