@@ -1,0 +1,947 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>에테르나 섬 안내서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+KR:wght@400;500;700;800&family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=Nanum+Brush+Script&display=swap">
+<style>
+/* Layout: 밤의 섬을 펼친 안내서. 상단 고정 목차, 장(章)마다 하나의 주인공 그래픽(칠류 성좌 → 섬 지도 → 협약 문서 → 연표 → 두 전설 → 인물 → 관계도). 입학 사이트와 같은 어두운 단일 테마. */
+:root{
+  --night:#090d1f; --night-2:#111834; --deep:#182248;
+  --panel:rgba(17,24,52,.78); --line:rgba(217,178,95,.28); --line-soft:rgba(160,172,230,.16);
+  --gold:#d9b25f; --gold-hi:#f4dfa6; --parch:#efe7d2; --muted:#a3abcc; --dim:#7a83a8;
+  --ink:#2a2238; --paper:#efe5cb; --paper-2:#e0d2ad;
+  --sun:#ffb25a; --moon:#8fa2ff; --star:#7fe0b4; --abyss:#c06cff;
+  --t-fire:#ff8a4c; --t-water:#4cc3ff; --t-wind:#7fe0b4; --t-earth:#d4a15a; --t-light:#ffe28a; --t-dark:#b48cff; --t-none:#d6d6e6;
+  --f-display:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-prose:"Gowun Batang","Noto Serif KR","AppleMyungjo",serif;
+  --f-latin:"Cinzel","Times New Roman",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --f-sign:"Nanum Brush Script",cursive;
+  color-scheme:dark;
+}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px)}
+body{background:var(--night);color:var(--parch);font-family:var(--f-body);font-size:16px;line-height:1.7;overflow-x:hidden;word-break:keep-all;overflow-wrap:break-word}
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:0 80px}
+button{font:inherit;color:inherit}
+a{color:var(--gold-hi)}
+:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* ---- top bar ---- */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;align-items:center;gap:18px;padding-block:10px;margin-inline:-20px;padding-inline:20px;background:linear-gradient(180deg,rgba(9,13,31,.92),rgba(9,13,31,.72));backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+.bar .brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.bar .brand img{height:40px;width:auto;filter:drop-shadow(0 0 10px rgba(143,162,255,.3))}
+.bar .brand small{font-family:var(--f-latin);letter-spacing:.2em;font-size:10.5px;color:var(--gold)}
+.toc{flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc ol{display:flex;gap:4px;list-style:none;margin:0;padding:0;justify-content:flex-end;width:max-content;margin-left:auto}
+.toc a{display:flex;gap:6px;align-items:baseline;text-decoration:none;color:var(--muted);font-size:13px;padding:5px 11px;border-radius:999px;border:1px solid transparent;white-space:nowrap;transition:.25s}
+.toc a b{font-family:var(--f-latin);font-size:10px;color:var(--dim);font-weight:700}
+.toc a:hover{color:var(--parch)}
+.toc a.on{color:var(--night);background:var(--gold);border-color:var(--gold)}
+.toc a.on b{color:var(--night)}
+
+/* ---- shared ---- */
+.eyebrow{font-family:var(--f-latin);letter-spacing:.26em;font-size:11.5px;color:var(--gold);text-transform:uppercase}
+.chap{padding-block:96px 0}
+.chap-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 22px;align-items:end;margin-bottom:34px}
+.chap-num{grid-row:span 2;font-family:var(--f-latin);font-weight:700;font-size:clamp(48px,7vw,88px);line-height:.85;color:transparent;-webkit-text-stroke:1px var(--gold);opacity:.75}
+.chap-head h2{font-family:var(--f-display);font-weight:800;font-size:clamp(26px,3.6vw,40px);line-height:1.25;margin:0;text-wrap:balance}
+.chap-head p{grid-column:2;margin:0;color:var(--muted);max-width:40em}
+.prose{font-family:var(--f-prose);font-size:17px;line-height:1.95;color:var(--parch);max-width:36em}
+.prose p{margin:0 0 1em}
+.prose b{color:var(--gold-hi);font-weight:700}
+.sub-h{font-family:var(--f-display);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;align-items:center;gap:12px}
+.sub-h::after{content:"";flex:1;height:1px;background:var(--line-soft)}
+.panel{background:var(--panel);border:1px solid var(--line-soft);border-radius:8px;backdrop-filter:blur(6px)}
+.hint{font-size:13px;color:var(--dim)}
+.btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#1d1630;border:0;border-radius:3px;padding:13px 24px;font-family:var(--f-display);font-weight:800;font-size:16px;cursor:pointer;text-decoration:none;box-shadow:0 10px 30px -10px rgba(217,178,95,.7);transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 36px -12px rgba(217,178,95,.9)}
+.ghost{display:inline-flex;align-items:center;background:none;border:1px solid var(--line);color:var(--gold-hi);border-radius:3px;padding:12px 20px;cursor:pointer;text-decoration:none}
+
+/* ---- hero ---- */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px;align-items:center;padding-block:64px 20px}
+.hero h1{font-family:var(--f-display);font-weight:800;font-size:clamp(34px,5.4vw,64px);line-height:1.15;margin:.35em 0 .5em;text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--gold-hi);text-shadow:0 0 30px rgba(217,178,95,.45)}
+.hero .lede{font-family:var(--f-prose);font-size:17.5px;line-height:2;color:var(--parch);margin:0 0 26px;max-width:32em;border-left:1px solid var(--line);padding-left:18px}
+.hero .lede span{display:block;color:var(--muted)}
+.hero .lede strong{color:var(--gold-hi);font-weight:700}
+.hero-art{position:relative;display:grid;place-items:center}
+.hero-art img{width:min(540px,100%);filter:drop-shadow(0 0 40px rgba(143,162,255,.3));animation:float 8s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px)}}
+.hero-art::before{content:"";position:absolute;width:80%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(143,162,255,.18),transparent 65%)}
+.facts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-block:1px solid var(--line-soft);margin:0 0 28px}
+.facts div{padding:12px 14px;border-left:1px solid var(--line-soft);min-width:0}
+.facts div:first-child{border-left:0;padding-left:0}
+.facts dt{font-family:var(--f-latin);font-size:10px;letter-spacing:.2em;color:var(--gold)}
+.facts dd{margin:2px 0 0;font-family:var(--f-display);font-weight:800;font-size:22px;font-variant-numeric:tabular-nums}
+.facts dd small{font-family:var(--f-body);font-weight:400;font-size:12.5px;color:var(--muted);margin-left:4px}
+
+/* ---- 칠류 ---- */
+.flows{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
+.sevenstar{position:relative;width:min(520px,100%);margin:0 auto;aspect-ratio:1}
+.sevenstar svg{width:100%;height:100%;overflow:visible}
+.sevenstar .node{cursor:pointer}
+.sevenstar .node:focus{outline:none}
+.sevenstar .node:focus-visible circle.ring{stroke:var(--gold-hi);stroke-width:3}
+.flowcard{padding:24px;min-height:300px;display:flex;flex-direction:column;gap:12px;border-color:color-mix(in srgb,var(--fc) 45%,transparent);box-shadow:0 0 60px -30px var(--fc);transition:border-color .4s,box-shadow .4s}
+.flowcard .nm{display:flex;align-items:baseline;gap:12px}
+.flowcard .nm b{font-family:var(--f-display);font-weight:800;font-size:44px;line-height:1;color:var(--fc);text-shadow:0 0 24px var(--fc)}
+.flowcard .nm span{font-family:var(--f-latin);letter-spacing:.2em;font-size:12px;color:var(--muted)}
+.flowcard p{margin:0;font-family:var(--f-prose);font-size:16px;line-height:1.85}
+.kv{display:grid;grid-template-columns:5.5em minmax(0,1fr);gap:6px 12px;font-size:14px;margin:4px 0 0}
+.kv dt{color:var(--dim)}
+.kv dd{margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{font-size:12.5px;padding:2px 10px;border-radius:999px;border:1px solid color-mix(in srgb,var(--fc,var(--gold)) 45%,transparent);color:var(--parch)}
+.laws{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;margin-top:72px;align-items:start}
+.evo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:end}
+.evo figure{margin:0;display:flex;flex-direction:column;gap:8px}
+.evo .im{border-radius:6px;overflow:hidden;border:1px solid color-mix(in srgb,var(--t-fire) 40%,transparent);aspect-ratio:3/4;background:var(--night-2)}
+.evo figure:nth-child(1) .im{transform:scale(.86);transform-origin:bottom}
+.evo figure:nth-child(2) .im{transform:scale(.93);transform-origin:bottom}
+.evo img{width:100%;height:100%;object-fit:cover;display:block}
+.evo figcaption{text-align:center;font-size:13px;color:var(--muted)}
+.evo figcaption b{display:block;font-family:var(--f-display);font-size:16px;color:var(--parch)}
+.tbl{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.tbl th,.tbl td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line-soft)}
+.tbl th{font-weight:500;color:var(--gold-hi);font-size:12.5px;letter-spacing:.04em}
+.tbl td:first-child{color:var(--parch);font-weight:700}
+.tiers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:20px;border:1px solid var(--line-soft);border-radius:6px;overflow:hidden}
+.tiers div{padding:14px 14px 16px;border-left:1px solid var(--line-soft);min-width:0}
+.tiers div:first-child{border-left:0}
+.tiers b{display:block;font-family:var(--f-display);font-size:17px;color:var(--c)}
+.tiers span{font-size:13px;color:var(--muted)}
+
+/* ---- 지도 ---- */
+.mapwrap{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:26px;align-items:start}
+.map{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:radial-gradient(120% 90% at 50% 50%,#0f1838,#070b1c)}
+.map svg{display:block;width:100%;height:auto}
+.map .pin{cursor:pointer}
+.map .pin:focus{outline:none}
+.map .pin .halo{transform-box:fill-box;transform-origin:center;animation:halo 2.6s ease-out infinite;opacity:0}
+.map .pin.on .halo{animation-duration:1.6s}
+@keyframes halo{0%{transform:scale(.6);opacity:.8}100%{transform:scale(2.6);opacity:0}}
+.map .pin text{paint-order:stroke;stroke:#070b1c;stroke-width:4px;stroke-linejoin:round}
+.map .pin.on .dot{stroke:var(--gold-hi);stroke-width:3}
+.map .cap{position:absolute;left:14px;bottom:10px;font-size:11.5px;color:var(--dim)}
+.region{padding:22px;display:flex;flex-direction:column;gap:12px;border-color:color-mix(in srgb,var(--fc) 45%,transparent);transition:border-color .4s}
+.region h3{font-family:var(--f-display);font-weight:800;font-size:26px;margin:0;color:var(--parch)}
+.region .ty{display:flex;gap:6px;flex-wrap:wrap}
+.region .ty span{font-size:12px;padding:2px 10px;border-radius:999px;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c);border:1px solid color-mix(in srgb,var(--c) 50%,transparent)}
+.region p{margin:0;font-family:var(--f-prose);font-size:16px;line-height:1.85}
+.region .warn{font-size:13px;color:#ffb3b3;border-left:2px solid #ff8f8f;padding:6px 10px;background:rgba(255,143,143,.06)}
+.regions-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.regions-list button{background:none;border:1px solid var(--line-soft);border-radius:999px;padding:4px 11px;font-size:12.5px;color:var(--muted);cursor:pointer}
+.regions-list button[aria-pressed="true"]{border-color:var(--gold);color:var(--gold-hi)}
+
+/* ---- 대륙 ---- */
+.continent{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:64px}
+.nation{padding:16px 18px;border:1px solid var(--line-soft);border-radius:6px;background:rgba(17,24,52,.55);min-width:0;display:flex;flex-direction:column;gap:4px}
+.nation .dir{font-family:var(--f-latin);font-size:10.5px;letter-spacing:.2em;color:var(--gold)}
+.nation b{font-family:var(--f-display);font-size:17px}
+.nation span{font-size:13.5px;color:var(--muted)}
+.nation.center{border-color:var(--line);background:rgba(217,178,95,.06)}
+.nation.sea{border:1px dashed var(--line);background:radial-gradient(circle at 70% 60%,rgba(143,162,255,.14),transparent 70%)}
+.nation.sea b{color:var(--gold-hi)}
+
+/* ---- 아카데미 ---- */
+.motto{text-align:center;padding-block:10px 40px}
+.motto q{display:block;font-family:var(--f-prose);font-weight:700;font-size:clamp(24px,3.8vw,40px);line-height:1.5;color:var(--gold-hi);quotes:"“" "”";text-wrap:balance}
+.motto small{display:block;margin-top:8px;font-family:var(--f-latin);letter-spacing:.24em;font-size:11.5px;color:var(--muted)}
+.acad{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:36px;align-items:start}
+.charter{position:relative;background:linear-gradient(165deg,var(--paper),var(--paper-2));color:var(--ink);border-radius:3px;padding:32px 30px 30px;box-shadow:0 30px 60px -24px rgba(0,0,0,.8),0 0 0 1px rgba(217,178,95,.5) inset;transform:rotate(-.8deg)}
+.charter::before{content:"";position:absolute;inset:9px;border:1px solid rgba(120,90,40,.35);pointer-events:none}
+.charter h3{font-family:var(--f-prose);font-weight:700;font-size:22px;margin:0 0 4px;color:#3a2a55;text-align:center}
+.charter .yr{text-align:center;font-family:var(--f-latin);font-size:11px;letter-spacing:.22em;color:#7a6440;margin-bottom:18px}
+.charter ol{margin:0;padding:0;list-style:none;counter-reset:a;display:grid;gap:14px}
+.charter li{counter-increment:a;display:grid;grid-template-columns:2.4em minmax(0,1fr);font-family:var(--f-prose);font-size:15.5px;line-height:1.75}
+.charter li::before{content:"제" counter(a) "조";font-weight:700;color:#7e1e2e;font-size:13px;padding-top:2px}
+.charter li b{color:#3a2a55}
+.charter li i{display:block;font-style:normal;font-size:13px;color:#6a5a74}
+.charter .seal{position:absolute;right:22px;bottom:-24px;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d14b5a,#7e1e2e 70%);display:grid;place-items:center;color:#f4dfa6;font-family:var(--f-latin);font-size:10.5px;letter-spacing:.08em;box-shadow:0 6px 14px rgba(0,0,0,.4);transform:rotate(-12deg)}
+.ovr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border:1px solid var(--line-soft);border-radius:6px;overflow:hidden;margin-bottom:26px}
+.ovr div{padding:12px 16px;border-top:1px solid var(--line-soft);border-left:1px solid var(--line-soft);min-width:0}
+.ovr div:nth-child(-n+2){border-top:0}
+.ovr div:nth-child(odd){border-left:0}
+.ovr dt{font-size:12px;color:var(--dim)}
+.ovr dd{margin:0;font-weight:700}
+.facil{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.fac{padding:14px 14px 15px;border:1px solid var(--line-soft);border-radius:6px;background:rgba(17,24,52,.5);min-width:0;display:flex;flex-direction:column;gap:3px}
+.fac b{font-family:var(--f-display);font-size:15.5px}
+.fac span{font-size:13px;color:var(--muted);line-height:1.55}
+.fac em{font-style:normal;font-size:11.5px;color:var(--gold);margin-top:auto;padding-top:6px}
+.fac.hall{border-color:var(--line);background:linear-gradient(160deg,rgba(217,178,95,.12),rgba(17,24,52,.5))}
+.row3{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:36px;margin-top:56px;align-items:start}
+.dorms{display:grid;gap:10px}
+.dorm{display:grid;grid-template-columns:56px minmax(0,1fr);gap:14px;align-items:center;padding:14px 16px;border:1px solid color-mix(in srgb,var(--c) 40%,transparent);border-radius:8px;background:linear-gradient(110deg,color-mix(in srgb,var(--c) 14%,var(--night-2)),var(--night-2) 70%)}
+.dorm i{font-style:normal;font-family:var(--f-display);font-weight:800;font-size:26px;color:var(--c);width:52px;height:52px;border-radius:50%;border:1px solid var(--c);display:grid;place-items:center;box-shadow:0 0 22px -6px var(--c)}
+.dorm b{font-family:var(--f-display);font-size:17px}
+.dorm span{display:block;font-size:13px;color:var(--muted)}
+.dorm small{display:block;font-size:12.5px;color:var(--dim);margin-top:2px}
+.coins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;text-align:center}
+.coin{display:flex;flex-direction:column;align-items:center;gap:8px}
+.coin i{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-family:var(--f-display);font-weight:800;font-size:22px;color:#1d1630;background:radial-gradient(circle at 35% 30%,var(--hi),var(--lo) 75%);box-shadow:0 0 0 3px color-mix(in srgb,var(--lo) 50%,transparent),0 10px 24px -8px rgba(0,0,0,.8)}
+.coin b{font-size:14px}
+.coin span{font-size:12.5px;color:var(--muted)}
+.year{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--line-soft);border-radius:6px;overflow:hidden}
+.year li{padding:14px 16px;border-left:1px solid var(--line-soft);min-width:0}
+.year li:first-child{border-left:0}
+.year time{font-family:var(--f-display);font-weight:800;color:var(--c);font-size:16px}
+.year span{display:block;font-size:13.5px;color:var(--parch);line-height:1.6;margin-top:4px}
+
+/* ---- 연표 ---- */
+.chron{list-style:none;margin:0;padding:0;position:relative;display:grid;gap:0}
+.chron::before{content:"";position:absolute;left:150px;top:6px;bottom:6px;width:1px;background:linear-gradient(var(--line),var(--line-soft) 70%,var(--gold))}
+.chron li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:0 34px;padding-bottom:30px;position:relative}
+.chron li::before{content:"";position:absolute;left:144px;top:7px;width:13px;height:13px;border-radius:50%;background:var(--night);border:2px solid var(--gold)}
+.chron li.dark::before{border-color:var(--abyss);box-shadow:0 0 14px var(--abyss)}
+.chron li.now::before{background:var(--gold);box-shadow:0 0 18px var(--gold)}
+.chron time{text-align:right;font-family:var(--f-display);font-weight:800;font-size:14.5px;color:var(--gold-hi);padding-right:12px}
+.chron time small{display:block;font-weight:400;font-size:12px;color:var(--dim)}
+.chron h4{font-family:var(--f-display);font-weight:800;font-size:17px;margin:0 0 3px}
+.chron p{margin:0;font-family:var(--f-prose);font-size:15.5px;line-height:1.85;color:var(--muted);max-width:40em}
+.chron li.now h4{color:var(--gold-hi)}
+
+/* ---- 전설 ---- */
+.legends{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.leg{position:relative;display:flex;flex-direction:column;min-width:0}
+.leg .im{position:relative;aspect-ratio:704/624;overflow:hidden}
+.leg .im img{width:100%;height:100%;object-fit:cover;display:block}
+.leg .im::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 4%,transparent 50%)}
+.leg .bd{padding:0 28px 30px;margin-top:-80px;position:relative;z-index:2;display:flex;flex-direction:column;gap:10px}
+.leg .mark{font-family:var(--f-latin);letter-spacing:.24em;font-size:11.5px;color:var(--c)}
+.leg h3{font-family:var(--f-display);font-weight:800;font-size:clamp(30px,4vw,44px);margin:0;line-height:1.1;color:var(--parch);text-shadow:0 0 30px var(--c)}
+.leg .ep{font-family:var(--f-prose);color:var(--c);font-size:16px;margin-top:-4px}
+.leg p{margin:0;font-family:var(--f-prose);font-size:15.5px;line-height:1.85}
+.leg .kv{font-size:13.5px}
+.leg.sun{--bg:#1d1a2a;--c:var(--t-light);background:#1d1a2a}
+.leg.abyss{--bg:#0b0816;--c:var(--abyss);background:#0b0816;border-left:1px solid var(--line)}
+.leg.abyss .im img{filter:brightness(.18) saturate(.3) blur(3px);transform:scale(1.06);transition:filter 1.4s ease,transform 1.4s ease}
+.leg.abyss.peek .im img{filter:brightness(.85) saturate(1);transform:none}
+.sealed{position:absolute;inset:0;z-index:3;display:grid;place-items:center;align-content:center;gap:10px;text-align:center;padding:20px;transition:opacity .8s}
+.leg.abyss.peek .sealed{opacity:0;pointer-events:none}
+.sealed b{font-family:var(--f-prose);font-size:22px;color:#e6d8ff;text-shadow:0 0 20px var(--abyss)}
+.sealed button{background:rgba(11,8,22,.7);border:1px solid color-mix(in srgb,var(--abyss) 60%,transparent);color:#e6d8ff;border-radius:999px;padding:8px 18px;cursor:pointer;font-size:13.5px}
+.rumor{margin-top:28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+.note{position:relative;padding:22px 24px;border-radius:4px;background:linear-gradient(165deg,#1a1430,#120e22);border:1px solid color-mix(in srgb,var(--abyss) 35%,transparent)}
+.note .eyebrow{color:var(--abyss)}
+.note h4{font-family:var(--f-display);font-weight:800;font-size:19px;margin:6px 0 10px}
+.note p{margin:0 0 .6em;font-family:var(--f-prose);font-size:15.5px;line-height:1.9;color:var(--muted)}
+.redact{background:#e6d8ff;color:transparent;border-radius:1px;padding:0 .2em;user-select:none;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+
+/* ---- 인물 ---- */
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+.tabs button{background:none;border:1px solid var(--line-soft);border-radius:999px;padding:6px 15px;font-size:13.5px;color:var(--muted);cursor:pointer;transition:.2s}
+.tabs button[aria-pressed="true"]{color:var(--night);background:var(--gold);border-color:var(--gold)}
+.tabs button i{font-style:normal;font-family:var(--f-mono);font-size:11.5px;margin-left:5px;opacity:.7}
+.cast{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.who{position:relative;border:0;padding:0;background:var(--night-2);border-radius:8px;overflow:hidden;cursor:pointer;text-align:left;aspect-ratio:3/4;box-shadow:0 0 0 1px color-mix(in srgb,var(--dc) 45%,transparent);transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s}
+.who:hover,.who:focus-visible{transform:translateY(-6px);box-shadow:0 0 0 1px var(--dc),0 24px 40px -18px var(--dc)}
+.who img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.who:hover img{transform:scale(1.06)}
+.who::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(9,13,31,.95) 6%,rgba(9,13,31,.2) 46%,transparent 62%)}
+.who .tx{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:14px 14px 13px;display:flex;flex-direction:column;gap:2px}
+.who .role{font-size:11.5px;color:var(--dc);letter-spacing:.04em}
+.who b{font-family:var(--f-display);font-weight:800;font-size:20px;line-height:1.2}
+.who .meta{font-size:12px;color:var(--muted)}
+.who .q{font-family:var(--f-prose);font-size:13px;color:var(--gold-hi);max-height:0;overflow:hidden;transition:max-height .5s,margin .5s;margin-top:0}
+.who:hover .q,.who:focus-visible .q{max-height:4em;margin-top:6px}
+.who .dorm-dot{position:absolute;right:10px;top:10px;z-index:2;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:12px;color:var(--dc);background:rgba(9,13,31,.75);border:1px solid var(--dc)}
+.who[hidden]{display:none}
+
+/* ---- 관계도 ---- */
+.graph{overflow-x:auto;border:1px solid var(--line-soft);border-radius:10px;background:rgba(9,13,31,.55)}
+.graph svg{display:block;min-width:760px;width:100%;height:auto}
+.graph .e path{fill:none;stroke:rgba(160,172,230,.32);stroke-width:1.4;transition:stroke .3s,opacity .3s}
+.graph .e text{font-size:11px;fill:#a3abcc;paint-order:stroke;stroke:#090d1f;stroke-width:4px;transition:opacity .3s}
+.graph .n{cursor:pointer;transition:opacity .3s}
+.graph .n text{font-size:13px;fill:#efe7d2;font-weight:700;paint-order:stroke;stroke:#090d1f;stroke-width:4px}
+.graph.focus .e,.graph.focus .n{opacity:.15}
+.graph.focus .e.hot,.graph.focus .n.hot{opacity:1}
+.graph .e.hot path{stroke:var(--gold-hi);stroke-width:2}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:12.5px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+
+/* ---- modal ---- */
+.modal{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:16px;background:rgba(5,7,18,.82);backdrop-filter:blur(8px);animation:fade .25s both}
+@keyframes fade{from{opacity:0}}
+.modal[hidden]{display:none}
+.mbox{position:relative;width:min(900px,100%);max-height:calc(100% - 8px);overflow:auto;border-radius:12px;background:var(--night-2);border:1px solid color-mix(in srgb,var(--dc) 55%,transparent);box-shadow:0 0 90px -24px var(--dc);animation:pop .4s cubic-bezier(.2,.9,.2,1) both}
+@keyframes pop{from{transform:translateY(24px) scale(.97);opacity:0}}
+.mbox .hd{position:relative;aspect-ratio:16/9;max-height:420px;width:100%;overflow:hidden}
+.mbox .hd img{width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block}
+.mbox .hd::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,var(--night-2) 3%,transparent 50%)}
+.mbox .x{position:absolute;right:12px;top:12px;z-index:3;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:rgba(9,13,31,.8);color:var(--gold-hi);cursor:pointer;font-size:16px}
+.mbox .bd{padding:0 30px 30px;margin-top:-90px;position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:26px}
+.mbox .role{font-size:13px;color:var(--dc);letter-spacing:.06em}
+.mbox h3{font-family:var(--f-display);font-weight:800;font-size:clamp(28px,4vw,40px);margin:2px 0 4px;line-height:1.15;text-shadow:0 0 26px color-mix(in srgb,var(--dc) 60%,transparent)}
+.mbox .say{font-family:var(--f-prose);font-size:17px;color:var(--gold-hi);border-left:2px solid var(--dc);padding:8px 14px;margin:14px 0;background:rgba(255,255,255,.03)}
+.mbox .say span{display:block}
+.mbox p{margin:0 0 .8em;font-family:var(--f-prose);font-size:15.5px;line-height:1.85}
+.mbox h4{font-family:var(--f-display);font-size:13px;color:var(--gold);letter-spacing:.06em;margin:16px 0 6px}
+.looks{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.looks li{display:grid;grid-template-columns:3.6em minmax(0,1fr);gap:8px;font-size:14px}
+.looks b{color:var(--dc)}
+.side-kv{display:grid;gap:10px;align-content:start}
+.side-kv div{border-bottom:1px solid var(--line-soft);padding-bottom:8px}
+.side-kv dt{font-size:12px;color:var(--dim)}
+.side-kv dd{margin:0;font-weight:700}
+.partner{display:flex;gap:12px;align-items:center;padding:10px;border:1px solid var(--line-soft);border-radius:8px;background:rgba(9,13,31,.5)}
+.partner img{width:64px;height:64px;border-radius:6px;object-fit:cover;flex:none}
+.partner .ph{width:64px;height:64px;border-radius:6px;display:grid;place-items:center;background:rgba(160,172,230,.08);color:var(--dim);font-family:var(--f-latin);font-size:22px;flex:none}
+.partner b{display:block;font-family:var(--f-display)}
+.partner span{font-size:12.5px;color:var(--muted)}
+.rel{display:flex;flex-direction:column;gap:6px;font-size:13.5px}
+.rel span{color:var(--muted)}
+.rel b{color:var(--parch)}
+
+/* ---- footer ---- */
+.end{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;padding-block:110px 20px}
+.end h2{font-family:var(--f-display);font-weight:800;font-size:clamp(26px,4vw,40px);margin:0;text-wrap:balance}
+.end p{margin:0;color:var(--muted);font-family:var(--f-prose)}
+.foot{margin-top:60px;padding-top:18px;border-top:1px solid var(--line-soft);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--dim)}
+
+@media (max-width:960px){
+  .hero,.flows,.laws,.mapwrap,.acad,.row3,.legends,.rumor{grid-template-columns:minmax(0,1fr)}
+  .hero-art{order:-1}.hero-art img{width:min(400px,90%)}
+  .legends .leg.abyss{border-left:0;border-top:1px solid var(--line)}
+  .mbox .bd{grid-template-columns:minmax(0,1fr)}
+  .charter{transform:none}
+  .year{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .year li:nth-child(3){border-left:0}
+  .year li:nth-child(n+3){border-top:1px solid var(--line-soft)}
+}
+@media (max-width:640px){
+  .bar .brand small{display:none}
+  .bar{gap:10px}
+  .facts{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .facts div:nth-child(4){border-left:0;padding-left:0}
+  .facts div:nth-child(n+4){border-top:1px solid var(--line-soft)}
+  .continent{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .continent .compass{display:none}
+  .facil{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .tiers{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tiers div:nth-child(3){border-left:0}
+  .tiers div:nth-child(n+3){border-top:1px solid var(--line-soft)}
+  .ovr{grid-template-columns:minmax(0,1fr)}
+  .ovr div{border-left:0!important;border-top:1px solid var(--line-soft)!important}
+  .ovr div:first-child{border-top:0!important}
+  .chron::before{left:6px}
+  .chron li{grid-template-columns:minmax(0,1fr);padding-left:30px;gap:2px}
+  .chron li::before{left:0}
+  .chron time{text-align:left;padding:0}
+  .chap-head{grid-template-columns:minmax(0,1fr)}
+  .chap-num{grid-row:auto;font-size:44px}
+  .chap-head p{grid-column:1}
+  .cast{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .who b{font-size:17px}
+  .leg .bd{padding:0 18px 22px}
+  .mbox .bd{padding:0 18px 22px}
+  .prose{font-size:16px}
+}
+@media (max-width:420px){
+  .facil{grid-template-columns:minmax(0,1fr)}
+  .continent{grid-template-columns:minmax(0,1fr)}
+  .coins i{width:60px;height:60px}
+}
+</style>
+
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-label="인물 상세"></div>
+
+<div class="wrap">
+  <header class="bar">
+    <a class="brand" href="#top"><img src="img/logo.webp" alt="소환수 아카데미"><small>GUIDE TO ETERNA</small></a>
+    <nav class="toc" aria-label="목차"><ol id="toc">
+      <li><a href="#flows"><b>I</b>칠류</a></li>
+      <li><a href="#island"><b>II</b>섬</a></li>
+      <li><a href="#academy"><b>III</b>아카데미</a></li>
+      <li><a href="#history"><b>IV</b>연표</a></li>
+      <li><a href="#legends"><b>V</b>두 전설</a></li>
+      <li><a href="#cast"><b>VI</b>인물</a></li>
+      <li><a href="#bonds"><b>VII</b>관계</a></li>
+    </ol></nav>
+  </header>
+
+  <section class="hero" id="top">
+    <div>
+      <div class="eyebrow">그란디아 대륙 동쪽 · 안개 속의 외딴섬</div>
+      <h1>모든 길이 만나는 섬, <em>에테르나</em></h1>
+      <p class="lede">
+        <span>짙은 안개가 은빛 갈매기호의 뱃머리를 핥는다. 사흘째 바다 위였다.</span>
+        <span>안개가 칼로 자른 듯 갈라지며 섬이 모습을 드러낸다.</span>
+        일곱 빛깔로 갈라진 하늘, 구름 위를 헤엄치는 고래, 절벽 끝에서 돌아가는 풍차들. 그리고 섬 한가운데 솟은 거대한 백색 첨탑, <strong>에테르나 소환 아카데미</strong>.
+      </p>
+      <dl class="facts">
+        <div><dt>FLOWS</dt><dd>7<small>칠류</small></dd></div>
+        <div><dt>YEARS</dt><dd>300<small>년</small></dd></div>
+        <div><dt>DORMS</dt><dd>3<small>해·달·별</small></dd></div>
+        <div><dt>PAGES</dt><dd>80<small>도감</small></dd></div>
+        <div><dt>LEGENDS</dt><dd>2<small>단 둘</small></dd></div>
+      </dl>
+      <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="#flows">안내서 펼치기</a><a class="ghost" href="#cast">인물부터 보기</a></div>
+    </div>
+    <div class="hero-art"><img src="img/logo.webp" alt="소환수 아카데미 로고"></div>
+  </section>
+
+  <!-- I 칠류 -->
+  <section class="chap" id="flows">
+    <div class="chap-head"><span class="chap-num">I</span><h2>세계는 일곱 갈래로 흐른다</h2><p>마나의 일곱 흐름, 칠류(七流). 소환수는 그 흐름이 땅에 고여 태어난 이종족이다.</p></div>
+    <div class="flows">
+      <div class="sevenstar"><svg id="star" viewBox="-300 -300 600 600" role="group" aria-label="칠류 성좌. 속성을 고르면 설명이 바뀝니다"></svg></div>
+      <div>
+        <div class="prose" style="margin-bottom:22px">
+          <p>마나가 한 장소에 오래 고이면, 그 땅의 기억과 감정이 엉겨 하나의 생명이 된다. 촛불이 천 년 동안 꺼지지 않은 서고에서는 <b>촛불족</b>이, 종이 백 년 동안 울린 탑에서는 <b>종탑정령</b>이 태어난다.</p>
+          <p>그래서 소환수는 동물도, 정령도, 인간도 아닌 <b>그 땅이 낳은 이종족</b>이다. 사람을 닮은 것은 그들을 처음 불러낸 존재가 사람이었기 때문이라는 설이 정설이다.</p>
+        </div>
+        <article class="panel flowcard" id="flowcard" aria-live="polite"></article>
+      </div>
+    </div>
+
+    <div class="laws">
+      <div>
+        <h3 class="sub-h">세 단계의 진화</h3>
+        <div class="evo">
+          <figure><div class="im"><img src="img/w/wicka1.webp" alt="위카 기본체" loading="lazy"></div><figcaption><b>위카</b>기본체</figcaption></figure>
+          <figure><div class="im"><img src="img/w/wicka2.webp" alt="탤로윈 1진화" loading="lazy"></div><figcaption><b>탤로윈</b>1진화</figcaption></figure>
+          <figure><div class="im"><img src="img/w/wicka3.webp" alt="칸델라리아 최종진화" loading="lazy"></div><figcaption><b>칸델라리아</b>최종진화</figcaption></figure>
+        </div>
+        <p class="hint" style="margin:12px 0 0">진화할 때 외형과 말투, 성격이 함께 자란다. 어린 모습에서 성숙한 모습으로, 다시 압도적인 존재로.</p>
+      </div>
+      <div>
+        <h3 class="sub-h">공명과 진화 레벨</h3>
+        <div style="overflow-x:auto"><table class="tbl"><thead><tr><th>등급</th><th>1진화</th><th>최종진화</th></tr></thead>
+          <tbody><tr><td>일반</td><td>Lv 16</td><td>Lv 36</td></tr><tr><td>희귀</td><td>Lv 20</td><td>Lv 40</td></tr><tr><td>영웅</td><td>Lv 30</td><td>Lv 55</td></tr><tr><td>전설</td><td colspan="2" style="color:var(--muted)">진화하지 않는다</td></tr></tbody></table></div>
+        <dl class="kv" style="margin-top:20px">
+          <dt>소환진</dt><dd>칠류를 끌어와 소환수를 부르는 마법진</dd>
+          <dt>계약</dt><dd>마나를 나누는 유대. 손등에 계약 문장(紋章)이 새겨진다</dd>
+          <dt>공명</dt><dd>계약이 깊어진 상태. 레벨과 공명이 기준을 넘으면 진화한다</dd>
+          <dt>계약석</dt><dd>약해진 야생 소환수와 계약할 때 쓰는 소모품</dd>
+        </dl>
+        <div class="tiers">
+          <div style="--c:var(--t-none)"><b>일반</b><span>입학 소환, 야생, 별의 우물</span></div>
+          <div style="--c:var(--t-water)"><b>희귀</b><span>깊은 야생 지역, 별의 우물</span></div>
+          <div style="--c:var(--t-light)"><b>영웅</b><span>특별 의뢰와 행사 보상</span></div>
+          <div style="--c:var(--abyss)"><b>전설</b><span>섬 전체에 단 둘</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- II 섬 -->
+  <section class="chap" id="island">
+    <div class="chap-head"><span class="chap-num">II</span><h2>안개가 지키는 중립의 섬</h2><p>섬 한가운데에서 칠류 일곱 갈래가 모두 솟는다. 대륙 어디에도 없는, 모든 속성의 소환수가 한 섬에 산다.</p></div>
+    <div class="mapwrap">
+      <div class="map"><svg id="map" viewBox="0 0 1000 700" role="group" aria-label="에테르나 섬 개략도. 지역을 고르면 설명이 바뀝니다"></svg><span class="cap">개략도 · 위치는 분위기 참고용</span></div>
+      <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+        <article class="panel region" id="region" aria-live="polite"></article>
+        <div class="regions-list" id="rlist"></div>
+      </div>
+    </div>
+
+    <h3 class="sub-h" style="margin-top:64px">바다 건너, 그란디아 대륙</h3>
+    <p class="hint" style="margin:-4px 0 0">학생들은 모두 대륙 일곱 나라에서 온 인간이다. 섬에 들어오면 국적과 신분을 내려놓는다. 적어도 규칙상으로는.</p>
+    <div class="continent" id="continent" style="margin-top:18px"></div>
+  </section>
+
+  <!-- III 아카데미 -->
+  <section class="chap" id="academy">
+    <div class="chap-head"><span class="chap-num">III</span><h2>에테르나 소환 아카데미</h2><p>Eterna Summoners' Academy. 협약 원년에 세워져 300년째 대륙 최고의 소환사를 길러 내는 곳.</p></div>
+    <div class="motto"><q>계약은 지배가 아니라 공명이다</q><small>THE ACADEMY MOTTO</small></div>
+    <div class="acad">
+      <div class="charter">
+        <h3>에테르나 협약</h3>
+        <div class="yr">THE ETERNA ACCORD · YEAR I</div>
+        <ol>
+          <li><span><b>입학 소환은 일반 등급만 나온다.</b><i>귀족 가문이 강한 소환수를 들고 오던 시절을 끝내려 제단 자체에 걸어 둔 제약. 왕자든 고아든 같은 출발선에 선다.</i></span></li>
+          <li><span><b>교내에서는 출신과 신분을 따지지 않는다.</b><i>실제로는 잘 지켜지지 않는다.</i></span></li>
+          <li><span><b>심연의 균열 출입은 영구히 금한다.</b><i>어기면 퇴학, 그리고 계약 박탈.</i></span></li>
+          <li><span><b>연례 배틀제 우승자는 소원 하나를 아카데미에 청할 수 있다.</b><i>그것이 에테르나 컵이다.</i></span></li>
+        </ol>
+        <div class="seal">ETERNA</div>
+      </div>
+      <div>
+        <dl class="ovr">
+          <div><dt>설립</dt><dd>에테르나 협약 원년 (300년 전)</dd></div>
+          <div><dt>입학</dt><dd>19세 이상 · 시험 합격자</dd></div>
+          <div><dt>학제</dt><dd>3년제 · 학년당 약 200명</dd></div>
+          <div><dt>졸업</dt><dd>대륙 공인 소환사 자격</dd></div>
+        </dl>
+        <div class="facil" id="facil"></div>
+      </div>
+    </div>
+    <div class="row3">
+      <div>
+        <h3 class="sub-h">기숙사 세 동</h3>
+        <div class="dorms" id="dorms"></div>
+        <p class="hint" style="margin:10px 0 0">입학 소환으로 만난 파트너의 속성에 따라 배정된다. 월말 결산 1위 동은 한 달 동안 식당 디저트 특전.</p>
+      </div>
+      <div>
+        <h3 class="sub-h">섬의 화폐</h3>
+        <div class="coins">
+          <div class="coin" style="--hi:#f0b88a;--lo:#9a5a32"><i>동</i><b>동화</b><span>빵 1개 5동<br>계약석 50동</span></div>
+          <div class="coin" style="--hi:#f2f4ff;--lo:#8a93b8"><i>은</i><b>1은 = 100동</b><span>기술 제작 1~5은<br>별의 우물 20은</span></div>
+          <div class="coin" style="--hi:#fff1b8;--lo:#c08a2a"><i>금</i><b>1금 = 100은</b><span>전설급 기술<br>★5 의뢰 보상</span></div>
+        </div>
+      </div>
+    </div>
+    <ol class="year" id="year"></ol>
+  </section>
+
+  <!-- IV 연표 -->
+  <section class="chap" id="history">
+    <div class="chap-head"><span class="chap-num">IV</span><h2>섬이 기억하는 것들</h2><p>섬은 처음부터 거기 있지 않았다. 바다 밑의 땅이 솟아오른 것은 800년 전의 일이다.</p></div>
+    <ol class="chron" id="chron"></ol>
+  </section>
+
+  <!-- V 두 전설 -->
+  <section class="chap" id="legends">
+    <div class="chap-head"><span class="chap-num">V</span><h2>빛과 심연, 단 두 존재</h2><p>도감 80칸의 마지막 두 장. 하나는 손에 넣을 수 있고, 하나는 영원히 비어 있다.</p></div>
+    <div class="legends">
+      <article class="leg sun">
+        <div class="im"><img src="img/w/solaria.webp" alt="솔라리아"></div>
+        <div class="bd">
+          <div class="mark">★ LEGENDARY · LIGHT</div>
+          <h3>솔라리아</h3>
+          <div class="ep">태양의 성기사</div>
+          <p>800년 전 심연 전쟁에서 아비살리아를 봉인한 빛의 소환수. 봉인 이후 섬의 정상, 빛의 성역에서 잠들어 있다. 잠든 채로 봉인을 지탱한다고 전해진다.</p>
+          <dl class="kv"><dt>거처</dt><dd>빛의 성역 (결계로 출입 금지)</dd><dt>계약</dt><dd>가능. 섬의 유일한 포획 가능 전설</dd><dt>조건</dt><dd>칠류 일곱 속성의 시련의 문장을 모두 모은 자만 성역에 들어설 수 있다</dd></dl>
+        </div>
+      </article>
+      <article class="leg abyss" id="abyss">
+        <div class="im"><img src="img/w/abyssalia.webp" alt="아비살리아">
+          <div class="sealed"><b>봉인된 페이지</b><span class="hint" style="color:#b9a8d8">도감의 마지막 장은 늘 비어 있다</span><button type="button" id="peek">잠깐 엿보기</button></div></div>
+        <div class="bd">
+          <div class="mark">☾ LEGENDARY · ABYSS</div>
+          <h3>아비살리아</h3>
+          <div class="ep">심연의 흑기사</div>
+          <p>칠류가 아닌 여덟 번째 흐름, 심연에서 태어났다. 땅의 기억이 아니라 세계가 잊고 버린 것들의 기억이 엉겨 생긴 존재. 800년 전 바다 밑 균열에서 나타나 대륙 절반을 어둠에 잠기게 했다.</p>
+          <dl class="kv"><dt>거처</dt><dd>섬 북쪽, 심연의 균열 아래 (봉인)</dd><dt>계약</dt><dd>거부한다. 쓰러뜨리거나 다시 봉인하는 것만 가능</dd><dt>소문</dt><dd>에테르나 섬 전체가 봉인의 뚜껑이라는 이야기</dd></dl>
+        </div>
+      </article>
+    </div>
+    <div class="rumor">
+      <div class="note">
+        <div class="eyebrow">기숙사 괴담 · 출처 불명</div>
+        <h4>검은 달의 결사</h4>
+        <p>아비살리아를 <span class="redact">세계가 버린 것들의 구원자</span>로 섬기는 비밀 결사가 있다는 소문. 이름은 <b style="color:#e6d8ff">흑월회</b>.</p>
+        <p>학생과 교수 사이에 <span class="redact">이미 섞여 있다</span>는 말도 돈다. 누구도 확인한 적은 없다.</p>
+      </div>
+      <div class="note">
+        <div class="eyebrow">작년 겨울 · 목격담</div>
+        <h4>아무도 치지 않은 종</h4>
+        <p>매년 동지 정오, 해가 잠깐 검게 가려진다. 섬사람들은 이것을 흑일이라 부른다. 가려지는 시간은 해마다 조금씩 길어지고 있다.</p>
+        <p>작년 흑일은 역대 가장 길었다. 그날 밤, 황혼 묘원의 종이 아무도 치지 않았는데 일곱 번 울렸다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VI 인물 -->
+  <section class="chap" id="cast">
+    <div class="chap-head"><span class="chap-num">VI</span><h2>섬에서 만날 사람들</h2><p>동기 여덟, 선배 여섯, 교수 넷. 카드를 누르면 자세한 소개가 열린다.</p></div>
+    <div class="tabs" id="tabs" role="group" aria-label="인물 분류"></div>
+    <div class="cast" id="castgrid"></div>
+  </section>
+
+  <!-- VII 관계 -->
+  <section class="chap" id="bonds">
+    <div class="chap-head"><span class="chap-num">VII</span><h2>얽혀 있는 이름들</h2><p>이름에 마우스를 올리면 그 사람의 관계만 밝아진다. 누르면 인물 소개가 열린다.</p></div>
+    <div class="graph" id="graph"><svg id="gsvg" viewBox="0 0 1000 720" role="group" aria-label="인물 관계도"></svg></div>
+    <div class="legend"><span style="--c:var(--sun)"><i></i>해의 동</span><span style="--c:var(--moon)"><i></i>달의 동</span><span style="--c:var(--star)"><i></i>별의 동</span><span style="--c:var(--gold)"><i></i>교수 · 당신</span></div>
+  </section>
+
+  <section class="end">
+    <div class="eyebrow">협약력 301년 · 신입생 모집</div>
+    <h2>내일, 저 첨탑 아래 제단에서<br>평생의 파트너를 만난다.</h2>
+    <p>평범한 신입생 한 명의 3년이 지금 시작된다.</p>
+    <a class="btn" href="https://claude.ai/artifact/5ujpXu5aFUYyqchBrEhaYu">입학 등록하러 가기</a>
+  </section>
+  <footer class="foot"><span>소환수 아카데미 · 에테르나 섬 안내서</span><span>제작 히리온</span></footer>
+</div>
+
+<script>
+(() => {
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const NS = "http://www.w3.org/2000/svg";
+const el = (n, a, p) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; };
+
+/* ---------------- sky ---------------- */
+const sky = $("#sky"), cx = sky.getContext("2d");
+let W, H, stars = [], motes = [];
+function size(){ const d = Math.min(devicePixelRatio || 1, 2); W = sky.width = innerWidth * d; H = sky.height = innerHeight * d; sky.style.width = innerWidth + "px"; sky.style.height = innerHeight + "px";
+  stars = Array.from({ length: Math.round(W * H / 9000) }, () => ({ x: Math.random() * W, y: Math.random() * H * .85, r: Math.random() * 1.3 + .2, p: Math.random() * 6 }));
+  motes = Array.from({ length: 40 }, () => ({ x: Math.random() * W, y: Math.random() * H, v: Math.random() * .3 + .08, r: Math.random() * 2 + .5, p: Math.random() * 6 })); }
+addEventListener("resize", size); size();
+function frame(t){
+  const g = cx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#070a1a"); g.addColorStop(.6, "#0d1430"); g.addColorStop(1, "#191540");
+  cx.globalAlpha = 1; cx.fillStyle = g; cx.fillRect(0, 0, W, H);
+  for (const s of stars) { cx.globalAlpha = .3 + .45 * Math.sin(t / 900 + s.p) ** 2; cx.fillStyle = "#e8ecff"; cx.beginPath(); cx.arc(s.x, s.y, s.r, 0, 7); cx.fill(); }
+  for (let i = 0; i < 3; i++) { const y = H * (.74 + i * .1) + Math.sin(t / 4000 + i) * 20, x = W * (.3 + i * .25) + Math.sin(t / 6000 + i) * 80;
+    const mg = cx.createRadialGradient(x, y, 0, x, y, W * .5); mg.addColorStop(0, "rgba(140,155,230,.09)"); mg.addColorStop(1, "rgba(140,155,230,0)"); cx.globalAlpha = 1; cx.fillStyle = mg; cx.fillRect(0, 0, W, H); }
+  for (const m of motes) { if (!reduce) { m.y -= m.v; m.x += Math.sin(t / 2000 + m.p) * .2; if (m.y < -10) { m.y = H + 10; m.x = Math.random() * W; } }
+    cx.globalAlpha = .45 + .4 * Math.sin(t / 700 + m.p); cx.fillStyle = "#f4dfa6"; cx.beginPath(); cx.arc(m.x, m.y, m.r, 0, 7); cx.fill(); }
+  if (!reduce) requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+/* ---------------- data ---------------- */
+const T = { 화:"--t-fire", 수:"--t-water", 풍:"--t-wind", 지:"--t-earth", 빛:"--t-light", 어둠:"--t-dark", 무:"--t-none" };
+const FLOWS = [
+  { t:"화", en:"IGNIS", d:"꺼지지 않는 불과 열기의 흐름. 화산의 분화구와, 천 년 동안 촛불이 타오른 서고에 고인다.", where:"잿불 화구 · 천년 서고 폐허", dorm:"해의 동", b:["위카","플린트","애시윙","신다"] },
+  { t:"수", en:"AQUA", d:"맑은 물과 서리의 흐름. 호수와 산호 해안, 사계절 눈이 내리는 숲에 고인다.", where:"청람 호수와 서리숲", dorm:"달의 동", b:["플립","오토","잉클릿","리미"] },
+  { t:"풍", en:"VENTUS", d:"멈추지 않는 바람의 흐름. 끝없이 도는 풍차와 낡은 종탑, 구름 위 절벽에 고인다.", where:"풍차 고원과 구름 절벽", dorm:"해의 동", b:["퀼라","월리","팅카","님비"] },
+  { t:"지", en:"TERRA", d:"단단한 대지의 흐름. 거대 버섯숲과 수정 광맥, 무너진 옛 성벽에 고인다.", where:"수정 협곡과 버섯숲", dorm:"별의 동", b:["퍼프캡","펩스","젬미","키도"] },
+  { t:"빛", en:"LUX", d:"눈부신 빛의 흐름. 스테인드글라스가 깨진 채 빛나는 성당 폐허, 그리고 섬의 정상에 고인다.", where:"유리 성당 언덕 · 빛의 성역", dorm:"해의 동", b:["샤디","트윙킷","메인","★ 솔라리아"] },
+  { t:"어둠", en:"UMBRA", d:"고요한 밤의 흐름. 해가 지지 않는 저녁의 묘원과 거미줄 숲에 고인다. 심연과는 다른 흐름이다.", where:"황혼 묘원 · 천년 서고 폐허", dorm:"달의 동", b:["뱃시","코르비","스티치","웨비"] },
+  { t:"무", en:"NULLUS", d:"어디에도 치우치지 않은 일상의 흐름. 사람이 모여 사는 골목과 시장, 기숙사에 고인다.", where:"아카데미 시가지", dorm:"별의 동", b:["램비","스퀴키","패치"] }
+];
+const ABYSS = { t:"심연", en:"ABYSSUS", d:"칠류에 속하지 않는 여덟 번째 흐름. 땅의 기억이 아니라 세계가 잊고 버린 것들이 고인다. 이 흐름에서 태어난 존재는 단 하나뿐이라고 한다.", where:"심연의 균열 (영구 금지 구역)", dorm:"-", b:["☾ 아비살리아"] };
+
+const REGIONS = [
+  { id:"altar", n:"소환의 제단 · 백색 첨탑", t:["빛","수","풍","지","화","어둠","무"], x:505, y:350, d:"칠류 일곱 갈래가 모두 솟는 섬의 중심. 아카데미의 백색 첨탑과 소환의 제단이 이곳에 있다. 매년 봄, 신입생 약 200명이 여기서 첫 파트너를 만난다.", lv:"", beasts:[] },
+  { id:"town", n:"아카데미 시가지", t:["무"], x:560, y:470, d:"학원 도시. 상점가와 여관, 시장과 골목이 얽혀 있다. 은빛 갈매기호가 닿는 항구도 이쪽이다.", lv:"Lv 2~8", beasts:["램비","스퀴키","패치"] },
+  { id:"ember", n:"잿불 화구", t:["화"], x:330, y:545, d:"꺼지지 않는 화산 분화구와 용암 동굴. 바닥이 늘 미지근하고, 밤에도 붉은빛이 하늘을 물들인다.", lv:"입구 5~15 · 최심부 30~45", beasts:["플린트","애시윙","신다"] },
+  { id:"library", n:"천년 서고 폐허", t:["화","어둠"], x:225, y:395, d:"촛불이 꺼지지 않는 옛 도서관 유적. 무너진 서가 사이로 촛농이 강처럼 흐른다.", lv:"입구 5~15 · 깊은 곳 15~30", beasts:["위카","스티치"] },
+  { id:"lake", n:"청람 호수와 서리숲", t:["수"], x:775, y:335, d:"바닥이 보일 만큼 맑은 호수와 산호 해안, 그리고 사계절 눈이 내리는 숲.", lv:"입구 5~15 · 깊은 곳 15~30", beasts:["플립","오토","잉클릿","리미"] },
+  { id:"windmill", n:"풍차 고원과 구름 절벽", t:["풍"], x:315, y:220, d:"끝없이 늘어선 풍차와 낡은 종탑, 구름 위로 솟은 절벽. 운이 좋으면 구름 사이를 헤엄치는 고래를 본다.", lv:"입구 5~15 · 최심부 30~45", beasts:["퀼라","월리","팅카","님비"] },
+  { id:"crystal", n:"수정 협곡과 버섯숲", t:["지"], x:735, y:525, d:"집채만 한 버섯이 숲을 이루고, 협곡 벽마다 수정 광맥이 빛난다. 무너진 옛 성벽이 길을 가른다.", lv:"입구 5~15 · 깊은 곳 15~30", beasts:["퍼프캡","펩스","젬미","키도"] },
+  { id:"cathedral", n:"유리 성당 언덕", t:["빛"], x:705, y:195, d:"스테인드글라스가 깨진 채로도 빛나는 성당 폐허. 해 질 녘이면 언덕 전체가 일곱 빛깔로 물든다.", lv:"입구 5~15 · 최심부 30~45", beasts:["샤디","트윙킷","메인"] },
+  { id:"dusk", n:"황혼 묘원", t:["어둠"], x:170, y:270, d:"해가 지지 않는 저녁에 멈춘 땅. 종탑과 묘지, 거미줄 숲이 이어진다. 작년 흑일 밤 종이 저절로 울린 곳.", lv:"입구 5~15 · 최심부 30~45", beasts:["뱃시","코르비","웨비"] },
+  { id:"sanctum", n:"빛의 성역", t:["빛"], x:505, y:215, d:"섬의 최정상. 결계로 출입이 막혀 있다. 전설 솔라리아가 이곳에서 잠들어 있다고 전해진다.", lv:"출입 금지", beasts:["★ 솔라리아"], warn:"결계 구역 · 일곱 시련의 문장 없이는 들어갈 수 없다" },
+  { id:"rift", n:"심연의 균열", t:["어둠"], x:505, y:92, d:"섬 북쪽 바다 절벽. 그 아래에 아비살리아가 봉인되어 있다. 아카데미 최고 금지 구역.", lv:"출입 영구 금지", beasts:["☾ 아비살리아 (봉인)"], warn:"협약 제3조 · 출입 시 퇴학 및 계약 박탈" }
+];
+const NATIONS = [
+  ["NW","노크티스 밤의 공국","북서 황혼지대. 어둠 속성 소환사 가문이 많아 대륙에서 은근한 차별을 받는다."],
+  ["N","그라움 산악국","북부 산맥의 장인 국가. 기술 공방 교수진 대부분이 이곳 출신이다."],
+  ["NE","와일드런 부족연합","동북 초원의 유목 부족. 계약보다 '함께 사냥하는 동료' 문화가 강하다."],
+  ["W","실바렌 숲연방","서부 대삼림의 숲 부족. 소환수를 '숲의 손님'으로 대한다."],
+  ["C","아우스트라 왕국","중앙 평원의 대륙 최대 국가. 귀족 소환사 가문이 많고 서열 의식이 강하다.","center"],
+  ["E","마레니아 해상연합","동부 군도의 항구 상인들. 섬을 오가는 은빛 갈매기호를 운항한다."],
+  ["SW","","","compass"],
+  ["S","드라칸 화산령","남부 화산대의 무인 가문들. 배틀제 우승을 국가의 명예로 여긴다."],
+  ["SE → 동쪽 바다","에테르나","안개 너머의 중립 섬. 은빛 갈매기호만이 항로를 안다.","sea"]
+];
+const FACIL = [
+  ["소환의 제단","칠류가 모이는 섬의 중심. 입학 소환 의식 장소.","입학 소환"],
+  ["강의동 칠현관","일곱 속성 강의실과 이론 수업.","수업 · 경험치"],
+  ["에테르나 아레나","연습 배틀과 연례 배틀제가 열리는 대투기장.","배틀 · 랭킹"],
+  ["의뢰 게시판","모험가 길드 섬 지부. 토벌, 채집, 호위 의뢰.","동·은·금화 보상"],
+  ["기술 공방","돈과 재료로 소환수의 기술을 만들고 강화한다.","커스텀 기술"],
+  ["별의 우물","은화를 던지면 무작위 소환이 일어나는 우물.","유료 소환 · 20은"],
+  ["도감 회랑","섬의 모든 소환수 초상이 걸린 긴 회랑. 등록자 이름이 새겨진다.","도감 80칸"],
+  ["보건실","차 향기가 늘 감도는 곳. 소환수의 상처도 돌본다.","회복 · 상담"],
+  ["명예의 전당","도감을 완성한 학생만 이름을 올리는 벽. 300년 동안 단 한 명도 없다.","전설의 학생","hall"]
+];
+const DORMS = [["해","해의 동","화 · 빛 · 풍","var(--sun)","브루노, 미아, 루시, 제롬, 이리스"],["달","달의 동","수 · 어둠","var(--moon)","카일, 세라, 벨라, 노엘, 로제"],["별","별의 동","지 · 무","var(--star)","테오, 에밀리아, 울프, 아델"]];
+const YEAR = [["봄","var(--t-wind)","입학식과 소환 의식, 기숙사 배정. 봄 25일 신입생 친선전."],["여름","var(--t-water)","야외 합숙 실습. 속성 지역에서 야생 포획."],["가을","var(--t-fire)","에테르나 컵. 전교 토너먼트, 각국 귀빈 관람."],["겨울","var(--t-dark)","기말 평가. 그리고 동지 정오의 흑일."]];
+const CHRON = [
+  ["태초","","칠류가 흐르기 시작하다","세계를 일곱 갈래의 마나가 흐르기 시작한다. 땅마다 소환수가 깨어난다."],
+  ["약 1200년 전","공명의 시대","처음으로 계약을 맺다","대륙 사람들이 처음 소환수와 계약을 맺는다. 서로를 이해하는 '공명'이라는 개념이 생긴다."],
+  ["약 800년 전","심연 전쟁","바다 밑 균열이 열리다","동쪽 바다 밑에서 심연의 균열이 열리고 아비살리아가 강림한다. 대륙의 절반이 어둠에 잠긴다.","dark"],
+  ["같은 시기","대봉인","섬이 솟아오르다","이름 없는 소환사와 솔라리아가 바다 위에서 아비살리아를 봉인한다. 봉인의 반동으로 바다 밑 땅이 솟아올라 에테르나 섬이 생긴다. 소환사는 돌아오지 못했다."],
+  ["600~300년 전","계약 전쟁기","소환수가 병기가 되다","대륙 각국이 소환수를 병기로 쓰며 끝없이 싸운다. 귀족 가문이 강한 소환수를 독점하고 세습한다. 섬은 여러 나라가 다투는 전장이 된다."],
+  ["300년 전","에테르나 협약","아카데미가 세워지다","각국 대표가 섬에 모여 영구 중립을 선언한다. 소환수를 동반자로 대하는 법을 가르칠 아카데미를 세우고, 제단에 일반 등급 제약을 건다."],
+  ["300년 전 ~ 현재","협약의 평화","비어 있는 명예의 전당","아카데미는 대륙 최고의 소환사 양성 기관이 된다. 그러나 도감을 완성해 명예의 전당에 오른 자는 아직 없다."],
+  ["약 50년 전","","한 교수가 사라지다","아카데미 교수 한 사람이 행방불명되었다는 이야기가 있다. 공식 기록에는 남아 있지 않다.","dark"],
+  ["약 10년 전부터","","흑일이 길어지다","야생 소환수 폭주가 늘어난다. 흑일 때 해가 가려지는 시간이 해마다 조금씩 길어진다.","dark"],
+  ["작년 겨울","","종이 일곱 번 울리다","역대 가장 긴 흑일. 그날 밤 황혼 묘원의 종이 아무도 치지 않았는데 일곱 번 울렸다.","dark"],
+  ["올해 봄","협약력 301년","당신이 섬에 닿다","신입생 한 명이 은빛 갈매기호를 타고 섬에 도착한다. 특별한 혈통도, 숨은 힘도 없는 평범한 신입생이다.","now"]
+];
+
+/* characters */
+const DC = { 해:"var(--sun)", 달:"var(--moon)", 별:"var(--star)", "-":"var(--gold)" };
+const CAST = [
+  { id:"kyle", n:"카일 폰 베르크", s:"카일", age:19, g:"동기", dorm:"달", role:"라이벌", origin:"아우스트라 왕국 · 베르크 백작가 차남", pt:["코르비","corby","까마귀족 · 어둠 · 기본체"],
+    per:"냉철하고 자존심이 세다. 영웅급과 계약한 형과 평생 비교당해 왔고, 형을 넘는 것이 목표다. 인정한 상대만 이름으로 부른다.",
+    say:["…방해다.","그 정도로 날 이길 생각이었나."], life:"도서관 맨 안쪽 자리의 단골. 새벽마다 혼자 훈련한다. 길고양이를 몰래 챙기다 들키면 귀가 빨개진다.",
+    looks:[["1학년","완벽하게 다린 교복, 누구에게도 곁을 주지 않는 수석 입학생"],["2학년","교복 위에 검은 롱코트. 당신을 진지한 라이벌로 의식하기 시작한다"],["3학년","짧게 묶은 머리와 은장식 하프 케이프. 형을 넘어선 차분한 자신감"]] },
+  { id:"bruno", n:"브루노 하트", s:"브루노", age:20, g:"동기", dorm:"해", role:"절친 · 분위기 담당", origin:"아우스트라 왕국 · 시골 농가", pt:["플린트","flint","화덕도마뱀족 · 화 · 기본체"],
+    per:"시끄럽고 단순한 열혈파. 공부는 못해도 배틀 감각과 근성은 타고났다. 동기가 무시당하면 제일 먼저 화낸다. 세라를 짝사랑하는데, 본인만 들킨 줄 모른다.",
+    say:["야야, 한 판 붙자! 아니 그 전에 밥부터!"], life:"학생식당 리필 기록 보유자. 시험 기간마다 당신에게 매달린다. 카일에게 매번 도전했다가 매번 진다.",
+    looks:[["1학년","소매 걷은 교복, 코에 반창고"],["2학년","블레이저를 허리에 묶고 양팔에 붕대, 해의 동 응원단장"],["3학년","한층 단단해진 체격과 볼의 작은 흉터. 동기들의 든든한 맏형"]] },
+  { id:"sera", n:"세라 윈슬로", s:"세라", age:19, g:"동기", dorm:"달", role:"히로인", origin:"마레니아 해상연합 · 항구 마을 평민 장학생", pt:["플립","flip","샘물정령족 · 수 · 기본체"],
+    per:"다정하고 남 걱정이 먼저다. 자신감이 없어 늘 한발 물러서지만, 화나면 의외로 무섭다. 고향에 아픈 동생이 있다.",
+    say:["괜찮아? 다친 데 없어?","…지금 그 말, 다시 해 볼래?"], life:"보건실 단골 봉사자. 친해지면 훈련하는 당신에게 도시락을 싸 온다. 소환수 생태 과목 1등.",
+    looks:[["1학년","어깨까지 오는 웨이브와 손수 기운 가방"],["2학년","길게 기른 머리에 흰 리본, 보건위원 완장"],["3학년","긴 머리를 옆으로 땋고 치유 마도서를 든 믿음직한 치유사"]] },
+  { id:"mia", n:"미아 로렌츠", s:"미아", age:19, g:"동기", dorm:"해", role:"정보통 · 신문부 기자", origin:"아우스트라 왕국 · 왕도 서점집 딸", pt:["퀼라","quilla","전령새족 · 풍 · 기본체"],
+    per:"아카데미 모든 소문의 발원지. 수다스럽고 기세가 좋다. 연애 소문에 특히 진심이다.",
+    say:["특종이다, 특종! 방금 그거 무슨 사이야?"], life:"신문부 '에테르나 위클리'의 신입 기자. 루시 선배를 동경한다. 매주 '이번 주 커플 예측'을 게시판에 붙인다.",
+    looks:[["1학년","기자 완장과 깃펜을 든 신입 기자"],["2학년","깃털 꽂은 베레모, 취재 노트 가득"],["3학년","편집장 완장, 신문 뭉치를 든 자신만만한 편집장"]] },
+  { id:"theo", n:"테오 핀치", s:"테오", age:19, g:"동기", dorm:"별", role:"소환수 박사 · 도감 라이벌", origin:"그라움 산악국 · 학자 집안", pt:["퍼프캡","puffcap","버섯족 · 지 · 기본체"],
+    per:"평소엔 소심하고 말을 더듬지만, 소환수 얘기만 나오면 폭주하는 덕후. 도감 완성을 두고 당신과 은근히 경쟁한다.",
+    say:["그, 그거 알아? 퍼프캡의 포자는 사실…!"], life:"온실과 도감 회랑에 산다. 처음 보는 소환수를 보면 수업 중에도 뛰쳐나간다. 엘리노어 교수의 애제자.",
+    looks:[["1학년","헐렁한 스웨터 조끼에 책 더미"],["2학년","현장 조사 가방과 돋보기"],["3학년","키가 훌쩍 자란, 두꺼운 자작 도감을 든 소환수 박사"]] },
+  { id:"bella", n:"벨라 녹스", s:"벨라", age:20, g:"동기", dorm:"달", role:"쿨한 불량아", origin:"노크티스 밤의 공국", pt:["뱃시","batsy","종탑박쥐족 · 어둠 · 기본체"],
+    per:"무뚝뚝하고 날이 서 있다. 어둠 속성이라는 이유로 평생 편견을 받아 왔다. 정작 약한 사람이 괴롭힘당하면 제일 먼저 나선다.",
+    say:["…뭘 봐. 볼일 없으면 가.","착각하지 마. 그냥 지나가다 본 거야."], life:"밤마다 옥상에서 별을 본다(외출 금지 위반, 벌점 단골). 뱃시가 낮에 자서 수업에 늘 지각한다.",
+    looks:[["1학년","헐렁하게 입은 교복, 주머니에 손"],["2학년","후드티를 받쳐 입고 손가락 없는 장갑"],["3학년","어깨까지 기른 머리와 검은 하프 케이프. 동기를 지키는 든든한 등"]] },
+  { id:"emilia", n:"에밀리아 로즈웰", s:"에밀리아", age:19, g:"동기", dorm:"별", role:"장사꾼 아가씨", origin:"마레니아 해상연합 · 로즈웰 상회 셋째 딸", pt:["스퀴키","squeaky","열쇠쥐족 · 무 · 기본체"],
+    per:"돈 계산이 빠른 장사꾼. 기숙사 매점과 의뢰 중개로 용돈을 불린다. 깍쟁이 같지만 친구에게는 외상을 해 준다.",
+    say:["그건 별도 요금이에요~♪","친구 할인? …이번만이에요."], life:"기숙사 휴게실에서 몰래 매점을 연다. 희귀 재료 시세를 꿰고 있어 기술 제작 전에 들르면 좋다.",
+    looks:[["1학년","허리에 동전 주머니와 주판"],["2학년","교복 위에 열쇠 꾸러미 앞치마와 장부"],["3학년","우아한 상인 코트와 금귀걸이, 상회를 물려받을 차기 회장"]] },
+  { id:"wolf", n:"울프 바이스", s:"울프", age:20, g:"동기", dorm:"별", role:"과묵한 거인", origin:"와일드런 부족연합 · 유목 부족", pt:["램비","lamby","양족 · 무 · 기본체"],
+    per:"말수가 거의 없는 거구. 무서운 인상과 달리 귀여운 것을 좋아하고 요리를 잘한다. 화나면 아무도 못 말린다.",
+    say:["…먹어.","…램비가 좋아해."], life:"별의 동 부엌의 실세. 야식을 나눠 주며 동기들을 챙긴다. 램비와 함께 낮잠 자는 모습이 신문부 인기 사진.",
+    looks:[["1학년","넓은 어깨에 꽉 끼는 교복, 도시락 통"],["2학년","교복 위에 앞치마, 손에는 냄비"],["3학년","부족 털망토를 두른 늠름한 모습"]] },
+  { id:"noel", n:"노엘 그레이", s:"노엘", age:20, g:"2학년", dorm:"달", role:"친절한 멘토 선배", origin:"알려지지 않음", pt:["마리오넬","marionel","인형족 · 어둠 · 1진화"],
+    per:"온화하고 친절한 도서관 위원. 신입생에게 수업 요령과 의뢰 팁을 알려 주는, 모두의 좋은 선배.",
+    say:["모르는 게 있으면 언제든 물어봐요."], life:"도서관 위원. 어쩐지 벨라에게 유독 친절하다.",
+    looks:[["2학년","상냥한 미소의 도서관 위원 선배"]] },
+  { id:"lucy", n:"루시 페어차일드", s:"루시", age:20, g:"2학년", dorm:"해", role:"신문부 부장", origin:"아우스트라 왕국", pt:["벨프리아","belfria","종탑정령족 · 풍 · 1진화"],
+    per:"장난기 넘치는 선배. 재미있어 보이면 무조건 끼어들고, 아카데미 행사의 절반은 그녀가 판을 키운다. 미아의 롤모델.",
+    say:["후배님~ 인터뷰 좀 할까? 거절은 안 받아!"], life:"'에테르나 위클리' 부장. 에테르나 컵 중계를 맡는다. 1학년 커플 소문의 진원지.",
+    looks:[["2학년","베레모와 취재 노트"],["3학년","금핀 베레모, 황동 종 확성기를 든 명물 중계자"]] },
+  { id:"jerome", n:"제롬 바스", s:"제롬", age:21, g:"2학년", dorm:"해", role:"일진 선배", origin:"드라칸 화산령 · 무인 가문", pt:["크래건","cragen","산양족 · 지 · 1진화"],
+    per:"신입생 길들이기를 자처하는 거친 선배. 친선전 즈음 당신과 부딪치는데, 지고 나면 누구보다 의리 있는 형이 된다.",
+    say:["어이 신입, 여기선 줄 서는 법부터 배워.","…졌다. 오늘부터 형이라 불러."], life:"해의 동 훈련장의 터줏대감. 브루노와 금세 의형제가 된다.",
+    looks:[["2학년","느슨한 넥타이와 어깨에 걸친 블레이저"],["3학년","팔에 붕대를 감은 믿음직한 3학년"]] },
+  { id:"iris", n:"이리스 발렌타인", s:"이리스", age:21, g:"3학년", dorm:"해", role:"학생회장", origin:"아우스트라 왕국 · 발렌타인 공작가", pt:["칼데리아","calderia","화산용족 · 화 · 최종진화"],
+    per:"에테르나 컵 2연패, 공식전 무패. 완벽하고 냉정한 학생회장. 몰래 단것을 좋아하고 칭찬에 약하다. 강한 상대를 보면 눈이 빛난다.",
+    say:["규칙은 지키라고 있는 겁니다."], life:"학생회실 서랍엔 사탕이 가득하다. 로제와 앙숙. 1학년 에테르나 컵에서 당신이 마지막에 마주할 벽.",
+    looks:[["3학년","흰 학생회 망토의 학생회장"]] },
+  { id:"rose", n:"로제 블랙번", s:"로제", age:21, g:"3학년", dorm:"달", role:"문제아 천재", origin:"출신 불명", pt:["파이어룬","firerune","불나방족 · 화 · 최종진화"],
+    per:"벌점 최다, 퇴학 직전. 수업은 빼먹고 고위험 의뢰로 생활비를 버는 실전 천재. 이리스와 유일하게 비긴 적이 있다. 금지 구역에 대해 뭔가 아는 눈치다.",
+    say:["꼬맹이, 그건 그렇게 하는 거 아냐."], life:"옥상이 아지트. 근성 있는 후배에게 몰래 실전 기술을 가르친다. 위기 때 가장 늦게, 가장 멋지게 나타난다.",
+    looks:[["3학년","개조 코트와 입에 문 사탕"]] },
+  { id:"adel", n:"아델 크로포드", s:"아델", age:21, g:"3학년", dorm:"별", role:"학생회 부회장", origin:"실바렌 숲연방 · 귀족 가문", pt:["로사리아","rosaria","채색유리족 · 빛 · 최종진화"],
+    per:"다정하고 우아한 부회장, 아카데미 인기 1위. 이리스의 오른팔이자 뒷수습 담당. 의외로 심각한 길치.",
+    say:["걱정 말아요. 학생회가 도울게요.","…여기가 어디죠?"], life:"장미 정원을 가꾼다. 팬클럽이 있다. 길을 잃어 신입생에게 길을 묻는 장면이 자주 목격된다.",
+    looks:[["3학년","하프 케이프와 흰 장갑의 왕자님"]] },
+  { id:"oswald", n:"오스왈드 에버하트", s:"오스왈드", age:78, g:"교수", dorm:"-", role:"학장", origin:"알려지지 않음", pt:["비공개","","계약 소환수를 본 사람이 없다"],
+    per:"15대 학장, 전설의 노소환사. 장난기 많은 할아버지. 그의 소환수를 본 사람은 아무도 없다.",
+    say:["허허, 젊다는 건 좋은 게야."], life:"정원에서 낮잠을 자다 지나가는 학생에게 사탕을 준다. 가끔 수업에 불쑥 나타난다.",
+    looks:[["현재","흰 수염과 지팡이의 학장"]] },
+  { id:"raymond", n:"레이먼드 애쉬", s:"레이먼드", age:34, g:"교수", dorm:"-", role:"1학년 담임 · 소환학", origin:"아카데미 졸업생", pt:["아우렐리온","aurelion","황금사자족 · 빛 · 최종진화"],
+    per:"만사 귀찮아하는 '레이 선생'. 사실은 전 에테르나 컵 우승자이자 교수진 최강. 파트너를 거의 꺼내지 않는다. 노력하는 학생에게는 몰래 특훈을 붙인다.",
+    say:["아… 귀찮게. 알아서들 해."], life:"교무실 소파가 침대. 마가렛 교수에게 늘 잔소리를 듣는다.",
+    looks:[["현재","구겨진 로브의 졸린 담임"]] },
+  { id:"margaret", n:"마가렛 하인즈", s:"마가렛", age:46, g:"교수", dorm:"-", role:"배틀 실습 · 기숙사 총감", origin:"아우스트라 왕국 · 군인 가문", pt:["시타드렉스","citadrex","성벽골렘족 · 지 · 최종진화"],
+    per:"'철의 여교수'. 엄격한 원칙주의자지만 누구보다 공정하고, 학생 안전이 최우선이다. 노력은 반드시 점수로 인정한다.",
+    say:["변명은 성적표에 적어 두겠습니다."], life:"소환 의식과 친선전, 기말평가를 진행하고 벌점을 매긴다.",
+    looks:[["현재","군복풍 교수복의 철의 여교수"]] },
+  { id:"eleanor", n:"엘리노어 바렛", s:"엘리노어", age:33, g:"교수", dorm:"-", role:"보건실 · 소환수 생태학", origin:"아카데미 졸업생", pt:["옥타비아","octavia","잉크문어족 · 수 · 최종진화"],
+    per:"다정한 보건실 선생이자 생태학 교수. 학생들의 고민과 연애 상담을 들어 준다. 다친 소환수를 보면 표정이 확 바뀐다.",
+    say:["다쳤어요? 이리 와요, 금방 나을 거예요."], life:"보건실엔 늘 차 향기가 감돈다. 테오와 세라의 스승.",
+    looks:[["현재","흰 가운의 보건 선생"]] }
+];
+const EDGES = [
+  ["you","kyle","라이벌"],["kyle","bruno","매번 도전, 매번 패배"],["bruno","sera","짝사랑"],["mia","bruno","소문 확산"],["mia","lucy","신문부 사제"],
+  ["you","theo","도감 경쟁"],["theo","eleanor","애제자"],["sera","eleanor","애제자"],["noel","bella","유독 친절"],["emilia","wolf","야식 장사 제안"],
+  ["jerome","bruno","의형제"],["jerome","you","형 자처"],["iris","rose","앙숙 · 유일한 맞수"],["adel","iris","오른팔"],["adel","rose","뒷수습"],
+  ["raymond","margaret","게으름 vs 원칙"],["raymond","eleanor","졸업 동기"],["you","bruno","절친"],["you","sera","히로인"],["iris","you","넘어야 할 벽"],["rose","you","숨은 스승"],["oswald","raymond","학장과 교수진"]
+];
+const POS = { you:[500,345], kyle:[330,235], bruno:[300,400], sera:[425,500], mia:[150,470], theo:[650,470], bella:[700,250], noel:[860,170], emilia:[830,420], wolf:[910,560],
+  jerome:[150,290], lucy:[110,620], iris:[380,80], rose:[620,80], adel:[500,165], oswald:[880,60], raymond:[700,620], margaret:[880,650], eleanor:[530,630] };
+
+/* ---------------- 칠류 성좌 ---------------- */
+const star = $("#star");
+const P = i => { const a = -Math.PI / 2 + i * 2 * Math.PI / 7; return [Math.cos(a) * 205, Math.sin(a) * 205]; };
+const defs = el("defs", {}, star);
+const rg = el("radialGradient", { id:"core" }, defs); el("stop", { offset:"0", "stop-color":"#f4dfa6", "stop-opacity":".5" }, rg); el("stop", { offset:"1", "stop-color":"#f4dfa6", "stop-opacity":"0" }, rg);
+el("path", { id:"ringtxt", d:"M0,-262 a262,262 0 1,1 -0.1,0" }, defs);
+el("circle", { r:150, fill:"url(#core)", opacity:.5 }, star);
+const rot = el("g", {}, star);
+el("circle", { r:275, fill:"none", stroke:"#d9b25f", "stroke-width":1.2, opacity:.6 }, rot);
+el("circle", { r:248, fill:"none", stroke:"#8fa2ff", "stroke-width":1, "stroke-dasharray":"2 8", opacity:.6 }, rot);
+const rt = el("text", { fill:"#d9b25f", "font-size":13, "letter-spacing":7, "font-family":"Cinzel, serif", opacity:.7 }, rot);
+el("textPath", { href:"#ringtxt" }, rt).textContent = "IGNIS ✦ AQUA ✦ VENTUS ✦ TERRA ✦ LUX ✦ UMBRA ✦ NULLUS ✦ SEPTEM FLUMINA ✦ IGNIS ✦ AQUA ✦ VENTUS ✦";
+const P7 = [...Array(7)].map((_, i) => P(i));
+el("polygon", { points:P7.map((_, i) => P7[(i * 3) % 7].join(",")).join(" "), fill:"none", stroke:"#d9b25f", "stroke-width":1.1, opacity:.55 }, star);
+el("polygon", { points:P7.map((_, i) => P7[(i * 2) % 7].join(",")).join(" "), fill:"none", stroke:"#8fa2ff", "stroke-width":.9, opacity:.4 }, star);
+el("circle", { r:205, fill:"none", stroke:"#d9b25f", "stroke-width":.8, opacity:.35 }, star);
+const beams = el("g", {}, star);
+const nodes = FLOWS.map((f, i) => {
+  const [x, y] = P(i), c = css(T[f.t]);
+  const g = el("g", { class:"node", transform:`translate(${x.toFixed(1)},${y.toFixed(1)})`, tabindex:0, role:"button", "aria-label":`${f.t} 속성` }, star);
+  const halo = el("circle", { r:44, fill:c, opacity:0 }, g);
+  el("circle", { class:"ring", r:32, fill:"#0d132d", stroke:c, "stroke-width":2 }, g);
+  const tx = el("text", { "text-anchor":"middle", dy:6, fill:c, "font-size":f.t.length > 1 ? 15 : 19, "font-weight":800, "font-family":"Noto Sans KR, sans-serif" }, g); tx.textContent = f.t;
+  g.addEventListener("click", () => pickFlow(i)); g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pickFlow(i); } });
+  return { g, halo, c, x, y };
+});
+// 8th flow
+const ab = el("g", { class:"node", transform:"translate(0,0)", tabindex:0, role:"button", "aria-label":"심연, 여덟 번째 흐름" }, star);
+el("circle", { class:"ring", r:26, fill:"#0b0816", stroke:"#c06cff", "stroke-width":1.5, "stroke-dasharray":"3 4", opacity:.85 }, ab);
+el("text", { "text-anchor":"middle", dy:5, fill:"#c06cff", "font-size":13, "font-weight":800, "font-family":"Noto Sans KR, sans-serif" }, ab).textContent = "?";
+ab.addEventListener("click", () => pickFlow(-1)); ab.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pickFlow(-1); } });
+let flowIdx = 0;
+function pickFlow(i){
+  flowIdx = i; const f = i < 0 ? ABYSS : FLOWS[i], c = i < 0 ? "#c06cff" : css(T[f.t]);
+  nodes.forEach((n, k) => n.halo.setAttribute("opacity", k === i ? .22 : 0));
+  beams.innerHTML = "";
+  if (i >= 0) { const n = nodes[i]; el("line", { x1:0, y1:0, x2:n.x, y2:n.y, stroke:c, "stroke-width":2, opacity:.8 }, beams).animate?.([{ opacity:0 }, { opacity:.8 }], { duration:500 }); }
+  const card = $("#flowcard"); card.style.setProperty("--fc", c);
+  card.innerHTML = `<div class="nm"><b>${f.t}</b><span>${f.en}</span></div><p>${f.d}</p>
+    <dl class="kv"><dt>고이는 곳</dt><dd>${f.where}</dd><dt>기숙사</dt><dd>${f.dorm}</dd><dt>소환수</dt><dd><div class="chips">${f.b.map(x => `<span>${x}</span>`).join("")}</div></dd></dl>`;
+}
+pickFlow(0);
+let spin = 0; (function rotLoop(){ if (reduce) return; spin += .03; rot.setAttribute("transform", `rotate(${spin})`); requestAnimationFrame(rotLoop); })();
+
+/* ---------------- 섬 지도 ---------------- */
+const map = $("#map");
+const md = el("defs", {}, map);
+const land = el("linearGradient", { id:"land", x1:"0", y1:"0", x2:"0", y2:"1" }, md);
+el("stop", { offset:"0", "stop-color":"#2a3672" }, land); el("stop", { offset:"1", "stop-color":"#172050" }, land);
+const fog = el("radialGradient", { id:"fog", cx:".5", cy:".5", r:".5" }, md);
+el("stop", { offset:".62", "stop-color":"#8fa2ff", "stop-opacity":"0" }, fog); el("stop", { offset:".85", "stop-color":"#8fa2ff", "stop-opacity":".12" }, fog); el("stop", { offset:"1", "stop-color":"#8fa2ff", "stop-opacity":"0" }, fog);
+const blur = el("filter", { id:"soft", x:"-20%", y:"-20%", width:"140%", height:"140%" }, md); el("feGaussianBlur", { stdDeviation:"18" }, blur);
+el("path", { id:"fogpath", d:"M500,30 a470,330 0 1,1 -0.1,0" }, md);
+// sea grid
+for (let x = 50; x < 1000; x += 50) el("line", { x1:x, y1:0, x2:x, y2:700, stroke:"rgba(160,172,230,.05)" }, map);
+for (let y = 50; y < 700; y += 50) el("line", { x1:0, y1:y, x2:1000, y2:y, stroke:"rgba(160,172,230,.05)" }, map);
+el("ellipse", { cx:500, cy:360, rx:490, ry:345, fill:"url(#fog)" }, map);
+el("ellipse", { cx:500, cy:360, rx:470, ry:330, fill:"none", stroke:"rgba(160,172,230,.25)", "stroke-dasharray":"2 10" }, map);
+const ft = el("text", { fill:"rgba(163,171,204,.55)", "font-size":12, "letter-spacing":8, "font-family":"Cinzel, serif" }, map);
+el("textPath", { href:"#fogpath", startOffset:"8%" }, ft).textContent = "MARE NEBULAE ✦ 안개의 바다 ✦ ONLY THE SILVER GULL KNOWS THE WAY";
+function islandPts(k = 1, sx = 500, sy = 240){
+  const pts = []; const N = 160;
+  for (let i = 0; i < N; i++) { const a = i / N * Math.PI * 2 - Math.PI;
+    let r = 1 + .075 * Math.sin(3 * a + .5) + .05 * Math.sin(5 * a + 1.7) + .03 * Math.sin(9 * a + .3) + .018 * Math.sin(15 * a + 2.1);
+    const dn = Math.atan2(Math.sin(a + Math.PI / 2), Math.cos(a + Math.PI / 2)); r *= 1 - .2 * Math.exp(-(dn * dn) / .018);
+    let x = 500 + Math.cos(a) * 395 * r, y = 365 + Math.sin(a) * 265 * r;
+    x = sx + (x - sx) * k; y = sy + (y - sy) * k; pts.push([x, y]); }
+  return pts;
+}
+function smooth(pts){ let d = ""; for (let i = 0; i < pts.length; i++) { const p = pts[i], q = pts[(i + 1) % pts.length]; const m = [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2];
+  d += i === 0 ? `M${m[0].toFixed(1)},${m[1].toFixed(1)}` : `Q${p[0].toFixed(1)},${p[1].toFixed(1)} ${m[0].toFixed(1)},${m[1].toFixed(1)}`; } return d + "Z"; }
+const coast = smooth(islandPts());
+el("path", { d:coast, fill:"#4cc3ff", opacity:.12, filter:"url(#soft)" }, map);
+el("path", { d:coast, fill:"url(#land)", stroke:"#d9b25f", "stroke-width":1.6, "stroke-opacity":.7 }, map);
+[.82, .64, .46, .28].forEach((k, i) => el("path", { d:smooth(islandPts(k)), fill:"none", stroke:"#d9b25f", "stroke-width":.8, "stroke-opacity":.16 + i * .05 }, map));
+// region tints
+REGIONS.forEach(r => { if (r.id === "rift") return; el("circle", { cx:r.x, cy:r.y, r:r.id === "altar" ? 60 : 80, fill:css(T[r.t[0]]), opacity:r.id === "altar" ? .05 : .08, filter:"url(#soft)" }, map); });
+// rift crack
+el("path", { d:"M470,108 L488,92 L496,104 L512,86 L522,99 L540,90", fill:"none", stroke:"#c06cff", "stroke-width":2.5, opacity:.9 }, map);
+el("path", { d:"M470,108 L488,92 L496,104 L512,86 L522,99 L540,90", fill:"none", stroke:"#c06cff", "stroke-width":10, opacity:.25, filter:"url(#soft)" }, map);
+// compass
+const cp = el("g", { transform:"translate(920,620)", opacity:.8 }, map);
+el("circle", { r:30, fill:"none", stroke:"#d9b25f", "stroke-width":1 }, cp);
+el("path", { d:"M0,-38 L6,0 L0,38 L-6,0Z", fill:"#d9b25f", opacity:.8 }, cp); el("path", { d:"M-38,0 L0,5 L38,0 L0,-5Z", fill:"#a3abcc", opacity:.5 }, cp);
+el("text", { y:-44, "text-anchor":"middle", fill:"#f4dfa6", "font-size":12, "font-family":"Cinzel, serif" }, cp).textContent = "N";
+// ship
+el("text", { x:705, y:640, fill:"#a3abcc", "font-size":12, "font-family":"Gowun Batang, serif", opacity:.85 }, map).textContent = "⛵ 은빛 갈매기호 항로";
+el("path", { d:"M600,520 Q650,600 700,632", fill:"none", stroke:"#a3abcc", "stroke-width":1, "stroke-dasharray":"4 6", opacity:.6 }, map);
+const pins = REGIONS.map(r => {
+  const c = r.id === "altar" ? "#f4dfa6" : r.id === "rift" ? "#c06cff" : css(T[r.t[0]]);
+  const g = el("g", { class:"pin", transform:`translate(${r.x},${r.y})`, tabindex:0, role:"button", "aria-label":r.n }, map);
+  el("circle", { class:"halo", r:12, fill:"none", stroke:c, "stroke-width":2 }, g);
+  el("circle", { class:"dot", r:r.id === "altar" ? 11 : 8, fill:c, stroke:"#090d1f", "stroke-width":2 }, g);
+  if (r.id === "altar") el("path", { d:"M0,-7 2,-2 7,-2 3,1 4.5,6 0,3 -4.5,6 -3,1 -7,-2 -2,-2Z", fill:"#1d1630" }, g);
+  const lbl = r.n.split(" · ")[0];
+  el("text", { y:r.id === "rift" ? -16 : 26, "text-anchor":"middle", fill:"#efe7d2", "font-size":14, "font-weight":700, "font-family":"Noto Sans KR, sans-serif" }, g).textContent = lbl;
+  g.addEventListener("click", () => pickRegion(r.id)); g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pickRegion(r.id); } });
+  return { id:r.id, g };
+});
+$("#rlist").innerHTML = REGIONS.map(r => `<button type="button" data-id="${r.id}" aria-pressed="false">${r.n.split(" · ")[0]}</button>`).join("");
+$("#rlist").onclick = e => { const b = e.target.closest("button"); if (b) pickRegion(b.dataset.id); };
+function pickRegion(id){
+  const r = REGIONS.find(x => x.id === id), c = id === "rift" ? "#c06cff" : id === "altar" ? css("--gold") : css(T[r.t[0]]);
+  pins.forEach(p => p.g.classList.toggle("on", p.id === id));
+  [...$("#rlist").children].forEach(b => b.setAttribute("aria-pressed", b.dataset.id === id));
+  const box = $("#region"); box.style.setProperty("--fc", c);
+  box.innerHTML = `<div class="ty">${r.t.map(t => `<span style="--c:var(${T[t]})">${t}</span>`).join("")}</div><h3>${r.n}</h3><p>${r.d}</p>
+    ${r.beasts.length ? `<dl class="kv"><dt>사는 소환수</dt><dd><div class="chips" style="--fc:${c}">${r.beasts.map(b => `<span>${b}</span>`).join("")}</div></dd>${r.lv ? `<dt>야생 레벨</dt><dd>${r.lv}</dd>` : ""}</dl>` : ""}
+    ${r.warn ? `<div class="warn">${r.warn}</div>` : ""}`;
+}
+pickRegion("altar");
+$("#continent").innerHTML = NATIONS.map(([d, n, t, k]) => k === "compass"
+  ? `<div class="nation compass" aria-hidden="true" style="border-style:dashed;align-items:center;justify-content:center"><span class="eyebrow" style="font-size:10px">GRANDIA · 대륙</span></div>`
+  : `<div class="nation ${k || ""}"><span class="dir">${d}</span><b>${n}</b><span>${t}</span></div>`).join("");
+
+/* ---------------- 아카데미 ---------------- */
+$("#facil").innerHTML = FACIL.map(([n, d, s, k]) => `<div class="fac ${k || ""}"><b>${n}</b><span>${d}</span><em>${s}</em></div>`).join("");
+$("#dorms").innerHTML = DORMS.map(([k, n, t, c, m]) => `<div class="dorm" style="--c:${c}"><i>${k}</i><div><b>${n}</b><span>${t} 속성 파트너</span><small>${m}</small></div></div>`).join("");
+$("#year").innerHTML = YEAR.map(([s, c, d]) => `<li style="--c:${c}"><time>${s}</time><span>${d}</span></li>`).join("");
+
+/* ---------------- 연표 ---------------- */
+$("#chron").innerHTML = CHRON.map(([a, b, h, p, k]) => `<li class="${k || ""}"><time>${a}${b ? `<small>${b}</small>` : ""}</time><div><h4>${h}</h4><p>${p}</p></div></li>`).join("");
+
+/* ---------------- 전설 ---------------- */
+$("#peek").onclick = () => { const a = $("#abyss"); a.classList.add("peek"); setTimeout(() => a.classList.remove("peek"), 3200); };
+
+/* ---------------- 인물 ---------------- */
+const GROUPS = [["","전체"],["동기","1학년 동기"],["2학년","2학년 선배"],["3학년","3학년 선배"],["교수","교수진"]];
+$("#tabs").innerHTML = GROUPS.map(([g, l], i) => `<button type="button" data-g="${g}" aria-pressed="${i === 0}">${l}<i>${g ? CAST.filter(c => c.g === g).length : CAST.length}</i></button>`).join("");
+$("#castgrid").innerHTML = CAST.map(c => `<button type="button" class="who" data-id="${c.id}" data-g="${c.g}" style="--dc:${DC[c.dorm]}">
+  <img src="img/c/${c.id}.webp" alt="${c.n}" loading="lazy">
+  ${c.dorm !== "-" ? `<span class="dorm-dot" aria-label="${c.dorm}의 동">${c.dorm}</span>` : ""}
+  <span class="tx"><span class="role">${c.role}</span><b>${c.s}</b><span class="meta">${c.g === "교수" ? "교수" : c.g === "동기" ? "1학년" : c.g} · ${c.age}세</span><span class="q">“${esc(c.say[0])}”</span></span></button>`).join("");
+$("#tabs").onclick = e => { const b = e.target.closest("button"); if (!b) return; const g = b.dataset.g;
+  [...$("#tabs").children].forEach(x => x.setAttribute("aria-pressed", x === b));
+  document.querySelectorAll("#castgrid .who").forEach(w => { w.hidden = !!g && w.dataset.g !== g; }); };
+$("#castgrid").onclick = e => { const w = e.target.closest(".who"); if (w) openCast(w.dataset.id); };
+
+const NAME = id => id === "you" ? "당신" : CAST.find(c => c.id === id).s;
+function openCast(id){
+  const c = CAST.find(x => x.id === id), m = $("#modal"), col = DC[c.dorm];
+  const rels = EDGES.filter(e => e[0] === id || e[1] === id).map(e => `<span><b>${NAME(e[0] === id ? e[1] : e[0])}</b> · ${e[2]}</span>`).join("");
+  m.hidden = false; m._from = document.activeElement;
+  m.innerHTML = `<div class="mbox" style="--dc:${col}"><button class="x" id="mx" type="button" aria-label="닫기">✕</button>
+    <div class="hd"><img src="img/c/${c.id}_w.webp" alt="${c.n}"></div>
+    <div class="bd"><div>
+      <div class="role">${c.role}${c.dorm !== "-" ? ` · ${c.dorm}의 동` : ""}</div><h3>${c.n}</h3>
+      <div class="hint">${c.g === "교수" ? "교수" : c.g === "동기" ? "1학년 동기" : c.g + " 선배"} · ${c.age}세 · ${c.origin}</div>
+      <div class="say">${c.say.map(s => `<span>“${esc(s)}”</span>`).join("")}</div>
+      <p>${c.per}</p><p>${c.life}</p>
+      <h4>${c.g === "교수" ? "모습" : "학년별 모습"}</h4><ul class="looks">${c.looks.map(([a, b]) => `<li><b>${a}</b><span>${b}</span></li>`).join("")}</ul>
+    </div>
+    <div class="side-kv">
+      <h4 style="margin-top:6px">파트너</h4>
+      <div class="partner">${c.pt[1] ? `<img src="img/p/${c.pt[1]}.webp" alt="${c.pt[0]}">` : `<span class="ph">?</span>`}<div><b>${c.pt[0]}</b><span>${c.pt[2]}</span></div></div>
+      ${rels ? `<h4>관계</h4><div class="rel">${rels}</div>` : ""}
+    </div></div></div>`;
+  const close = () => { m.hidden = true; m.innerHTML = ""; removeEventListener("keydown", k); m._from?.focus?.(); };
+  const k = e => { if (e.key === "Escape") close(); };
+  addEventListener("keydown", k); m.onclick = e => { if (e.target === m) close(); }; $("#mx").onclick = close; $("#mx").focus();
+}
+
+/* ---------------- 관계도 ---------------- */
+const gs = $("#gsvg"), gEdges = el("g", {}, gs), gNodes = el("g", {}, gs);
+const gdefs = el("defs", {}, gs);
+const edgeEls = EDGES.map(([a, b, l], i) => {
+  const [x1, y1] = POS[a], [x2, y2] = POS[b], mx = (x1 + x2) / 2, my = (y1 + y2) / 2, dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1;
+  const bend = (i % 2 ? 1 : -1) * Math.min(40, len * .12), cx2 = mx - dy / len * bend, cy2 = my + dx / len * bend;
+  const g = el("g", { class:"e" }, gEdges);
+  el("path", { d:`M${x1},${y1} Q${cx2.toFixed(1)},${cy2.toFixed(1)} ${x2},${y2}` }, g);
+  const tx = (x1 + 2 * cx2 + x2) / 4, ty = (y1 + 2 * cy2 + y2) / 4;
+  el("text", { x:tx.toFixed(1), y:(ty + 4).toFixed(1), "text-anchor":"middle" }, g).textContent = l;
+  return { a, b, g };
+});
+const nodeEls = Object.entries(POS).map(([id, [x, y]]) => {
+  const c = id === "you" ? null : CAST.find(k => k.id === id), col = id === "you" ? css("--gold-hi") : c.dorm === "-" ? css("--gold") : css({ 해:"--sun", 달:"--moon", 별:"--star" }[c.dorm]);
+  const g = el("g", { class:"n", transform:`translate(${x},${y})`, tabindex:0, role:"button", "aria-label":id === "you" ? "당신" : c.n }, gNodes);
+  const r = id === "you" ? 34 : 26;
+  if (id !== "you") { const cp = el("clipPath", { id:"cp-" + id }, gdefs); el("circle", { r }, cp);
+    el("image", { href:`img/c/${id}.webp`, x:-r, y:-r * 1.05, width:r * 2, height:r * 2.67, "clip-path":`url(#cp-${id})`, preserveAspectRatio:"xMidYMin slice" }, g); }
+  else { el("circle", { r, fill:"#1d1630" }, g); el("text", { "text-anchor":"middle", dy:6, "font-size":15, fill:col }, g).textContent = "당신"; }
+  el("circle", { r, fill:"none", stroke:col, "stroke-width":id === "you" ? 3 : 2.2 }, g);
+  if (id !== "you") el("text", { y:r + 17, "text-anchor":"middle" }, g).textContent = c.s;
+  const hot = on => { $("#graph").classList.toggle("focus", on); if (!on) { edgeEls.forEach(e => e.g.classList.remove("hot")); nodeEls.forEach(n => n.g.classList.remove("hot")); return; }
+    const near = new Set([id]); edgeEls.forEach(e => { const h = e.a === id || e.b === id; e.g.classList.toggle("hot", h); if (h) { near.add(e.a); near.add(e.b); } });
+    nodeEls.forEach(n => n.g.classList.toggle("hot", near.has(n.id))); };
+  g.addEventListener("pointerenter", () => hot(true)); g.addEventListener("pointerleave", () => hot(false));
+  g.addEventListener("focus", () => hot(true)); g.addEventListener("blur", () => hot(false));
+  if (id !== "you") { g.addEventListener("click", () => openCast(id)); g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openCast(id); } }); }
+  return { id, g };
+});
+
+/* ---------------- toc highlight ---------------- */
+const links = [...document.querySelectorAll("#toc a")];
+const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { links.forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id));
+  const on = links.find(a => a.classList.contains("on")), tc = $(".toc"); if (on && tc.scrollWidth > tc.clientWidth) tc.scrollTo({ left:on.offsetLeft - tc.clientWidth / 2 + on.offsetWidth / 2, behavior:"smooth" }); } }); }, { rootMargin:"-40% 0px -55% 0px" });
+document.querySelectorAll(".chap").forEach(s => io.observe(s));
+})();
+</script>
+
+</html>
