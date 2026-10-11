@@ -6,16 +6,18 @@
 <title>에테르나 도감 회랑</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+KR:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: 밤하늘 아래 펼친 도감 회랑. 상단 진행 링 → 코드 입력대 → 속성 탭 → 계열별 도감 패널(기본·1진화·최종 3칸). 어두운 단일 테마. */
+/* Layout: 밤하늘 아래 펼친 소환수 도감. 표지(진행 링 · 칭호 · 속성 메달) → 코드 등록대 → 속성 장(章)별 계열 페이지(기본·1진화·최종 슬롯) → 기록 보관.
+   등록 시 전면 소환 연출(소환진 → 빛 → 공개 → 인장)이 한 장씩 재생된다. 어두운 단일 테마. */
 :root{
-  --night:#090d1f; --night-2:#111834; --deep:#182248;
-  --panel:rgba(17,24,52,.78); --line:rgba(217,178,95,.28); --line-soft:rgba(160,172,230,.16);
-  --gold:#d9b25f; --gold-hi:#f4dfa6; --parch:#efe7d2; --muted:#a3abcc; --dim:#6f789e;
+  --night:#080b1b; --night-2:#0f1530; --deep:#161f45; --ink:#0b1026;
+  --panel:rgba(16,22,50,.74); --line:rgba(217,178,95,.30); --line-soft:rgba(160,172,230,.15);
+  --gold:#d9b25f; --gold-hi:#f4dfa6; --parch:#efe7d2; --muted:#a3abcc; --dim:#6b7499;
   --mana:#8fa2ff; --danger:#ff8f8f; --ok:#8fe3b0;
   --t-화:#ff8a4c; --t-수:#4cc3ff; --t-풍:#7fe0b4; --t-지:#d4a15a; --t-빛:#ffe28a; --t-어둠:#b48cff; --t-무:#d6d6e6; --t-전설:#f4dfa6;
   --f-body:"Noto Sans KR","Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-book:"Gowun Batang","Noto Serif KR",serif;
   --f-latin:"Cinzel","Times New Roman",serif;
   --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   color-scheme:dark;
@@ -24,177 +26,385 @@
 html,body{margin:0}
 body{background:var(--night);color:var(--parch);font-family:var(--f-body);font-size:16px;line-height:1.65;overflow-x:hidden;word-break:keep-all;overflow-wrap:break-word;min-height:100%}
 #sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:18px 72px}
-button,input,select,textarea{font:inherit;color:inherit}
+.wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding-inline:20px;padding-block:16px 80px}
+button,input,textarea{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
 h1,h2,h3,p{margin:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
-.bar{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-block:6px 20px;border-bottom:1px solid var(--line-soft)}
-.brand{display:flex;align-items:center;gap:14px;min-width:0}
-.brand img{height:58px;width:auto;margin-block:-8px;filter:drop-shadow(0 0 10px rgba(143,162,255,.3))}
-.brand small{display:block;font-family:var(--f-latin);letter-spacing:.22em;font-size:11px;color:var(--gold)}
-.brand h1{font-size:clamp(22px,4vw,30px);font-weight:800;letter-spacing:-.01em;color:var(--gold-hi)}
-.prog{display:flex;align-items:center;gap:16px}
-.ring{position:relative;width:84px;height:84px;flex:none}
-.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
-.ring .tr{fill:none;stroke:rgba(160,172,230,.16);stroke-width:7}
-.ring .sn{fill:none;stroke:rgba(143,162,255,.45);stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset .8s cubic-bezier(.2,.8,.2,1)}
-.ring .cf{fill:none;stroke:var(--gold);stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset .8s cubic-bezier(.2,.8,.2,1)}
-.ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-latin);font-size:19px;color:var(--gold-hi);font-weight:700;font-variant-numeric:tabular-nums}
-.prog dl{margin:0;display:grid;grid-template-columns:auto auto;gap:2px 12px;font-size:13.5px;color:var(--muted)}
-.prog dt{display:flex;align-items:center;gap:7px}
-.prog dd{margin:0;text-align:right;font-family:var(--f-mono);color:var(--parch);font-variant-numeric:tabular-nums}
-.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
-.dot.c{background:var(--gold)}.dot.s{background:var(--mana)}
+/* ---------- top bar ---------- */
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:4px 14px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand img{height:50px;width:auto;filter:drop-shadow(0 0 10px rgba(143,162,255,.3))}
+.brand small{display:block;font-family:var(--f-latin);letter-spacing:.24em;font-size:10.5px;color:var(--gold)}
+.brand b{font-family:var(--f-book);font-size:15px;color:var(--muted);font-weight:700}
+.snd{white-space:nowrap;flex:none;border:1px solid var(--line-soft);background:none;border-radius:999px;padding:5px 13px;font-size:12.5px;color:var(--muted);cursor:pointer}
+.snd[aria-pressed="true"]{color:var(--gold-hi);border-color:var(--line)}
 
-.entry{margin-top:26px;border:1px solid var(--line);border-radius:18px;background:var(--panel);backdrop-filter:blur(6px);padding:22px;display:grid;gap:14px}
-.entry h2{font-size:17px;font-weight:700;color:var(--gold-hi);display:flex;align-items:center;gap:10px}
-.entry h2 span{font-family:var(--f-latin);font-size:11px;letter-spacing:.2em;color:var(--gold);font-weight:500}
-.entry p.how{font-size:14px;color:var(--muted)}
-.entry code,.fmt code{font-family:var(--f-mono);font-size:13px;background:rgba(143,162,255,.12);border:1px solid var(--line-soft);padding:1px 7px;border-radius:6px;color:var(--parch)}
-.entry textarea{width:100%;min-height:96px;resize:vertical;background:rgba(9,13,31,.7);border:1px solid var(--line-soft);border-radius:12px;padding:12px 14px;font-family:var(--f-mono);font-size:14px;line-height:1.6;color:var(--parch)}
+/* ---------- cover (hero) ---------- */
+.cover{position:relative;border:1px solid var(--line);border-radius:24px;padding:28px clamp(18px,4vw,40px);overflow:hidden;
+  background:radial-gradient(120% 140% at 0% 0%,rgba(58,74,160,.35),transparent 55%),radial-gradient(90% 120% at 100% 100%,rgba(217,178,95,.14),transparent 60%),linear-gradient(160deg,#121a3c,#0b1027);
+  display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+.cover::before{content:"";position:absolute;inset:10px;border:1px solid rgba(217,178,95,.16);border-radius:16px;pointer-events:none}
+.cover .orn{position:absolute;width:26px;height:26px;border:2px solid var(--gold);opacity:.55}
+.orn.a{top:16px;left:16px;border-right:0;border-bottom:0;border-top-left-radius:8px}
+.orn.b{top:16px;right:16px;border-left:0;border-bottom:0;border-top-right-radius:8px}
+.orn.c{bottom:16px;left:16px;border-right:0;border-top:0;border-bottom-left-radius:8px}
+.orn.d{bottom:16px;right:16px;border-left:0;border-top:0;border-bottom-right-radius:8px}
+.big{position:relative;width:168px;height:168px}
+.big svg{width:100%;height:100%;transform:rotate(-90deg);overflow:visible}
+.big .tr{fill:none;stroke:rgba(160,172,230,.12);stroke-width:9}
+.big .ticks{fill:none;stroke:rgba(217,178,95,.35);stroke-width:4;stroke-dasharray:1.2 5.55}
+.big .sn{fill:none;stroke:rgba(143,162,255,.55);stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1)}
+.big .cf{fill:none;stroke:url(#gGold);stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 0 6px rgba(244,223,166,.55))}
+.big .mid{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.big .mid b{font-family:var(--f-latin);font-size:46px;line-height:1;color:var(--gold-hi);font-weight:900;font-variant-numeric:tabular-nums}
+.big .mid span{font-family:var(--f-mono);font-size:12px;color:var(--dim);letter-spacing:.12em}
+.cv-tx{display:grid;gap:14px;min-width:0}
+.cv-tx small{font-family:var(--f-latin);letter-spacing:.28em;font-size:11px;color:var(--gold)}
+.cv-tx h1{font-family:var(--f-book);font-size:clamp(28px,5vw,44px);line-height:1.1;font-weight:700;color:var(--gold-hi);text-wrap:balance}
+.rank{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.rank .tt{font-family:var(--f-book);font-weight:700;font-size:16px;color:var(--parch);padding:3px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(217,178,95,.08)}
+.rank .nx{font-size:12.5px;color:var(--dim)}
+.cnts{display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px;color:var(--muted)}
+.cnts b{font-family:var(--f-mono);color:var(--parch);font-weight:500;margin-left:4px;font-variant-numeric:tabular-nums}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:1px}
+.dot.c{background:var(--gold)}.dot.s{background:var(--mana)}.dot.u{background:transparent;border:1px solid var(--dim)}
+
+/* medals = attribute tabs */
+.medals{display:flex;gap:10px;flex-wrap:wrap}
+.medal{--tc:var(--gold);--p:0;position:relative;width:62px;border:0;background:none;padding:0;cursor:pointer;display:grid;justify-items:center;gap:3px;color:var(--muted)}
+.medal .hx{position:relative;width:52px;height:58px;display:grid;place-items:center;transition:transform .3s}
+.medal .hx::before{content:"";position:absolute;inset:0;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:conic-gradient(var(--tc) calc(var(--p)*1turn),rgba(160,172,230,.12) 0)}
+.medal .hx::after{content:"";position:absolute;inset:4px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(160deg,#18214a,#0b1027)}
+.medal .hx i{position:relative;z-index:1;font-style:normal;font-family:var(--f-book);font-weight:700;font-size:16px;color:var(--tc)}
+.medal small{font-family:var(--f-mono);font-size:10.5px;color:var(--dim);font-variant-numeric:tabular-nums}
+.medal:hover .hx{transform:translateY(-3px)}
+.medal[aria-pressed="true"] .hx{transform:translateY(-3px) scale(1.06)}
+.medal[aria-pressed="true"] small{color:var(--gold-hi)}
+.medal[aria-pressed="true"]::after{content:"";position:absolute;bottom:-6px;width:18px;height:2px;border-radius:2px;background:var(--gold)}
+.medal.full .hx{filter:drop-shadow(0 0 10px var(--tc))}
+.medal.full .hx::after{background:radial-gradient(circle at 50% 30%,color-mix(in srgb,var(--tc) 45%,#0b1027),#0b1027 75%)}
+.medal.full .hx i{color:#fff}
+.medal.all{--tc:var(--gold-hi)}
+.medal.all .hx i{font-family:var(--f-latin);font-size:12px;letter-spacing:.05em}
+
+/* ---------- register ---------- */
+.entry{margin-top:22px;border:1px solid var(--line-soft);border-radius:20px;background:var(--panel);backdrop-filter:blur(6px);padding:20px;display:grid;gap:12px}
+.entry h2{font-family:var(--f-book);font-size:19px;font-weight:700;color:var(--gold-hi);display:flex;align-items:baseline;gap:10px}
+.entry h2 span{font-family:var(--f-latin);font-size:10.5px;letter-spacing:.24em;color:var(--gold);font-weight:500}
+.entry p.how{font-size:14px;color:var(--muted);max-width:76ch}
+code{font-family:var(--f-mono);font-size:12.5px;background:rgba(143,162,255,.12);border:1px solid var(--line-soft);padding:1px 7px;border-radius:6px;color:var(--parch);white-space:nowrap}
+.inrow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:stretch}
+.entry textarea{width:100%;min-height:74px;resize:vertical;background:rgba(8,11,27,.75);border:1px solid var(--line-soft);border-radius:14px;padding:12px 14px;font-family:var(--f-mono);font-size:14px;line-height:1.6;color:var(--parch)}
 .entry textarea::placeholder{color:var(--dim)}
-.entry textarea:focus{border-color:var(--gold);outline:none;box-shadow:0 0 0 3px rgba(217,178,95,.18)}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.btn{border:1px solid var(--line);background:rgba(217,178,95,.1);color:var(--gold-hi);border-radius:999px;padding:9px 20px;cursor:pointer;font-weight:700;font-size:14.5px;transition:.2s}
-.btn:hover{background:rgba(217,178,95,.22)}
-.btn.main{background:var(--gold);color:var(--night);border-color:var(--gold)}
-.btn.main:hover{background:var(--gold-hi)}
-.btn.ghost{border-color:var(--line-soft);color:var(--muted);font-weight:500;background:none}
-.btn.ghost:hover{color:var(--parch);border-color:var(--line)}
-.btn.warn{border-color:rgba(255,143,143,.5);color:var(--danger);background:none}
-.samples{display:flex;gap:7px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--dim)}
-.chip{font-family:var(--f-mono);font-size:12.5px;padding:3px 11px;border-radius:999px;border:1px dashed var(--line-soft);background:none;color:var(--muted);cursor:pointer}
+.entry textarea:focus{border-color:var(--gold);outline:none;box-shadow:0 0 0 3px rgba(217,178,95,.16)}
+.seal-btn{position:relative;min-width:118px;border:0;border-radius:14px;cursor:pointer;color:var(--ink);font-weight:900;font-size:15.5px;letter-spacing:.04em;
+  background:radial-gradient(circle at 30% 20%,#ffe9b5,#d9b25f 55%,#9b7631);box-shadow:0 6px 24px -8px rgba(217,178,95,.7),inset 0 -3px 0 rgba(0,0,0,.18);transition:transform .15s}
+.seal-btn:hover{transform:translateY(-2px)}
+.seal-btn:active{transform:translateY(1px) scale(.98)}
+.seal-btn small{display:block;font-family:var(--f-latin);font-size:9.5px;letter-spacing:.24em;font-weight:700;opacity:.7}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12.5px;color:var(--dim)}
+.chip{font-family:var(--f-mono);font-size:12px;padding:3px 11px;border-radius:999px;border:1px dashed var(--line-soft);background:none;color:var(--muted);cursor:pointer}
 .chip:hover{color:var(--gold-hi);border-color:var(--gold)}
-#log{min-height:24px;font-size:14px}
-#log .ln{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;padding:3px 0}
+.lnk{background:none;border:0;color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-size:12.5px;padding:0}
+#log{display:grid;gap:3px;font-size:13.5px}
+#log:empty{display:none}
+#log .ln{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
 #log .ok{color:var(--ok)}#log .up{color:var(--gold-hi)}#log .no{color:var(--dim)}#log .bad{color:var(--danger)}
-#log b{font-weight:700}
 
-.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-top:30px;padding-bottom:4px}
-.tab{display:flex;align-items:center;gap:7px;border:1px solid var(--line-soft);background:none;border-radius:999px;padding:6px 14px;font-size:13.5px;color:var(--muted);cursor:pointer;transition:.2s}
-.tab i{font-style:normal;font-family:var(--f-mono);font-size:11.5px;color:var(--dim)}
-.tab:hover{color:var(--parch);border-color:var(--line)}
-.tab[aria-selected="true"]{background:var(--gold);color:var(--night);border-color:var(--gold);font-weight:700}
-.tab[aria-selected="true"] i{color:var(--night)}
-.tab .dot{width:8px;height:8px}
+/* ---------- chapters ---------- */
+.empty{margin-top:26px;border:1px dashed var(--line);border-radius:18px;padding:22px;text-align:center;color:var(--muted);font-family:var(--f-book);font-size:15.5px}
+.empty b{display:block;font-size:19px;color:var(--gold-hi);margin-bottom:4px}
+.chap{margin-top:44px;--tc:var(--gold)}
+.chap-h{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;margin-bottom:16px}
+.chap-h .rn{font-family:var(--f-latin);font-size:13px;letter-spacing:.2em;color:var(--tc);border:1px solid var(--tc);border-radius:999px;padding:3px 12px;white-space:nowrap}
+.chap-h h2{font-family:var(--f-book);font-size:24px;font-weight:700;display:flex;align-items:baseline;gap:12px;min-width:0}
+.chap-h h2 small{font-family:var(--f-body);font-size:13px;color:var(--dim);font-weight:400}
+.chap-h .bar2{grid-column:1/-1;height:3px;border-radius:3px;background:rgba(160,172,230,.1);overflow:hidden}
+.chap-h .bar2 i{display:block;height:100%;width:calc(var(--p)*100%);background:linear-gradient(90deg,transparent,var(--tc));transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.chap-h .pc{font-family:var(--f-mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.fams{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:18px}
 
-#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,350px),1fr));gap:18px;margin-top:20px}
-.fam{border:1px solid var(--line-soft);border-radius:16px;background:rgba(17,24,52,.6);padding:14px;display:grid;gap:10px;--tc:var(--t-무);min-width:0}
-.fam.done{border-color:var(--line);box-shadow:0 0 28px -10px var(--tc)}
-.fam header{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0}
-.fam header h3{font-size:14.5px;font-weight:700;display:flex;align-items:center;gap:8px;min-width:0}
-.fam header h3 em{font-style:normal;font-family:var(--f-mono);font-size:11.5px;color:var(--dim);font-weight:400}
-.fam header .tg{font-size:11.5px;padding:1px 9px;border-radius:999px;border:1px solid var(--tc);color:var(--tc);white-space:nowrap}
-.fam header .cnt{font-family:var(--f-mono);font-size:12px;color:var(--dim);white-space:nowrap}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.card{position:relative;border:1px solid var(--line-soft);border-radius:11px;overflow:hidden;background:var(--night-2);padding:0;cursor:pointer;text-align:left;display:block;min-width:0;transition:transform .25s,border-color .25s,box-shadow .25s}
-.card:hover{transform:translateY(-3px);border-color:var(--tc)}
-.card .ph{aspect-ratio:4/3;display:block;background:linear-gradient(160deg,#0e1430,#171f45);position:relative;overflow:hidden}
-.card img{width:100%;height:100%;object-fit:cover;display:block}
-.card.s img{filter:grayscale(1) brightness(.34) blur(5px) contrast(1.1);transform:scale(1.12)}
-.card.u .ph::after{content:"?";position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-latin);font-size:34px;color:rgba(160,172,230,.22)}
-.card .nm{display:block;padding:6px 8px 7px;font-size:12.5px;line-height:1.35;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card .nm small{display:block;font-weight:400;font-size:10.5px;color:var(--dim);font-family:var(--f-mono);letter-spacing:.02em}
-.card.u .nm{color:var(--dim)}
+/* family page */
+.fam{position:relative;--tc:var(--t-무);border:1px solid var(--line-soft);border-radius:18px;padding:14px 14px 15px;min-width:0;
+  background:linear-gradient(180deg,rgba(22,30,66,.72),rgba(12,17,40,.72));display:grid;gap:11px}
+.fam::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(80% 60% at 100% 0%,color-mix(in srgb,var(--tc) 14%,transparent),transparent 70%)}
+.fam.done header{padding-right:50px}
+.fam.done{border-color:color-mix(in srgb,var(--tc) 55%,transparent);box-shadow:0 0 0 1px color-mix(in srgb,var(--tc) 18%,transparent),0 18px 40px -22px var(--tc)}
+.fam header{position:relative;display:flex;align-items:center;gap:10px;min-width:0;padding-right:4px}
+.fam header .fn{font-family:var(--f-latin);font-size:12px;font-weight:700;color:var(--tc);border:1px solid color-mix(in srgb,var(--tc) 50%,transparent);border-radius:7px;padding:0 6px;flex:none}
+.fam header h3{font-family:var(--f-book);font-size:15.5px;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.fam header h3 .q{color:var(--dim)}
+.fam header .gr{font-size:11px;padding:1px 9px;border-radius:999px;border:1px solid var(--line-soft);color:var(--muted);flex:none}
+.gr.희귀{border-color:#9fc4ff;color:#bcd6ff}.gr.영웅{border-color:var(--gold);color:var(--gold-hi)}.gr.전설{border-color:#f0b9ff;color:#f6d6ff}
+.slots{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.slots.leg{grid-template-columns:minmax(0,220px)}
+.slots .arr{display:none}
+
+/* wax seal (family complete) */
+.wax{position:absolute;top:-16px;right:-12px;width:62px;height:62px;z-index:3;pointer-events:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.6))}
+.wax .w{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--tc) 85%,#fff),var(--tc) 45%,color-mix(in srgb,var(--tc) 55%,#000));
+  clip-path:polygon(50% 0,61% 6%,74% 3%,80% 14%,93% 18%,92% 31%,100% 41%,94% 52%,99% 65%,89% 72%,87% 86%,74% 88%,66% 99%,53% 94%,41% 100%,32% 90%,19% 92%,15% 79%,3% 72%,8% 60%,0 49%,8% 38%,4% 25%,16% 19%,20% 6%,33% 7%,41% 0)}
+.wax .w::after{content:"";position:absolute;inset:11px;border-radius:50%;border:2px solid rgba(255,255,255,.35)}
+.wax b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-book);font-weight:700;font-size:15px;color:rgba(255,255,255,.92);text-shadow:0 1px 0 rgba(0,0,0,.4)}
+.wax.drop{animation:waxDrop .9s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes waxDrop{0%{transform:scale(2.6) rotate(-40deg);opacity:0}55%{transform:scale(.88) rotate(6deg);opacity:1}100%{transform:scale(1) rotate(-8deg)}}
+.wax{transform:rotate(-8deg)}
+
+/* ---------- slot card ---------- */
+.card{--tc:var(--t-무);--rx:0deg;--ry:0deg;--mx:50%;--my:50%;position:relative;display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;text-align:left;min-width:0;perspective:700px}
+.card .in{position:relative;display:block;border-radius:12px;overflow:hidden;border:1px solid var(--line-soft);background:linear-gradient(160deg,#10173a,#0a0f26);
+  transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform .25s ease-out,border-color .25s,box-shadow .25s;transform-style:preserve-3d}
+.card:hover .in{border-color:var(--tc)}
+.card .ph{position:relative;display:block;aspect-ratio:4/3;overflow:hidden}
+.card .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.card.c:hover .ph img{transform:scale(1.06)}
+.card.s .ph img{filter:grayscale(1) brightness(.3) blur(5px) contrast(1.2);transform:scale(1.15)}
+.card.s .ph::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,rgba(143,162,255,.28),transparent 60%)}
+.card .no{position:absolute;top:6px;left:6px;z-index:2;font-family:var(--f-mono);font-size:10.5px;padding:0 7px;border-radius:6px;background:rgba(8,11,27,.82);border:1px solid var(--line-soft);color:var(--muted)}
+.card.c .no{color:var(--gold-hi);border-color:color-mix(in srgb,var(--tc) 60%,transparent)}
+.card .nm{display:block;padding:6px 9px 8px;font-size:12.5px;line-height:1.3;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-top:1px solid var(--line-soft)}
+.card .nm small{display:block;font-weight:400;font-size:10.5px;color:var(--dim)}
+.card.c .nm{background:linear-gradient(90deg,color-mix(in srgb,var(--tc) 16%,transparent),transparent)}
 .card.s .nm{color:var(--mana)}
-.card.c{border-color:var(--line)}
-.card .st{position:absolute;top:5px;left:5px;font-size:10px;padding:0 7px;border-radius:999px;background:rgba(9,13,31,.8);border:1px solid var(--line-soft);color:var(--dim);font-family:var(--f-mono)}
-.card.c .st{color:var(--gold-hi);border-color:var(--gold)}
-.card.s .st{color:var(--mana);border-color:var(--mana)}
-.card.new{animation:pop 1.6s cubic-bezier(.2,.8,.2,1) 1}
-@keyframes pop{0%{box-shadow:0 0 0 0 var(--tc);transform:scale(.9)}35%{box-shadow:0 0 34px 6px var(--tc);transform:scale(1.07)}100%{box-shadow:0 0 0 0 transparent;transform:scale(1)}}
+.card.u .nm{color:var(--dim)}
+/* unknown slot: engraved frame + big number */
+.card.u .ph{background:repeating-linear-gradient(135deg,rgba(160,172,230,.035) 0 6px,transparent 6px 12px)}
+.card.u .ph::before{content:"";position:absolute;inset:9px;border:1px dashed rgba(160,172,230,.2);border-radius:8px}
+.card.u .ph b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-latin);font-weight:900;font-size:clamp(22px,4vw,30px);color:rgba(160,172,230,.13);letter-spacing:.04em}
+.card.s .ph b{position:absolute;inset:0;z-index:1;display:grid;place-items:center;font-family:var(--f-latin);font-size:30px;color:rgba(190,200,255,.5);text-shadow:0 0 16px var(--mana)}
+/* confirmed: foil by rarity + seal */
+.card .foil{position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:color-dodge;opacity:0;transition:opacity .3s;
+  background:radial-gradient(circle at var(--mx) var(--my),rgba(255,255,255,.45),transparent 42%),linear-gradient(115deg,transparent 30%,rgba(255,255,255,.18) 45%,transparent 60%)}
+.card.c:hover .foil{opacity:1}
+.card.g-희귀 .foil{background:radial-gradient(circle at var(--mx) var(--my),rgba(190,220,255,.55),transparent 45%),linear-gradient(115deg,transparent 25%,rgba(160,200,255,.35) 45%,transparent 62%)}
+.card.g-영웅 .foil{background:radial-gradient(circle at var(--mx) var(--my),rgba(255,230,160,.6),transparent 45%),linear-gradient(115deg,transparent 25%,rgba(255,210,120,.4) 45%,transparent 62%)}
+.card.g-전설 .foil,.card.g-영웅.st3 .foil{background:radial-gradient(circle at var(--mx) var(--my),rgba(255,255,255,.5),transparent 40%),linear-gradient(115deg,rgba(255,0,128,.25),rgba(255,200,0,.25),rgba(0,255,170,.25),rgba(0,140,255,.25),rgba(200,0,255,.25))}
+.card.c.st3 .in,.card.c.g-전설 .in{box-shadow:0 0 0 1px color-mix(in srgb,var(--tc) 30%,transparent),0 10px 24px -14px var(--tc)}
+.card.c.g-전설 .foil,.card.c.st3.g-영웅 .foil{opacity:.35;animation:holo 6s linear infinite}
+@keyframes holo{0%{filter:hue-rotate(0)}100%{filter:hue-rotate(360deg)}}
+.card .chk{position:absolute;top:6px;right:6px;z-index:2;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:900;color:var(--ink);background:var(--tc);box-shadow:0 0 10px var(--tc)}
+.card .newb{position:absolute;top:30px;right:-26px;z-index:3;transform:rotate(38deg);background:linear-gradient(90deg,#ff5f7a,#ffb35f);color:#fff;font-family:var(--f-latin);font-weight:900;font-size:9.5px;letter-spacing:.14em;padding:1px 28px;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.card.s .newb{background:linear-gradient(90deg,#5f7aff,#8fe3ff)}
+/* fresh reveal in grid */
+.card.fresh .ph img{animation:inkIn 1.4s cubic-bezier(.2,.8,.2,1) both}
+.card.fresh .in{animation:glowOut 1.8s ease-out both}
+@keyframes inkIn{0%{clip-path:circle(0% at 50% 50%);filter:brightness(3) saturate(0)}60%{filter:brightness(1.4)}100%{clip-path:circle(75% at 50% 50%)}}
+.card.s.fresh .ph img{animation:none}
+@keyframes glowOut{0%{box-shadow:0 0 0 0 var(--tc)}30%{box-shadow:0 0 36px 8px var(--tc)}100%{box-shadow:0 0 0 0 transparent}}
 
-.tools{margin-top:40px;border:1px solid var(--line-soft);border-radius:18px;padding:20px;display:grid;gap:14px;background:rgba(17,24,52,.45)}
-.tools h2{font-size:15px;font-weight:700;color:var(--gold-hi)}
-.tools p{font-size:13.5px;color:var(--muted)}
-.tools textarea{width:100%;min-height:62px;resize:vertical;background:rgba(9,13,31,.7);border:1px solid var(--line-soft);border-radius:10px;padding:10px 12px;font-family:var(--f-mono);font-size:13px;color:var(--parch);word-break:break-all}
-.msg{font-size:13.5px;min-height:20px;color:var(--muted)}
-.msg.bad{color:var(--danger)}.msg.ok{color:var(--ok)}
-.foot{margin-top:34px;font-size:12.5px;color:var(--dim);text-align:center}
+/* ---------- reveal overlay ---------- */
+#rv{position:fixed;inset:0;z-index:80;display:none;place-items:center;overflow:hidden;--tc:var(--gold);cursor:pointer}
+#rv.on{display:grid}
+#rv .bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 46%,color-mix(in srgb,var(--tc) 30%,#080b1b) 0%,#05070f 62%);opacity:0}
+#rv.play .bg{animation:fadeIn .5s ease-out forwards}
+#rv .stage{position:relative;width:min(560px,92vw);display:grid;justify-items:center;gap:16px}
+#rv .circ{position:absolute;top:50%;left:50%;width:min(620px,130vw);aspect-ratio:1;transform:translate(-50%,-58%) scale(.2);opacity:0;pointer-events:none}
+#rv.play .circ{animation:circIn 1.1s cubic-bezier(.2,.8,.2,1) forwards}
+#rv .circ svg{width:100%;height:100%;animation:spin 24s linear infinite}
+#rv .circ .r2{animation:spinR 16s linear infinite;transform-origin:50% 50%}
+@keyframes circIn{0%{transform:translate(-50%,-58%) scale(.2) rotate(-90deg);opacity:0}100%{transform:translate(-50%,-58%) scale(1) rotate(0);opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spinR{to{transform:rotate(-360deg)}}
+@keyframes fadeIn{to{opacity:1}}
+#rv .rays{position:absolute;top:50%;left:50%;width:min(900px,180vw);aspect-ratio:1;transform:translate(-50%,-58%);opacity:0;pointer-events:none;
+  background:repeating-conic-gradient(from 0deg,color-mix(in srgb,var(--tc) 40%,transparent) 0 4deg,transparent 4deg 16deg);mask:radial-gradient(circle,#000 0,transparent 62%);-webkit-mask:radial-gradient(circle,#000 0,transparent 62%)}
+#rv.play .rays{animation:raysIn 1s .9s ease-out forwards,spin 40s linear infinite}
+@keyframes raysIn{to{opacity:.55}}
+#rv .flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+#rv.play .flash{animation:flash .7s 1s ease-out}
+@keyframes flash{0%{opacity:0}15%{opacity:.85}100%{opacity:0}}
+#rv .rcard{position:relative;width:min(420px,84vw);border-radius:16px;overflow:hidden;border:2px solid var(--tc);background:#0b1027;opacity:0;transform:translateY(30px) scale(.7) rotateY(80deg);
+  box-shadow:0 0 0 6px rgba(8,11,27,.7),0 0 80px -10px var(--tc)}
+#rv.play .rcard{animation:cardIn 1s 1s cubic-bezier(.2,1.3,.4,1) forwards}
+@keyframes cardIn{to{opacity:1;transform:translateY(0) scale(1) rotateY(0)}}
+#rv .rcard img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;filter:brightness(4) saturate(0)}
+#rv.play .rcard img{animation:develop 1.4s 1.15s ease-out forwards}
+@keyframes develop{to{filter:brightness(1) saturate(1)}}
+#rv.s.play .rcard img{animation:developS 1.4s 1.15s ease-out forwards}
+@keyframes developS{to{filter:grayscale(1) brightness(.3) blur(7px) contrast(1.2)}}
+#rv .rcard .sheen{position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);transform:translateX(-120%)}
+#rv.play .rcard .sheen{animation:sheen 1.2s 2.1s ease-in-out forwards}
+@keyframes sheen{to{transform:translateX(120%)}}
+#rv .rcard .q{position:absolute;inset:0;display:none;place-items:center;font-family:var(--f-latin);font-size:90px;color:rgba(190,200,255,.55);text-shadow:0 0 30px var(--mana)}
+#rv.s .rcard .q{display:grid}
+#rv .info{text-align:center;opacity:0;transform:translateY(14px);padding:8px 28px;background:radial-gradient(closest-side,rgba(5,7,15,.82),transparent)}
+#rv.play .info{animation:up .7s 1.7s ease-out forwards}
+@keyframes up{to{opacity:1;transform:none}}
+#rv .info .no{font-family:var(--f-mono);font-size:13px;color:var(--tc);letter-spacing:.2em}
+#rv .info h2{font-family:var(--f-book);font-size:clamp(34px,7vw,52px);line-height:1.15;color:#fff;text-shadow:0 0 24px var(--tc)}
+#rv .info p{font-size:14.5px;color:var(--muted)}
+#rv .stamp{position:absolute;top:8%;right:-2%;z-index:3;width:116px;height:116px;border-radius:50%;border:4px double var(--stc,#e0464f);color:var(--stc,#e0464f);
+  display:grid;place-items:center;text-align:center;font-family:var(--f-book);font-weight:700;font-size:25px;line-height:1.05;transform:rotate(-14deg) scale(3);opacity:0;mix-blend-mode:screen;background:rgba(224,70,79,.06)}
+#rv .stamp small{display:block;font-family:var(--f-latin);font-size:9px;letter-spacing:.18em}
+#rv.s .stamp{--stc:#6f8cff;background:rgba(111,140,255,.08)}
+#rv.play .stamp{animation:stamp .45s 2.35s cubic-bezier(.5,0,.75,0) forwards}
+@keyframes stamp{to{transform:rotate(-14deg) scale(1);opacity:.95}}
+#rv.play .stage{animation:shake .35s 2.8s}
+@keyframes shake{20%{transform:translate(-4px,3px)}40%{transform:translate(4px,-3px)}60%{transform:translate(-3px,-2px)}80%{transform:translate(2px,2px)}}
+#rv .pt{position:absolute;top:44%;left:50%;width:7px;height:7px;border-radius:50%;background:var(--pc,var(--tc));box-shadow:0 0 10px var(--pc,var(--tc));opacity:0;pointer-events:none}
+#rv.play .pt{animation:burst 1.5s var(--d,1s) cubic-bezier(.1,.7,.3,1) forwards}
+@keyframes burst{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.2)}}
+#rv .ctrl{position:fixed;left:0;right:0;bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;gap:10px;align-items:center;z-index:5;font-size:13px;color:var(--muted)}
+#rv .ctrl button{border:1px solid var(--line);background:rgba(8,11,27,.7);color:var(--gold-hi);border-radius:999px;padding:7px 18px;cursor:pointer;font-weight:700}
+#rv .ctrl .sk{color:var(--muted);border-color:var(--line-soft);font-weight:500}
+#rv .ctrl .pg{font-family:var(--f-mono)}
+#rv .tag{position:absolute;top:calc(18px + env(safe-area-inset-top,0px));left:0;right:0;text-align:center;font-family:var(--f-latin);letter-spacing:.34em;font-size:12px;color:var(--tc);opacity:0}
+#rv.play .tag{animation:up .6s .2s forwards}
 
-#champ{display:none;margin-top:26px;text-align:center;border:1px solid var(--gold);border-radius:18px;padding:26px 18px;background:linear-gradient(120deg,rgba(217,178,95,.16),rgba(143,162,255,.12))}
-#champ.on{display:block}
-#champ b{display:block;font-family:var(--f-latin);letter-spacing:.2em;color:var(--gold-hi);font-size:20px}
-#champ span{color:var(--muted);font-size:14px}
+/* ---------- toast ---------- */
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:90;transform:translate(-50%,140%);transition:transform .6s cubic-bezier(.2,1.2,.4,1);
+  display:flex;align-items:center;gap:14px;padding:12px 22px 12px 14px;border-radius:999px;border:1px solid var(--gold);background:linear-gradient(90deg,#2a2210,#141a38);box-shadow:0 10px 40px -10px rgba(217,178,95,.6);max-width:calc(100vw - 32px)}
+#toast.on{transform:translate(-50%,0)}
+#toast .tm{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-latin);font-weight:900;color:var(--ink);background:radial-gradient(circle at 35% 30%,#fff2c9,#d9b25f 60%,#8c6726);flex:none;font-size:14px}
+#toast b{display:block;font-family:var(--f-book);color:var(--gold-hi);font-size:16px}
+#toast span{font-size:13px;color:var(--muted)}
 
-/* modal */
-#md{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(5,8,20,.82);backdrop-filter:blur(6px)}
+/* ---------- modal: dex entry page ---------- */
+#md{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(4,6,16,.84);backdrop-filter:blur(6px)}
 #md.on{display:flex}
-.dlg{width:min(780px,100%);max-height:calc(100dvh - 36px);overflow:auto;border:1px solid var(--line);border-radius:20px;background:var(--night-2);display:grid;grid-template-columns:1.05fr 1fr;--tc:var(--t-무)}
-.dlg .pic{position:relative;min-height:240px;background:#0d1330}
-.dlg .pic img{width:100%;height:100%;object-fit:cover;display:block}
-.dlg .pic.s img{filter:grayscale(1) brightness(.34) blur(8px);transform:scale(1.15)}
-.dlg .pic.s,.dlg .pic.u{overflow:hidden}
-.dlg .pic .q{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-latin);font-size:72px;color:rgba(160,172,230,.28)}
-.dlg .tx{padding:24px 24px 22px;display:grid;gap:12px;align-content:start;min-width:0}
-.dlg .no{font-family:var(--f-mono);font-size:12px;color:var(--dim)}
-.dlg h2{font-size:26px;line-height:1.2;font-weight:800;color:var(--gold-hi)}
-.dlg .tags{display:flex;gap:6px;flex-wrap:wrap}
-.dlg .tags span{font-size:12px;padding:1px 10px;border-radius:999px;border:1px solid var(--line-soft);color:var(--muted)}
-.dlg .tags span.t{border-color:var(--tc);color:var(--tc)}
-.dlg .line{font-size:14px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.dlg .line b{color:var(--parch)}
-.dlg .line .cur{color:var(--gold-hi)}
-.dlg .desc{font-size:14.5px;color:var(--parch)}
-.dlg .mv{font-size:13px;color:var(--muted);border-top:1px solid var(--line-soft);padding-top:10px}
-.dlg .mv b{color:var(--gold);font-size:11.5px;letter-spacing:.14em;display:block;margin-bottom:2px;font-weight:700}
-.dlg .lock{font-size:13.5px;color:var(--dim);border:1px dashed var(--line-soft);border-radius:10px;padding:10px 12px}
-.dlg .cd{font-family:var(--f-mono);font-size:12.5px}
-.xbtn{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:rgba(9,13,31,.8);color:var(--parch);cursor:pointer;font-size:18px;line-height:1;z-index:2}
-.xbtn:hover{background:var(--gold);color:var(--night)}
-.dlgwrap{position:relative;width:min(780px,100%)}
-@media (max-width:700px){
-  .dlg{grid-template-columns:1fr}
-  .dlg .pic{min-height:0;aspect-ratio:4/3}
-  .ring{width:70px;height:70px}
-  .cards{gap:6px}
+.page{--tc:var(--gold);position:relative;width:min(940px,100%);max-height:calc(100dvh - 32px);overflow:auto;border-radius:22px;border:1px solid var(--line);
+  background:linear-gradient(160deg,#141c42,#0b1027 60%);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);animation:pageIn .45s cubic-bezier(.2,.9,.3,1)}
+@keyframes pageIn{from{opacity:0;transform:translateY(16px) scale(.98)}}
+.page::before{content:"";position:absolute;inset:8px;border:1px solid rgba(217,178,95,.14);border-radius:16px;pointer-events:none}
+.pg-l{padding:22px;display:grid;gap:14px;align-content:start;border-right:1px solid var(--line-soft)}
+.pg-art{position:relative;border-radius:14px;overflow:hidden;border:2px solid color-mix(in srgb,var(--tc) 70%,transparent);box-shadow:0 0 50px -16px var(--tc)}
+.pg-art img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+.pg-art.s img{filter:grayscale(1) brightness(.3) blur(8px);transform:scale(1.15)}
+.pg-art .q{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-latin);font-size:80px;color:rgba(190,200,255,.4)}
+.pg-art.u{aspect-ratio:4/3;background:repeating-linear-gradient(135deg,rgba(160,172,230,.04) 0 8px,transparent 8px 16px)}
+.evo{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:6px;align-items:center}
+.evo button{border:1px solid var(--line-soft);background:#0b1027;border-radius:10px;padding:0;overflow:hidden;cursor:pointer;display:grid;min-width:0}
+.evo button.cur{border-color:var(--tc);box-shadow:0 0 14px -4px var(--tc)}
+.evo button img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.evo button.s img{filter:grayscale(1) brightness(.3) blur(4px)}
+.evo button .e{aspect-ratio:4/3;display:grid;place-items:center;font-family:var(--f-latin);color:rgba(160,172,230,.25);font-size:20px}
+.evo button span{font-size:11px;padding:3px 4px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)}
+.evo i{font-style:normal;font-size:10px;color:var(--dim);font-family:var(--f-mono);text-align:center;line-height:1.2}
+.pg-r{padding:26px 26px 22px;display:grid;gap:14px;align-content:start;min-width:0}
+.pg-no{padding-right:44px;display:flex;justify-content:space-between;align-items:center;font-family:var(--f-mono);font-size:12.5px;color:var(--dim)}
+.pg-no .st{font-family:var(--f-body);font-size:12px;padding:1px 10px;border-radius:999px;border:1px solid var(--line-soft)}
+.pg-no .st.c{color:var(--gold-hi);border-color:var(--gold)}.pg-no .st.s{color:var(--mana);border-color:var(--mana)}
+.pg-r h2{font-family:var(--f-book);font-size:clamp(28px,4vw,38px);line-height:1.15;color:var(--gold-hi)}
+.pg-r .cat{font-family:var(--f-book);font-size:15px;color:var(--muted)}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tags span{font-size:12px;padding:1px 10px;border-radius:999px;border:1px solid var(--line-soft);color:var(--muted)}
+.tags span.t{border-color:var(--tc);color:var(--tc)}
+.dsc{font-family:var(--f-book);font-size:15.5px;line-height:1.8;color:var(--parch);border-left:2px solid color-mix(in srgb,var(--tc) 60%,transparent);padding-left:12px}
+.blk{display:grid;gap:6px;border-top:1px solid var(--line-soft);padding-top:12px}
+.blk h4{margin:0;font-family:var(--f-latin);font-size:10.5px;letter-spacing:.24em;color:var(--gold)}
+.blk p{font-size:13.5px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center}
+.stats svg{width:150px;height:150px;overflow:visible}
+.stats .grid{fill:none;stroke:rgba(160,172,230,.16);stroke-width:1}
+.stats .shape{fill:color-mix(in srgb,var(--tc) 35%,transparent);stroke:var(--tc);stroke-width:2;transform-origin:75px 75px;animation:grow .9s cubic-bezier(.2,1.2,.4,1)}
+@keyframes grow{from{transform:scale(0)}}
+.stats text{font-size:10px;fill:var(--muted);font-family:var(--f-body)}
+.stats dl{margin:0;display:grid;grid-template-columns:auto 1fr auto;gap:4px 8px;align-items:center;font-size:12.5px}
+.stats dt{color:var(--muted)}
+.stats dd{margin:0}
+.stats dd.v{font-family:var(--f-mono);text-align:right;color:var(--parch);font-variant-numeric:tabular-nums}
+.stats .b{height:5px;border-radius:5px;background:rgba(160,172,230,.12);overflow:hidden}
+.stats .b i{display:block;height:100%;background:var(--tc);border-radius:5px;transform-origin:left;animation:barIn .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes barIn{from{transform:scaleX(0)}}
+.lock{font-size:13.5px;color:var(--dim);border:1px dashed var(--line-soft);border-radius:12px;padding:12px 14px;display:grid;gap:8px}
+.lock .bars i{display:block;height:9px;border-radius:5px;background:rgba(160,172,230,.1);margin-top:6px}
+.meta{font-size:12px;color:var(--dim);display:flex;gap:14px;flex-wrap:wrap}
+.nav{display:flex;justify-content:space-between;gap:10px;grid-column:1/-1;padding:0 22px 20px}
+.nav button{border:1px solid var(--line-soft);background:none;border-radius:999px;padding:7px 16px;color:var(--muted);cursor:pointer;font-size:13px}
+.nav button:disabled{opacity:.35;cursor:default}
+.nav button:hover{color:var(--gold-hi);border-color:var(--line)}
+.xbtn{position:absolute;top:14px;right:14px;z-index:3;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:rgba(8,11,27,.85);color:var(--parch);cursor:pointer;font-size:18px;line-height:1}
+.xbtn:hover{background:var(--gold);color:var(--ink)}
+
+/* ---------- tools ---------- */
+.tools{margin-top:52px;border:1px solid var(--line-soft);border-radius:18px;padding:20px;display:grid;gap:12px;background:rgba(16,22,50,.45)}
+.tools h2{font-family:var(--f-book);font-size:17px;font-weight:700;color:var(--gold-hi)}
+.tools p{font-size:13.5px;color:var(--muted)}
+.tools textarea{width:100%;min-height:54px;resize:vertical;background:rgba(8,11,27,.75);border:1px solid var(--line-soft);border-radius:10px;padding:10px 12px;font-family:var(--f-mono);font-size:13px;color:var(--parch);word-break:break-all}
+.btn{border:1px solid var(--line);background:rgba(217,178,95,.1);color:var(--gold-hi);border-radius:999px;padding:7px 16px;cursor:pointer;font-weight:700;font-size:13.5px}
+.btn:hover{background:rgba(217,178,95,.22)}
+.btn.ghost{border-color:var(--line-soft);color:var(--muted);font-weight:500;background:none}
+.btn.warn{border-color:rgba(255,143,143,.45);color:var(--danger);background:none}
+.msg{font-size:13px;min-height:18px;color:var(--muted)}
+.msg.bad{color:var(--danger)}.msg.ok{color:var(--ok)}
+.foot{margin-top:30px;font-size:12px;color:var(--dim);text-align:center}
+
+#champ{display:none;margin-top:22px;text-align:center;border:1px solid var(--gold);border-radius:20px;padding:24px 18px;background:linear-gradient(120deg,rgba(217,178,95,.18),rgba(143,162,255,.12),rgba(217,178,95,.18));background-size:200% 100%;animation:shim 6s linear infinite}
+#champ.on{display:block}
+@keyframes shim{to{background-position:200% 0}}
+#champ b{display:block;font-family:var(--f-latin);letter-spacing:.28em;color:var(--gold-hi);font-size:20px}
+#champ span{color:var(--muted);font-size:14px;font-family:var(--f-book)}
+
+@media (max-width:760px){
+  .brand small{display:none}
+  .cover{grid-template-columns:1fr;justify-items:center;text-align:center;gap:18px}
+  .cv-tx{justify-items:center}
+  .rank,.cnts,.medals{justify-content:center}
+  .big{width:140px;height:140px}
+  .big .mid b{font-size:38px}
+  .page{grid-template-columns:1fr}
+  .pg-l{border-right:0;border-bottom:1px solid var(--line-soft)}
+  .stats{grid-template-columns:1fr;justify-items:center}
+  .stats dl{width:100%}
+  .inrow{grid-template-columns:1fr}
+  .seal-btn{min-height:50px}
+  .slots{gap:6px}
   .card .nm{font-size:11.5px;padding:5px 6px 6px}
+  .medal{width:52px}.medal .hx{width:44px;height:50px}
+  .chap-h h2{font-size:20px}
 }
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important}
+}
 </style>
 </head>
 <body>
 <canvas id="sky" aria-hidden="true"></canvas>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff2c9"/><stop offset=".5" stop-color="#d9b25f"/><stop offset="1" stop-color="#f4dfa6"/></linearGradient>
+</defs></svg>
+
 <div class="wrap">
-  <header class="bar">
-    <div class="brand">
-      <img src="img/logo_s.webp" alt="소환수 아카데미 로고">
-      <div><small>ETHERNA SUMMONING ACADEMY</small><h1>도감 회랑</h1></div>
+  <div class="bar">
+    <div class="brand"><img src="img/logo_s.webp" alt="소환수 아카데미"><div><small>ETHERNA SUMMONING ACADEMY</small><b>소환수 도감</b></div></div>
+    <button class="snd" id="snd" aria-pressed="false">🔈 효과음 끔</button>
+  </div>
+
+  <section class="cover" aria-label="도감 진행">
+    <span class="orn a"></span><span class="orn b"></span><span class="orn c"></span><span class="orn d"></span>
+    <div class="big" aria-hidden="true">
+      <svg viewBox="0 0 100 100"><circle class="tr" cx="50" cy="50" r="44"/><circle class="ticks" cx="50" cy="50" r="38"/><circle class="sn" id="rSn" cx="50" cy="50" r="44"/><circle class="cf" id="rCf" cx="50" cy="50" r="44"/></svg>
+      <div class="mid"><b id="rNum">0</b><span>/ 80</span></div>
     </div>
-    <div class="prog" aria-live="polite">
-      <div class="ring">
-        <svg viewBox="0 0 100 100" aria-hidden="true"><circle class="tr" cx="50" cy="50" r="43"/><circle class="sn" id="rSn" cx="50" cy="50" r="43"/><circle class="cf" id="rCf" cx="50" cy="50" r="43"/></svg>
-        <b id="rNum">0</b>
-      </div>
-      <dl>
-        <dt><i class="dot c"></i>확인</dt><dd id="nC">0 / 80</dd>
-        <dt><i class="dot s"></i>목격</dt><dd id="nS">0</dd>
-        <dt>남은 칸</dt><dd id="nL">80</dd>
-      </dl>
+    <div class="cv-tx">
+      <small>CODEX · HALL OF RECORDS</small>
+      <h1>에테르나 도감 회랑</h1>
+      <div class="rank"><span>칭호</span><span class="tt" id="title">신입 기록생</span><span class="nx" id="nextT"></span></div>
+      <div class="cnts" aria-live="polite"><span><i class="dot c"></i>확인<b id="nC">0</b></span><span><i class="dot s"></i>목격<b id="nS">0</b></span><span><i class="dot u"></i>미발견<b id="nL">80</b></span></div>
+      <div class="medals" id="medals" role="group" aria-label="속성별 보기"></div>
     </div>
-  </header>
+  </section>
+
+  <div id="champ"><b>LEGENDARY STUDENT</b><span>도감 80칸 완성. 명예의 전당에 당신의 이름이 새겨졌습니다.</span></div>
 
   <section class="entry" aria-labelledby="eh">
-    <h2 id="eh">코드 등록 <span>REGISTER</span></h2>
-    <p class="how">채팅에서 <b>📖 도감 등록!</b> 옆에 🔑 코드가 나오면 그대로 복사해 아래에 붙여넣으세요. 형식은 <code>AC·이름·단계C</code> — <code>C</code>는 계약·진화로 직접 확인, <code>S</code>는 목격입니다. 여러 줄이나 채팅 문장째로 붙여넣어도 코드만 골라 읽습니다.</p>
-    <textarea id="ta" spellcheck="false" placeholder="예) 📖 도감 등록! 🔑AC·위카·1C"></textarea>
-    <div class="row">
-      <button class="btn main" id="go">도감에 등록</button>
-      <button class="btn ghost" id="clr">지우기</button>
-      <div class="samples" aria-label="입력 예시">예시 <button class="chip" data-s="AC·위카·1C">AC·위카·1C</button><button class="chip" data-s="AC·플린트·2S">AC·플린트·2S</button><button class="chip" data-s="AC·솔라리아·3C">AC·솔라리아·3C</button></div>
+    <h2 id="eh">도감 등록 <span>REGISTER</span></h2>
+    <p class="how">채팅에서 <b>📖 도감 등록!</b> 옆에 나온 🔑 코드를 붙여넣으세요. <code>AC·이름·단계C</code>는 직접 확인, <code>…S</code>는 목격입니다. 채팅 문장째 붙여넣어도, 여러 개를 한 번에 넣어도 됩니다.</p>
+    <div class="inrow">
+      <textarea id="ta" spellcheck="false" placeholder="예) 📖 도감 등록! 🔑AC·위카·1C" aria-label="도감 코드"></textarea>
+      <button class="seal-btn" id="go"><small>SEAL</small>등록하기</button>
     </div>
+    <div class="row">예시 <button class="chip" data-s="AC·위카·1C">AC·위카·1C</button><button class="chip" data-s="AC·플린트·2S">AC·플린트·2S</button><button class="chip" data-s="AC·솔라리아·3C">AC·솔라리아·3C</button> · <button class="lnk" id="clr">지우기</button></div>
     <div id="log" role="status" aria-live="polite"></div>
   </section>
 
-  <div id="champ"><b>LEGENDARY STUDENT</b><span>도감 80칸 완성. 명예의 전당에서 당신을 기다립니다.</span></div>
-
-  <div class="tabs" role="tablist" aria-label="속성 보기" id="tabs"></div>
-  <section id="grid" aria-label="도감"></section>
+  <main id="book"></main>
 
   <section class="tools" aria-labelledby="th">
     <h2 id="th">기록 보관</h2>
-    <p>도감 기록은 이 브라우저에만 저장됩니다. 기기를 바꾸거나 브라우저 데이터를 지우기 전에 <b>저장 코드</b>를 복사해 두세요. 새 기기에서 붙여넣어 불러올 수 있습니다.</p>
+    <p>도감은 이 브라우저에 저장됩니다. 기기를 바꾸거나 브라우저 데이터를 지우기 전에 저장 코드를 복사해 두세요.</p>
     <textarea id="sv" rows="2" readonly aria-label="저장 코드" placeholder="저장 코드가 여기에 나타납니다"></textarea>
     <div class="row">
       <button class="btn" id="mk">저장 코드 만들기</button>
@@ -204,195 +414,435 @@ h1,h2,h3,p{margin:0}
     </div>
     <p class="msg" id="tm" role="status"></p>
   </section>
-  <p class="foot">소환수 아카데미 · 도감은 채팅 속 기록과 별개로 이 페이지에서 관리합니다</p>
+  <p class="foot">소환수 아카데미 · 도감 회랑 · 계약은 지배가 아니라 공명이다</p>
 </div>
 
+<!-- reveal overlay -->
+<div id="rv" aria-hidden="true">
+  <div class="bg"></div>
+  <div class="rays"></div>
+  <div class="circ"><svg viewBox="0 0 200 200" aria-hidden="true">
+    <defs><path id="rp" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+    <g fill="none" stroke="currentColor" style="color:var(--tc)">
+      <circle cx="100" cy="100" r="92" stroke-width=".6" opacity=".7"/>
+      <circle cx="100" cy="100" r="86" stroke-width="1.6" opacity=".9"/>
+      <circle cx="100" cy="100" r="70" stroke-width=".6" opacity=".6" stroke-dasharray="2 3"/>
+      <g class="r2"><polygon points="100,30 160.6,135 39.4,135" stroke-width=".9" opacity=".7"/><polygon points="100,170 39.4,65 160.6,65" stroke-width=".9" opacity=".7"/><circle cx="100" cy="100" r="40" stroke-width=".8" opacity=".6"/></g>
+    </g>
+    <text font-size="7.2" letter-spacing="2.6" fill="currentColor" style="color:var(--tc);font-family:Cinzel,serif" opacity=".85"><textPath href="#rp">ETHERNA · RESONANCE · NOT DOMINION · CODEX · ETHERNA · CODEX ·</textPath></text>
+  </svg></div>
+  <div class="flash"></div>
+  <p class="tag" id="rvTag">NEW ENTRY</p>
+  <div class="stage">
+    <div class="rcard"><img id="rvImg" alt=""><span class="q">?</span><span class="sheen"></span></div>
+    <div class="stamp" id="rvStamp">등록<small>CODEX</small></div>
+    <div class="info"><p class="no" id="rvNo">No.001</p><h2 id="rvName">위카</h2><p id="rvSub"></p></div>
+  </div>
+  <div id="pts"></div>
+  <div class="ctrl"><span class="pg" id="rvPg">1 / 1</span><button id="rvNext">다음</button><button class="sk" id="rvSkip">모두 건너뛰기</button></div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"><span class="tm" id="toM">10</span><div><b id="toT"></b><span id="toS"></span></div></div>
+
 <div id="md" role="dialog" aria-modal="true" aria-labelledby="mt" aria-hidden="true">
-  <div class="dlgwrap"><button class="xbtn" id="mx" aria-label="닫기">×</button><div class="dlg" id="dlg"></div></div>
+  <div class="page" id="page"></div>
 </div>
 
 <script>
-const D = [{"no":1,"fam":1,"stage":1,"name":"위카","base":"위카","line":["위카","탤로윈","칸델라리아"],"type":"화","grade":"일반","race":"촛불족","sex":"♀","desc":"머리 불꽃이 감정 따라 색이 바뀌고 촛농으로 응급 치료. 겁 많은 울보→지킬 때 용기 내는 수호자. \"저, 저기… 괜찮아요?\"","moves":"촛불 점화(💫40|15 화상10%), 촛농 붕대(✨|5 HP 25% 회복)","img":"011"},{"no":2,"fam":1,"stage":2,"name":"탤로윈","base":"위카","line":["위카","탤로윈","칸델라리아"],"type":"화","grade":"일반","race":"촛불족","sex":"♀","desc":"머리 불꽃이 감정 따라 색이 바뀌고 촛농으로 응급 치료. 겁 많은 울보→지킬 때 용기 내는 수호자. \"저, 저기… 괜찮아요?\"","moves":"밀랍 방벽(✨|5 2턴 받는 피해 절반)","img":"012"},{"no":3,"fam":1,"stage":3,"name":"칸델라리아","base":"위카","line":["위카","탤로윈","칸델라리아"],"type":"화","grade":"일반","race":"촛불족","sex":"♀","desc":"머리 불꽃이 감정 따라 색이 바뀌고 촛농으로 응급 치료. 겁 많은 울보→지킬 때 용기 내는 수호자. \"저, 저기… 괜찮아요?\"","moves":"백촛불 성가(💫100|3 아군 HP 30% 회복)","img":"013"},{"no":4,"fam":2,"stage":1,"name":"플린트","base":"플린트","line":["플린트","템퍼","벌크란"],"type":"화","grade":"일반","race":"화덕도마뱀족","sex":"♂","desc":"꼬리 불로 금속을 달궈 장비 강화. 무뚝뚝한 일벌레, 칭찬에 약함→등을 맡기는 장인. \"…흥, 맡겨 둬.\"","moves":"불씨 망치(⚔️45|15 화상10%), 달군 비늘(✨|10 방어+1)","img":"021"},{"no":5,"fam":2,"stage":2,"name":"템퍼","base":"플린트","line":["플린트","템퍼","벌크란"],"type":"화","grade":"일반","race":"화덕도마뱀족","sex":"♂","desc":"꼬리 불로 금속을 달궈 장비 강화. 무뚝뚝한 일벌레, 칭찬에 약함→등을 맡기는 장인. \"…흥, 맡겨 둬.\"","moves":"담금질(✨|5 공격+2)","img":"022"},{"no":6,"fam":2,"stage":3,"name":"벌크란","base":"플린트","line":["플린트","템퍼","벌크란"],"type":"화","grade":"일반","race":"화덕도마뱀족","sex":"♂","desc":"꼬리 불로 금속을 달궈 장비 강화. 무뚝뚝한 일벌레, 칭찬에 약함→등을 맡기는 장인. \"…흥, 맡겨 둬.\"","moves":"용광로 강타(⚔️110|3 화상30%)","img":"023"},{"no":7,"fam":3,"stage":1,"name":"애시윙","base":"애시윙","line":["애시윙","신드라","파이어룬"],"type":"화","grade":"희귀","race":"불나방족","sex":"♀","desc":"날개 가루로 폭발과 환각, 불빛에 홀림. 변덕스러운 장난꾼→매력을 무기로 아는 요부. \"어머, 불빛이 예쁘다~\" 불빛에 홀림.","moves":"불가루(💫45|15), 홀림 인분(✨|8 혼란)","img":"031"},{"no":8,"fam":3,"stage":2,"name":"신드라","base":"애시윙","line":["애시윙","신드라","파이어룬"],"type":"화","grade":"희귀","race":"불나방족","sex":"♀","desc":"날개 가루로 폭발과 환각, 불빛에 홀림. 변덕스러운 장난꾼→매력을 무기로 아는 요부. \"어머, 불빛이 예쁘다~\" 불빛에 홀림.","moves":"인분 폭발(💫80|8)","img":"032"},{"no":9,"fam":3,"stage":3,"name":"파이어룬","base":"애시윙","line":["애시윙","신드라","파이어룬"],"type":"화","grade":"희귀","race":"불나방족","sex":"♀","desc":"날개 가루로 폭발과 환각, 불빛에 홀림. 변덕스러운 장난꾼→매력을 무기로 아는 요부. \"어머, 불빛이 예쁘다~\" 불빛에 홀림.","moves":"염린 무도(💫120|3 화상50%)","img":"033"},{"no":10,"fam":4,"stage":1,"name":"신다","base":"신다","line":["신다","옵시드라","칼데리아"],"type":"화","grade":"영웅","race":"화산용족","sex":"♀","desc":"흑요석 뿔, 피부 아래 용암 혈관, 분노하면 체온 폭주. 오만한 귀족 기질→인정한 상대엔 다정한 여제. \"무릎 꿇어라, 인간.\" 유대 80+면 존댓말로 바뀜.","moves":"흑요석 뿔(⚔️50|15), 용암 혈류(✨|5 공격+2 방어-1)","img":"041"},{"no":11,"fam":4,"stage":2,"name":"옵시드라","base":"신다","line":["신다","옵시드라","칼데리아"],"type":"화","grade":"영웅","race":"화산용족","sex":"♀","desc":"흑요석 뿔, 피부 아래 용암 혈관, 분노하면 체온 폭주. 오만한 귀족 기질→인정한 상대엔 다정한 여제. \"무릎 꿇어라, 인간.\" 유대 80+면 존댓말로 바뀜.","moves":"분화 돌진(⚔️90|8 화상20%)","img":"042"},{"no":12,"fam":4,"stage":3,"name":"칼데리아","base":"신다","line":["신다","옵시드라","칼데리아"],"type":"화","grade":"영웅","race":"화산용족","sex":"♀","desc":"흑요석 뿔, 피부 아래 용암 혈관, 분노하면 체온 폭주. 오만한 귀족 기질→인정한 상대엔 다정한 여제. \"무릎 꿇어라, 인간.\" 유대 80+면 존댓말로 바뀜.","moves":"칼데라 붕괴(⚔️140|2 다음 턴 휴식)","img":"043"},{"no":13,"fam":5,"stage":1,"name":"플립","base":"플립","line":["플립","폰테사","아켈"],"type":"수","grade":"일반","race":"샘물정령족","sex":"♀","desc":"분수에서 태어나 물로 치유하고 잠시 투명해짐. 수다쟁이→비밀을 지키는 치유사. \"있잖아 있잖아~!\" 비밀은 절대 안 샘.","moves":"물방울 튀기기(💫40|15), 맑은 샘(✨|5 HP 30% 회복)","img":"051"},{"no":14,"fam":5,"stage":2,"name":"폰테사","base":"플립","line":["플립","폰테사","아켈"],"type":"수","grade":"일반","race":"샘물정령족","sex":"♀","desc":"분수에서 태어나 물로 치유하고 잠시 투명해짐. 수다쟁이→비밀을 지키는 치유사. \"있잖아 있잖아~!\" 비밀은 절대 안 샘.","moves":"투명화(✨|4 다음 공격 회피)","img":"052"},{"no":15,"fam":5,"stage":3,"name":"아켈","base":"플립","line":["플립","폰테사","아켈"],"type":"수","grade":"일반","race":"샘물정령족","sex":"♀","desc":"분수에서 태어나 물로 치유하고 잠시 투명해짐. 수다쟁이→비밀을 지키는 치유사. \"있잖아 있잖아~!\" 비밀은 절대 안 샘.","moves":"무지개 분수(💫100|3 아군 상태이상 해제)","img":"053"},{"no":16,"fam":6,"stage":1,"name":"오토","base":"오토","line":["오토","토렌트","오타리스"],"type":"수","grade":"일반","race":"수달족","sex":"♂","desc":"수중 잠행, 반짝이는 조개 수집. 장난꾸러기→위기에 먼저 뛰어드는 듬직한 형. \"내가 먼저 간다!\" 반짝이는 건 못 참음.","moves":"물살 박치기(⚔️40|15 선공), 조개 던지기(⚔️25×2|10)","img":"061"},{"no":17,"fam":6,"stage":2,"name":"토렌트","base":"오토","line":["오토","토렌트","오타리스"],"type":"수","grade":"일반","race":"수달족","sex":"♂","desc":"수중 잠행, 반짝이는 조개 수집. 장난꾸러기→위기에 먼저 뛰어드는 듬직한 형. \"내가 먼저 간다!\" 반짝이는 건 못 참음.","moves":"급류 잠행(⚔️75|8 다음 턴 회피)","img":"062"},{"no":18,"fam":6,"stage":3,"name":"오타리스","base":"오토","line":["오토","토렌트","오타리스"],"type":"수","grade":"일반","race":"수달족","sex":"♂","desc":"수중 잠행, 반짝이는 조개 수집. 장난꾸러기→위기에 먼저 뛰어드는 듬직한 형. \"내가 먼저 간다!\" 반짝이는 건 못 참음.","moves":"대하의 삼지창(⚔️110|3 상대 속도-1)","img":"063"},{"no":19,"fam":7,"stage":1,"name":"잉클릿","base":"잉클릿","line":["잉클릿","스크리바","옥타비아"],"type":"수","grade":"희귀","race":"잉크문어족","sex":"♀","desc":"먹물로 공중에 마법진, 읽은 건 잊지 않음. 소심한 책벌레→지식으로 압도하는 대서기. \"그, 그건 책에서 봤는데…\"","moves":"먹물 탄(💫45|15 공격-1 20%), 필사 마법진(✨|8 특공+1)","img":"071"},{"no":20,"fam":7,"stage":2,"name":"스크리바","base":"잉클릿","line":["잉클릿","스크리바","옥타비아"],"type":"수","grade":"희귀","race":"잉크문어족","sex":"♀","desc":"먹물로 공중에 마법진, 읽은 건 잊지 않음. 소심한 책벌레→지식으로 압도하는 대서기. \"그, 그건 책에서 봤는데…\"","moves":"촉수 서술(💫80|8)","img":"072"},{"no":21,"fam":7,"stage":3,"name":"옥타비아","base":"잉클릿","line":["잉클릿","스크리바","옥타비아"],"type":"수","grade":"희귀","race":"잉크문어족","sex":"♀","desc":"먹물로 공중에 마법진, 읽은 건 잊지 않음. 소심한 책벌레→지식으로 압도하는 대서기. \"그, 그건 책에서 봤는데…\"","moves":"금서 개방(💫120|3 상대 능력 변화 초기화)","img":"073"},{"no":22,"fam":8,"stage":1,"name":"리미","base":"리미","line":["리미","프로스텔","글라시안"],"type":"수","grade":"희귀","race":"서리사슴족","sex":"♀","desc":"뿔에서 서리 결정이 자라고 결정 방벽을 세움. 차가워 보이지만 추위를 탐→냉철한 기사. \"…춥지 않아? 난 괜찮아.\" 온기에 약함.","moves":"서리 뿔(⚔️40|15 빙결10%), 결정 방벽(✨|5 방어+2)","img":"081"},{"no":23,"fam":8,"stage":2,"name":"프로스텔","base":"리미","line":["리미","프로스텔","글라시안"],"type":"수","grade":"희귀","race":"서리사슴족","sex":"♀","desc":"뿔에서 서리 결정이 자라고 결정 방벽을 세움. 차가워 보이지만 추위를 탐→냉철한 기사. \"…춥지 않아? 난 괜찮아.\" 온기에 약함.","moves":"빙결 돌진(⚔️75|8 빙결20%)","img":"082"},{"no":24,"fam":8,"stage":3,"name":"글라시안","base":"리미","line":["리미","프로스텔","글라시안"],"type":"수","grade":"희귀","race":"서리사슴족","sex":"♀","desc":"뿔에서 서리 결정이 자라고 결정 방벽을 세움. 차가워 보이지만 추위를 탐→냉철한 기사. \"…춥지 않아? 난 괜찮아.\" 온기에 약함.","moves":"영구동토 왕관(💫110|3 빙결40%)","img":"083"},{"no":25,"fam":9,"stage":1,"name":"퀼라","base":"퀼라","line":["퀼라","미시바","제피린"],"type":"풍","grade":"일반","race":"전령새족","sex":"♀","desc":"아카데미 우편 담당, 초고속 비행과 바람 칼날. 덜렁이 배달부→우아한 전령. \"배달 왔어요~! 앗, 잘못 왔다!\" 길치라 편지를 잘못 배달함.","moves":"바람 칼날(💫40|15), 속달(✨|8 속도+1)","img":"091"},{"no":26,"fam":9,"stage":2,"name":"미시바","base":"퀼라","line":["퀼라","미시바","제피린"],"type":"풍","grade":"일반","race":"전령새족","sex":"♀","desc":"아카데미 우편 담당, 초고속 비행과 바람 칼날. 덜렁이 배달부→우아한 전령. \"배달 왔어요~! 앗, 잘못 왔다!\" 길치라 편지를 잘못 배달함.","moves":"깃털 폭풍(💫70|8 50% 2회 타격)","img":"092"},{"no":27,"fam":9,"stage":3,"name":"제피린","base":"퀼라","line":["퀼라","미시바","제피린"],"type":"풍","grade":"일반","race":"전령새족","sex":"♀","desc":"아카데미 우편 담당, 초고속 비행과 바람 칼날. 덜렁이 배달부→우아한 전령. \"배달 왔어요~! 앗, 잘못 왔다!\" 길치라 편지를 잘못 배달함.","moves":"천풍 전령(⚔️110|3 반드시 선공)","img":"093"},{"no":28,"fam":10,"stage":1,"name":"월리","base":"월리","line":["월리","베인크레스트","게일문드"],"type":"풍","grade":"일반","race":"풍차정령족","sex":"♂","desc":"등의 날개바퀴로 바람을 모아 증폭. 산만한 낙천가→흔들리는 동료를 잡아 주는 중심. \"뭐, 어떻게든 되겠지~\" 약속엔 늘 지각.","moves":"회전 바람(⚔️40|15), 순풍(✨|8 아군 속도+1)","img":"101"},{"no":29,"fam":10,"stage":2,"name":"베인크레스트","base":"월리","line":["월리","베인크레스트","게일문드"],"type":"풍","grade":"일반","race":"풍차정령족","sex":"♂","desc":"등의 날개바퀴로 바람을 모아 증폭. 산만한 낙천가→흔들리는 동료를 잡아 주는 중심. \"뭐, 어떻게든 되겠지~\" 약속엔 늘 지각.","moves":"풍차 돌격(⚔️80|8)","img":"102"},{"no":30,"fam":10,"stage":3,"name":"게일문드","base":"월리","line":["월리","베인크레스트","게일문드"],"type":"풍","grade":"일반","race":"풍차정령족","sex":"♂","desc":"등의 날개바퀴로 바람을 모아 증폭. 산만한 낙천가→흔들리는 동료를 잡아 주는 중심. \"뭐, 어떻게든 되겠지~\" 약속엔 늘 지각.","moves":"폭풍의 축(⚔️110|3 3턴 아군 속도+1)","img":"103"},{"no":31,"fam":11,"stage":1,"name":"팅카","base":"팅카","line":["팅카","벨프리아","카릴리아"],"type":"풍","grade":"희귀","race":"종탑정령족","sex":"♀","desc":"울림을 바람 파동으로 바꿈. 시간관념 철저한 깐깐이→성가대장. \"정각입니다. 지각은 안 돼요.\"","moves":"종소리(💫40|15 마비10%), 정시의 종(✨|5 아군 공격·특공+1)","img":"111"},{"no":32,"fam":11,"stage":2,"name":"벨프리아","base":"팅카","line":["팅카","벨프리아","카릴리아"],"type":"풍","grade":"희귀","race":"종탑정령족","sex":"♀","desc":"울림을 바람 파동으로 바꿈. 시간관념 철저한 깐깐이→성가대장. \"정각입니다. 지각은 안 돼요.\"","moves":"공명파(💫75|8 마비20%)","img":"112"},{"no":33,"fam":11,"stage":3,"name":"카릴리아","base":"팅카","line":["팅카","벨프리아","카릴리아"],"type":"풍","grade":"희귀","race":"종탑정령족","sex":"♀","desc":"울림을 바람 파동으로 바꿈. 시간관념 철저한 깐깐이→성가대장. \"정각입니다. 지각은 안 돼요.\"","moves":"대종의 찬가(💫110|3 마비30%, 아군 HP 20% 회복)","img":"113"},{"no":34,"fam":12,"stage":1,"name":"님비","base":"님비","line":["님비","큐뮬리아","셀로라"],"type":"풍","grade":"영웅","race":"하늘고래족","sex":"♀","desc":"구름 위를 유영하고 기압을 조작. 느긋한 몽상가→하늘을 품는 여왕. \"후아암… 구름 보러 갈래요?\" 낮잠 필수.","moves":"구름 꼬리(⚔️45|15), 뭉게 쿠션(✨|5 2턴 받는 피해 절반)","img":"121"},{"no":35,"fam":12,"stage":2,"name":"큐뮬리아","base":"님비","line":["님비","큐뮬리아","셀로라"],"type":"풍","grade":"영웅","race":"하늘고래족","sex":"♀","desc":"구름 위를 유영하고 기압을 조작. 느긋한 몽상가→하늘을 품는 여왕. \"후아암… 구름 보러 갈래요?\" 낮잠 필수.","moves":"기압 낙하(💫85|8 상대 속도-1)","img":"122"},{"no":36,"fam":12,"stage":3,"name":"셀로라","base":"님비","line":["님비","큐뮬리아","셀로라"],"type":"풍","grade":"영웅","race":"하늘고래족","sex":"♀","desc":"구름 위를 유영하고 기압을 조작. 느긋한 몽상가→하늘을 품는 여왕. \"후아암… 구름 보러 갈래요?\" 낮잠 필수.","moves":"천공 고래의 노래(💫130|2 아군 HP 30% 회복)","img":"123"},{"no":37,"fam":13,"stage":1,"name":"퍼프캡","base":"퍼프캡","line":["퍼프캡","마이셀라","마이코라"],"type":"지","grade":"일반","race":"버섯족","sex":"♀","desc":"포자로 재우거나 회복, 균사로 먼 정보를 읽음. 졸린 은둔형→숲의 현자. \"…zZ… 아, 왔어?\" 비 오는 날 활발.","moves":"포자 뿌리기(💫35|15 수면15%), 회복 포자(✨|8 HP 25% 회복)","img":"131"},{"no":38,"fam":13,"stage":2,"name":"마이셀라","base":"퍼프캡","line":["퍼프캡","마이셀라","마이코라"],"type":"지","grade":"일반","race":"버섯족","sex":"♀","desc":"포자로 재우거나 회복, 균사로 먼 정보를 읽음. 졸린 은둔형→숲의 현자. \"…zZ… 아, 왔어?\" 비 오는 날 활발.","moves":"균사 그물(💫70|8 상대 속도-1)","img":"132"},{"no":39,"fam":13,"stage":3,"name":"마이코라","base":"퍼프캡","line":["퍼프캡","마이셀라","마이코라"],"type":"지","grade":"일반","race":"버섯족","sex":"♀","desc":"포자로 재우거나 회복, 균사로 먼 정보를 읽음. 졸린 은둔형→숲의 현자. \"…zZ… 아, 왔어?\" 비 오는 날 활발.","moves":"포자의 숲(💫100|3 수면40%)","img":"133"},{"no":40,"fam":14,"stage":1,"name":"펩스","base":"펩스","line":["펩스","배스천","시타드렉스"],"type":"지","grade":"일반","race":"성벽골렘족","sex":"♂","desc":"몸의 돌을 재조립해 방벽을 쌓음. 고지식한 원칙주의→물러서지 않는 철벽. \"원칙은 원칙이다.\" 귀여운 것에 얼굴이 붉어짐.","moves":"돌주먹(⚔️40|15), 벽돌 쌓기(✨|8 방어+2)","img":"141"},{"no":41,"fam":14,"stage":2,"name":"배스천","base":"펩스","line":["펩스","배스천","시타드렉스"],"type":"지","grade":"일반","race":"성벽골렘족","sex":"♂","desc":"몸의 돌을 재조립해 방벽을 쌓음. 고지식한 원칙주의→물러서지 않는 철벽. \"원칙은 원칙이다.\" 귀여운 것에 얼굴이 붉어짐.","moves":"성벽 돌진(⚔️75|8 방어+1)","img":"142"},{"no":42,"fam":14,"stage":3,"name":"시타드렉스","base":"펩스","line":["펩스","배스천","시타드렉스"],"type":"지","grade":"일반","race":"성벽골렘족","sex":"♂","desc":"몸의 돌을 재조립해 방벽을 쌓음. 고지식한 원칙주의→물러서지 않는 철벽. \"원칙은 원칙이다.\" 귀여운 것에 얼굴이 붉어짐.","moves":"난공불락(✨|2 1턴 모든 피해 무효 후 반격 ⚔️100)","img":"143"},{"no":43,"fam":15,"stage":1,"name":"젬미","base":"젬미","line":["젬미","프리즈멜","크리스탈리아"],"type":"지","grade":"희귀","race":"수정족","sex":"♀","desc":"결정 피부로 빛을 굴절, 짧은 미래를 엿봄. 허세 신비주의→말을 아끼는 예언자. \"후후, 내 눈엔 이미 보여.\" 예지가 빗나가면 얼굴을 가리고 당황함.","moves":"수정 파편(💫45|15), 예지(✨|5 다음 공격 회피)","img":"151"},{"no":44,"fam":15,"stage":2,"name":"프리즈멜","base":"젬미","line":["젬미","프리즈멜","크리스탈리아"],"type":"지","grade":"희귀","race":"수정족","sex":"♀","desc":"결정 피부로 빛을 굴절, 짧은 미래를 엿봄. 허세 신비주의→말을 아끼는 예언자. \"후후, 내 눈엔 이미 보여.\" 예지가 빗나가면 얼굴을 가리고 당황함.","moves":"프리즘 광선(💫80|8)","img":"152"},{"no":45,"fam":15,"stage":3,"name":"크리스탈리아","base":"젬미","line":["젬미","프리즈멜","크리스탈리아"],"type":"지","grade":"희귀","race":"수정족","sex":"♀","desc":"결정 피부로 빛을 굴절, 짧은 미래를 엿봄. 허세 신비주의→말을 아끼는 예언자. \"후후, 내 눈엔 이미 보여.\" 예지가 빗나가면 얼굴을 가리고 당황함.","moves":"운명 결정체(💫120|3 상대 특방 무시)","img":"153"},{"no":46,"fam":16,"stage":1,"name":"키도","base":"키도","line":["키도","크래건","몬타리온"],"type":"지","grade":"희귀","race":"산양족","sex":"♂","desc":"절벽 등반, 박치기, 산악에서 강해짐. 고집 센 의리파→약속을 지키는 왕. \"약속은 끝까지 간다!\" 높은 곳에서 힘이 솟음.","moves":"박치기(⚔️50|15), 버티기(✨|3 한 번 HP 1로 생존)","img":"161"},{"no":47,"fam":16,"stage":2,"name":"크래건","base":"키도","line":["키도","크래건","몬타리온"],"type":"지","grade":"희귀","race":"산양족","sex":"♂","desc":"절벽 등반, 박치기, 산악에서 강해짐. 고집 센 의리파→약속을 지키는 왕. \"약속은 끝까지 간다!\" 높은 곳에서 힘이 솟음.","moves":"낙석 돌진(⚔️85|8)","img":"162"},{"no":48,"fam":16,"stage":3,"name":"몬타리온","base":"키도","line":["키도","크래건","몬타리온"],"type":"지","grade":"희귀","race":"산양족","sex":"♂","desc":"절벽 등반, 박치기, 산악에서 강해짐. 고집 센 의리파→약속을 지키는 왕. \"약속은 끝까지 간다!\" 높은 곳에서 힘이 솟음.","moves":"산왕의 일격(⚔️130|2 반동 HP 15%)","img":"163"},{"no":49,"fam":17,"stage":1,"name":"샤디","base":"샤디","line":["샤디","비트렐","로사리아"],"type":"빛","grade":"일반","race":"채색유리족","sex":"♀","desc":"빛을 쪼갬. 몽상가→성당 수호자.","moves":"색유리 빛(💫40|15) 분광(✨|8 무작위 능력+1)","img":"171"},{"no":50,"fam":17,"stage":2,"name":"비트렐","base":"샤디","line":["샤디","비트렐","로사리아"],"type":"빛","grade":"일반","race":"채색유리족","sex":"♀","desc":"빛을 쪼갬. 몽상가→성당 수호자.","moves":"칠색 광선(💫75|8)","img":"172"},{"no":51,"fam":17,"stage":3,"name":"로사리아","base":"샤디","line":["샤디","비트렐","로사리아"],"type":"빛","grade":"일반","race":"채색유리족","sex":"♀","desc":"빛을 쪼갬. 몽상가→성당 수호자.","moves":"장미창의 심판(💫115|3)","img":"173"},{"no":52,"fam":18,"stage":1,"name":"트윙킷","base":"트윙킷","line":["트윙킷","스텔리스","콘스텔라"],"type":"빛","grade":"희귀","race":"별고양이족","sex":"♀","desc":"순간이동. 게으름뱅이→고고한 별의 기사.","moves":"별 할퀴기(⚔️45|15) 별빛 도약(✨|8 속도+1 회피)","img":"181"},{"no":53,"fam":18,"stage":2,"name":"스텔리스","base":"트윙킷","line":["트윙킷","스텔리스","콘스텔라"],"type":"빛","grade":"희귀","race":"별고양이족","sex":"♀","desc":"순간이동. 게으름뱅이→고고한 별의 기사.","moves":"유성 발톱(⚔️80|8 선공)","img":"182"},{"no":54,"fam":18,"stage":3,"name":"콘스텔라","base":"트윙킷","line":["트윙킷","스텔리스","콘스텔라"],"type":"빛","grade":"희귀","race":"별고양이족","sex":"♀","desc":"순간이동. 게으름뱅이→고고한 별의 기사.","moves":"성좌 강림(💫120|3)","img":"183"},{"no":55,"fam":19,"stage":1,"name":"메인","base":"메인","line":["메인","레온하트","아우렐리온"],"type":"빛","grade":"영웅","race":"황금사자족","sex":"♂","desc":"포효로 아군 고양. 허세 꼬맹이→왕의 그릇.","moves":"금갈기 돌진(⚔️50|15) 포효(✨|8 아군 공격+1 상대 공격-1)","img":"191"},{"no":56,"fam":19,"stage":2,"name":"레온하트","base":"메인","line":["메인","레온하트","아우렐리온"],"type":"빛","grade":"영웅","race":"황금사자족","sex":"♂","desc":"포효로 아군 고양. 허세 꼬맹이→왕의 그릇.","moves":"사자왕의 발톱(⚔️90|8)","img":"192"},{"no":57,"fam":19,"stage":3,"name":"아우렐리온","base":"메인","line":["메인","레온하트","아우렐리온"],"type":"빛","grade":"영웅","race":"황금사자족","sex":"♂","desc":"포효로 아군 고양. 허세 꼬맹이→왕의 그릇.","moves":"광휘의 왕도(⚔️140|2 아군 공격+1)","img":"193"},{"no":58,"fam":20,"stage":1,"name":"뱃시","base":"뱃시","line":["뱃시","베스페라","이클립시아"],"type":"어둠","grade":"일반","race":"종탑박쥐족","sex":"♀","desc":"초음파 탐지, 어둠 속 시야. 낮엔 잠꾸러기 밤엔 하이텐션→밤의 공녀. \"(낮)쿨… (밤)신난다아!\"","moves":"흡혈 깨물기(⚔️40|15 피해 절반 회복), 초음파(✨|8 혼란30%)","img":"201"},{"no":59,"fam":20,"stage":2,"name":"베스페라","base":"뱃시","line":["뱃시","베스페라","이클립시아"],"type":"어둠","grade":"일반","race":"종탑박쥐족","sex":"♀","desc":"초음파 탐지, 어둠 속 시야. 낮엔 잠꾸러기 밤엔 하이텐션→밤의 공녀. \"(낮)쿨… (밤)신난다아!\"","moves":"월하 급강하(⚔️75|8 밤 ×1.5)","img":"202"},{"no":60,"fam":20,"stage":3,"name":"이클립시아","base":"뱃시","line":["뱃시","베스페라","이클립시아"],"type":"어둠","grade":"일반","race":"종탑박쥐족","sex":"♀","desc":"초음파 탐지, 어둠 속 시야. 낮엔 잠꾸러기 밤엔 하이텐션→밤의 공녀. \"(낮)쿨… (밤)신난다아!\"","moves":"월식(💫110|3 3턴 어둠 기술 ×1.5)","img":"203"},{"no":61,"fam":21,"stage":1,"name":"코르비","base":"코르비","line":["코르비","라벨","코르비누스"],"type":"어둠","grade":"일반","race":"까마귀족","sex":"♂","desc":"반짝이 수집, 정보를 훔치고 깃털을 던짐. 시니컬한 독설가→정을 숨긴 책사. \"흥, 정보는 공짜가 아니야.\"","moves":"깃털 투척(⚔️40|15), 훔쳐보기(✨|5 상대 기술 간파, 다음 공격 위력+50%)","img":"211"},{"no":62,"fam":21,"stage":2,"name":"라벨","base":"코르비","line":["코르비","라벨","코르비누스"],"type":"어둠","grade":"일반","race":"까마귀족","sex":"♂","desc":"반짝이 수집, 정보를 훔치고 깃털을 던짐. 시니컬한 독설가→정을 숨긴 책사. \"흥, 정보는 공짜가 아니야.\"","moves":"흑우 난무(⚔️25×3|8)","img":"212"},{"no":63,"fam":21,"stage":3,"name":"코르비누스","base":"코르비","line":["코르비","라벨","코르비누스"],"type":"어둠","grade":"일반","race":"까마귀족","sex":"♂","desc":"반짝이 수집, 정보를 훔치고 깃털을 던짐. 시니컬한 독설가→정을 숨긴 책사. \"흥, 정보는 공짜가 아니야.\"","moves":"까마귀의 책략(💫110|3 상대 능력 상승 빼앗기)","img":"213"},{"no":64,"fam":22,"stage":1,"name":"스티치","base":"스티치","line":["스티치","마리오넬","포셀레인"],"type":"어둠","grade":"희귀","race":"인형족","sex":"♀","desc":"손끝 마력 실로 조종, 관절에 이음매. 감정을 배우는 무표정→웃으면 무서운 공주. \"…이게 웃음이야?\" 웃음을 연습 중.","moves":"마력 실(💫45|15 속도-1 20%), 꼭두각시(✨|5 상대 직전 기술 2턴 봉인)","img":"221"},{"no":65,"fam":22,"stage":2,"name":"마리오넬","base":"스티치","line":["스티치","마리오넬","포셀레인"],"type":"어둠","grade":"희귀","race":"인형족","sex":"♀","desc":"손끝 마력 실로 조종, 관절에 이음매. 감정을 배우는 무표정→웃으면 무서운 공주. \"…이게 웃음이야?\" 웃음을 연습 중.","moves":"실 꿰매기(💫80|8)","img":"222"},{"no":66,"fam":22,"stage":3,"name":"포셀레인","base":"스티치","line":["스티치","마리오넬","포셀레인"],"type":"어둠","grade":"희귀","race":"인형족","sex":"♀","desc":"손끝 마력 실로 조종, 관절에 이음매. 감정을 배우는 무표정→웃으면 무서운 공주. \"…이게 웃음이야?\" 웃음을 연습 중.","moves":"인형극의 막(💫120|3 상대 1턴 자해)","img":"223"},{"no":67,"fam":23,"stage":1,"name":"웨비","base":"웨비","line":["웨비","실크라","녹터넬"],"type":"어둠","grade":"영웅","race":"밤거미족","sex":"♀","desc":"독과 거미줄 결계, 실로 무엇이든 짬. 요염하고 계산적→품은 자를 지키는 모성. \"어머, 귀여운 아이.\" 뜨개질이 취미.","moves":"독니(💫45|15 독30%), 거미줄 결계(✨|8 상대 속도-2)","img":"231"},{"no":68,"fam":23,"stage":2,"name":"실크라","base":"웨비","line":["웨비","실크라","녹터넬"],"type":"어둠","grade":"영웅","race":"밤거미족","sex":"♀","desc":"독과 거미줄 결계, 실로 무엇이든 짬. 요염하고 계산적→품은 자를 지키는 모성. \"어머, 귀여운 아이.\" 뜨개질이 취미.","moves":"흑견사 포박(💫85|8 2턴 도망 불가)","img":"232"},{"no":69,"fam":23,"stage":3,"name":"녹터넬","base":"웨비","line":["웨비","실크라","녹터넬"],"type":"어둠","grade":"영웅","race":"밤거미족","sex":"♀","desc":"독과 거미줄 결계, 실로 무엇이든 짬. 요염하고 계산적→품은 자를 지키는 모성. \"어머, 귀여운 아이.\" 뜨개질이 취미.","moves":"밤비단 고치(💫130|2 독+수면)","img":"233"},{"no":70,"fam":24,"stage":1,"name":"램비","base":"램비","line":["램비","플리시아","라나벨"],"type":"무","grade":"일반","race":"양족","sex":"♀","desc":"양털 방어·재우기. 잔소리꾼→대모.","moves":"털뭉치 치기(⚔️40|15) 자장가(✨|5 수면40%)","img":"241"},{"no":71,"fam":24,"stage":2,"name":"플리시아","base":"램비","line":["램비","플리시아","라나벨"],"type":"무","grade":"일반","race":"양족","sex":"♀","desc":"양털 방어·재우기. 잔소리꾼→대모.","moves":"양털 성벽(✨|8 방·특방+1)","img":"242"},{"no":72,"fam":24,"stage":3,"name":"라나벨","base":"램비","line":["램비","플리시아","라나벨"],"type":"무","grade":"일반","race":"양족","sex":"♀","desc":"양털 방어·재우기. 잔소리꾼→대모.","moves":"구름 양떼(⚔️100|3 아군 HP25%)","img":"243"},{"no":73,"fam":25,"stage":1,"name":"스퀴키","base":"스퀴키","line":["스퀴키","케일라","클라비사"],"type":"무","grade":"일반","race":"열쇠쥐족","sex":"♀","desc":"아이템 탐지. 수집광→대담한 괴도.","moves":"앞니 깨물기(⚔️40|15 선공) 해제(✨|8 자신 이상·하락 해제)","img":"251"},{"no":74,"fam":25,"stage":2,"name":"케일라","base":"스퀴키","line":["스퀴키","케일라","클라비사"],"type":"무","grade":"일반","race":"열쇠쥐족","sex":"♀","desc":"아이템 탐지. 수집광→대담한 괴도.","moves":"소매치기(⚔️70|8 아이템 획득)","img":"252"},{"no":75,"fam":25,"stage":3,"name":"클라비사","base":"스퀴키","line":["스퀴키","케일라","클라비사"],"type":"무","grade":"일반","race":"열쇠쥐족","sex":"♀","desc":"아이템 탐지. 수집광→대담한 괴도.","moves":"만능 열쇠(⚔️110|3 방어 상승 무시)","img":"253"},{"no":76,"fam":26,"stage":1,"name":"패치","base":"패치","line":["패치","머머","마스커리온"],"type":"무","grade":"희귀","race":"의태족","sex":"♂","desc":"기술 모방. 장난꾼→가면 아래 진심.","moves":"의태 할퀴기(⚔️45|15) 흉내(✨|5 상대 직전 기술 사용)","img":"261"},{"no":77,"fam":26,"stage":2,"name":"머머","base":"패치","line":["패치","머머","마스커리온"],"type":"무","grade":"희귀","race":"의태족","sex":"♂","desc":"기술 모방. 장난꾼→가면 아래 진심.","moves":"변색 위장(✨|5 회피+2)","img":"262"},{"no":78,"fam":26,"stage":3,"name":"마스커리온","base":"패치","line":["패치","머머","마스커리온"],"type":"무","grade":"희귀","race":"의태족","sex":"♂","desc":"기술 모방. 장난꾼→가면 아래 진심.","moves":"천의 가면(✨|2 상대 최강기 ×1.5)","img":"263"},{"no":79,"fam":27,"stage":3,"name":"솔라리아","base":"솔라리아","line":["솔라리아"],"type":"빛","grade":"전설","race":"","sex":"♀","desc":"태양의 성기사. 800년 전 아비살리아를 봉인하고 빛의 성역에서 잠들어 봉인을 지탱한다. 3학년, 일곱 시련을 넘긴 자에게만 계약을 허락한다.","moves":"","img":"273"},{"no":80,"fam":28,"stage":3,"name":"아비살리아","base":"아비살리아","line":["아비살리아"],"type":"어둠","grade":"전설","race":"","sex":"♀","desc":"심연의 흑기사. 북쪽 균열 아래 봉인된 최종 보스. 포획 불가. 흑월회가 구원자로 숭배한다.","moves":"","img":"283"}];
+const D = [{"no":1,"fam":1,"stage":1,"name":"위카","base":"위카","line":["위카","탤로윈","칸델라리아"],"type":"화","grade":"일반","race":"촛불족","sex":"♀","desc":"머리 불꽃이 감정 따라 색이 바뀌고 촛농으로 응급 치료. 겁 많은 울보→지킬 때 용기 내는 수호자. \"저, 저기… 괜찮아요?\"","moves":"촛불 점화(💫40|15 화상10%), 촛농 붕대(✨|5 HP 25% 회복)","img":"011","stats":[70,45,70,85,100,70]},{"no":2,"fam":1,"stage":2,"name":"탤로윈","base":"위카","line":["위카","탤로윈","칸델라리아"],"type":"화","grade":"일반","race":"촛불족","sex":"♀","desc":"머리 불꽃이 감정 따라 색이 바뀌고 촛농으로 응급 치료. 겁 많은 울보→지킬 때 용기 내는 수호자. \"저, 저기… 괜찮아요?\"","moves":"밀랍 방벽(✨|5 2턴 받는 피해 절반)","img":"012","stats":[70,45,70,85,100,70]},{"no":3,"fam":1,"stage":3,"name":"칸델라리아","base":"위카","line":["위카","탤로윈","칸델라리아"],"type":"화","grade":"일반","race":"촛불족","sex":"♀","desc":"머리 불꽃이 감정 따라 색이 바뀌고 촛농으로 응급 치료. 겁 많은 울보→지킬 때 용기 내는 수호자. \"저, 저기… 괜찮아요?\"","moves":"백촛불 성가(💫100|3 아군 HP 30% 회복)","img":"013","stats":[70,45,70,85,100,70]},{"no":4,"fam":2,"stage":1,"name":"플린트","base":"플린트","line":["플린트","템퍼","벌크란"],"type":"화","grade":"일반","race":"화덕도마뱀족","sex":"♂","desc":"꼬리 불로 금속을 달궈 장비 강화. 무뚝뚝한 일벌레, 칭찬에 약함→등을 맡기는 장인. \"…흥, 맡겨 둬.\"","moves":"불씨 망치(⚔️45|15 화상10%), 달군 비늘(✨|10 방어+1)","img":"021","stats":[65,110,80,45,55,85]},{"no":5,"fam":2,"stage":2,"name":"템퍼","base":"플린트","line":["플린트","템퍼","벌크란"],"type":"화","grade":"일반","race":"화덕도마뱀족","sex":"♂","desc":"꼬리 불로 금속을 달궈 장비 강화. 무뚝뚝한 일벌레, 칭찬에 약함→등을 맡기는 장인. \"…흥, 맡겨 둬.\"","moves":"담금질(✨|5 공격+2)","img":"022","stats":[65,110,80,45,55,85]},{"no":6,"fam":2,"stage":3,"name":"벌크란","base":"플린트","line":["플린트","템퍼","벌크란"],"type":"화","grade":"일반","race":"화덕도마뱀족","sex":"♂","desc":"꼬리 불로 금속을 달궈 장비 강화. 무뚝뚝한 일벌레, 칭찬에 약함→등을 맡기는 장인. \"…흥, 맡겨 둬.\"","moves":"용광로 강타(⚔️110|3 화상30%)","img":"023","stats":[65,110,80,45,55,85]},{"no":7,"fam":3,"stage":1,"name":"애시윙","base":"애시윙","line":["애시윙","신드라","파이어룬"],"type":"화","grade":"희귀","race":"불나방족","sex":"♀","desc":"날개 가루로 폭발과 환각, 불빛에 홀림. 변덕스러운 장난꾼→매력을 무기로 아는 요부. \"어머, 불빛이 예쁘다~\" 불빛에 홀림.","moves":"불가루(💫45|15), 홀림 인분(✨|8 혼란)","img":"031","stats":[65,50,65,120,85,105]},{"no":8,"fam":3,"stage":2,"name":"신드라","base":"애시윙","line":["애시윙","신드라","파이어룬"],"type":"화","grade":"희귀","race":"불나방족","sex":"♀","desc":"날개 가루로 폭발과 환각, 불빛에 홀림. 변덕스러운 장난꾼→매력을 무기로 아는 요부. \"어머, 불빛이 예쁘다~\" 불빛에 홀림.","moves":"인분 폭발(💫80|8)","img":"032","stats":[65,50,65,120,85,105]},{"no":9,"fam":3,"stage":3,"name":"파이어룬","base":"애시윙","line":["애시윙","신드라","파이어룬"],"type":"화","grade":"희귀","race":"불나방족","sex":"♀","desc":"날개 가루로 폭발과 환각, 불빛에 홀림. 변덕스러운 장난꾼→매력을 무기로 아는 요부. \"어머, 불빛이 예쁘다~\" 불빛에 홀림.","moves":"염린 무도(💫120|3 화상50%)","img":"033","stats":[65,50,65,120,85,105]},{"no":10,"fam":4,"stage":1,"name":"신다","base":"신다","line":["신다","옵시드라","칼데리아"],"type":"화","grade":"영웅","race":"화산용족","sex":"♀","desc":"흑요석 뿔, 피부 아래 용암 혈관, 분노하면 체온 폭주. 오만한 귀족 기질→인정한 상대엔 다정한 여제. \"무릎 꿇어라, 인간.\" 유대 80+면 존댓말로 바뀜.","moves":"흑요석 뿔(⚔️50|15), 용암 혈류(✨|5 공격+2 방어-1)","img":"041","stats":[85,130,90,80,70,85]},{"no":11,"fam":4,"stage":2,"name":"옵시드라","base":"신다","line":["신다","옵시드라","칼데리아"],"type":"화","grade":"영웅","race":"화산용족","sex":"♀","desc":"흑요석 뿔, 피부 아래 용암 혈관, 분노하면 체온 폭주. 오만한 귀족 기질→인정한 상대엔 다정한 여제. \"무릎 꿇어라, 인간.\" 유대 80+면 존댓말로 바뀜.","moves":"분화 돌진(⚔️90|8 화상20%)","img":"042","stats":[85,130,90,80,70,85]},{"no":12,"fam":4,"stage":3,"name":"칼데리아","base":"신다","line":["신다","옵시드라","칼데리아"],"type":"화","grade":"영웅","race":"화산용족","sex":"♀","desc":"흑요석 뿔, 피부 아래 용암 혈관, 분노하면 체온 폭주. 오만한 귀족 기질→인정한 상대엔 다정한 여제. \"무릎 꿇어라, 인간.\" 유대 80+면 존댓말로 바뀜.","moves":"칼데라 붕괴(⚔️140|2 다음 턴 휴식)","img":"043","stats":[85,130,90,80,70,85]},{"no":13,"fam":5,"stage":1,"name":"플립","base":"플립","line":["플립","폰테사","아켈"],"type":"수","grade":"일반","race":"샘물정령족","sex":"♀","desc":"분수에서 태어나 물로 치유하고 잠시 투명해짐. 수다쟁이→비밀을 지키는 치유사. \"있잖아 있잖아~!\" 비밀은 절대 안 샘.","moves":"물방울 튀기기(💫40|15), 맑은 샘(✨|5 HP 30% 회복)","img":"051","stats":[75,45,70,80,100,70]},{"no":14,"fam":5,"stage":2,"name":"폰테사","base":"플립","line":["플립","폰테사","아켈"],"type":"수","grade":"일반","race":"샘물정령족","sex":"♀","desc":"분수에서 태어나 물로 치유하고 잠시 투명해짐. 수다쟁이→비밀을 지키는 치유사. \"있잖아 있잖아~!\" 비밀은 절대 안 샘.","moves":"투명화(✨|4 다음 공격 회피)","img":"052","stats":[75,45,70,80,100,70]},{"no":15,"fam":5,"stage":3,"name":"아켈","base":"플립","line":["플립","폰테사","아켈"],"type":"수","grade":"일반","race":"샘물정령족","sex":"♀","desc":"분수에서 태어나 물로 치유하고 잠시 투명해짐. 수다쟁이→비밀을 지키는 치유사. \"있잖아 있잖아~!\" 비밀은 절대 안 샘.","moves":"무지개 분수(💫100|3 아군 상태이상 해제)","img":"053","stats":[75,45,70,80,100,70]},{"no":16,"fam":6,"stage":1,"name":"오토","base":"오토","line":["오토","토렌트","오타리스"],"type":"수","grade":"일반","race":"수달족","sex":"♂","desc":"수중 잠행, 반짝이는 조개 수집. 장난꾸러기→위기에 먼저 뛰어드는 듬직한 형. \"내가 먼저 간다!\" 반짝이는 건 못 참음.","moves":"물살 박치기(⚔️40|15 선공), 조개 던지기(⚔️25×2|10)","img":"061","stats":[60,95,60,50,60,115]},{"no":17,"fam":6,"stage":2,"name":"토렌트","base":"오토","line":["오토","토렌트","오타리스"],"type":"수","grade":"일반","race":"수달족","sex":"♂","desc":"수중 잠행, 반짝이는 조개 수집. 장난꾸러기→위기에 먼저 뛰어드는 듬직한 형. \"내가 먼저 간다!\" 반짝이는 건 못 참음.","moves":"급류 잠행(⚔️75|8 다음 턴 회피)","img":"062","stats":[60,95,60,50,60,115]},{"no":18,"fam":6,"stage":3,"name":"오타리스","base":"오토","line":["오토","토렌트","오타리스"],"type":"수","grade":"일반","race":"수달족","sex":"♂","desc":"수중 잠행, 반짝이는 조개 수집. 장난꾸러기→위기에 먼저 뛰어드는 듬직한 형. \"내가 먼저 간다!\" 반짝이는 건 못 참음.","moves":"대하의 삼지창(⚔️110|3 상대 속도-1)","img":"063","stats":[60,95,60,50,60,115]},{"no":19,"fam":7,"stage":1,"name":"잉클릿","base":"잉클릿","line":["잉클릿","스크리바","옥타비아"],"type":"수","grade":"희귀","race":"잉크문어족","sex":"♀","desc":"먹물로 공중에 마법진, 읽은 건 잊지 않음. 소심한 책벌레→지식으로 압도하는 대서기. \"그, 그건 책에서 봤는데…\"","moves":"먹물 탄(💫45|15 공격-1 20%), 필사 마법진(✨|8 특공+1)","img":"071","stats":[70,45,70,125,100,80]},{"no":20,"fam":7,"stage":2,"name":"스크리바","base":"잉클릿","line":["잉클릿","스크리바","옥타비아"],"type":"수","grade":"희귀","race":"잉크문어족","sex":"♀","desc":"먹물로 공중에 마법진, 읽은 건 잊지 않음. 소심한 책벌레→지식으로 압도하는 대서기. \"그, 그건 책에서 봤는데…\"","moves":"촉수 서술(💫80|8)","img":"072","stats":[70,45,70,125,100,80]},{"no":21,"fam":7,"stage":3,"name":"옥타비아","base":"잉클릿","line":["잉클릿","스크리바","옥타비아"],"type":"수","grade":"희귀","race":"잉크문어족","sex":"♀","desc":"먹물로 공중에 마법진, 읽은 건 잊지 않음. 소심한 책벌레→지식으로 압도하는 대서기. \"그, 그건 책에서 봤는데…\"","moves":"금서 개방(💫120|3 상대 능력 변화 초기화)","img":"073","stats":[70,45,70,125,100,80]},{"no":22,"fam":8,"stage":1,"name":"리미","base":"리미","line":["리미","프로스텔","글라시안"],"type":"수","grade":"희귀","race":"서리사슴족","sex":"♀","desc":"뿔에서 서리 결정이 자라고 결정 방벽을 세움. 차가워 보이지만 추위를 탐→냉철한 기사. \"…춥지 않아? 난 괜찮아.\" 온기에 약함.","moves":"서리 뿔(⚔️40|15 빙결10%), 결정 방벽(✨|5 방어+2)","img":"081","stats":[80,80,110,80,95,55]},{"no":23,"fam":8,"stage":2,"name":"프로스텔","base":"리미","line":["리미","프로스텔","글라시안"],"type":"수","grade":"희귀","race":"서리사슴족","sex":"♀","desc":"뿔에서 서리 결정이 자라고 결정 방벽을 세움. 차가워 보이지만 추위를 탐→냉철한 기사. \"…춥지 않아? 난 괜찮아.\" 온기에 약함.","moves":"빙결 돌진(⚔️75|8 빙결20%)","img":"082","stats":[80,80,110,80,95,55]},{"no":24,"fam":8,"stage":3,"name":"글라시안","base":"리미","line":["리미","프로스텔","글라시안"],"type":"수","grade":"희귀","race":"서리사슴족","sex":"♀","desc":"뿔에서 서리 결정이 자라고 결정 방벽을 세움. 차가워 보이지만 추위를 탐→냉철한 기사. \"…춥지 않아? 난 괜찮아.\" 온기에 약함.","moves":"영구동토 왕관(💫110|3 빙결40%)","img":"083","stats":[80,80,110,80,95,55]},{"no":25,"fam":9,"stage":1,"name":"퀼라","base":"퀼라","line":["퀼라","미시바","제피린"],"type":"풍","grade":"일반","race":"전령새족","sex":"♀","desc":"아카데미 우편 담당, 초고속 비행과 바람 칼날. 덜렁이 배달부→우아한 전령. \"배달 왔어요~! 앗, 잘못 왔다!\" 길치라 편지를 잘못 배달함.","moves":"바람 칼날(💫40|15), 속달(✨|8 속도+1)","img":"091","stats":[55,60,55,95,60,120]},{"no":26,"fam":9,"stage":2,"name":"미시바","base":"퀼라","line":["퀼라","미시바","제피린"],"type":"풍","grade":"일반","race":"전령새족","sex":"♀","desc":"아카데미 우편 담당, 초고속 비행과 바람 칼날. 덜렁이 배달부→우아한 전령. \"배달 왔어요~! 앗, 잘못 왔다!\" 길치라 편지를 잘못 배달함.","moves":"깃털 폭풍(💫70|8 50% 2회 타격)","img":"092","stats":[55,60,55,95,60,120]},{"no":27,"fam":9,"stage":3,"name":"제피린","base":"퀼라","line":["퀼라","미시바","제피린"],"type":"풍","grade":"일반","race":"전령새족","sex":"♀","desc":"아카데미 우편 담당, 초고속 비행과 바람 칼날. 덜렁이 배달부→우아한 전령. \"배달 왔어요~! 앗, 잘못 왔다!\" 길치라 편지를 잘못 배달함.","moves":"천풍 전령(⚔️110|3 반드시 선공)","img":"093","stats":[55,60,55,95,60,120]},{"no":28,"fam":10,"stage":1,"name":"월리","base":"월리","line":["월리","베인크레스트","게일문드"],"type":"풍","grade":"일반","race":"풍차정령족","sex":"♂","desc":"등의 날개바퀴로 바람을 모아 증폭. 산만한 낙천가→흔들리는 동료를 잡아 주는 중심. \"뭐, 어떻게든 되겠지~\" 약속엔 늘 지각.","moves":"회전 바람(⚔️40|15), 순풍(✨|8 아군 속도+1)","img":"101","stats":[70,85,80,70,70,75]},{"no":29,"fam":10,"stage":2,"name":"베인크레스트","base":"월리","line":["월리","베인크레스트","게일문드"],"type":"풍","grade":"일반","race":"풍차정령족","sex":"♂","desc":"등의 날개바퀴로 바람을 모아 증폭. 산만한 낙천가→흔들리는 동료를 잡아 주는 중심. \"뭐, 어떻게든 되겠지~\" 약속엔 늘 지각.","moves":"풍차 돌격(⚔️80|8)","img":"102","stats":[70,85,80,70,70,75]},{"no":30,"fam":10,"stage":3,"name":"게일문드","base":"월리","line":["월리","베인크레스트","게일문드"],"type":"풍","grade":"일반","race":"풍차정령족","sex":"♂","desc":"등의 날개바퀴로 바람을 모아 증폭. 산만한 낙천가→흔들리는 동료를 잡아 주는 중심. \"뭐, 어떻게든 되겠지~\" 약속엔 늘 지각.","moves":"폭풍의 축(⚔️110|3 3턴 아군 속도+1)","img":"103","stats":[70,85,80,70,70,75]},{"no":31,"fam":11,"stage":1,"name":"팅카","base":"팅카","line":["팅카","벨프리아","카릴리아"],"type":"풍","grade":"희귀","race":"종탑정령족","sex":"♀","desc":"울림을 바람 파동으로 바꿈. 시간관념 철저한 깐깐이→성가대장. \"정각입니다. 지각은 안 돼요.\"","moves":"종소리(💫40|15 마비10%), 정시의 종(✨|5 아군 공격·특공+1)","img":"111","stats":[75,50,80,95,110,80]},{"no":32,"fam":11,"stage":2,"name":"벨프리아","base":"팅카","line":["팅카","벨프리아","카릴리아"],"type":"풍","grade":"희귀","race":"종탑정령족","sex":"♀","desc":"울림을 바람 파동으로 바꿈. 시간관념 철저한 깐깐이→성가대장. \"정각입니다. 지각은 안 돼요.\"","moves":"공명파(💫75|8 마비20%)","img":"112","stats":[75,50,80,95,110,80]},{"no":33,"fam":11,"stage":3,"name":"카릴리아","base":"팅카","line":["팅카","벨프리아","카릴리아"],"type":"풍","grade":"희귀","race":"종탑정령족","sex":"♀","desc":"울림을 바람 파동으로 바꿈. 시간관념 철저한 깐깐이→성가대장. \"정각입니다. 지각은 안 돼요.\"","moves":"대종의 찬가(💫110|3 마비30%, 아군 HP 20% 회복)","img":"113","stats":[75,50,80,95,110,80]},{"no":34,"fam":12,"stage":1,"name":"님비","base":"님비","line":["님비","큐뮬리아","셀로라"],"type":"풍","grade":"영웅","race":"하늘고래족","sex":"♀","desc":"구름 위를 유영하고 기압을 조작. 느긋한 몽상가→하늘을 품는 여왕. \"후아암… 구름 보러 갈래요?\" 낮잠 필수.","moves":"구름 꼬리(⚔️45|15), 뭉게 쿠션(✨|5 2턴 받는 피해 절반)","img":"121","stats":[120,70,100,90,115,45]},{"no":35,"fam":12,"stage":2,"name":"큐뮬리아","base":"님비","line":["님비","큐뮬리아","셀로라"],"type":"풍","grade":"영웅","race":"하늘고래족","sex":"♀","desc":"구름 위를 유영하고 기압을 조작. 느긋한 몽상가→하늘을 품는 여왕. \"후아암… 구름 보러 갈래요?\" 낮잠 필수.","moves":"기압 낙하(💫85|8 상대 속도-1)","img":"122","stats":[120,70,100,90,115,45]},{"no":36,"fam":12,"stage":3,"name":"셀로라","base":"님비","line":["님비","큐뮬리아","셀로라"],"type":"풍","grade":"영웅","race":"하늘고래족","sex":"♀","desc":"구름 위를 유영하고 기압을 조작. 느긋한 몽상가→하늘을 품는 여왕. \"후아암… 구름 보러 갈래요?\" 낮잠 필수.","moves":"천공 고래의 노래(💫130|2 아군 HP 30% 회복)","img":"123","stats":[120,70,100,90,115,45]},{"no":37,"fam":13,"stage":1,"name":"퍼프캡","base":"퍼프캡","line":["퍼프캡","마이셀라","마이코라"],"type":"지","grade":"일반","race":"버섯족","sex":"♀","desc":"포자로 재우거나 회복, 균사로 먼 정보를 읽음. 졸린 은둔형→숲의 현자. \"…zZ… 아, 왔어?\" 비 오는 날 활발.","moves":"포자 뿌리기(💫35|15 수면15%), 회복 포자(✨|8 HP 25% 회복)","img":"131","stats":[80,50,80,80,95,55]},{"no":38,"fam":13,"stage":2,"name":"마이셀라","base":"퍼프캡","line":["퍼프캡","마이셀라","마이코라"],"type":"지","grade":"일반","race":"버섯족","sex":"♀","desc":"포자로 재우거나 회복, 균사로 먼 정보를 읽음. 졸린 은둔형→숲의 현자. \"…zZ… 아, 왔어?\" 비 오는 날 활발.","moves":"균사 그물(💫70|8 상대 속도-1)","img":"132","stats":[80,50,80,80,95,55]},{"no":39,"fam":13,"stage":3,"name":"마이코라","base":"퍼프캡","line":["퍼프캡","마이셀라","마이코라"],"type":"지","grade":"일반","race":"버섯족","sex":"♀","desc":"포자로 재우거나 회복, 균사로 먼 정보를 읽음. 졸린 은둔형→숲의 현자. \"…zZ… 아, 왔어?\" 비 오는 날 활발.","moves":"포자의 숲(💫100|3 수면40%)","img":"133","stats":[80,50,80,80,95,55]},{"no":40,"fam":14,"stage":1,"name":"펩스","base":"펩스","line":["펩스","배스천","시타드렉스"],"type":"지","grade":"일반","race":"성벽골렘족","sex":"♂","desc":"몸의 돌을 재조립해 방벽을 쌓음. 고지식한 원칙주의→물러서지 않는 철벽. \"원칙은 원칙이다.\" 귀여운 것에 얼굴이 붉어짐.","moves":"돌주먹(⚔️40|15), 벽돌 쌓기(✨|8 방어+2)","img":"141","stats":[80,85,125,35,80,35]},{"no":41,"fam":14,"stage":2,"name":"배스천","base":"펩스","line":["펩스","배스천","시타드렉스"],"type":"지","grade":"일반","race":"성벽골렘족","sex":"♂","desc":"몸의 돌을 재조립해 방벽을 쌓음. 고지식한 원칙주의→물러서지 않는 철벽. \"원칙은 원칙이다.\" 귀여운 것에 얼굴이 붉어짐.","moves":"성벽 돌진(⚔️75|8 방어+1)","img":"142","stats":[80,85,125,35,80,35]},{"no":42,"fam":14,"stage":3,"name":"시타드렉스","base":"펩스","line":["펩스","배스천","시타드렉스"],"type":"지","grade":"일반","race":"성벽골렘족","sex":"♂","desc":"몸의 돌을 재조립해 방벽을 쌓음. 고지식한 원칙주의→물러서지 않는 철벽. \"원칙은 원칙이다.\" 귀여운 것에 얼굴이 붉어짐.","moves":"난공불락(✨|2 1턴 모든 피해 무효 후 반격 ⚔️100)","img":"143","stats":[80,85,125,35,80,35]},{"no":43,"fam":15,"stage":1,"name":"젬미","base":"젬미","line":["젬미","프리즈멜","크리스탈리아"],"type":"지","grade":"희귀","race":"수정족","sex":"♀","desc":"결정 피부로 빛을 굴절, 짧은 미래를 엿봄. 허세 신비주의→말을 아끼는 예언자. \"후후, 내 눈엔 이미 보여.\" 예지가 빗나가면 얼굴을 가리고 당황함.","moves":"수정 파편(💫45|15), 예지(✨|5 다음 공격 회피)","img":"151","stats":[65,45,80,120,95,85]},{"no":44,"fam":15,"stage":2,"name":"프리즈멜","base":"젬미","line":["젬미","프리즈멜","크리스탈리아"],"type":"지","grade":"희귀","race":"수정족","sex":"♀","desc":"결정 피부로 빛을 굴절, 짧은 미래를 엿봄. 허세 신비주의→말을 아끼는 예언자. \"후후, 내 눈엔 이미 보여.\" 예지가 빗나가면 얼굴을 가리고 당황함.","moves":"프리즘 광선(💫80|8)","img":"152","stats":[65,45,80,120,95,85]},{"no":45,"fam":15,"stage":3,"name":"크리스탈리아","base":"젬미","line":["젬미","프리즈멜","크리스탈리아"],"type":"지","grade":"희귀","race":"수정족","sex":"♀","desc":"결정 피부로 빛을 굴절, 짧은 미래를 엿봄. 허세 신비주의→말을 아끼는 예언자. \"후후, 내 눈엔 이미 보여.\" 예지가 빗나가면 얼굴을 가리고 당황함.","moves":"운명 결정체(💫120|3 상대 특방 무시)","img":"153","stats":[65,45,80,120,95,85]},{"no":46,"fam":16,"stage":1,"name":"키도","base":"키도","line":["키도","크래건","몬타리온"],"type":"지","grade":"희귀","race":"산양족","sex":"♂","desc":"절벽 등반, 박치기, 산악에서 강해짐. 고집 센 의리파→약속을 지키는 왕. \"약속은 끝까지 간다!\" 높은 곳에서 힘이 솟음.","moves":"박치기(⚔️50|15), 버티기(✨|3 한 번 HP 1로 생존)","img":"161","stats":[85,120,95,40,70,85]},{"no":47,"fam":16,"stage":2,"name":"크래건","base":"키도","line":["키도","크래건","몬타리온"],"type":"지","grade":"희귀","race":"산양족","sex":"♂","desc":"절벽 등반, 박치기, 산악에서 강해짐. 고집 센 의리파→약속을 지키는 왕. \"약속은 끝까지 간다!\" 높은 곳에서 힘이 솟음.","moves":"낙석 돌진(⚔️85|8)","img":"162","stats":[85,120,95,40,70,85]},{"no":48,"fam":16,"stage":3,"name":"몬타리온","base":"키도","line":["키도","크래건","몬타리온"],"type":"지","grade":"희귀","race":"산양족","sex":"♂","desc":"절벽 등반, 박치기, 산악에서 강해짐. 고집 센 의리파→약속을 지키는 왕. \"약속은 끝까지 간다!\" 높은 곳에서 힘이 솟음.","moves":"산왕의 일격(⚔️130|2 반동 HP 15%)","img":"163","stats":[85,120,95,40,70,85]},{"no":49,"fam":17,"stage":1,"name":"샤디","base":"샤디","line":["샤디","비트렐","로사리아"],"type":"빛","grade":"일반","race":"채색유리족","sex":"♀","desc":"빛을 쪼갬. 몽상가→성당 수호자.","moves":"색유리 빛(💫40|15) 분광(✨|8 무작위 능력+1)","img":"171","stats":[60,45,65,110,85,80]},{"no":50,"fam":17,"stage":2,"name":"비트렐","base":"샤디","line":["샤디","비트렐","로사리아"],"type":"빛","grade":"일반","race":"채색유리족","sex":"♀","desc":"빛을 쪼갬. 몽상가→성당 수호자.","moves":"칠색 광선(💫75|8)","img":"172","stats":[60,45,65,110,85,80]},{"no":51,"fam":17,"stage":3,"name":"로사리아","base":"샤디","line":["샤디","비트렐","로사리아"],"type":"빛","grade":"일반","race":"채색유리족","sex":"♀","desc":"빛을 쪼갬. 몽상가→성당 수호자.","moves":"장미창의 심판(💫115|3)","img":"173","stats":[60,45,65,110,85,80]},{"no":52,"fam":18,"stage":1,"name":"트윙킷","base":"트윙킷","line":["트윙킷","스텔리스","콘스텔라"],"type":"빛","grade":"희귀","race":"별고양이족","sex":"♀","desc":"순간이동. 게으름뱅이→고고한 별의 기사.","moves":"별 할퀴기(⚔️45|15) 별빛 도약(✨|8 속도+1 회피)","img":"181","stats":[65,100,60,80,65,125]},{"no":53,"fam":18,"stage":2,"name":"스텔리스","base":"트윙킷","line":["트윙킷","스텔리스","콘스텔라"],"type":"빛","grade":"희귀","race":"별고양이족","sex":"♀","desc":"순간이동. 게으름뱅이→고고한 별의 기사.","moves":"유성 발톱(⚔️80|8 선공)","img":"182","stats":[65,100,60,80,65,125]},{"no":54,"fam":18,"stage":3,"name":"콘스텔라","base":"트윙킷","line":["트윙킷","스텔리스","콘스텔라"],"type":"빛","grade":"희귀","race":"별고양이족","sex":"♀","desc":"순간이동. 게으름뱅이→고고한 별의 기사.","moves":"성좌 강림(💫120|3)","img":"183","stats":[65,100,60,80,65,125]},{"no":55,"fam":19,"stage":1,"name":"메인","base":"메인","line":["메인","레온하트","아우렐리온"],"type":"빛","grade":"영웅","race":"황금사자족","sex":"♂","desc":"포효로 아군 고양. 허세 꼬맹이→왕의 그릇.","moves":"금갈기 돌진(⚔️50|15) 포효(✨|8 아군 공격+1 상대 공격-1)","img":"191","stats":[85,130,85,60,75,105]},{"no":56,"fam":19,"stage":2,"name":"레온하트","base":"메인","line":["메인","레온하트","아우렐리온"],"type":"빛","grade":"영웅","race":"황금사자족","sex":"♂","desc":"포효로 아군 고양. 허세 꼬맹이→왕의 그릇.","moves":"사자왕의 발톱(⚔️90|8)","img":"192","stats":[85,130,85,60,75,105]},{"no":57,"fam":19,"stage":3,"name":"아우렐리온","base":"메인","line":["메인","레온하트","아우렐리온"],"type":"빛","grade":"영웅","race":"황금사자족","sex":"♂","desc":"포효로 아군 고양. 허세 꼬맹이→왕의 그릇.","moves":"광휘의 왕도(⚔️140|2 아군 공격+1)","img":"193","stats":[85,130,85,60,75,105]},{"no":58,"fam":20,"stage":1,"name":"뱃시","base":"뱃시","line":["뱃시","베스페라","이클립시아"],"type":"어둠","grade":"일반","race":"종탑박쥐족","sex":"♀","desc":"초음파 탐지, 어둠 속 시야. 낮엔 잠꾸러기 밤엔 하이텐션→밤의 공녀. \"(낮)쿨… (밤)신난다아!\"","moves":"흡혈 깨물기(⚔️40|15 피해 절반 회복), 초음파(✨|8 혼란30%)","img":"201","stats":[60,85,55,70,60,120]},{"no":59,"fam":20,"stage":2,"name":"베스페라","base":"뱃시","line":["뱃시","베스페라","이클립시아"],"type":"어둠","grade":"일반","race":"종탑박쥐족","sex":"♀","desc":"초음파 탐지, 어둠 속 시야. 낮엔 잠꾸러기 밤엔 하이텐션→밤의 공녀. \"(낮)쿨… (밤)신난다아!\"","moves":"월하 급강하(⚔️75|8 밤 ×1.5)","img":"202","stats":[60,85,55,70,60,120]},{"no":60,"fam":20,"stage":3,"name":"이클립시아","base":"뱃시","line":["뱃시","베스페라","이클립시아"],"type":"어둠","grade":"일반","race":"종탑박쥐족","sex":"♀","desc":"초음파 탐지, 어둠 속 시야. 낮엔 잠꾸러기 밤엔 하이텐션→밤의 공녀. \"(낮)쿨… (밤)신난다아!\"","moves":"월식(💫110|3 3턴 어둠 기술 ×1.5)","img":"203","stats":[60,85,55,70,60,120]},{"no":61,"fam":21,"stage":1,"name":"코르비","base":"코르비","line":["코르비","라벨","코르비누스"],"type":"어둠","grade":"일반","race":"까마귀족","sex":"♂","desc":"반짝이 수집, 정보를 훔치고 깃털을 던짐. 시니컬한 독설가→정을 숨긴 책사. \"흥, 정보는 공짜가 아니야.\"","moves":"깃털 투척(⚔️40|15), 훔쳐보기(✨|5 상대 기술 간파, 다음 공격 위력+50%)","img":"211","stats":[65,90,65,80,65,90]},{"no":62,"fam":21,"stage":2,"name":"라벨","base":"코르비","line":["코르비","라벨","코르비누스"],"type":"어둠","grade":"일반","race":"까마귀족","sex":"♂","desc":"반짝이 수집, 정보를 훔치고 깃털을 던짐. 시니컬한 독설가→정을 숨긴 책사. \"흥, 정보는 공짜가 아니야.\"","moves":"흑우 난무(⚔️25×3|8)","img":"212","stats":[65,90,65,80,65,90]},{"no":63,"fam":21,"stage":3,"name":"코르비누스","base":"코르비","line":["코르비","라벨","코르비누스"],"type":"어둠","grade":"일반","race":"까마귀족","sex":"♂","desc":"반짝이 수집, 정보를 훔치고 깃털을 던짐. 시니컬한 독설가→정을 숨긴 책사. \"흥, 정보는 공짜가 아니야.\"","moves":"까마귀의 책략(💫110|3 상대 능력 상승 빼앗기)","img":"213","stats":[65,90,65,80,65,90]},{"no":64,"fam":22,"stage":1,"name":"스티치","base":"스티치","line":["스티치","마리오넬","포셀레인"],"type":"어둠","grade":"희귀","race":"인형족","sex":"♀","desc":"손끝 마력 실로 조종, 관절에 이음매. 감정을 배우는 무표정→웃으면 무서운 공주. \"…이게 웃음이야?\" 웃음을 연습 중.","moves":"마력 실(💫45|15 속도-1 20%), 꼭두각시(✨|5 상대 직전 기술 2턴 봉인)","img":"221","stats":[70,50,75,115,90,90]},{"no":65,"fam":22,"stage":2,"name":"마리오넬","base":"스티치","line":["스티치","마리오넬","포셀레인"],"type":"어둠","grade":"희귀","race":"인형족","sex":"♀","desc":"손끝 마력 실로 조종, 관절에 이음매. 감정을 배우는 무표정→웃으면 무서운 공주. \"…이게 웃음이야?\" 웃음을 연습 중.","moves":"실 꿰매기(💫80|8)","img":"222","stats":[70,50,75,115,90,90]},{"no":66,"fam":22,"stage":3,"name":"포셀레인","base":"스티치","line":["스티치","마리오넬","포셀레인"],"type":"어둠","grade":"희귀","race":"인형족","sex":"♀","desc":"손끝 마력 실로 조종, 관절에 이음매. 감정을 배우는 무표정→웃으면 무서운 공주. \"…이게 웃음이야?\" 웃음을 연습 중.","moves":"인형극의 막(💫120|3 상대 1턴 자해)","img":"223","stats":[70,50,75,115,90,90]},{"no":67,"fam":23,"stage":1,"name":"웨비","base":"웨비","line":["웨비","실크라","녹터넬"],"type":"어둠","grade":"영웅","race":"밤거미족","sex":"♀","desc":"독과 거미줄 결계, 실로 무엇이든 짬. 요염하고 계산적→품은 자를 지키는 모성. \"어머, 귀여운 아이.\" 뜨개질이 취미.","moves":"독니(💫45|15 독30%), 거미줄 결계(✨|8 상대 속도-2)","img":"231","stats":[80,60,80,130,95,95]},{"no":68,"fam":23,"stage":2,"name":"실크라","base":"웨비","line":["웨비","실크라","녹터넬"],"type":"어둠","grade":"영웅","race":"밤거미족","sex":"♀","desc":"독과 거미줄 결계, 실로 무엇이든 짬. 요염하고 계산적→품은 자를 지키는 모성. \"어머, 귀여운 아이.\" 뜨개질이 취미.","moves":"흑견사 포박(💫85|8 2턴 도망 불가)","img":"232","stats":[80,60,80,130,95,95]},{"no":69,"fam":23,"stage":3,"name":"녹터넬","base":"웨비","line":["웨비","실크라","녹터넬"],"type":"어둠","grade":"영웅","race":"밤거미족","sex":"♀","desc":"독과 거미줄 결계, 실로 무엇이든 짬. 요염하고 계산적→품은 자를 지키는 모성. \"어머, 귀여운 아이.\" 뜨개질이 취미.","moves":"밤비단 고치(💫130|2 독+수면)","img":"233","stats":[80,60,80,130,95,95]},{"no":70,"fam":24,"stage":1,"name":"램비","base":"램비","line":["램비","플리시아","라나벨"],"type":"무","grade":"일반","race":"양족","sex":"♀","desc":"양털 방어·재우기. 잔소리꾼→대모.","moves":"털뭉치 치기(⚔️40|15) 자장가(✨|5 수면40%)","img":"241","stats":[85,60,100,55,100,45]},{"no":71,"fam":24,"stage":2,"name":"플리시아","base":"램비","line":["램비","플리시아","라나벨"],"type":"무","grade":"일반","race":"양족","sex":"♀","desc":"양털 방어·재우기. 잔소리꾼→대모.","moves":"양털 성벽(✨|8 방·특방+1)","img":"242","stats":[85,60,100,55,100,45]},{"no":72,"fam":24,"stage":3,"name":"라나벨","base":"램비","line":["램비","플리시아","라나벨"],"type":"무","grade":"일반","race":"양족","sex":"♀","desc":"양털 방어·재우기. 잔소리꾼→대모.","moves":"구름 양떼(⚔️100|3 아군 HP25%)","img":"243","stats":[85,60,100,55,100,45]},{"no":73,"fam":25,"stage":1,"name":"스퀴키","base":"스퀴키","line":["스퀴키","케일라","클라비사"],"type":"무","grade":"일반","race":"열쇠쥐족","sex":"♀","desc":"아이템 탐지. 수집광→대담한 괴도.","moves":"앞니 깨물기(⚔️40|15 선공) 해제(✨|8 자신 이상·하락 해제)","img":"251","stats":[55,90,55,55,60,125]},{"no":74,"fam":25,"stage":2,"name":"케일라","base":"스퀴키","line":["스퀴키","케일라","클라비사"],"type":"무","grade":"일반","race":"열쇠쥐족","sex":"♀","desc":"아이템 탐지. 수집광→대담한 괴도.","moves":"소매치기(⚔️70|8 아이템 획득)","img":"252","stats":[55,90,55,55,60,125]},{"no":75,"fam":25,"stage":3,"name":"클라비사","base":"스퀴키","line":["스퀴키","케일라","클라비사"],"type":"무","grade":"일반","race":"열쇠쥐족","sex":"♀","desc":"아이템 탐지. 수집광→대담한 괴도.","moves":"만능 열쇠(⚔️110|3 방어 상승 무시)","img":"253","stats":[55,90,55,55,60,125]},{"no":76,"fam":26,"stage":1,"name":"패치","base":"패치","line":["패치","머머","마스커리온"],"type":"무","grade":"희귀","race":"의태족","sex":"♂","desc":"기술 모방. 장난꾼→가면 아래 진심.","moves":"의태 할퀴기(⚔️45|15) 흉내(✨|5 상대 직전 기술 사용)","img":"261","stats":[75,85,80,85,80,85]},{"no":77,"fam":26,"stage":2,"name":"머머","base":"패치","line":["패치","머머","마스커리온"],"type":"무","grade":"희귀","race":"의태족","sex":"♂","desc":"기술 모방. 장난꾼→가면 아래 진심.","moves":"변색 위장(✨|5 회피+2)","img":"262","stats":[75,85,80,85,80,85]},{"no":78,"fam":26,"stage":3,"name":"마스커리온","base":"패치","line":["패치","머머","마스커리온"],"type":"무","grade":"희귀","race":"의태족","sex":"♂","desc":"기술 모방. 장난꾼→가면 아래 진심.","moves":"천의 가면(✨|2 상대 최강기 ×1.5)","img":"263","stats":[75,85,80,85,80,85]},{"no":79,"fam":27,"stage":3,"name":"솔라리아","base":"솔라리아","line":["솔라리아"],"type":"빛","grade":"전설","race":"","sex":"♀","desc":"태양의 성기사. 800년 전 아비살리아를 봉인하고 빛의 성역에서 잠들어 봉인을 지탱한다. 3학년, 일곱 시련을 넘긴 자에게만 계약을 허락한다.","moves":"","img":"273","stats":[1200,400,380,420,380,300]},{"no":80,"fam":28,"stage":3,"name":"아비살리아","base":"아비살리아","line":["아비살리아"],"type":"어둠","grade":"전설","race":"","sex":"♀","desc":"심연의 흑기사. 북쪽 균열 아래 봉인된 최종 보스. 포획 불가. 흑월회가 구원자로 숭배한다.","moves":"","img":"283","stats":[2000,460,420,500,420,340]}];
 const TC = ["화","수","풍","지","빛","어둠","무","전설"];
+const RN = ["Ⅰ","Ⅱ","Ⅲ","Ⅳ","Ⅴ","Ⅵ","Ⅶ","Ⅷ"];
 const ST = ["기본체","1진화","최종"];
-const LS = "ac_codex_v1";
-let state = {};   // no -> 1(목격) | 2(확인)
-let mem = false;
+const EVO = { 일반:[16,36], 희귀:[20,40], 영웅:[30,55] };
+const MUL = [1, 1.2, 1.4];
+const LS = "ac_codex_v2", LS1 = "ac_codex_v1";
+const TITLES = [[0,"신입 기록생"],[1,"견습 기록생"],[10,"도감 수습생"],[20,"회랑의 기록관"],[30,"숙련 탐구자"],[40,"속성 연구가"],[50,"도감 학자"],[60,"대도감가"],[70,"전설의 문턱"],[80,"전설의 학생"]];
+const MILES = [1,10,20,30,40,50,60,70,80];
 
-const byName = {};
-D.forEach(e => { e.no = +e.no; byName[e.name] = e; });
+D.forEach(e => e.no = +e.no);
+const byNo = {}, byName = {};
+D.forEach(e => { byNo[e.no] = e; byName[e.name] = e; });
+const key = e => e.grade === "전설" ? "전설" : e.type;
+const pad = n => String(n).padStart(3, "0");
 const $ = s => document.querySelector(s);
-const el = (t, c, h) => { const n = document.createElement(t); if (c) n.className = c; if (h != null) n.innerHTML = h; return n; };
-const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const RM = matchMedia("(prefers-reduced-motion:reduce)").matches;
 
+/* ---------- state ---------- */
+let S = {};          // no -> {v:1|2, t:ms, n:1 (new badge)}
+let memOnly = false;
+const v = no => (S[no] && S[no].v) || 0;
 function load(){
-  try { const r = localStorage.getItem(LS); if (r) state = JSON.parse(r) || {}; }
-  catch(e){ mem = true; }
+  try {
+    const r = localStorage.getItem(LS);
+    if (r) S = JSON.parse(r) || {};
+    else {
+      const o = localStorage.getItem(LS1);
+      if (o){ const old = JSON.parse(o) || {}; Object.keys(o ? old : {}).forEach(k => { const x = +old[k]; if (x === 1 || x === 2) S[k] = {v:x, t:0}; }); }
+    }
+  } catch(e){ memOnly = true; }
 }
-function save(){
-  try { localStorage.setItem(LS, JSON.stringify(state)); }
-  catch(e){ mem = true; $("#tm").textContent = "이 환경에서는 브라우저 저장이 막혀 있어요. 저장 코드를 직접 보관해 주세요."; $("#tm").className = "msg bad"; }
+function save(){ try { localStorage.setItem(LS, JSON.stringify(S)); } catch(e){ memOnly = true; } }
+function counts(){ let c = 0, s = 0; D.forEach(e => { const x = v(e.no); if (x === 2) c++; else if (x === 1) s++; }); return {c, s}; }
+const famDone = fam => D.filter(e => e.fam === fam).every(e => v(e.no) === 2);
+
+/* ---------- sound ---------- */
+let AC = null, sound = false;
+function tone(freqs, dur = .18, type = "triangle", gap = .09, vol = .12){
+  if (!sound || !AC) return;
+  const t0 = AC.currentTime;
+  freqs.forEach((f, i) => {
+    const o = AC.createOscillator(), g = AC.createGain();
+    o.type = type; o.frequency.value = f;
+    g.gain.setValueAtTime(0, t0 + i * gap); g.gain.linearRampToValueAtTime(vol, t0 + i * gap + .02); g.gain.exponentialRampToValueAtTime(.0001, t0 + i * gap + dur + .4);
+    o.connect(g).connect(AC.destination); o.start(t0 + i * gap); o.stop(t0 + i * gap + dur + .5);
+  });
 }
+const sfx = {
+  rise: () => tone([196, 247, 294, 392], .25, "sine", .14, .07),
+  reveal: (leg) => tone(leg ? [523, 659, 784, 1047, 1319] : [523, 659, 784, 1047], .3, "triangle", .08, .11),
+  stamp: () => tone([110, 82], .08, "square", .02, .09),
+  seen: () => tone([392, 330, 440], .25, "sine", .12, .07),
+  mile: () => tone([659, 784, 988, 1319, 1568], .35, "triangle", .1, .1)
+};
+$("#snd").onclick = () => {
+  sound = !sound;
+  if (sound && !AC){ try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){ sound = false; } }
+  $("#snd").setAttribute("aria-pressed", sound); $("#snd").textContent = sound ? "🔊 효과음 켬" : "🔈 효과음 끔";
+  if (sound) tone([784, 1047], .12);
+};
 
 /* ---------- parse ---------- */
 function parse(text){
   const res = [];
-  const re = /AC\s*[·・\-_.:/•]\s*([가-힣]+)\s*[·・\-_.:/•]?\s*([1-3])?\s*([CcSsㅊㄴ])(?![A-Za-z가-힣])/g;
+  const re = /AC\s*[·・\-_.:/•]\s*([가-힣]+)\s*[·・\-_.:/•]?\s*([1-3])?\s*([CcSs])(?![A-Za-z가-힣])/g;
   let m;
   while ((m = re.exec(text))){
-    const raw = m[1];
-    const e = byName[raw];
+    const e = byName[m[1]];
     const flag = /[Cc]/.test(m[3]) ? 2 : 1;
     if (!e){ res.push({bad: m[0]}); continue; }
-    let tgt = e;
-    if (e.stage === 1 && m[2] && +m[2] > 1){
-      tgt = D.find(x => x.fam === e.fam && x.stage === +m[2]) || e;
-    }
-    res.push({e: tgt, flag});
+    let t = e;
+    if (e.stage === 1 && e.grade !== "전설" && m[2] && +m[2] > 1) t = D.find(x => x.fam === e.fam && x.stage === +m[2]) || e;
+    res.push({e: t, flag});
   }
   return res;
 }
 
 /* ---------- register ---------- */
 function register(){
-  const text = $("#ta").value;
-  const log = $("#log"); log.innerHTML = "";
-  if (!text.trim()){ log.append(el("div","ln no","코드를 붙여넣어 주세요.")); return; }
+  const text = $("#ta").value, log = $("#log");
+  log.innerHTML = "";
+  const line = (c, h) => { const d = document.createElement("div"); d.className = "ln " + c; d.innerHTML = h; log.append(d); };
+  if (!text.trim()){ line("no", "코드를 붙여넣어 주세요."); return; }
   const found = parse(text);
-  if (!found.length){ log.append(el("div","ln bad","읽을 수 있는 코드가 없어요. <code>AC·이름·단계C</code> 형식인지 확인해 주세요.")); return; }
-  const fresh = [];
+  if (!found.length){ line("bad", "읽을 수 있는 코드가 없어요. <code>AC·이름·단계C</code> 형식인지 확인해 주세요."); return; }
+  const before = counts().c;
+  const doneBefore = new Set([...new Set(D.map(e => e.fam))].filter(famDone));
+  const queue = [];
   found.forEach(f => {
-    if (f.bad){ log.append(el("div","ln bad","알 수 없는 코드: <b>"+esc(f.bad)+"</b>")); return; }
-    const cur = state[f.e.no] || 0;
-    const nm = "<b>"+esc(f.e.name)+"</b> <span class='no'>("+ST[f.e.stage-1]+")</span>";
+    if (f.bad){ line("bad", "알 수 없는 코드 <b>" + esc(f.bad) + "</b>"); return; }
+    const cur = v(f.e.no);
+    const nm = "<b>" + esc(f.e.name) + "</b> No." + pad(f.e.no);
     if (f.flag > cur){
-      state[f.e.no] = f.flag; fresh.push(f.e.no);
-      log.append(el("div","ln "+(cur? "up":"ok"), (cur? "▲ 목격 → 확인 ":"✔ 새로 등록 ")+nm+" · "+(f.flag===2?"확인":"목격")));
-    } else {
-      log.append(el("div","ln no","이미 등록됨 "+nm));
-    }
+      S[f.e.no] = {v: f.flag, t: Date.now(), n: 1};
+      if (!queue.find(q => q.e.no === f.e.no)) queue.push({e: f.e, from: cur, to: f.flag});
+      else queue.find(q => q.e.no === f.e.no).to = f.flag;
+      line(cur ? "up" : "ok", (cur ? "▲ 목격 → 확인 " : f.flag === 2 ? "✔ 새로 확인 " : "◐ 새로 목격 ") + nm);
+    } else line("no", "이미 기록됨 " + nm);
   });
-  if (fresh.length){ save(); render(fresh); $("#ta").value = ""; }
+  if (!queue.length) return;
+  save(); $("#ta").value = "";
+  const newDone = [...new Set(D.map(e => e.fam))].filter(f => famDone(f) && !doneBefore.has(f));
+  play(queue, () => {
+    render(queue.map(q => q.e.no), newDone);
+    const after = counts().c;
+    const hit = MILES.filter(m => before < m && after >= m).pop();
+    if (hit) setTimeout(() => toast(hit), 700);
+  });
+}
+
+/* ---------- reveal overlay ---------- */
+let RQ = [], RI = 0, rTimer = null, rDone = null;
+function play(q, done){
+  if (RM){ done(); return; }
+  RQ = q; RI = 0; rDone = done;
+  const rv = $("#rv"); rv.classList.add("on"); rv.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden";
+  show();
+}
+function show(){
+  const it = RQ[RI], e = it.e, rv = $("#rv"), seen = it.to === 1;
+  rv.classList.remove("play", "s");
+  rv.style.setProperty("--tc", "var(--t-" + key(e) + ")");
+  if (seen) rv.classList.add("s");
+  $("#rvImg").src = "img/" + e.img + ".webp";
+  $("#rvImg").alt = seen ? "목격한 소환수의 흐린 모습" : e.name;
+  $("#rvNo").textContent = "No." + pad(e.no) + " · " + key(e) + (e.grade !== "전설" ? " · " + ST[e.stage - 1] : "");
+  $("#rvName").textContent = e.name;
+  $("#rvSub").textContent = seen ? "멀리서 모습을 보았다. 직접 확인하면 기록이 완성된다." : (e.grade === "전설" ? "전설의 존재가 도감에 이름을 새겼다." : (e.race ? e.race + " · " : "") + e.grade + " 등급");
+  $("#rvTag").textContent = it.from === 1 ? "SIGHTING CONFIRMED" : seen ? "NEW SIGHTING" : e.grade === "전설" ? "LEGEND RECORDED" : "NEW ENTRY";
+  $("#rvStamp").innerHTML = (seen ? "목격" : it.from === 1 ? "확인" : "등록") + "<small>" + (seen ? "SIGHTED" : "CODEX") + "</small>";
+  $("#rvPg").textContent = (RI + 1) + " / " + RQ.length;
+  $("#rvNext").textContent = RI + 1 < RQ.length ? "다음" : "도감 보기";
+  // particles
+  const pts = $("#pts"); pts.innerHTML = "";
+  const N = seen ? 14 : e.grade === "전설" ? 46 : 30;
+  const pal = e.grade === "전설" ? ["#ff7ab6","#ffd56b","#7fffd4","#7fb2ff","#d58bff"] : null;
+  for (let i = 0; i < N; i++){
+    const p = document.createElement("i"); p.className = "pt";
+    const a = Math.random() * Math.PI * 2, r = 140 + Math.random() * 260;
+    p.style.setProperty("--dx", Math.cos(a) * r + "px"); p.style.setProperty("--dy", Math.sin(a) * r + "px");
+    p.style.setProperty("--d", (1 + Math.random() * .25) + "s");
+    if (pal) p.style.setProperty("--pc", pal[i % pal.length]);
+    const sz = 3 + Math.random() * 6; p.style.width = p.style.height = sz + "px";
+    pts.append(p);
+  }
+  pts.className = ""; rv.append(pts);
+  void rv.offsetWidth;
+  rv.classList.add("play");
+  clearTimeout(rTimer);
+  sfx.rise();
+  setTimeout(() => { if (rv.classList.contains("play")) (seen ? sfx.seen() : sfx.reveal(e.grade === "전설")); }, 1000);
+  setTimeout(() => { if (rv.classList.contains("play")) sfx.stamp(); }, 2400);
+  rTimer = setTimeout(next, 4600);
+}
+function next(){
+  clearTimeout(rTimer);
+  if (RI + 1 < RQ.length){ RI++; show(); } else end();
+}
+function end(){
+  clearTimeout(rTimer);
+  const rv = $("#rv"); rv.classList.remove("on", "play"); rv.setAttribute("aria-hidden", "true"); document.body.style.overflow = "";
+  const d = rDone; rDone = null; if (d) d();
+}
+$("#rv").addEventListener("click", ev => { if (ev.target.id === "rvSkip") return; if (ev.target.id === "rvNext" || !ev.target.closest(".ctrl")) next(); });
+$("#rvSkip").onclick = ev => { ev.stopPropagation(); end(); };
+
+/* ---------- toast ---------- */
+let toT = null;
+function toast(m){
+  const tt = TITLES.filter(t => t[0] <= m).pop()[1];
+  $("#toM").textContent = m; $("#toT").textContent = m === 80 ? "도감 완성!" : "도감 " + m + "칸 달성!";
+  $("#toS").textContent = "새 칭호 · " + tt;
+  const t = $("#toast"); t.classList.add("on"); sfx.mile();
+  clearTimeout(toT); toT = setTimeout(() => t.classList.remove("on"), 4200);
 }
 
 /* ---------- render ---------- */
 let tab = "전체";
-function counts(){
-  let c = 0, s = 0;
-  D.forEach(e => { if (state[e.no] === 2) c++; else if (state[e.no] === 1) s++; });
-  return {c, s};
-}
-function renderProg(){
+function renderCover(){
   const {c, s} = counts();
-  const L = 2 * Math.PI * 43;
-  $("#rCf").style.strokeDasharray = L; $("#rSn").style.strokeDasharray = L;
+  const L = 2 * Math.PI * 44;
+  ["#rCf", "#rSn"].forEach(id => $(id).style.strokeDasharray = L);
   $("#rCf").style.strokeDashoffset = L * (1 - c / 80);
   $("#rSn").style.strokeDashoffset = L * (1 - (c + s) / 80);
-  $("#rNum").textContent = c;
-  $("#nC").textContent = c + " / 80"; $("#nS").textContent = s; $("#nL").textContent = 80 - c - s;
+  countUp($("#rNum"), c);
+  $("#nC").textContent = c; $("#nS").textContent = s; $("#nL").textContent = 80 - c - s;
+  const cur = TITLES.filter(t => t[0] <= c).pop(), nx = TITLES.find(t => t[0] > c);
+  $("#title").textContent = cur[1];
+  $("#nextT").textContent = nx ? "다음 칭호 「" + nx[1] + "」까지 " + (nx[0] - c) + "칸" : "";
   $("#champ").classList.toggle("on", c === 80);
-}
-function renderTabs(){
-  const t = $("#tabs"); t.innerHTML = "";
-  ["전체", ...TC].forEach(k => {
-    const list = k === "전체" ? D : D.filter(e => (k === "전설" ? e.grade === "전설" : e.type === k && e.grade !== "전설"));
-    const got = list.filter(e => state[e.no]).length;
-    const b = el("button","tab",(k==="전체"?"":"<i class='dot' style='background:var(--t-"+k+")'></i>")+k+" <i>"+got+"/"+list.length+"</i>");
-    b.setAttribute("role","tab"); b.setAttribute("aria-selected", k === tab);
+  const md = $("#medals"); md.innerHTML = "";
+  const mk = (k, label, list, cls) => {
+    const got = list.filter(e => v(e.no) === 2).length;
+    const b = document.createElement("button");
+    b.className = "medal " + (cls || "") + (got === list.length ? " full" : "");
+    b.style.setProperty("--p", got / list.length);
+    if (k !== "전체") b.style.setProperty("--tc", "var(--t-" + k + ")");
+    b.setAttribute("aria-pressed", tab === k);
+    b.setAttribute("aria-label", label + " " + got + "/" + list.length + " 보기");
+    b.innerHTML = "<span class='hx'><i>" + (k === "전체" ? "ALL" : k === "어둠" ? "暗" : k === "전설" ? "傳" : k) + "</i></span><small>" + got + "/" + list.length + "</small>";
     b.onclick = () => { tab = k; render(); };
-    t.append(b);
-  });
+    md.append(b);
+  };
+  mk("전체", "전체", D, "all");
+  TC.forEach(k => mk(k, k, D.filter(e => key(e) === k)));
+}
+function countUp(el, to){
+  const from = +el.textContent || 0;
+  if (from === to || RM){ el.textContent = to; return; }
+  const t0 = performance.now();
+  const f = t => { const p = Math.min(1, (t - t0) / 900); el.textContent = Math.round(from + (to - from) * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(f); };
+  requestAnimationFrame(f);
 }
 function cardHTML(e){
-  const v = state[e.no] || 0;
-  const cls = v === 2 ? "c" : v === 1 ? "s" : "u";
-  const img = v ? "<img src='img/"+e.img+".webp' alt='"+(v===2?esc(e.name):"목격한 소환수의 흐린 모습")+"' loading='lazy' width='480' height='360'>" : "";
-  const nm = v ? esc(e.name) : "???";
-  const label = v === 2 ? "확인" : v === 1 ? "목격" : "미발견";
-  return "<span class='ph'>"+img+"</span><span class='st'>"+label+"</span><span class='nm'>"+nm+"<small>No."+String(e.no).padStart(2,"0")+" · "+ST[e.stage-1]+"</small></span>";
+  const x = v(e.no), cls = x === 2 ? "c" : x === 1 ? "s" : "u";
+  const img = x ? "<img src='img/" + e.img + ".webp' alt='" + (x === 2 ? esc(e.name) : "목격한 소환수의 흐린 모습") + "' loading='lazy' width='480' height='360'>" : "";
+  const nm = x ? esc(e.name) : "???";
+  const sub = e.grade === "전설" ? "전설" : ST[e.stage - 1];
+  return "<span class='in'><span class='ph'>" + img + (x === 0 ? "<b>" + pad(e.no) + "</b>" : x === 1 ? "<b>?</b>" : "") + "<span class='foil'></span></span>" +
+    "<span class='no'>No." + pad(e.no) + "</span>" + (x === 2 && !(S[e.no] && S[e.no].n) ? "<span class='chk' aria-hidden='true'>✓</span>" : "") +
+    (S[e.no] && S[e.no].n ? "<span class='newb'>NEW</span>" : "") +
+    "<span class='nm'>" + nm + "<small>" + sub + (x === 1 ? " · 목격" : x === 0 ? " · 미발견" : "") + "</small></span></span>";
 }
-function render(fresh){
-  renderProg(); renderTabs();
-  const g = $("#grid"); g.innerHTML = "";
-  const fams = {};
-  D.forEach(e => (fams[e.fam] = fams[e.fam] || []).push(e));
-  Object.keys(fams).map(Number).sort((a,b)=>a-b).forEach(fi => {
-    const list = fams[fi]; const f0 = list[0];
-    const key = f0.grade === "전설" ? "전설" : f0.type;
-    if (tab !== "전체" && tab !== key) return;
-    const got = list.filter(e => state[e.no]===2).length;
-    const p = el("article","fam"+(got===list.length?" done":""));
-    p.style.setProperty("--tc","var(--t-"+key+")");
-    const ttl = list.map(e => state[e.no] ? e.name : "???").join(" → ");
-    p.innerHTML = "<header><h3><em>"+String(fi).padStart(2,"0")+"</em><span style='overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>"+esc(f0.grade==="전설" ? (state[f0.no]? f0.name : "전설") : ttl)+"</span></h3><span class='tg'>"+key+(f0.grade!=="일반"&&f0.grade!=="전설"?" · "+f0.grade:"")+"</span></header>";
-    const cs = el("div","cards");
-    if (f0.grade === "전설"){ cs.style.gridTemplateColumns = "1fr"; cs.style.maxWidth = "170px"; }
-    list.forEach(e => {
-      const v = state[e.no] || 0;
-      const b = el("button","card "+(v===2?"c":v===1?"s":"u")+(fresh && fresh.includes(e.no)?" new":""),cardHTML(e));
-      b.setAttribute("aria-label", (v? e.name : "미발견")+" "+ST[e.stage-1]+" 상세");
-      b.onclick = () => openMd(e, b);
-      cs.append(b);
+function render(fresh, newDone){
+  fresh = fresh || []; newDone = newDone || [];
+  renderCover();
+  const book = $("#book"); book.innerHTML = "";
+  const {c, s} = counts();
+  if (c + s === 0){
+    const em = document.createElement("div"); em.className = "empty";
+    em.innerHTML = "<b>아직 비어 있는 도감</b>입학 소환에서 첫 파트너를 만나면 채팅에 코드가 나옵니다. 그 코드를 위에 붙여넣으면 첫 페이지가 채워져요.";
+    book.append(em);
+  }
+  TC.forEach((k, ci) => {
+    if (tab !== "전체" && tab !== k) return;
+    const list = D.filter(e => key(e) === k);
+    const got = list.filter(e => v(e.no) === 2).length;
+    const ch = document.createElement("section"); ch.className = "chap"; ch.style.setProperty("--tc", "var(--t-" + k + ")");
+    ch.innerHTML = "<div class='chap-h'><span class='rn'>CHAPTER " + RN[ci] + "</span><h2>" + (k === "전설" ? "전설" : k + " 속성") + "<small>" + (k === "전설" ? "두 존재의 기록" : [...new Set(list.map(e => e.fam))].length + "계열") + "</small></h2><span class='pc'>" + got + " / " + list.length + "</span><div class='bar2' style='--p:" + (got / list.length) + "'><i></i></div></div>";
+    const grid = document.createElement("div"); grid.className = "fams";
+    const fams = [...new Set(list.map(e => e.fam))];
+    fams.forEach(fi => {
+      const fl = D.filter(e => e.fam === fi), f0 = fl[0];
+      const done = fl.every(e => v(e.no) === 2);
+      const p = document.createElement("article"); p.className = "fam" + (done ? " done" : "");
+      p.style.setProperty("--tc", "var(--t-" + key(f0) + ")");
+      const ttl = f0.grade === "전설" ? (v(f0.no) ? esc(f0.name) : "<span class='q'>???</span>") :
+        fl.map(e => v(e.no) ? esc(e.name) : "<span class='q'>???</span>").join(" <span class='q'>›</span> ");
+      p.innerHTML = "<header><span class='fn'>" + String(fi).padStart(2, "0") + "</span><h3>" + ttl + "</h3><span class='gr " + f0.grade + "'>" + f0.grade + "</span></header>" +
+        (done ? "<div class='wax" + (newDone.includes(fi) ? " drop" : "") + "' aria-label='계열 완성'><span class='w'></span><b>완성</b></div>" : "");
+      const sl = document.createElement("div"); sl.className = "slots" + (f0.grade === "전설" ? " leg" : "");
+      fl.forEach(e => {
+        const x = v(e.no);
+        const b = document.createElement("button");
+        b.className = "card " + (x === 2 ? "c" : x === 1 ? "s" : "u") + " g-" + e.grade + " st" + e.stage + (fresh.includes(e.no) ? " fresh" : "");
+        b.style.setProperty("--tc", "var(--t-" + key(e) + ")");
+        b.dataset.no = e.no;
+        b.setAttribute("aria-label", "No." + pad(e.no) + " " + (x ? e.name : "미발견") + " " + (x === 2 ? "확인" : x === 1 ? "목격" : "") + " 상세 보기");
+        b.innerHTML = cardHTML(e);
+        b.onclick = () => openMd(e.no, b);
+        sl.append(b);
+      });
+      p.append(sl); grid.append(p);
     });
-    p.append(cs);
-    g.append(p);
+    ch.append(grid); book.append(ch);
   });
-  if (fresh && fresh.length){
-    const first = g.querySelector(".card.new"); if (first) first.scrollIntoView({block:"center", behavior: matchMedia("(prefers-reduced-motion:reduce)").matches ? "auto":"smooth"});
+  if (fresh.length){
+    const f = book.querySelector(".card.fresh");
+    if (f) f.scrollIntoView({block: "center", behavior: RM ? "auto" : "smooth"});
+    if (newDone.length) setTimeout(() => sfx.stamp(), 300);
   }
 }
 
-/* ---------- modal ---------- */
-let lastFocus = null;
-function openMd(e, from){
-  lastFocus = from;
-  const v = state[e.no] || 0;
-  const key = e.grade === "전설" ? "전설" : e.type;
-  const d = $("#dlg"); d.style.setProperty("--tc","var(--t-"+key+")");
-  const line = e.line.map((n,i) => "<span class='"+(i===e.stage-1?"cur":"")+"'>"+(state[D.find(x=>x.fam===e.fam&&x.name===n).no]?esc(n):"???")+"</span>").join(" <span>→</span> ");
-  const code = "AC·"+e.base+"·"+e.stage+"C";
-  let body;
-  if (v === 2){
-    body = "<p class='desc'>"+esc(e.desc)+"</p>" + (e.moves? "<div class='mv'><b>고유기</b>"+esc(e.moves)+"</div>" : "");
-  } else if (v === 1){
-    body = "<p class='lock'>멀리서 모습만 확인했습니다. 계약하거나 진화시켜 직접 확인하면 정보가 열립니다.</p>";
-  } else {
-    body = "<p class='lock'>아직 만난 적 없는 소환수입니다.</p>";
+/* card tilt + foil follow */
+$("#book").addEventListener("pointermove", ev => {
+  const c = ev.target.closest(".card.c"); if (!c || RM) return;
+  const r = c.getBoundingClientRect(), px = (ev.clientX - r.left) / r.width, py = (ev.clientY - r.top) / r.height;
+  c.style.setProperty("--ry", (px - .5) * 14 + "deg"); c.style.setProperty("--rx", (.5 - py) * 14 + "deg");
+  c.style.setProperty("--mx", px * 100 + "%"); c.style.setProperty("--my", py * 100 + "%");
+});
+$("#book").addEventListener("pointerout", ev => {
+  const c = ev.target.closest(".card.c"); if (!c || c.contains(ev.relatedTarget)) return;
+  c.style.setProperty("--rx", "0deg"); c.style.setProperty("--ry", "0deg");
+});
+
+/* ---------- dex page (modal) ---------- */
+let curNo = null, lastFocus = null;
+function radar(e){
+  const lab = ["HP","공격","방어","특공","특방","속도"], cx = 75, cy = 75, R = 58;
+  const leg = e.grade === "전설";
+  const vals = e.stats.map(s => leg ? s : Math.floor(s * MUL[e.stage - 1]));
+  const max = leg ? Math.max(...vals) : 182;
+  const pt = (i, r) => { const a = -Math.PI / 2 + i * Math.PI / 3; return [cx + Math.cos(a) * r, cy + Math.sin(a) * r]; };
+  let g = "";
+  [1, .66, .33].forEach(k => g += "<polygon class='grid' points='" + lab.map((_, i) => pt(i, R * k).join(",")).join(" ") + "'/>");
+  lab.forEach((_, i) => { const [x, y] = pt(i, R); g += "<line class='grid' x1='75' y1='75' x2='" + x + "' y2='" + y + "'/>"; });
+  const shp = "<polygon class='shape' points='" + vals.map((s, i) => pt(i, R * Math.min(1, s / max)).join(",")).join(" ") + "'/>";
+  const tx = lab.map((l, i) => { const [x, y] = pt(i, R + 12); return "<text x='" + x + "' y='" + (y + 3) + "' text-anchor='middle'>" + l + "</text>"; }).join("");
+  const dl = lab.map((l, i) => "<dt>" + l + "</dt><dd><span class='b'><i style='width:" + Math.min(100, vals[i] / max * 100) + "%;animation-delay:" + (i * 60) + "ms'></i></span></dd><dd class='v'>" + vals[i] + "</dd>").join("");
+  return "<div class='stats'><svg viewBox='0 0 150 150' role='img' aria-label='능력치 그래프'>" + g + shp + tx + "</svg><dl>" + dl + "</dl></div>";
+}
+function openMd(no, from){
+  if (from) lastFocus = from;
+  curNo = no;
+  const e = byNo[no], x = v(no), k = key(e);
+  if (S[no] && S[no].n){ delete S[no].n; save(); const cb = document.querySelector(".card[data-no='" + no + "'] .newb"); if (cb) cb.remove(); }
+  const pg = $("#page"); pg.style.setProperty("--tc", "var(--t-" + k + ")");
+  const fl = D.filter(z => z.fam === e.fam);
+  let evo = "";
+  if (e.grade !== "전설"){
+    const lv = EVO[e.grade];
+    evo = "<div class='evo'>" + fl.map((z, i) => {
+      const zx = v(z.no);
+      const btn = "<button class='" + (z.no === no ? "cur " : "") + (zx === 1 ? "s" : "") + "' data-go='" + z.no + "' aria-label='" + (zx ? esc(z.name) : "미발견") + " 보기'>" +
+        (zx ? "<img src='img/" + z.img + ".webp' alt=''>" : "<span class='e'>?</span>") + "<span>" + (zx ? esc(z.name) : "???") + "</span></button>";
+      return btn + (i < 2 ? "<i>Lv" + lv[i] + "<br>▶</i>" : "");
+    }).join("") + "</div>";
   }
-  d.innerHTML = "<div class='pic "+(v===2?"c":v===1?"s":"u")+"'>"+(v?"<img src='img/"+e.img+".webp' alt='"+(v===2?esc(e.name):"목격한 소환수의 흐린 모습")+"'>":"")+(v===2?"":"<span class='q'>?</span>")+"</div>"+
-   "<div class='tx'><span class='no'>No."+String(e.no).padStart(2,"0")+" · "+(e.grade==="전설"?"전설":ST[e.stage-1])+"</span><h2 id='mt'>"+(v?esc(e.name):"???")+"</h2>"+
-   "<div class='tags'><span class='t'>"+key+" 속성</span>"+(e.grade!=="전설"? "<span>"+e.grade+"</span>" : "<span>전설</span>")+(v===2&&e.race?"<span>"+esc(e.race)+" "+e.sex+"</span>":"")+"</div>"+
-   (e.grade!=="전설"?"<div class='line'>진화 <b>"+line+"</b></div>":"")+
-   body+
-   "<p class='line'>코드 <span class='cd'><code>"+esc(code)+"</code></span></p></div>";
-  const md = $("#md"); md.classList.add("on"); md.setAttribute("aria-hidden","false");
-  document.body.style.overflow = "hidden";
+  const art = x === 2 ? "<div class='pg-art'><img src='img/" + e.img + ".webp' alt='" + esc(e.name) + "'></div>"
+    : x === 1 ? "<div class='pg-art s'><img src='img/" + e.img + ".webp' alt='목격한 소환수의 흐린 모습'><span class='q'>?</span></div>"
+    : "<div class='pg-art u'><span class='q'>" + pad(no) + "</span></div>";
+  const status = x === 2 ? "<span class='st c'>확인</span>" : x === 1 ? "<span class='st s'>목격</span>" : "<span class='st'>미발견</span>";
+  let body;
+  if (x === 2){
+    body = "<p class='cat'>" + (e.race ? esc(e.race) + " 소환수 " + e.sex : "전설의 존재") + "</p>" +
+      "<div class='tags'><span class='t'>" + e.type + " 속성</span><span>" + e.grade + "</span><span>" + (e.grade === "전설" ? "최종" : ST[e.stage - 1]) + "</span></div>" +
+      "<p class='dsc'>" + esc(e.desc) + "</p>" +
+      "<div class='blk'><h4>BASE STATS · " + (e.grade === "전설" ? "측정치" : "종족값") + "</h4>" + radar(e) + "</div>" +
+      (e.moves ? "<div class='blk'><h4>SIGNATURE · 고유기</h4><p>" + esc(e.moves) + "</p></div>" : "") +
+      "<div class='meta'><span>등록 " + (S[no].t ? new Date(S[no].t).toLocaleDateString("ko-KR") : "이전 기록") + "</span><span>코드 <code>AC·" + esc(e.base) + "·" + e.stage + "C</code></span></div>";
+  } else if (x === 1){
+    body = "<div class='tags'><span class='t'>" + e.type + " 속성</span><span>" + (e.grade === "전설" ? "전설" : ST[e.stage - 1]) + "</span></div>" +
+      "<div class='lock'>멀리서 모습만 보았습니다. 계약하거나 진화시켜 직접 확인하면 설명·능력치·고유기가 기록됩니다.<div class='bars'><i style='width:92%'></i><i style='width:78%'></i><i style='width:60%'></i></div></div>";
+  } else {
+    body = "<div class='lock'>아직 이 페이지의 주인을 만나지 못했습니다." + (e.grade === "전설" ? " 전설은 3학년이 되기 전엔 소문으로만 전해집니다." : "") + "<div class='bars'><i style='width:88%'></i><i style='width:70%'></i></div></div>";
+  }
+  const idx = D.findIndex(z => z.no === no);
+  pg.innerHTML = "<button class='xbtn' id='mx' aria-label='닫기'>×</button>" +
+    "<div class='pg-l'>" + art + evo + "</div>" +
+    "<div class='pg-r'><div class='pg-no'><span>No." + pad(no) + " · CHAPTER " + RN[TC.indexOf(k)] + "</span>" + status + "</div><h2 id='mt'>" + (x ? esc(e.name) : "???") + "</h2>" + body + "</div>" +
+    "<div class='nav'><button id='pv'" + (idx === 0 ? " disabled" : "") + ">← " + (idx === 0 ? "처음" : "No." + pad(D[idx - 1].no)) + "</button><button id='nx'" + (idx === D.length - 1 ? " disabled" : "") + ">" + (idx === D.length - 1 ? "마지막" : "No." + pad(D[idx + 1].no)) + " →</button></div>";
+  const md = $("#md"); md.classList.add("on"); md.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden";
+  pg.scrollTop = 0;
+  $("#mx").onclick = closeMd;
+  $("#pv").onclick = () => idx > 0 && openMd(D[idx - 1].no);
+  $("#nx").onclick = () => idx < D.length - 1 && openMd(D[idx + 1].no);
+  pg.querySelectorAll("[data-go]").forEach(b => b.onclick = () => openMd(+b.dataset.go));
   $("#mx").focus();
 }
 function closeMd(){
-  const md = $("#md"); md.classList.remove("on"); md.setAttribute("aria-hidden","true");
-  document.body.style.overflow = "";
+  const md = $("#md"); md.classList.remove("on"); md.setAttribute("aria-hidden", "true"); document.body.style.overflow = "";
   if (lastFocus) lastFocus.focus();
 }
+$("#md").addEventListener("click", ev => { if (ev.target.id === "md") closeMd(); });
+document.addEventListener("keydown", ev => {
+  if ($("#rv").classList.contains("on")){
+    if (ev.key === "Escape") end();
+    else if (ev.key === "Enter" || ev.key === " " || ev.key === "ArrowRight"){ ev.preventDefault(); next(); }
+    return;
+  }
+  if (!$("#md").classList.contains("on")) return;
+  const idx = D.findIndex(z => z.no === curNo);
+  if (ev.key === "Escape") closeMd();
+  else if (ev.key === "ArrowLeft" && idx > 0) openMd(D[idx - 1].no);
+  else if (ev.key === "ArrowRight" && idx < D.length - 1) openMd(D[idx + 1].no);
+  else if (ev.key === "Tab"){
+    const f = [...$("#page").querySelectorAll("button:not([disabled])")];
+    if (!f.length) return;
+    const i = f.indexOf(document.activeElement);
+    if (ev.shiftKey && i <= 0){ ev.preventDefault(); f[f.length - 1].focus(); }
+    else if (!ev.shiftKey && i === f.length - 1){ ev.preventDefault(); f[0].focus(); }
+  }
+});
 
 /* ---------- save code ---------- */
 function encode(){
   const b = new Uint8Array(21); let sum = 0;
-  D.forEach((e,i) => { const v = state[e.no] || 0; b[i >> 2] |= v << ((i & 3) * 2); });
+  D.forEach((e, i) => { b[i >> 2] |= v(e.no) << ((i & 3) * 2); });
   for (let i = 0; i < 20; i++) sum = (sum + b[i] * (i + 1)) & 255;
   b[20] = sum;
-  return "ACS1-" + btoa(String.fromCharCode(...b)).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+  return "ACS1-" + btoa(String.fromCharCode(...b)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 function decode(s){
   s = s.trim();
   if (!/^ACS1-[A-Za-z0-9_-]{28}$/.test(s)) return null;
-  let bin; try { bin = atob(s.slice(5).replace(/-/g,"+").replace(/_/g,"/")); } catch(e){ return null; }
+  let bin; try { bin = atob(s.slice(5).replace(/-/g, "+").replace(/_/g, "/")); } catch(e){ return null; }
   if (bin.length !== 21) return null;
   const b = [...bin].map(c => c.charCodeAt(0)); let sum = 0;
   for (let i = 0; i < 20; i++) sum = (sum + b[i] * (i + 1)) & 255;
   if (sum !== b[20]) return null;
   const out = {};
-  D.forEach((e,i) => { const v = (b[i >> 2] >> ((i & 3) * 2)) & 3; if (v === 1 || v === 2) out[e.no] = v; });
+  D.forEach((e, i) => { const x = (b[i >> 2] >> ((i & 3) * 2)) & 3; if (x === 1 || x === 2) out[e.no] = x; });
   return out;
 }
 const tm = (t, c) => { const m = $("#tm"); m.textContent = t; m.className = "msg " + (c || ""); };
@@ -402,55 +852,52 @@ $("#go").onclick = register;
 $("#ta").addEventListener("keydown", ev => { if ((ev.ctrlKey || ev.metaKey) && ev.key === "Enter") register(); });
 $("#clr").onclick = () => { $("#ta").value = ""; $("#log").innerHTML = ""; $("#ta").focus(); };
 document.querySelectorAll(".chip").forEach(c => c.onclick = () => { const t = $("#ta"); t.value = (t.value ? t.value + "\n" : "") + c.dataset.s; t.focus(); });
-$("#mk").onclick = () => { $("#sv").value = encode(); tm("저장 코드를 만들었어요. 복사해서 보관하세요.", "ok"); };
+$("#mk").onclick = () => { $("#sv").setAttribute("readonly", ""); $("#sv").value = encode(); tm("저장 코드를 만들었어요. 복사해서 보관하세요.", "ok"); };
 $("#cp").onclick = async () => {
-  const v = $("#sv").value || (($("#sv").value = encode()));
-  try { await navigator.clipboard.writeText(v); tm("복사했어요.", "ok"); }
-  catch(e){ $("#sv").select(); tm("자동 복사가 막혀 있어요. 선택된 코드를 직접 복사해 주세요."); }
+  const box = $("#sv"); if (!box.value || !box.hasAttribute("readonly")){ box.setAttribute("readonly", ""); box.value = encode(); }
+  try { await navigator.clipboard.writeText(box.value); tm("복사했어요.", "ok"); }
+  catch(e){ box.select(); tm("자동 복사가 막혀 있어요. 선택된 코드를 직접 복사해 주세요."); }
 };
 $("#ld").onclick = () => {
   const box = $("#sv");
-  if (box.hasAttribute("readonly")){
-    box.removeAttribute("readonly"); box.value = ""; box.focus();
-    tm("저장 코드를 붙여넣고 [불러오기]를 한 번 더 누르세요.");
-    return;
-  }
+  if (box.hasAttribute("readonly")){ box.removeAttribute("readonly"); box.value = ""; box.focus(); tm("저장 코드를 붙여넣고 [불러오기]를 한 번 더 누르세요."); return; }
   const o = decode(box.value);
   if (!o){ tm("올바른 저장 코드가 아니에요. 처음부터 끝까지 그대로 붙여넣어 주세요.", "bad"); return; }
   let n = 0;
-  Object.keys(o).forEach(k => { if ((state[k] || 0) < o[k]){ state[k] = o[k]; n++; } });
-  save(); render(); box.setAttribute("readonly",""); tm(n + "칸을 불러와 합쳤어요.", "ok");
+  Object.keys(o).forEach(k => { if (v(k) < o[k]){ S[k] = {v: o[k], t: Date.now()}; n++; } });
+  save(); render(); box.setAttribute("readonly", ""); tm(n + "칸을 불러와 합쳤어요.", "ok");
 };
 let rsArm = false;
 $("#rs").onclick = () => {
   const b = $("#rs");
-  if (!rsArm){ rsArm = true; b.textContent = "정말 초기화? 한 번 더 누르세요"; setTimeout(() => { rsArm = false; b.textContent = "전부 초기화"; }, 4000); return; }
-  state = {}; save(); rsArm = false; b.textContent = "전부 초기화"; render(); tm("도감을 초기화했어요.", "ok");
+  if (!rsArm){ rsArm = true; b.textContent = "정말 초기화? 한 번 더"; setTimeout(() => { rsArm = false; b.textContent = "전부 초기화"; }, 4000); return; }
+  S = {}; save(); rsArm = false; b.textContent = "전부 초기화"; render(); tm("도감을 초기화했어요.", "ok");
 };
-$("#mx").onclick = closeMd;
-$("#md").addEventListener("click", ev => { if (ev.target.id === "md") closeMd(); });
-document.addEventListener("keydown", ev => {
-  if (!$("#md").classList.contains("on")) return;
-  if (ev.key === "Escape") closeMd();
-  if (ev.key === "Tab"){ const f = [...$("#md").querySelectorAll("button")]; if (f.length === 1){ ev.preventDefault(); f[0].focus(); } }
-});
 
 /* ---------- sky ---------- */
 (function(){
-  const c = $("#sky"), x = c.getContext("2d"); let W, H, S = [];
-  function size(){ W = c.width = innerWidth; H = c.height = innerHeight; S = Array.from({length: Math.min(140, W / 9)}, () => ({x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.2+.3, p: Math.random()*6.28})); }
+  const c = $("#sky"), x = c.getContext("2d"); let W, H, st = [], shoot = null;
+  function size(){ W = c.width = innerWidth; H = c.height = innerHeight; st = Array.from({length: Math.min(170, W / 8)}, () => ({x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.2 + .3, p: Math.random() * 6.28})); }
   function draw(t){
-    x.clearRect(0,0,W,H);
-    const g = x.createRadialGradient(W*.8,0,0,W*.8,0,H*.9); g.addColorStop(0,"rgba(80,100,200,.22)"); g.addColorStop(1,"rgba(9,13,31,0)"); x.fillStyle = g; x.fillRect(0,0,W,H);
-    S.forEach(s => { x.globalAlpha = .35 + .35*Math.sin(t/1400 + s.p); x.fillStyle = "#cfd6ff"; x.beginPath(); x.arc(s.x,s.y,s.r,0,6.28); x.fill(); });
+    x.clearRect(0, 0, W, H);
+    let g = x.createRadialGradient(W * .85, H * .05, 0, W * .85, H * .05, H); g.addColorStop(0, "rgba(80,100,210,.22)"); g.addColorStop(1, "rgba(8,11,27,0)"); x.fillStyle = g; x.fillRect(0, 0, W, H);
+    g = x.createRadialGradient(W * .1, H * .9, 0, W * .1, H * .9, H * .8); g.addColorStop(0, "rgba(160,90,200,.12)"); g.addColorStop(1, "rgba(8,11,27,0)"); x.fillStyle = g; x.fillRect(0, 0, W, H);
+    st.forEach(s => { x.globalAlpha = .3 + .4 * Math.sin(t / 1300 + s.p); x.fillStyle = "#d6dcff"; x.beginPath(); x.arc(s.x, s.y, s.r, 0, 6.28); x.fill(); });
     x.globalAlpha = 1;
-    if (!matchMedia("(prefers-reduced-motion:reduce)").matches) requestAnimationFrame(draw);
+    if (!shoot && Math.random() < .004) shoot = {x: Math.random() * W * .8, y: Math.random() * H * .4, l: 0};
+    if (shoot){
+      shoot.l += 14; const gx = x.createLinearGradient(shoot.x, shoot.y, shoot.x + shoot.l, shoot.y + shoot.l * .4);
+      gx.addColorStop(0, "rgba(255,255,255,0)"); gx.addColorStop(1, "rgba(255,245,220,.8)");
+      x.strokeStyle = gx; x.lineWidth = 1.4; x.beginPath(); x.moveTo(shoot.x, shoot.y); x.lineTo(shoot.x + shoot.l, shoot.y + shoot.l * .4); x.stroke();
+      if (shoot.l > 260) shoot = null;
+    }
+    if (!RM) requestAnimationFrame(draw);
   }
   size(); addEventListener("resize", size); requestAnimationFrame(draw);
 })();
 
 load(); render();
-if (mem) tm("이 환경에서는 브라우저 저장이 막혀 있어요. 저장 코드를 직접 보관해 주세요.", "bad");
+if (memOnly) tm("이 환경에서는 브라우저 저장이 막혀 있어요. 저장 코드를 직접 보관해 주세요.", "bad");
 </script>
 </body>
 </html>
