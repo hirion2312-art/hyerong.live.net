@@ -352,6 +352,19 @@ a{color:var(--gold-hi)}
   .continent{grid-template-columns:minmax(0,1fr)}
   .coins i{width:60px;height:60px}
 }
+/* 교수 배지전 */
+.bg-rule{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:22px}
+.bg-rule>div{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:4px}
+.bg-rule b{font-family:var(--f-latin);font-size:30px;color:var(--gold-hi);line-height:1}
+.bg-rule span{color:var(--muted);font-size:14px}
+.bg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.bg-grid article{--c:var(--gold);position:relative;overflow:hidden;border:1px solid color-mix(in srgb,var(--c) 45%,transparent);background:linear-gradient(160deg,color-mix(in srgb,var(--c) 14%,var(--night-2)),var(--night-2));border-radius:16px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.bg-grid i{position:absolute;right:10px;top:-6px;font-style:normal;font-size:84px;line-height:1;color:var(--c);opacity:.16;font-family:var(--f-prose)}
+.bg-grid h3{margin:0;font-size:20px;color:var(--parch)}
+.bg-grid em{font-style:normal;font-size:12px;letter-spacing:.06em;color:var(--c);font-weight:700}
+.bg-grid p{margin:4px 0 0;font-size:14px;color:var(--muted)}
+.bg-grid small{margin-top:auto;padding-top:10px;border-top:1px dashed var(--line-soft);color:var(--parch);font-size:12.5px}
+.bg-note{margin-top:16px;color:var(--dim);font-size:13px;text-align:center}
 </style>
 
 <canvas id="sky" aria-hidden="true"></canvas>
@@ -366,8 +379,9 @@ a{color:var(--gold-hi)}
       <li><a href="#academy"><b>III</b>아카데미</a></li>
       <li><a href="#history"><b>IV</b>연표</a></li>
       <li><a href="#legends"><b>V</b>두 전설</a></li>
-      <li><a href="#cast"><b>VI</b>인물</a></li>
-      <li><a href="#bonds"><b>VII</b>관계</a></li>
+      <li><a href="#badges"><b>VI</b>배지전</a></li>
+      <li><a href="#cast"><b>VII</b>인물</a></li>
+      <li><a href="#bonds"><b>VIII</b>관계</a></li>
     </ol></nav>
   </header>
 
@@ -504,7 +518,7 @@ a{color:var(--gold-hi)}
 
   <!-- V 두 전설 -->
   <section class="chap" id="legends">
-    <div class="chap-head"><span class="chap-num">V</span><h2>빛과 심연, 단 두 존재</h2><p>도감 80칸의 마지막 두 장. 하나는 손에 넣을 수 있고, 하나는 영원히 비어 있다.</p></div>
+    <div class="chap-head"><span class="chap-num">V</span><h2>빛과 심연, 단 두 존재</h2><p>도감 80칸의 마지막 두 장. 300년간 누구도 채우지 못했다. 그리고 두 존재는, 졸업하는 날에야 모습을 드러낸다고 한다.</p></div>
     <div class="legends">
       <article class="leg sun">
         <div class="im"><img src="img/w/solaria.webp" alt="솔라리아"></div>
@@ -513,7 +527,7 @@ a{color:var(--gold-hi)}
           <h3>솔라리아</h3>
           <div class="ep">태양의 성기사</div>
           <p>800년 전 심연 전쟁에서 아비살리아를 봉인한 빛의 소환수. 봉인 이후 섬의 정상, 빛의 성역에서 잠들어 있다. 잠든 채로 봉인을 지탱한다고 전해진다.</p>
-          <dl class="kv"><dt>거처</dt><dd>빛의 성역 (결계로 출입 금지)</dd><dt>계약</dt><dd>가능. 섬의 유일한 포획 가능 전설</dd><dt>조건</dt><dd>칠류 일곱 속성의 시련의 문장을 모두 모은 자만 성역에 들어설 수 있다</dd></dl>
+          <dl class="kv"><dt>거처</dt><dd>빛의 성역 (결계로 출입 금지)</dd><dt>계약</dt><dd>누구와도 맺은 적 없다. 계약도 전투도 허락하지 않는다</dd><dt>소문</dt><dd>졸업하는 학생 앞에서만 잠깐 깨어난다는 이야기가 전해진다</dd></dl>
         </div>
       </article>
       <article class="leg abyss" id="abyss">
@@ -524,7 +538,7 @@ a{color:var(--gold-hi)}
           <h3>아비살리아</h3>
           <div class="ep">심연의 흑기사</div>
           <p>칠류가 아닌 여덟 번째 흐름, 심연에서 태어났다. 땅의 기억이 아니라 세계가 잊고 버린 것들의 기억이 엉겨 생긴 존재. 800년 전 바다 밑 균열에서 나타나 대륙 절반을 어둠에 잠기게 했다.</p>
-          <dl class="kv"><dt>거처</dt><dd>섬 북쪽, 심연의 균열 아래 (봉인)</dd><dt>계약</dt><dd>거부한다. 쓰러뜨리거나 다시 봉인하는 것만 가능</dd><dt>소문</dt><dd>에테르나 섬 전체가 봉인의 뚜껑이라는 이야기</dd></dl>
+          <dl class="kv"><dt>거처</dt><dd>섬 북쪽, 심연의 균열 아래 (봉인)</dd><dt>계약</dt><dd>거부한다. 아직 누구도 맞선 적 없다</dd><dt>소문</dt><dd>에테르나 섬 전체가 봉인의 뚜껑이라는 이야기</dd></dl>
         </div>
       </article>
     </div>
@@ -545,15 +559,35 @@ a{color:var(--gold-hi)}
   </section>
 
   <!-- VI 인물 -->
+  <!-- VI 교수 배지전 -->
+  <section class="chap" id="badges">
+    <div class="chap-head"><span class="chap-num">VI</span><h2>졸업의 조건, 일곱 개의 배지</h2><p>에테르나의 졸업은 시험지가 아니라 승부로 정해진다. 교수 일곱 명과 겨뤄 이기면 그 교수의 배지를 받는다.</p></div>
+    <div class="bg-rule">
+      <div><b>3개</b><span>졸업 자격. 여기까지는 누구나 닿을 수 있다.</span></div>
+      <div><b>7개</b><span>학장 오스왈드의 인정전이 열린다. 이기면 '마스터 졸업'.</span></div>
+      <div><b>80칸</b><span>도감을 모두 채운 학생은 300년간 한 명도 없었다는 소문이다.</span></div>
+    </div>
+    <div class="bg-grid">
+      <article style="--c:var(--t-fire)"><i>火</i><h3>공방장</h3><em>불씨 배지 · 화</em><p>도도하고 여유로운 마도기술자. 말끝을 늘이며 웃는다.</p><small>3턴마다 화 속성 위력 ×1.2</small></article>
+      <article style="--c:var(--t-water)"><i>水</i><h3>엘리노어</h3><em>물방울 배지 · 수</em><p>다정한 보건실 선생. 다친 소환수 앞에선 표정이 변한다.</p><small>매 턴 끝 HP 5% 회복</small></article>
+      <article style="--c:var(--t-wind)"><i>風</i><h3>시엘</h3><em>깃털 배지 · 풍</em><p>신임 비행학 교수. 반말하는 시원한 누나.</p><small>첫 턴 선공</small></article>
+      <article style="--c:var(--t-earth)"><i>地</i><h3>마가렛</h3><em>초석 배지 · 지</em><p>철의 여교수. 엄격하지만 누구보다 공정하다.</p><small>첫 피격 피해 절반</small></article>
+      <article style="--c:var(--t-light)"><i>光</i><h3>레이먼드</h3><em>여명 배지 · 빛</em><p>귀찮아하는 담임. 사실은 교수진 최강.</p><small>마지막 1마리가 위기일 때 능력 상승</small></article>
+      <article style="--c:var(--t-dark)"><i>暗</i><h3>빈센트</h3><em>그믐 배지 · 어둠</em><p>신임 저주학 교수. 음침한 독설가라 흑월회로 오해받는다.</p><small>2턴마다 상대에게 상태이상</small></article>
+      <article style="--c:var(--t-none)"><i>無</i><h3>그레타</h3><em>주먹 배지 · 무</em><p>신임 체력 교관. 호쾌하게 웃고 몸으로 가르친다.</p><small>능력 변화 무효</small></article>
+    </div>
+    <p class="bg-note">오후에 신청하면 순서는 자유. 지면 7일 뒤에 다시 도전할 수 있다. 3대3, 소환수 교체 가능.</p>
+  </section>
+
   <section class="chap" id="cast">
-    <div class="chap-head"><span class="chap-num">VI</span><h2>섬에서 만날 사람들</h2><p>동기 여덟, 선배 여섯, 교수 넷. 카드를 누르면 자세한 소개가 열린다.</p></div>
+    <div class="chap-head"><span class="chap-num">VII</span><h2>섬에서 만날 사람들</h2><p>동기 여덟, 선배 여섯, 교수 넷(나머지 교수 셋은 앞 장에서 소개). 카드를 누르면 자세한 소개가 열린다.</p></div>
     <div class="tabs" id="tabs" role="group" aria-label="인물 분류"></div>
     <div class="cast" id="castgrid"></div>
   </section>
 
   <!-- VII 관계 -->
   <section class="chap" id="bonds">
-    <div class="chap-head"><span class="chap-num">VII</span><h2>얽혀 있는 이름들</h2><p>이름에 마우스를 올리면 그 사람의 관계만 밝아진다. 누르면 인물 소개가 열린다.</p></div>
+    <div class="chap-head"><span class="chap-num">VIII</span><h2>얽혀 있는 이름들</h2><p>이름에 마우스를 올리면 그 사람의 관계만 밝아진다. 누르면 인물 소개가 열린다.</p></div>
     <div class="graph" id="graph"><svg id="gsvg" viewBox="0 0 1000 720" role="group" aria-label="인물 관계도"></svg></div>
     <div class="legend"><span style="--c:var(--sun)"><i></i>해의 동</span><span style="--c:var(--moon)"><i></i>달의 동</span><span style="--c:var(--star)"><i></i>별의 동</span><span style="--c:var(--gold)"><i></i>교수 · 당신</span></div>
   </section>
