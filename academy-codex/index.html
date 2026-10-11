@@ -337,6 +337,118 @@ code{font-family:var(--f-mono);font-size:12.5px;background:rgba(143,162,255,.12)
 #champ b{display:block;font-family:var(--f-latin);letter-spacing:.28em;color:var(--gold-hi);font-size:20px}
 #champ span{color:var(--muted);font-size:14px;font-family:var(--f-book)}
 
+/* ---------- badge hall (교수 배지전) ---------- */
+.bhall{--tc:var(--gold);margin-top:22px;position:relative;border:1px solid var(--line);border-radius:22px;padding:22px clamp(14px,3vw,26px) 24px;overflow:hidden;
+  background:radial-gradient(90% 120% at 50% -10%,rgba(143,162,255,.16),transparent 60%),linear-gradient(180deg,#10173a,#0a0f26)}
+.bhall::before{content:"";position:absolute;inset:8px;border:1px solid rgba(217,178,95,.14);border-radius:15px;pointer-events:none}
+.bh-top{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.bhall h2{font-family:var(--f-book);font-size:21px;font-weight:700;color:var(--gold-hi);display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.bhall h2 span{font-family:var(--f-latin);font-size:10.5px;letter-spacing:.24em;color:var(--gold);font-weight:500}
+.bh-sub{font-size:13.5px;color:var(--muted);margin-top:2px;font-family:var(--f-book)}
+.bh-cnt{font-family:var(--f-latin);font-weight:900;font-size:38px;line-height:1;color:var(--gold-hi);font-variant-numeric:tabular-nums;text-shadow:0 0 24px rgba(244,223,166,.35)}
+.bh-cnt small{font-size:16px;color:var(--dim);font-weight:500;margin-left:3px}
+.track{position:relative;margin:26px 8px 34px;height:10px;border-radius:99px;background:rgba(160,172,230,.12);border:1px solid var(--line-soft)}
+.track .fill{position:absolute;left:0;top:0;bottom:0;border-radius:99px;background:linear-gradient(90deg,#8c6726,#f4dfa6);box-shadow:0 0 14px rgba(244,223,166,.5);width:0;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.track .pip{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;transform:translate(-50%,-50%);background:#0b1027;border:2px solid var(--dim);transition:.5s}
+.track .pip.on{border-color:var(--gold-hi);background:var(--gold);box-shadow:0 0 10px var(--gold)}
+.track .mk{position:absolute;top:18px;transform:translateX(-50%);font-size:11.5px;color:var(--dim);white-space:nowrap;text-align:center;line-height:1.3}
+.track .mk b{display:block;font-weight:700;color:var(--muted);font-size:12px}
+.track .mk.on b{color:var(--gold-hi)}
+.track .mk.on{color:var(--muted)}
+.bstat{margin-top:6px;font-size:14px;color:var(--parch);font-family:var(--f-book);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.bstat .tag{font-family:var(--f-body);font-size:12px;font-weight:700;padding:2px 11px;border-radius:99px;border:1px solid var(--gold);color:var(--gold-hi);background:rgba(217,178,95,.12)}
+.bgrid{margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:12px}
+.bslot{--tc:var(--gold);position:relative;display:grid;justify-items:center;gap:2px;padding:14px 8px 12px;border-radius:16px;border:1px solid var(--line-soft);background:rgba(8,11,27,.55);cursor:pointer;text-align:center;transition:transform .2s,border-color .2s,box-shadow .2s;min-width:0}
+.bslot:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--tc) 60%,transparent)}
+.bslot.on{border-color:color-mix(in srgb,var(--tc) 70%,transparent);background:radial-gradient(90% 70% at 50% 28%,color-mix(in srgb,var(--tc) 22%,transparent),rgba(8,11,27,.6) 72%);box-shadow:0 0 36px -14px var(--tc)}
+.bslot .pn{font-family:var(--f-book);font-weight:700;font-size:15px;color:var(--parch);margin-top:2px}
+.bslot .bn{font-size:12px;color:var(--muted)}
+.bslot .bn i{font-style:normal;color:var(--tc);margin-right:5px}
+.bslot .bs{font-size:11px;margin-top:3px;padding:1px 9px;border-radius:99px;border:1px solid var(--line-soft);color:var(--dim)}
+.bslot.on .bs{border-color:var(--tc);color:var(--tc)}
+.bslot .newb{position:absolute;top:8px;right:8px;font-family:var(--f-latin);font-size:9.5px;font-weight:700;letter-spacing:.1em;padding:1px 7px;border-radius:99px;background:var(--gold);color:var(--ink)}
+.medal2{position:relative;width:96px;aspect-ratio:120/150;--tc:var(--gold)}
+.medal2 svg{width:100%;height:100%;overflow:visible;display:block}
+.medal2 .art{position:absolute;left:16.7%;top:14.7%;width:66.6%;height:53.3%;border-radius:50%;object-fit:cover;pointer-events:none}
+.medal2 .art[hidden]{display:none}
+.medal2.has .gl{display:none}
+.medal2 .gl{font-family:var(--f-book);font-weight:700}
+.medal2.lock svg{filter:grayscale(.85) brightness(.55)}
+.medal2.lock .art{filter:grayscale(1) brightness(.35)}
+.medal2.big2{width:150px}
+.medal2.on svg{filter:drop-shadow(0 6px 14px color-mix(in srgb,var(--tc) 45%,transparent))}
+.medal2.on::after{content:"";position:absolute;left:16.7%;top:14.7%;width:66.6%;height:53.3%;border-radius:50%;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);background-size:260% 100%;background-position:160% 0;animation:sheen 4.2s ease-in-out infinite;mix-blend-mode:soft-light;pointer-events:none}
+@keyframes sheen{0%,55%{background-position:160% 0}100%{background-position:-60% 0}}
+.bslot.drop .medal2{animation:pinDrop 1s cubic-bezier(.2,1.3,.4,1) both}
+@keyframes pinDrop{0%{transform:translateY(-70px) scale(1.6) rotate(-24deg);opacity:0}60%{transform:translateY(4px) scale(.96) rotate(3deg);opacity:1}100%{transform:none}}
+.mstr{--tc:var(--gold-hi);margin-top:14px;position:relative;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;padding:16px 20px;border-radius:18px;border:1px dashed var(--line);background:rgba(8,11,27,.5);cursor:pointer;text-align:left;width:100%;transition:.25s}
+.mstr:hover{border-color:var(--gold)}
+.mstr.open{border:1px solid var(--gold);background:linear-gradient(110deg,rgba(217,178,95,.18),rgba(143,162,255,.1));animation:pulse 3s ease-in-out infinite}
+.mstr.on{border:1px solid var(--gold-hi);background:linear-gradient(110deg,rgba(217,178,95,.3),rgba(143,162,255,.14),rgba(217,178,95,.3));background-size:200% 100%;animation:shim 6s linear infinite}
+@keyframes pulse{50%{box-shadow:0 0 34px -6px rgba(217,178,95,.55)}}
+.mstr .mt{font-family:var(--f-latin);letter-spacing:.2em;font-size:10.5px;color:var(--gold)}
+.mstr .mn{font-family:var(--f-book);font-weight:700;font-size:19px;color:var(--gold-hi)}
+.mstr .md2{font-size:13px;color:var(--muted)}
+.mstr .mb{font-size:12px;font-weight:700;padding:3px 13px;border-radius:99px;border:1px solid var(--line-soft);color:var(--dim);white-space:nowrap}
+.mstr.open .mb,.mstr.on .mb{border-color:var(--gold);color:var(--gold-hi)}
+.mstr .medal2{width:74px}
+.bm-art{position:relative;border-radius:14px;overflow:hidden;border:2px solid color-mix(in srgb,var(--tc) 70%,transparent);box-shadow:0 0 50px -16px var(--tc);aspect-ratio:4/3;background:radial-gradient(80% 80% at 50% 40%,color-mix(in srgb,var(--tc) 28%,#0b1027),#0b1027)}
+.bm-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.bm-art .ph{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:6px;text-align:center}
+.bm-art .ph b{font-family:var(--f-book);font-size:86px;line-height:1;color:color-mix(in srgb,var(--tc) 55%,transparent)}
+.bm-art .ph span{font-size:12px;color:var(--dim)}
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.team figure{margin:0;border:1px solid var(--line-soft);border-radius:10px;overflow:hidden;background:#0b1027;position:relative}
+.team figure img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.team figcaption{font-size:11.5px;text-align:center;padding:3px 4px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.team figure.ace{border-color:var(--tc);box-shadow:0 0 14px -4px var(--tc)}
+.team figure.ace::after{content:"ACE";position:absolute;top:4px;left:4px;font-family:var(--f-latin);font-size:9px;font-weight:700;letter-spacing:.12em;padding:0 6px;border-radius:99px;background:var(--tc);color:var(--ink)}
+.quote{font-family:var(--f-book);font-size:16px;line-height:1.75;color:var(--parch);border-left:2px solid color-mix(in srgb,var(--tc) 60%,transparent);padding-left:12px}
+.rules{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.rules li{display:flex;gap:8px;font-size:13.5px;color:var(--muted)}
+.rules li b{flex:none;min-width:62px;color:var(--tc);font-weight:700}
+#bv{position:fixed;inset:0;z-index:80;display:none;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 46%,#1a2150,#050714 72%)}
+#bv.on{display:grid}
+#bv .rays{position:absolute;left:50%;top:44%;width:150vmax;height:150vmax;margin:-75vmax 0 0 -75vmax;background:repeating-conic-gradient(from 0deg,color-mix(in srgb,var(--tc) 28%,transparent) 0 6deg,transparent 6deg 18deg);-webkit-mask:radial-gradient(circle,#000 0,transparent 55%);mask:radial-gradient(circle,#000 0,transparent 55%);opacity:0}
+#bv.play .rays{animation:rays 5s ease-out forwards}
+@keyframes rays{0%{opacity:0;transform:rotate(0) scale(.4)}20%{opacity:.9}100%{opacity:.35;transform:rotate(50deg) scale(1)}}
+#bv .stage{position:relative;display:grid;justify-items:center;gap:8px;text-align:center;padding:20px}
+#bv .bt{font-family:var(--f-latin);letter-spacing:.34em;font-size:12px;color:var(--tc);opacity:0}
+#bv.play .bt{animation:fadeUp .8s .2s ease-out forwards}
+#bv .bm{width:min(230px,52vw);opacity:0}
+#bv .bm .medal2{width:100%}
+#bv.play .bm{animation:medalIn 1.6s .5s cubic-bezier(.2,1.2,.3,1) forwards}
+@keyframes medalIn{0%{opacity:0;transform:translateY(-120px) scale(2.2) rotateY(540deg)}55%{opacity:1;transform:translateY(8px) scale(.94) rotateY(0)}75%{transform:scale(1.04)}100%{opacity:1;transform:none}}
+#bv .bf{position:absolute;left:50%;top:44%;width:30px;height:30px;margin:-15px;border-radius:50%;background:#fff;opacity:0;pointer-events:none}
+#bv.play .bf{animation:flash2 .9s 1.5s ease-out}
+@keyframes flash2{0%{opacity:0;transform:scale(1)}20%{opacity:.9}100%{opacity:0;transform:scale(60)}}
+#bv .bp{font-family:var(--f-book);font-weight:700;font-size:clamp(26px,5vw,38px);color:var(--gold-hi);margin-top:6px;opacity:0}
+#bv .bb{font-size:15px;color:var(--muted);opacity:0}
+#bv .bq{font-family:var(--f-book);font-size:15px;color:var(--parch);max-width:30ch;opacity:0;margin-top:4px}
+#bv.play .bp{animation:fadeUp .8s 2.1s ease-out forwards}
+#bv.play .bb{animation:fadeUp .8s 2.4s ease-out forwards}
+#bv.play .bq{animation:fadeUp .8s 2.8s ease-out forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+#bv .pt{position:absolute;left:50%;top:44%;border-radius:50%;background:var(--pc,var(--tc));opacity:0;pointer-events:none}
+#bv.play .pt{animation:burst var(--d,1.4s) 1.5s cubic-bezier(.1,.8,.3,1) forwards}
+@keyframes burst{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.2)}}
+#bv .ctrl{position:absolute;left:0;right:0;bottom:calc(22px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;gap:12px;align-items:center}
+#bv .ctrl .pg{font-family:var(--f-mono);font-size:12px;color:var(--dim)}
+#bv .ctrl button{border:1px solid var(--line);background:rgba(217,178,95,.12);color:var(--gold-hi);border-radius:999px;padding:7px 20px;cursor:pointer;font-weight:700;font-size:13.5px}
+#bv .ctrl .sk{background:none;border-color:var(--line-soft);color:var(--muted);font-weight:400}
+.dot.b{background:#ffd56b;box-shadow:0 0 8px #ffd56b}
+.gradchip{display:none;font-size:12px;font-weight:700;padding:2px 11px;border-radius:99px;border:1px solid var(--ok);color:var(--ok);margin-left:4px}
+.gradchip.on{display:inline-block}
+.gradchip.m{border-color:var(--gold-hi);color:var(--gold-hi);background:rgba(217,178,95,.14)}
+@media (max-width:760px){
+  .mstr{grid-template-columns:auto 1fr;}
+  .mstr .mb{grid-column:1/-1;justify-self:start}
+  .medal2{width:84px}
+  .track .mk{font-size:10.5px}
+  .track .mk.e{transform:translateX(-82%);text-align:right}
+  #toast{border-radius:22px;width:calc(100vw - 32px)}
+}
+
 @media (max-width:760px){
   .brand small{display:none}
   .cover{grid-template-columns:1fr;justify-items:center;text-align:center;gap:18px}
@@ -382,7 +494,7 @@ code{font-family:var(--f-mono);font-size:12.5px;background:rgba(143,162,255,.12)
       <small>CODEX · HALL OF RECORDS</small>
       <h1>에테르나 도감 회랑</h1>
       <div class="rank"><span>칭호</span><span class="tt" id="title">신입 기록생</span><span class="nx" id="nextT"></span></div>
-      <div class="cnts" aria-live="polite"><span><i class="dot c"></i>확인<b id="nC">0</b></span><span><i class="dot s"></i>목격<b id="nS">0</b></span><span><i class="dot u"></i>미발견<b id="nL">80</b></span></div>
+      <div class="cnts" aria-live="polite"><span><i class="dot c"></i>확인<b id="nC">0</b></span><span><i class="dot s"></i>목격<b id="nS">0</b></span><span><i class="dot u"></i>미발견<b id="nL">80</b></span><span><i class="dot b"></i>배지<b id="nB">0</b>/7</span><span id="grad" class="gradchip">🎓 졸업 가능</span></div>
       <div class="medals" id="medals" role="group" aria-label="속성별 보기"></div>
     </div>
   </section>
@@ -391,13 +503,24 @@ code{font-family:var(--f-mono);font-size:12.5px;background:rgba(143,162,255,.12)
 
   <section class="entry" aria-labelledby="eh">
     <h2 id="eh">도감 등록 <span>REGISTER</span></h2>
-    <p class="how">채팅에서 <b>📖 도감 등록!</b> 옆에 나온 🔑 코드를 붙여넣으세요. <code>AC·이름·단계C</code>는 직접 확인, <code>…S</code>는 목격입니다. 채팅 문장째 붙여넣어도, 여러 개를 한 번에 넣어도 됩니다.</p>
+    <p class="how">채팅에서 <b>📖 도감 등록!</b> · <b>🏅 배지 획득!</b> 옆에 나온 🔑 코드를 붙여넣으세요. <code>AC·이름·단계C</code>는 직접 확인, <code>…S</code>는 목격, <code>BG·교수이름</code>은 배지입니다. 채팅 문장째 붙여넣어도, 여러 개를 한 번에 넣어도 됩니다.</p>
     <div class="inrow">
-      <textarea id="ta" spellcheck="false" placeholder="예) 📖 도감 등록! 🔑AC·위카·1C" aria-label="도감 코드"></textarea>
+      <textarea id="ta" spellcheck="false" placeholder="예) 📖 도감 등록! 🔑AC·위카·1C  /  🏅 배지 획득! 🔑BG·엘리노어" aria-label="도감 코드"></textarea>
       <button class="seal-btn" id="go"><small>SEAL</small>등록하기</button>
     </div>
-    <div class="row">예시 <button class="chip" data-s="AC·위카·1C">AC·위카·1C</button><button class="chip" data-s="AC·플린트·2S">AC·플린트·2S</button><button class="chip" data-s="AC·솔라리아·3C">AC·솔라리아·3C</button> · <button class="lnk" id="clr">지우기</button></div>
+    <div class="row">예시 <button class="chip" data-s="AC·위카·1C">AC·위카·1C</button><button class="chip" data-s="AC·플린트·2S">AC·플린트·2S</button><button class="chip" data-s="AC·솔라리아·3S">AC·솔라리아·3S</button><button class="chip" data-s="BG·엘리노어">BG·엘리노어</button><button class="chip" data-s="BG·학장">BG·학장</button> · <button class="lnk" id="clr">지우기</button></div>
     <div id="log" role="status" aria-live="polite"></div>
+  </section>
+
+  <section class="bhall" id="bhall" aria-labelledby="bh">
+    <div class="bh-top">
+      <div><h2 id="bh">배지 회랑 <span>BADGE HALL</span></h2><p class="bh-sub">일곱 교수에게 배지를 받으세요. 3개면 졸업, 7개를 모으면 학장 인정전이 열립니다.</p></div>
+      <div class="bh-cnt" id="bhCnt" aria-live="polite">0<small>/ 7</small></div>
+    </div>
+    <div class="track" role="img" aria-label="배지 진행도"><div class="fill" id="tkFill"></div><div id="tkPips"></div></div>
+    <p class="bstat" id="bStat"></p>
+    <div class="bgrid" id="bGrid"></div>
+    <button class="mstr" id="bMaster" type="button"></button>
   </section>
 
   <main id="book"></main>
@@ -444,12 +567,18 @@ code{font-family:var(--f-mono);font-size:12.5px;background:rgba(143,162,255,.12)
 
 <div id="toast" role="status" aria-live="polite"><span class="tm" id="toM">10</span><div><b id="toT"></b><span id="toS"></span></div></div>
 
+<div id="bv" aria-hidden="true" role="dialog" aria-label="배지 획득">
+  <div class="rays"></div><div class="bf"></div>
+  <div class="stage"><p class="bt" id="bvT">BADGE EARNED</p><div class="bm" id="bvM"></div><h2 class="bp" id="bvP"></h2><p class="bb" id="bvB"></p><p class="bq" id="bvQ"></p></div>
+  <div class="ctrl"><span class="pg" id="bvPg">1 / 1</span><button id="bvNext">다음</button><button class="sk" id="bvSkip">건너뛰기</button></div>
+</div>
+
 <div id="md" role="dialog" aria-modal="true" aria-labelledby="mt" aria-hidden="true">
   <div class="page" id="page"></div>
 </div>
 
 <script>
-const D = [{"no":1,"fam":1,"stage":1,"name":"위카","base":"위카","line":["위카","탤로윈","칸델라리아"],"type":"화","grade":"일반","race":"촛불족","sex":"♀","desc":"머리 불꽃이 감정 따라 색이 바뀌고 촛농으로 응급 치료. 겁 많은 울보→지킬 때 용기 내는 수호자. \"저, 저기… 괜찮아요?\"","moves":"촛불 점화(💫40|15 화상10%), 촛농 붕대(✨|5 HP 25% 회복)","img":"011","stats":[70,45,70,85,100,70]},{"no":2,"fam":1,"stage":2,"name":"탤로윈","base":"위카","line":["위카","탤로윈","칸델라리아"],"type":"화","grade":"일반","race":"촛불족","sex":"♀","desc":"머리 불꽃이 감정 따라 색이 바뀌고 촛농으로 응급 치료. 겁 많은 울보→지킬 때 용기 내는 수호자. \"저, 저기… 괜찮아요?\"","moves":"밀랍 방벽(✨|5 2턴 받는 피해 절반)","img":"012","stats":[70,45,70,85,100,70]},{"no":3,"fam":1,"stage":3,"name":"칸델라리아","base":"위카","line":["위카","탤로윈","칸델라리아"],"type":"화","grade":"일반","race":"촛불족","sex":"♀","desc":"머리 불꽃이 감정 따라 색이 바뀌고 촛농으로 응급 치료. 겁 많은 울보→지킬 때 용기 내는 수호자. \"저, 저기… 괜찮아요?\"","moves":"백촛불 성가(💫100|3 아군 HP 30% 회복)","img":"013","stats":[70,45,70,85,100,70]},{"no":4,"fam":2,"stage":1,"name":"플린트","base":"플린트","line":["플린트","템퍼","벌크란"],"type":"화","grade":"일반","race":"화덕도마뱀족","sex":"♂","desc":"꼬리 불로 금속을 달궈 장비 강화. 무뚝뚝한 일벌레, 칭찬에 약함→등을 맡기는 장인. \"…흥, 맡겨 둬.\"","moves":"불씨 망치(⚔️45|15 화상10%), 달군 비늘(✨|10 방어+1)","img":"021","stats":[65,110,80,45,55,85]},{"no":5,"fam":2,"stage":2,"name":"템퍼","base":"플린트","line":["플린트","템퍼","벌크란"],"type":"화","grade":"일반","race":"화덕도마뱀족","sex":"♂","desc":"꼬리 불로 금속을 달궈 장비 강화. 무뚝뚝한 일벌레, 칭찬에 약함→등을 맡기는 장인. \"…흥, 맡겨 둬.\"","moves":"담금질(✨|5 공격+2)","img":"022","stats":[65,110,80,45,55,85]},{"no":6,"fam":2,"stage":3,"name":"벌크란","base":"플린트","line":["플린트","템퍼","벌크란"],"type":"화","grade":"일반","race":"화덕도마뱀족","sex":"♂","desc":"꼬리 불로 금속을 달궈 장비 강화. 무뚝뚝한 일벌레, 칭찬에 약함→등을 맡기는 장인. \"…흥, 맡겨 둬.\"","moves":"용광로 강타(⚔️110|3 화상30%)","img":"023","stats":[65,110,80,45,55,85]},{"no":7,"fam":3,"stage":1,"name":"애시윙","base":"애시윙","line":["애시윙","신드라","파이어룬"],"type":"화","grade":"희귀","race":"불나방족","sex":"♀","desc":"날개 가루로 폭발과 환각, 불빛에 홀림. 변덕스러운 장난꾼→매력을 무기로 아는 요부. \"어머, 불빛이 예쁘다~\" 불빛에 홀림.","moves":"불가루(💫45|15), 홀림 인분(✨|8 혼란)","img":"031","stats":[65,50,65,120,85,105]},{"no":8,"fam":3,"stage":2,"name":"신드라","base":"애시윙","line":["애시윙","신드라","파이어룬"],"type":"화","grade":"희귀","race":"불나방족","sex":"♀","desc":"날개 가루로 폭발과 환각, 불빛에 홀림. 변덕스러운 장난꾼→매력을 무기로 아는 요부. \"어머, 불빛이 예쁘다~\" 불빛에 홀림.","moves":"인분 폭발(💫80|8)","img":"032","stats":[65,50,65,120,85,105]},{"no":9,"fam":3,"stage":3,"name":"파이어룬","base":"애시윙","line":["애시윙","신드라","파이어룬"],"type":"화","grade":"희귀","race":"불나방족","sex":"♀","desc":"날개 가루로 폭발과 환각, 불빛에 홀림. 변덕스러운 장난꾼→매력을 무기로 아는 요부. \"어머, 불빛이 예쁘다~\" 불빛에 홀림.","moves":"염린 무도(💫120|3 화상50%)","img":"033","stats":[65,50,65,120,85,105]},{"no":10,"fam":4,"stage":1,"name":"신다","base":"신다","line":["신다","옵시드라","칼데리아"],"type":"화","grade":"영웅","race":"화산용족","sex":"♀","desc":"흑요석 뿔, 피부 아래 용암 혈관, 분노하면 체온 폭주. 오만한 귀족 기질→인정한 상대엔 다정한 여제. \"무릎 꿇어라, 인간.\" 유대 80+면 존댓말로 바뀜.","moves":"흑요석 뿔(⚔️50|15), 용암 혈류(✨|5 공격+2 방어-1)","img":"041","stats":[85,130,90,80,70,85]},{"no":11,"fam":4,"stage":2,"name":"옵시드라","base":"신다","line":["신다","옵시드라","칼데리아"],"type":"화","grade":"영웅","race":"화산용족","sex":"♀","desc":"흑요석 뿔, 피부 아래 용암 혈관, 분노하면 체온 폭주. 오만한 귀족 기질→인정한 상대엔 다정한 여제. \"무릎 꿇어라, 인간.\" 유대 80+면 존댓말로 바뀜.","moves":"분화 돌진(⚔️90|8 화상20%)","img":"042","stats":[85,130,90,80,70,85]},{"no":12,"fam":4,"stage":3,"name":"칼데리아","base":"신다","line":["신다","옵시드라","칼데리아"],"type":"화","grade":"영웅","race":"화산용족","sex":"♀","desc":"흑요석 뿔, 피부 아래 용암 혈관, 분노하면 체온 폭주. 오만한 귀족 기질→인정한 상대엔 다정한 여제. \"무릎 꿇어라, 인간.\" 유대 80+면 존댓말로 바뀜.","moves":"칼데라 붕괴(⚔️140|2 다음 턴 휴식)","img":"043","stats":[85,130,90,80,70,85]},{"no":13,"fam":5,"stage":1,"name":"플립","base":"플립","line":["플립","폰테사","아켈"],"type":"수","grade":"일반","race":"샘물정령족","sex":"♀","desc":"분수에서 태어나 물로 치유하고 잠시 투명해짐. 수다쟁이→비밀을 지키는 치유사. \"있잖아 있잖아~!\" 비밀은 절대 안 샘.","moves":"물방울 튀기기(💫40|15), 맑은 샘(✨|5 HP 30% 회복)","img":"051","stats":[75,45,70,80,100,70]},{"no":14,"fam":5,"stage":2,"name":"폰테사","base":"플립","line":["플립","폰테사","아켈"],"type":"수","grade":"일반","race":"샘물정령족","sex":"♀","desc":"분수에서 태어나 물로 치유하고 잠시 투명해짐. 수다쟁이→비밀을 지키는 치유사. \"있잖아 있잖아~!\" 비밀은 절대 안 샘.","moves":"투명화(✨|4 다음 공격 회피)","img":"052","stats":[75,45,70,80,100,70]},{"no":15,"fam":5,"stage":3,"name":"아켈","base":"플립","line":["플립","폰테사","아켈"],"type":"수","grade":"일반","race":"샘물정령족","sex":"♀","desc":"분수에서 태어나 물로 치유하고 잠시 투명해짐. 수다쟁이→비밀을 지키는 치유사. \"있잖아 있잖아~!\" 비밀은 절대 안 샘.","moves":"무지개 분수(💫100|3 아군 상태이상 해제)","img":"053","stats":[75,45,70,80,100,70]},{"no":16,"fam":6,"stage":1,"name":"오토","base":"오토","line":["오토","토렌트","오타리스"],"type":"수","grade":"일반","race":"수달족","sex":"♂","desc":"수중 잠행, 반짝이는 조개 수집. 장난꾸러기→위기에 먼저 뛰어드는 듬직한 형. \"내가 먼저 간다!\" 반짝이는 건 못 참음.","moves":"물살 박치기(⚔️40|15 선공), 조개 던지기(⚔️25×2|10)","img":"061","stats":[60,95,60,50,60,115]},{"no":17,"fam":6,"stage":2,"name":"토렌트","base":"오토","line":["오토","토렌트","오타리스"],"type":"수","grade":"일반","race":"수달족","sex":"♂","desc":"수중 잠행, 반짝이는 조개 수집. 장난꾸러기→위기에 먼저 뛰어드는 듬직한 형. \"내가 먼저 간다!\" 반짝이는 건 못 참음.","moves":"급류 잠행(⚔️75|8 다음 턴 회피)","img":"062","stats":[60,95,60,50,60,115]},{"no":18,"fam":6,"stage":3,"name":"오타리스","base":"오토","line":["오토","토렌트","오타리스"],"type":"수","grade":"일반","race":"수달족","sex":"♂","desc":"수중 잠행, 반짝이는 조개 수집. 장난꾸러기→위기에 먼저 뛰어드는 듬직한 형. \"내가 먼저 간다!\" 반짝이는 건 못 참음.","moves":"대하의 삼지창(⚔️110|3 상대 속도-1)","img":"063","stats":[60,95,60,50,60,115]},{"no":19,"fam":7,"stage":1,"name":"잉클릿","base":"잉클릿","line":["잉클릿","스크리바","옥타비아"],"type":"수","grade":"희귀","race":"잉크문어족","sex":"♀","desc":"먹물로 공중에 마법진, 읽은 건 잊지 않음. 소심한 책벌레→지식으로 압도하는 대서기. \"그, 그건 책에서 봤는데…\"","moves":"먹물 탄(💫45|15 공격-1 20%), 필사 마법진(✨|8 특공+1)","img":"071","stats":[70,45,70,125,100,80]},{"no":20,"fam":7,"stage":2,"name":"스크리바","base":"잉클릿","line":["잉클릿","스크리바","옥타비아"],"type":"수","grade":"희귀","race":"잉크문어족","sex":"♀","desc":"먹물로 공중에 마법진, 읽은 건 잊지 않음. 소심한 책벌레→지식으로 압도하는 대서기. \"그, 그건 책에서 봤는데…\"","moves":"촉수 서술(💫80|8)","img":"072","stats":[70,45,70,125,100,80]},{"no":21,"fam":7,"stage":3,"name":"옥타비아","base":"잉클릿","line":["잉클릿","스크리바","옥타비아"],"type":"수","grade":"희귀","race":"잉크문어족","sex":"♀","desc":"먹물로 공중에 마법진, 읽은 건 잊지 않음. 소심한 책벌레→지식으로 압도하는 대서기. \"그, 그건 책에서 봤는데…\"","moves":"금서 개방(💫120|3 상대 능력 변화 초기화)","img":"073","stats":[70,45,70,125,100,80]},{"no":22,"fam":8,"stage":1,"name":"리미","base":"리미","line":["리미","프로스텔","글라시안"],"type":"수","grade":"희귀","race":"서리사슴족","sex":"♀","desc":"뿔에서 서리 결정이 자라고 결정 방벽을 세움. 차가워 보이지만 추위를 탐→냉철한 기사. \"…춥지 않아? 난 괜찮아.\" 온기에 약함.","moves":"서리 뿔(⚔️40|15 빙결10%), 결정 방벽(✨|5 방어+2)","img":"081","stats":[80,80,110,80,95,55]},{"no":23,"fam":8,"stage":2,"name":"프로스텔","base":"리미","line":["리미","프로스텔","글라시안"],"type":"수","grade":"희귀","race":"서리사슴족","sex":"♀","desc":"뿔에서 서리 결정이 자라고 결정 방벽을 세움. 차가워 보이지만 추위를 탐→냉철한 기사. \"…춥지 않아? 난 괜찮아.\" 온기에 약함.","moves":"빙결 돌진(⚔️75|8 빙결20%)","img":"082","stats":[80,80,110,80,95,55]},{"no":24,"fam":8,"stage":3,"name":"글라시안","base":"리미","line":["리미","프로스텔","글라시안"],"type":"수","grade":"희귀","race":"서리사슴족","sex":"♀","desc":"뿔에서 서리 결정이 자라고 결정 방벽을 세움. 차가워 보이지만 추위를 탐→냉철한 기사. \"…춥지 않아? 난 괜찮아.\" 온기에 약함.","moves":"영구동토 왕관(💫110|3 빙결40%)","img":"083","stats":[80,80,110,80,95,55]},{"no":25,"fam":9,"stage":1,"name":"퀼라","base":"퀼라","line":["퀼라","미시바","제피린"],"type":"풍","grade":"일반","race":"전령새족","sex":"♀","desc":"아카데미 우편 담당, 초고속 비행과 바람 칼날. 덜렁이 배달부→우아한 전령. \"배달 왔어요~! 앗, 잘못 왔다!\" 길치라 편지를 잘못 배달함.","moves":"바람 칼날(💫40|15), 속달(✨|8 속도+1)","img":"091","stats":[55,60,55,95,60,120]},{"no":26,"fam":9,"stage":2,"name":"미시바","base":"퀼라","line":["퀼라","미시바","제피린"],"type":"풍","grade":"일반","race":"전령새족","sex":"♀","desc":"아카데미 우편 담당, 초고속 비행과 바람 칼날. 덜렁이 배달부→우아한 전령. \"배달 왔어요~! 앗, 잘못 왔다!\" 길치라 편지를 잘못 배달함.","moves":"깃털 폭풍(💫70|8 50% 2회 타격)","img":"092","stats":[55,60,55,95,60,120]},{"no":27,"fam":9,"stage":3,"name":"제피린","base":"퀼라","line":["퀼라","미시바","제피린"],"type":"풍","grade":"일반","race":"전령새족","sex":"♀","desc":"아카데미 우편 담당, 초고속 비행과 바람 칼날. 덜렁이 배달부→우아한 전령. \"배달 왔어요~! 앗, 잘못 왔다!\" 길치라 편지를 잘못 배달함.","moves":"천풍 전령(⚔️110|3 반드시 선공)","img":"093","stats":[55,60,55,95,60,120]},{"no":28,"fam":10,"stage":1,"name":"월리","base":"월리","line":["월리","베인크레스트","게일문드"],"type":"풍","grade":"일반","race":"풍차정령족","sex":"♂","desc":"등의 날개바퀴로 바람을 모아 증폭. 산만한 낙천가→흔들리는 동료를 잡아 주는 중심. \"뭐, 어떻게든 되겠지~\" 약속엔 늘 지각.","moves":"회전 바람(⚔️40|15), 순풍(✨|8 아군 속도+1)","img":"101","stats":[70,85,80,70,70,75]},{"no":29,"fam":10,"stage":2,"name":"베인크레스트","base":"월리","line":["월리","베인크레스트","게일문드"],"type":"풍","grade":"일반","race":"풍차정령족","sex":"♂","desc":"등의 날개바퀴로 바람을 모아 증폭. 산만한 낙천가→흔들리는 동료를 잡아 주는 중심. \"뭐, 어떻게든 되겠지~\" 약속엔 늘 지각.","moves":"풍차 돌격(⚔️80|8)","img":"102","stats":[70,85,80,70,70,75]},{"no":30,"fam":10,"stage":3,"name":"게일문드","base":"월리","line":["월리","베인크레스트","게일문드"],"type":"풍","grade":"일반","race":"풍차정령족","sex":"♂","desc":"등의 날개바퀴로 바람을 모아 증폭. 산만한 낙천가→흔들리는 동료를 잡아 주는 중심. \"뭐, 어떻게든 되겠지~\" 약속엔 늘 지각.","moves":"폭풍의 축(⚔️110|3 3턴 아군 속도+1)","img":"103","stats":[70,85,80,70,70,75]},{"no":31,"fam":11,"stage":1,"name":"팅카","base":"팅카","line":["팅카","벨프리아","카릴리아"],"type":"풍","grade":"희귀","race":"종탑정령족","sex":"♀","desc":"울림을 바람 파동으로 바꿈. 시간관념 철저한 깐깐이→성가대장. \"정각입니다. 지각은 안 돼요.\"","moves":"종소리(💫40|15 마비10%), 정시의 종(✨|5 아군 공격·특공+1)","img":"111","stats":[75,50,80,95,110,80]},{"no":32,"fam":11,"stage":2,"name":"벨프리아","base":"팅카","line":["팅카","벨프리아","카릴리아"],"type":"풍","grade":"희귀","race":"종탑정령족","sex":"♀","desc":"울림을 바람 파동으로 바꿈. 시간관념 철저한 깐깐이→성가대장. \"정각입니다. 지각은 안 돼요.\"","moves":"공명파(💫75|8 마비20%)","img":"112","stats":[75,50,80,95,110,80]},{"no":33,"fam":11,"stage":3,"name":"카릴리아","base":"팅카","line":["팅카","벨프리아","카릴리아"],"type":"풍","grade":"희귀","race":"종탑정령족","sex":"♀","desc":"울림을 바람 파동으로 바꿈. 시간관념 철저한 깐깐이→성가대장. \"정각입니다. 지각은 안 돼요.\"","moves":"대종의 찬가(💫110|3 마비30%, 아군 HP 20% 회복)","img":"113","stats":[75,50,80,95,110,80]},{"no":34,"fam":12,"stage":1,"name":"님비","base":"님비","line":["님비","큐뮬리아","셀로라"],"type":"풍","grade":"영웅","race":"하늘고래족","sex":"♀","desc":"구름 위를 유영하고 기압을 조작. 느긋한 몽상가→하늘을 품는 여왕. \"후아암… 구름 보러 갈래요?\" 낮잠 필수.","moves":"구름 꼬리(⚔️45|15), 뭉게 쿠션(✨|5 2턴 받는 피해 절반)","img":"121","stats":[120,70,100,90,115,45]},{"no":35,"fam":12,"stage":2,"name":"큐뮬리아","base":"님비","line":["님비","큐뮬리아","셀로라"],"type":"풍","grade":"영웅","race":"하늘고래족","sex":"♀","desc":"구름 위를 유영하고 기압을 조작. 느긋한 몽상가→하늘을 품는 여왕. \"후아암… 구름 보러 갈래요?\" 낮잠 필수.","moves":"기압 낙하(💫85|8 상대 속도-1)","img":"122","stats":[120,70,100,90,115,45]},{"no":36,"fam":12,"stage":3,"name":"셀로라","base":"님비","line":["님비","큐뮬리아","셀로라"],"type":"풍","grade":"영웅","race":"하늘고래족","sex":"♀","desc":"구름 위를 유영하고 기압을 조작. 느긋한 몽상가→하늘을 품는 여왕. \"후아암… 구름 보러 갈래요?\" 낮잠 필수.","moves":"천공 고래의 노래(💫130|2 아군 HP 30% 회복)","img":"123","stats":[120,70,100,90,115,45]},{"no":37,"fam":13,"stage":1,"name":"퍼프캡","base":"퍼프캡","line":["퍼프캡","마이셀라","마이코라"],"type":"지","grade":"일반","race":"버섯족","sex":"♀","desc":"포자로 재우거나 회복, 균사로 먼 정보를 읽음. 졸린 은둔형→숲의 현자. \"…zZ… 아, 왔어?\" 비 오는 날 활발.","moves":"포자 뿌리기(💫35|15 수면15%), 회복 포자(✨|8 HP 25% 회복)","img":"131","stats":[80,50,80,80,95,55]},{"no":38,"fam":13,"stage":2,"name":"마이셀라","base":"퍼프캡","line":["퍼프캡","마이셀라","마이코라"],"type":"지","grade":"일반","race":"버섯족","sex":"♀","desc":"포자로 재우거나 회복, 균사로 먼 정보를 읽음. 졸린 은둔형→숲의 현자. \"…zZ… 아, 왔어?\" 비 오는 날 활발.","moves":"균사 그물(💫70|8 상대 속도-1)","img":"132","stats":[80,50,80,80,95,55]},{"no":39,"fam":13,"stage":3,"name":"마이코라","base":"퍼프캡","line":["퍼프캡","마이셀라","마이코라"],"type":"지","grade":"일반","race":"버섯족","sex":"♀","desc":"포자로 재우거나 회복, 균사로 먼 정보를 읽음. 졸린 은둔형→숲의 현자. \"…zZ… 아, 왔어?\" 비 오는 날 활발.","moves":"포자의 숲(💫100|3 수면40%)","img":"133","stats":[80,50,80,80,95,55]},{"no":40,"fam":14,"stage":1,"name":"펩스","base":"펩스","line":["펩스","배스천","시타드렉스"],"type":"지","grade":"일반","race":"성벽골렘족","sex":"♂","desc":"몸의 돌을 재조립해 방벽을 쌓음. 고지식한 원칙주의→물러서지 않는 철벽. \"원칙은 원칙이다.\" 귀여운 것에 얼굴이 붉어짐.","moves":"돌주먹(⚔️40|15), 벽돌 쌓기(✨|8 방어+2)","img":"141","stats":[80,85,125,35,80,35]},{"no":41,"fam":14,"stage":2,"name":"배스천","base":"펩스","line":["펩스","배스천","시타드렉스"],"type":"지","grade":"일반","race":"성벽골렘족","sex":"♂","desc":"몸의 돌을 재조립해 방벽을 쌓음. 고지식한 원칙주의→물러서지 않는 철벽. \"원칙은 원칙이다.\" 귀여운 것에 얼굴이 붉어짐.","moves":"성벽 돌진(⚔️75|8 방어+1)","img":"142","stats":[80,85,125,35,80,35]},{"no":42,"fam":14,"stage":3,"name":"시타드렉스","base":"펩스","line":["펩스","배스천","시타드렉스"],"type":"지","grade":"일반","race":"성벽골렘족","sex":"♂","desc":"몸의 돌을 재조립해 방벽을 쌓음. 고지식한 원칙주의→물러서지 않는 철벽. \"원칙은 원칙이다.\" 귀여운 것에 얼굴이 붉어짐.","moves":"난공불락(✨|2 1턴 모든 피해 무효 후 반격 ⚔️100)","img":"143","stats":[80,85,125,35,80,35]},{"no":43,"fam":15,"stage":1,"name":"젬미","base":"젬미","line":["젬미","프리즈멜","크리스탈리아"],"type":"지","grade":"희귀","race":"수정족","sex":"♀","desc":"결정 피부로 빛을 굴절, 짧은 미래를 엿봄. 허세 신비주의→말을 아끼는 예언자. \"후후, 내 눈엔 이미 보여.\" 예지가 빗나가면 얼굴을 가리고 당황함.","moves":"수정 파편(💫45|15), 예지(✨|5 다음 공격 회피)","img":"151","stats":[65,45,80,120,95,85]},{"no":44,"fam":15,"stage":2,"name":"프리즈멜","base":"젬미","line":["젬미","프리즈멜","크리스탈리아"],"type":"지","grade":"희귀","race":"수정족","sex":"♀","desc":"결정 피부로 빛을 굴절, 짧은 미래를 엿봄. 허세 신비주의→말을 아끼는 예언자. \"후후, 내 눈엔 이미 보여.\" 예지가 빗나가면 얼굴을 가리고 당황함.","moves":"프리즘 광선(💫80|8)","img":"152","stats":[65,45,80,120,95,85]},{"no":45,"fam":15,"stage":3,"name":"크리스탈리아","base":"젬미","line":["젬미","프리즈멜","크리스탈리아"],"type":"지","grade":"희귀","race":"수정족","sex":"♀","desc":"결정 피부로 빛을 굴절, 짧은 미래를 엿봄. 허세 신비주의→말을 아끼는 예언자. \"후후, 내 눈엔 이미 보여.\" 예지가 빗나가면 얼굴을 가리고 당황함.","moves":"운명 결정체(💫120|3 상대 특방 무시)","img":"153","stats":[65,45,80,120,95,85]},{"no":46,"fam":16,"stage":1,"name":"키도","base":"키도","line":["키도","크래건","몬타리온"],"type":"지","grade":"희귀","race":"산양족","sex":"♂","desc":"절벽 등반, 박치기, 산악에서 강해짐. 고집 센 의리파→약속을 지키는 왕. \"약속은 끝까지 간다!\" 높은 곳에서 힘이 솟음.","moves":"박치기(⚔️50|15), 버티기(✨|3 한 번 HP 1로 생존)","img":"161","stats":[85,120,95,40,70,85]},{"no":47,"fam":16,"stage":2,"name":"크래건","base":"키도","line":["키도","크래건","몬타리온"],"type":"지","grade":"희귀","race":"산양족","sex":"♂","desc":"절벽 등반, 박치기, 산악에서 강해짐. 고집 센 의리파→약속을 지키는 왕. \"약속은 끝까지 간다!\" 높은 곳에서 힘이 솟음.","moves":"낙석 돌진(⚔️85|8)","img":"162","stats":[85,120,95,40,70,85]},{"no":48,"fam":16,"stage":3,"name":"몬타리온","base":"키도","line":["키도","크래건","몬타리온"],"type":"지","grade":"희귀","race":"산양족","sex":"♂","desc":"절벽 등반, 박치기, 산악에서 강해짐. 고집 센 의리파→약속을 지키는 왕. \"약속은 끝까지 간다!\" 높은 곳에서 힘이 솟음.","moves":"산왕의 일격(⚔️130|2 반동 HP 15%)","img":"163","stats":[85,120,95,40,70,85]},{"no":49,"fam":17,"stage":1,"name":"샤디","base":"샤디","line":["샤디","비트렐","로사리아"],"type":"빛","grade":"일반","race":"채색유리족","sex":"♀","desc":"빛을 쪼갬. 몽상가→성당 수호자.","moves":"색유리 빛(💫40|15) 분광(✨|8 무작위 능력+1)","img":"171","stats":[60,45,65,110,85,80]},{"no":50,"fam":17,"stage":2,"name":"비트렐","base":"샤디","line":["샤디","비트렐","로사리아"],"type":"빛","grade":"일반","race":"채색유리족","sex":"♀","desc":"빛을 쪼갬. 몽상가→성당 수호자.","moves":"칠색 광선(💫75|8)","img":"172","stats":[60,45,65,110,85,80]},{"no":51,"fam":17,"stage":3,"name":"로사리아","base":"샤디","line":["샤디","비트렐","로사리아"],"type":"빛","grade":"일반","race":"채색유리족","sex":"♀","desc":"빛을 쪼갬. 몽상가→성당 수호자.","moves":"장미창의 심판(💫115|3)","img":"173","stats":[60,45,65,110,85,80]},{"no":52,"fam":18,"stage":1,"name":"트윙킷","base":"트윙킷","line":["트윙킷","스텔리스","콘스텔라"],"type":"빛","grade":"희귀","race":"별고양이족","sex":"♀","desc":"순간이동. 게으름뱅이→고고한 별의 기사.","moves":"별 할퀴기(⚔️45|15) 별빛 도약(✨|8 속도+1 회피)","img":"181","stats":[65,100,60,80,65,125]},{"no":53,"fam":18,"stage":2,"name":"스텔리스","base":"트윙킷","line":["트윙킷","스텔리스","콘스텔라"],"type":"빛","grade":"희귀","race":"별고양이족","sex":"♀","desc":"순간이동. 게으름뱅이→고고한 별의 기사.","moves":"유성 발톱(⚔️80|8 선공)","img":"182","stats":[65,100,60,80,65,125]},{"no":54,"fam":18,"stage":3,"name":"콘스텔라","base":"트윙킷","line":["트윙킷","스텔리스","콘스텔라"],"type":"빛","grade":"희귀","race":"별고양이족","sex":"♀","desc":"순간이동. 게으름뱅이→고고한 별의 기사.","moves":"성좌 강림(💫120|3)","img":"183","stats":[65,100,60,80,65,125]},{"no":55,"fam":19,"stage":1,"name":"메인","base":"메인","line":["메인","레온하트","아우렐리온"],"type":"빛","grade":"영웅","race":"황금사자족","sex":"♂","desc":"포효로 아군 고양. 허세 꼬맹이→왕의 그릇.","moves":"금갈기 돌진(⚔️50|15) 포효(✨|8 아군 공격+1 상대 공격-1)","img":"191","stats":[85,130,85,60,75,105]},{"no":56,"fam":19,"stage":2,"name":"레온하트","base":"메인","line":["메인","레온하트","아우렐리온"],"type":"빛","grade":"영웅","race":"황금사자족","sex":"♂","desc":"포효로 아군 고양. 허세 꼬맹이→왕의 그릇.","moves":"사자왕의 발톱(⚔️90|8)","img":"192","stats":[85,130,85,60,75,105]},{"no":57,"fam":19,"stage":3,"name":"아우렐리온","base":"메인","line":["메인","레온하트","아우렐리온"],"type":"빛","grade":"영웅","race":"황금사자족","sex":"♂","desc":"포효로 아군 고양. 허세 꼬맹이→왕의 그릇.","moves":"광휘의 왕도(⚔️140|2 아군 공격+1)","img":"193","stats":[85,130,85,60,75,105]},{"no":58,"fam":20,"stage":1,"name":"뱃시","base":"뱃시","line":["뱃시","베스페라","이클립시아"],"type":"어둠","grade":"일반","race":"종탑박쥐족","sex":"♀","desc":"초음파 탐지, 어둠 속 시야. 낮엔 잠꾸러기 밤엔 하이텐션→밤의 공녀. \"(낮)쿨… (밤)신난다아!\"","moves":"흡혈 깨물기(⚔️40|15 피해 절반 회복), 초음파(✨|8 혼란30%)","img":"201","stats":[60,85,55,70,60,120]},{"no":59,"fam":20,"stage":2,"name":"베스페라","base":"뱃시","line":["뱃시","베스페라","이클립시아"],"type":"어둠","grade":"일반","race":"종탑박쥐족","sex":"♀","desc":"초음파 탐지, 어둠 속 시야. 낮엔 잠꾸러기 밤엔 하이텐션→밤의 공녀. \"(낮)쿨… (밤)신난다아!\"","moves":"월하 급강하(⚔️75|8 밤 ×1.5)","img":"202","stats":[60,85,55,70,60,120]},{"no":60,"fam":20,"stage":3,"name":"이클립시아","base":"뱃시","line":["뱃시","베스페라","이클립시아"],"type":"어둠","grade":"일반","race":"종탑박쥐족","sex":"♀","desc":"초음파 탐지, 어둠 속 시야. 낮엔 잠꾸러기 밤엔 하이텐션→밤의 공녀. \"(낮)쿨… (밤)신난다아!\"","moves":"월식(💫110|3 3턴 어둠 기술 ×1.5)","img":"203","stats":[60,85,55,70,60,120]},{"no":61,"fam":21,"stage":1,"name":"코르비","base":"코르비","line":["코르비","라벨","코르비누스"],"type":"어둠","grade":"일반","race":"까마귀족","sex":"♂","desc":"반짝이 수집, 정보를 훔치고 깃털을 던짐. 시니컬한 독설가→정을 숨긴 책사. \"흥, 정보는 공짜가 아니야.\"","moves":"깃털 투척(⚔️40|15), 훔쳐보기(✨|5 상대 기술 간파, 다음 공격 위력+50%)","img":"211","stats":[65,90,65,80,65,90]},{"no":62,"fam":21,"stage":2,"name":"라벨","base":"코르비","line":["코르비","라벨","코르비누스"],"type":"어둠","grade":"일반","race":"까마귀족","sex":"♂","desc":"반짝이 수집, 정보를 훔치고 깃털을 던짐. 시니컬한 독설가→정을 숨긴 책사. \"흥, 정보는 공짜가 아니야.\"","moves":"흑우 난무(⚔️25×3|8)","img":"212","stats":[65,90,65,80,65,90]},{"no":63,"fam":21,"stage":3,"name":"코르비누스","base":"코르비","line":["코르비","라벨","코르비누스"],"type":"어둠","grade":"일반","race":"까마귀족","sex":"♂","desc":"반짝이 수집, 정보를 훔치고 깃털을 던짐. 시니컬한 독설가→정을 숨긴 책사. \"흥, 정보는 공짜가 아니야.\"","moves":"까마귀의 책략(💫110|3 상대 능력 상승 빼앗기)","img":"213","stats":[65,90,65,80,65,90]},{"no":64,"fam":22,"stage":1,"name":"스티치","base":"스티치","line":["스티치","마리오넬","포셀레인"],"type":"어둠","grade":"희귀","race":"인형족","sex":"♀","desc":"손끝 마력 실로 조종, 관절에 이음매. 감정을 배우는 무표정→웃으면 무서운 공주. \"…이게 웃음이야?\" 웃음을 연습 중.","moves":"마력 실(💫45|15 속도-1 20%), 꼭두각시(✨|5 상대 직전 기술 2턴 봉인)","img":"221","stats":[70,50,75,115,90,90]},{"no":65,"fam":22,"stage":2,"name":"마리오넬","base":"스티치","line":["스티치","마리오넬","포셀레인"],"type":"어둠","grade":"희귀","race":"인형족","sex":"♀","desc":"손끝 마력 실로 조종, 관절에 이음매. 감정을 배우는 무표정→웃으면 무서운 공주. \"…이게 웃음이야?\" 웃음을 연습 중.","moves":"실 꿰매기(💫80|8)","img":"222","stats":[70,50,75,115,90,90]},{"no":66,"fam":22,"stage":3,"name":"포셀레인","base":"스티치","line":["스티치","마리오넬","포셀레인"],"type":"어둠","grade":"희귀","race":"인형족","sex":"♀","desc":"손끝 마력 실로 조종, 관절에 이음매. 감정을 배우는 무표정→웃으면 무서운 공주. \"…이게 웃음이야?\" 웃음을 연습 중.","moves":"인형극의 막(💫120|3 상대 1턴 자해)","img":"223","stats":[70,50,75,115,90,90]},{"no":67,"fam":23,"stage":1,"name":"웨비","base":"웨비","line":["웨비","실크라","녹터넬"],"type":"어둠","grade":"영웅","race":"밤거미족","sex":"♀","desc":"독과 거미줄 결계, 실로 무엇이든 짬. 요염하고 계산적→품은 자를 지키는 모성. \"어머, 귀여운 아이.\" 뜨개질이 취미.","moves":"독니(💫45|15 독30%), 거미줄 결계(✨|8 상대 속도-2)","img":"231","stats":[80,60,80,130,95,95]},{"no":68,"fam":23,"stage":2,"name":"실크라","base":"웨비","line":["웨비","실크라","녹터넬"],"type":"어둠","grade":"영웅","race":"밤거미족","sex":"♀","desc":"독과 거미줄 결계, 실로 무엇이든 짬. 요염하고 계산적→품은 자를 지키는 모성. \"어머, 귀여운 아이.\" 뜨개질이 취미.","moves":"흑견사 포박(💫85|8 2턴 도망 불가)","img":"232","stats":[80,60,80,130,95,95]},{"no":69,"fam":23,"stage":3,"name":"녹터넬","base":"웨비","line":["웨비","실크라","녹터넬"],"type":"어둠","grade":"영웅","race":"밤거미족","sex":"♀","desc":"독과 거미줄 결계, 실로 무엇이든 짬. 요염하고 계산적→품은 자를 지키는 모성. \"어머, 귀여운 아이.\" 뜨개질이 취미.","moves":"밤비단 고치(💫130|2 독+수면)","img":"233","stats":[80,60,80,130,95,95]},{"no":70,"fam":24,"stage":1,"name":"램비","base":"램비","line":["램비","플리시아","라나벨"],"type":"무","grade":"일반","race":"양족","sex":"♀","desc":"양털 방어·재우기. 잔소리꾼→대모.","moves":"털뭉치 치기(⚔️40|15) 자장가(✨|5 수면40%)","img":"241","stats":[85,60,100,55,100,45]},{"no":71,"fam":24,"stage":2,"name":"플리시아","base":"램비","line":["램비","플리시아","라나벨"],"type":"무","grade":"일반","race":"양족","sex":"♀","desc":"양털 방어·재우기. 잔소리꾼→대모.","moves":"양털 성벽(✨|8 방·특방+1)","img":"242","stats":[85,60,100,55,100,45]},{"no":72,"fam":24,"stage":3,"name":"라나벨","base":"램비","line":["램비","플리시아","라나벨"],"type":"무","grade":"일반","race":"양족","sex":"♀","desc":"양털 방어·재우기. 잔소리꾼→대모.","moves":"구름 양떼(⚔️100|3 아군 HP25%)","img":"243","stats":[85,60,100,55,100,45]},{"no":73,"fam":25,"stage":1,"name":"스퀴키","base":"스퀴키","line":["스퀴키","케일라","클라비사"],"type":"무","grade":"일반","race":"열쇠쥐족","sex":"♀","desc":"아이템 탐지. 수집광→대담한 괴도.","moves":"앞니 깨물기(⚔️40|15 선공) 해제(✨|8 자신 이상·하락 해제)","img":"251","stats":[55,90,55,55,60,125]},{"no":74,"fam":25,"stage":2,"name":"케일라","base":"스퀴키","line":["스퀴키","케일라","클라비사"],"type":"무","grade":"일반","race":"열쇠쥐족","sex":"♀","desc":"아이템 탐지. 수집광→대담한 괴도.","moves":"소매치기(⚔️70|8 아이템 획득)","img":"252","stats":[55,90,55,55,60,125]},{"no":75,"fam":25,"stage":3,"name":"클라비사","base":"스퀴키","line":["스퀴키","케일라","클라비사"],"type":"무","grade":"일반","race":"열쇠쥐족","sex":"♀","desc":"아이템 탐지. 수집광→대담한 괴도.","moves":"만능 열쇠(⚔️110|3 방어 상승 무시)","img":"253","stats":[55,90,55,55,60,125]},{"no":76,"fam":26,"stage":1,"name":"패치","base":"패치","line":["패치","머머","마스커리온"],"type":"무","grade":"희귀","race":"의태족","sex":"♂","desc":"기술 모방. 장난꾼→가면 아래 진심.","moves":"의태 할퀴기(⚔️45|15) 흉내(✨|5 상대 직전 기술 사용)","img":"261","stats":[75,85,80,85,80,85]},{"no":77,"fam":26,"stage":2,"name":"머머","base":"패치","line":["패치","머머","마스커리온"],"type":"무","grade":"희귀","race":"의태족","sex":"♂","desc":"기술 모방. 장난꾼→가면 아래 진심.","moves":"변색 위장(✨|5 회피+2)","img":"262","stats":[75,85,80,85,80,85]},{"no":78,"fam":26,"stage":3,"name":"마스커리온","base":"패치","line":["패치","머머","마스커리온"],"type":"무","grade":"희귀","race":"의태족","sex":"♂","desc":"기술 모방. 장난꾼→가면 아래 진심.","moves":"천의 가면(✨|2 상대 최강기 ×1.5)","img":"263","stats":[75,85,80,85,80,85]},{"no":79,"fam":27,"stage":3,"name":"솔라리아","base":"솔라리아","line":["솔라리아"],"type":"빛","grade":"전설","race":"","sex":"♀","desc":"태양의 성기사. 800년 전 아비살리아를 봉인하고 빛의 성역에서 잠들어 봉인을 지탱한다. 3학년, 일곱 시련을 넘긴 자에게만 계약을 허락한다.","moves":"","img":"273","stats":[1200,400,380,420,380,300]},{"no":80,"fam":28,"stage":3,"name":"아비살리아","base":"아비살리아","line":["아비살리아"],"type":"어둠","grade":"전설","race":"","sex":"♀","desc":"심연의 흑기사. 북쪽 균열 아래 봉인된 최종 보스. 포획 불가. 흑월회가 구원자로 숭배한다.","moves":"","img":"283","stats":[2000,460,420,500,420,340]}];
+const D = [{"fam": 1, "stage": 1, "name": "위카", "base": "위카", "line": ["위카", "탤로윈", "칸델라리아"], "type": "화", "grade": "일반", "race": "촛불족", "sex": "♀", "desc": "머리 불꽃이 감정 따라 색이 바뀌고 촛농으로 응급 치료. 겁 많은 울보→지킬 때 용기 내는 수호자. \"저, 저기… 괜찮아요?\"", "moves": "촛불 점화(💫40|15 화상10%), 촛농 붕대(✨|5 HP 25% 회복)", "no": 1, "img": "011", "stats": [70, 45, 70, 85, 100, 70]}, {"fam": 1, "stage": 2, "name": "탤로윈", "base": "위카", "line": ["위카", "탤로윈", "칸델라리아"], "type": "화", "grade": "일반", "race": "촛불족", "sex": "♀", "desc": "머리 불꽃이 감정 따라 색이 바뀌고 촛농으로 응급 치료. 겁 많은 울보→지킬 때 용기 내는 수호자. \"저, 저기… 괜찮아요?\"", "moves": "밀랍 방벽(✨|5 2턴 받는 피해 절반)", "no": 2, "img": "012", "stats": [70, 45, 70, 85, 100, 70]}, {"fam": 1, "stage": 3, "name": "칸델라리아", "base": "위카", "line": ["위카", "탤로윈", "칸델라리아"], "type": "화", "grade": "일반", "race": "촛불족", "sex": "♀", "desc": "머리 불꽃이 감정 따라 색이 바뀌고 촛농으로 응급 치료. 겁 많은 울보→지킬 때 용기 내는 수호자. \"저, 저기… 괜찮아요?\"", "moves": "백촛불 성가(💫100|3 아군 HP 30% 회복)", "no": 3, "img": "013", "stats": [70, 45, 70, 85, 100, 70]}, {"fam": 2, "stage": 1, "name": "플린트", "base": "플린트", "line": ["플린트", "템퍼", "벌크란"], "type": "화", "grade": "일반", "race": "화덕도마뱀족", "sex": "♂", "desc": "꼬리 불로 금속을 달궈 장비 강화. 무뚝뚝한 일벌레, 칭찬에 약함→등을 맡기는 장인. \"…흥, 맡겨 둬.\"", "moves": "불씨 망치(⚔️45|15 화상10%), 달군 비늘(✨|10 방어+1)", "no": 4, "img": "021", "stats": [65, 110, 80, 45, 55, 85]}, {"fam": 2, "stage": 2, "name": "템퍼", "base": "플린트", "line": ["플린트", "템퍼", "벌크란"], "type": "화", "grade": "일반", "race": "화덕도마뱀족", "sex": "♂", "desc": "꼬리 불로 금속을 달궈 장비 강화. 무뚝뚝한 일벌레, 칭찬에 약함→등을 맡기는 장인. \"…흥, 맡겨 둬.\"", "moves": "담금질(✨|5 공격+2)", "no": 5, "img": "022", "stats": [65, 110, 80, 45, 55, 85]}, {"fam": 2, "stage": 3, "name": "벌크란", "base": "플린트", "line": ["플린트", "템퍼", "벌크란"], "type": "화", "grade": "일반", "race": "화덕도마뱀족", "sex": "♂", "desc": "꼬리 불로 금속을 달궈 장비 강화. 무뚝뚝한 일벌레, 칭찬에 약함→등을 맡기는 장인. \"…흥, 맡겨 둬.\"", "moves": "용광로 강타(⚔️110|3 화상30%)", "no": 6, "img": "023", "stats": [65, 110, 80, 45, 55, 85]}, {"fam": 3, "stage": 1, "name": "애시윙", "base": "애시윙", "line": ["애시윙", "신드라", "파이어룬"], "type": "화", "grade": "희귀", "race": "불나방족", "sex": "♀", "desc": "날개 가루로 폭발과 환각, 불빛에 홀림. 변덕스러운 장난꾼→매력을 무기로 아는 요부. \"어머, 불빛이 예쁘다~\" 불빛에 홀림.", "moves": "불가루(💫45|15), 홀림 인분(✨|8 혼란)", "no": 7, "img": "031", "stats": [65, 50, 65, 120, 85, 105]}, {"fam": 3, "stage": 2, "name": "신드라", "base": "애시윙", "line": ["애시윙", "신드라", "파이어룬"], "type": "화", "grade": "희귀", "race": "불나방족", "sex": "♀", "desc": "날개 가루로 폭발과 환각, 불빛에 홀림. 변덕스러운 장난꾼→매력을 무기로 아는 요부. \"어머, 불빛이 예쁘다~\" 불빛에 홀림.", "moves": "인분 폭발(💫80|8)", "no": 8, "img": "032", "stats": [65, 50, 65, 120, 85, 105]}, {"fam": 3, "stage": 3, "name": "파이어룬", "base": "애시윙", "line": ["애시윙", "신드라", "파이어룬"], "type": "화", "grade": "희귀", "race": "불나방족", "sex": "♀", "desc": "날개 가루로 폭발과 환각, 불빛에 홀림. 변덕스러운 장난꾼→매력을 무기로 아는 요부. \"어머, 불빛이 예쁘다~\" 불빛에 홀림.", "moves": "염린 무도(💫120|3 화상50%)", "no": 9, "img": "033", "stats": [65, 50, 65, 120, 85, 105]}, {"fam": 4, "stage": 1, "name": "신다", "base": "신다", "line": ["신다", "옵시드라", "칼데리아"], "type": "화", "grade": "영웅", "race": "화산용족", "sex": "♀", "desc": "흑요석 뿔, 피부 아래 용암 혈관, 분노하면 체온 폭주. 오만한 귀족 기질→인정한 상대엔 다정한 여제. \"무릎 꿇어라, 인간.\" 유대 80+면 존댓말로 바뀜.", "moves": "흑요석 뿔(⚔️50|15), 용암 혈류(✨|5 공격+2 방어-1)", "no": 10, "img": "041", "stats": [85, 130, 90, 80, 70, 85]}, {"fam": 4, "stage": 2, "name": "옵시드라", "base": "신다", "line": ["신다", "옵시드라", "칼데리아"], "type": "화", "grade": "영웅", "race": "화산용족", "sex": "♀", "desc": "흑요석 뿔, 피부 아래 용암 혈관, 분노하면 체온 폭주. 오만한 귀족 기질→인정한 상대엔 다정한 여제. \"무릎 꿇어라, 인간.\" 유대 80+면 존댓말로 바뀜.", "moves": "분화 돌진(⚔️90|8 화상20%)", "no": 11, "img": "042", "stats": [85, 130, 90, 80, 70, 85]}, {"fam": 4, "stage": 3, "name": "칼데리아", "base": "신다", "line": ["신다", "옵시드라", "칼데리아"], "type": "화", "grade": "영웅", "race": "화산용족", "sex": "♀", "desc": "흑요석 뿔, 피부 아래 용암 혈관, 분노하면 체온 폭주. 오만한 귀족 기질→인정한 상대엔 다정한 여제. \"무릎 꿇어라, 인간.\" 유대 80+면 존댓말로 바뀜.", "moves": "칼데라 붕괴(⚔️140|2 다음 턴 휴식)", "no": 12, "img": "043", "stats": [85, 130, 90, 80, 70, 85]}, {"fam": 5, "stage": 1, "name": "플립", "base": "플립", "line": ["플립", "폰테사", "아켈"], "type": "수", "grade": "일반", "race": "샘물정령족", "sex": "♀", "desc": "분수에서 태어나 물로 치유하고 잠시 투명해짐. 수다쟁이→비밀을 지키는 치유사. \"있잖아 있잖아~!\" 비밀은 절대 안 샘.", "moves": "물방울 튀기기(💫40|15), 맑은 샘(✨|5 HP 30% 회복)", "no": 13, "img": "051", "stats": [75, 45, 70, 80, 100, 70]}, {"fam": 5, "stage": 2, "name": "폰테사", "base": "플립", "line": ["플립", "폰테사", "아켈"], "type": "수", "grade": "일반", "race": "샘물정령족", "sex": "♀", "desc": "분수에서 태어나 물로 치유하고 잠시 투명해짐. 수다쟁이→비밀을 지키는 치유사. \"있잖아 있잖아~!\" 비밀은 절대 안 샘.", "moves": "투명화(✨|4 다음 공격 회피)", "no": 14, "img": "052", "stats": [75, 45, 70, 80, 100, 70]}, {"fam": 5, "stage": 3, "name": "아켈", "base": "플립", "line": ["플립", "폰테사", "아켈"], "type": "수", "grade": "일반", "race": "샘물정령족", "sex": "♀", "desc": "분수에서 태어나 물로 치유하고 잠시 투명해짐. 수다쟁이→비밀을 지키는 치유사. \"있잖아 있잖아~!\" 비밀은 절대 안 샘.", "moves": "무지개 분수(💫100|3 아군 상태이상 해제)", "no": 15, "img": "053", "stats": [75, 45, 70, 80, 100, 70]}, {"fam": 6, "stage": 1, "name": "오토", "base": "오토", "line": ["오토", "토렌트", "오타리스"], "type": "수", "grade": "일반", "race": "수달족", "sex": "♂", "desc": "수중 잠행, 반짝이는 조개 수집. 장난꾸러기→위기에 먼저 뛰어드는 듬직한 형. \"내가 먼저 간다!\" 반짝이는 건 못 참음.", "moves": "물살 박치기(⚔️40|15 선공), 조개 던지기(⚔️25×2|10)", "no": 16, "img": "061", "stats": [60, 95, 60, 50, 60, 115]}, {"fam": 6, "stage": 2, "name": "토렌트", "base": "오토", "line": ["오토", "토렌트", "오타리스"], "type": "수", "grade": "일반", "race": "수달족", "sex": "♂", "desc": "수중 잠행, 반짝이는 조개 수집. 장난꾸러기→위기에 먼저 뛰어드는 듬직한 형. \"내가 먼저 간다!\" 반짝이는 건 못 참음.", "moves": "급류 잠행(⚔️75|8 다음 턴 회피)", "no": 17, "img": "062", "stats": [60, 95, 60, 50, 60, 115]}, {"fam": 6, "stage": 3, "name": "오타리스", "base": "오토", "line": ["오토", "토렌트", "오타리스"], "type": "수", "grade": "일반", "race": "수달족", "sex": "♂", "desc": "수중 잠행, 반짝이는 조개 수집. 장난꾸러기→위기에 먼저 뛰어드는 듬직한 형. \"내가 먼저 간다!\" 반짝이는 건 못 참음.", "moves": "대하의 삼지창(⚔️110|3 상대 속도-1)", "no": 18, "img": "063", "stats": [60, 95, 60, 50, 60, 115]}, {"fam": 7, "stage": 1, "name": "잉클릿", "base": "잉클릿", "line": ["잉클릿", "스크리바", "옥타비아"], "type": "수", "grade": "희귀", "race": "잉크문어족", "sex": "♀", "desc": "먹물로 공중에 마법진, 읽은 건 잊지 않음. 소심한 책벌레→지식으로 압도하는 대서기. \"그, 그건 책에서 봤는데…\"", "moves": "먹물 탄(💫45|15 공격-1 20%), 필사 마법진(✨|8 특공+1)", "no": 19, "img": "071", "stats": [70, 45, 70, 125, 100, 80]}, {"fam": 7, "stage": 2, "name": "스크리바", "base": "잉클릿", "line": ["잉클릿", "스크리바", "옥타비아"], "type": "수", "grade": "희귀", "race": "잉크문어족", "sex": "♀", "desc": "먹물로 공중에 마법진, 읽은 건 잊지 않음. 소심한 책벌레→지식으로 압도하는 대서기. \"그, 그건 책에서 봤는데…\"", "moves": "촉수 서술(💫80|8)", "no": 20, "img": "072", "stats": [70, 45, 70, 125, 100, 80]}, {"fam": 7, "stage": 3, "name": "옥타비아", "base": "잉클릿", "line": ["잉클릿", "스크리바", "옥타비아"], "type": "수", "grade": "희귀", "race": "잉크문어족", "sex": "♀", "desc": "먹물로 공중에 마법진, 읽은 건 잊지 않음. 소심한 책벌레→지식으로 압도하는 대서기. \"그, 그건 책에서 봤는데…\"", "moves": "금서 개방(💫120|3 상대 능력 변화 초기화)", "no": 21, "img": "073", "stats": [70, 45, 70, 125, 100, 80]}, {"fam": 8, "stage": 1, "name": "리미", "base": "리미", "line": ["리미", "프로스텔", "글라시안"], "type": "수", "grade": "희귀", "race": "서리사슴족", "sex": "♀", "desc": "뿔에서 서리 결정이 자라고 결정 방벽을 세움. 차가워 보이지만 추위를 탐→냉철한 기사. \"…춥지 않아? 난 괜찮아.\" 온기에 약함.", "moves": "서리 뿔(⚔️40|15 빙결10%), 결정 방벽(✨|5 방어+2)", "no": 22, "img": "081", "stats": [80, 80, 110, 80, 95, 55]}, {"fam": 8, "stage": 2, "name": "프로스텔", "base": "리미", "line": ["리미", "프로스텔", "글라시안"], "type": "수", "grade": "희귀", "race": "서리사슴족", "sex": "♀", "desc": "뿔에서 서리 결정이 자라고 결정 방벽을 세움. 차가워 보이지만 추위를 탐→냉철한 기사. \"…춥지 않아? 난 괜찮아.\" 온기에 약함.", "moves": "빙결 돌진(⚔️75|8 빙결20%)", "no": 23, "img": "082", "stats": [80, 80, 110, 80, 95, 55]}, {"fam": 8, "stage": 3, "name": "글라시안", "base": "리미", "line": ["리미", "프로스텔", "글라시안"], "type": "수", "grade": "희귀", "race": "서리사슴족", "sex": "♀", "desc": "뿔에서 서리 결정이 자라고 결정 방벽을 세움. 차가워 보이지만 추위를 탐→냉철한 기사. \"…춥지 않아? 난 괜찮아.\" 온기에 약함.", "moves": "영구동토 왕관(💫110|3 빙결40%)", "no": 24, "img": "083", "stats": [80, 80, 110, 80, 95, 55]}, {"fam": 9, "stage": 1, "name": "퀼라", "base": "퀼라", "line": ["퀼라", "미시바", "제피린"], "type": "풍", "grade": "일반", "race": "전령새족", "sex": "♀", "desc": "아카데미 우편 담당, 초고속 비행과 바람 칼날. 덜렁이 배달부→우아한 전령. \"배달 왔어요~! 앗, 잘못 왔다!\" 길치라 편지를 잘못 배달함.", "moves": "바람 칼날(💫40|15), 속달(✨|8 속도+1)", "no": 25, "img": "091", "stats": [55, 60, 55, 95, 60, 120]}, {"fam": 9, "stage": 2, "name": "미시바", "base": "퀼라", "line": ["퀼라", "미시바", "제피린"], "type": "풍", "grade": "일반", "race": "전령새족", "sex": "♀", "desc": "아카데미 우편 담당, 초고속 비행과 바람 칼날. 덜렁이 배달부→우아한 전령. \"배달 왔어요~! 앗, 잘못 왔다!\" 길치라 편지를 잘못 배달함.", "moves": "깃털 폭풍(💫70|8 50% 2회 타격)", "no": 26, "img": "092", "stats": [55, 60, 55, 95, 60, 120]}, {"fam": 9, "stage": 3, "name": "제피린", "base": "퀼라", "line": ["퀼라", "미시바", "제피린"], "type": "풍", "grade": "일반", "race": "전령새족", "sex": "♀", "desc": "아카데미 우편 담당, 초고속 비행과 바람 칼날. 덜렁이 배달부→우아한 전령. \"배달 왔어요~! 앗, 잘못 왔다!\" 길치라 편지를 잘못 배달함.", "moves": "천풍 전령(⚔️110|3 반드시 선공)", "no": 27, "img": "093", "stats": [55, 60, 55, 95, 60, 120]}, {"fam": 10, "stage": 1, "name": "월리", "base": "월리", "line": ["월리", "베인크레스트", "게일문드"], "type": "풍", "grade": "일반", "race": "풍차정령족", "sex": "♂", "desc": "등의 날개바퀴로 바람을 모아 증폭. 산만한 낙천가→흔들리는 동료를 잡아 주는 중심. \"뭐, 어떻게든 되겠지~\" 약속엔 늘 지각.", "moves": "회전 바람(⚔️40|15), 순풍(✨|8 아군 속도+1)", "no": 28, "img": "101", "stats": [70, 85, 80, 70, 70, 75]}, {"fam": 10, "stage": 2, "name": "베인크레스트", "base": "월리", "line": ["월리", "베인크레스트", "게일문드"], "type": "풍", "grade": "일반", "race": "풍차정령족", "sex": "♂", "desc": "등의 날개바퀴로 바람을 모아 증폭. 산만한 낙천가→흔들리는 동료를 잡아 주는 중심. \"뭐, 어떻게든 되겠지~\" 약속엔 늘 지각.", "moves": "풍차 돌격(⚔️80|8)", "no": 29, "img": "102", "stats": [70, 85, 80, 70, 70, 75]}, {"fam": 10, "stage": 3, "name": "게일문드", "base": "월리", "line": ["월리", "베인크레스트", "게일문드"], "type": "풍", "grade": "일반", "race": "풍차정령족", "sex": "♂", "desc": "등의 날개바퀴로 바람을 모아 증폭. 산만한 낙천가→흔들리는 동료를 잡아 주는 중심. \"뭐, 어떻게든 되겠지~\" 약속엔 늘 지각.", "moves": "폭풍의 축(⚔️110|3 3턴 아군 속도+1)", "no": 30, "img": "103", "stats": [70, 85, 80, 70, 70, 75]}, {"fam": 11, "stage": 1, "name": "팅카", "base": "팅카", "line": ["팅카", "벨프리아", "카릴리아"], "type": "풍", "grade": "희귀", "race": "종탑정령족", "sex": "♀", "desc": "울림을 바람 파동으로 바꿈. 시간관념 철저한 깐깐이→성가대장. \"정각입니다. 지각은 안 돼요.\"", "moves": "종소리(💫40|15 마비10%), 정시의 종(✨|5 아군 공격·특공+1)", "no": 31, "img": "111", "stats": [75, 50, 80, 95, 110, 80]}, {"fam": 11, "stage": 2, "name": "벨프리아", "base": "팅카", "line": ["팅카", "벨프리아", "카릴리아"], "type": "풍", "grade": "희귀", "race": "종탑정령족", "sex": "♀", "desc": "울림을 바람 파동으로 바꿈. 시간관념 철저한 깐깐이→성가대장. \"정각입니다. 지각은 안 돼요.\"", "moves": "공명파(💫75|8 마비20%)", "no": 32, "img": "112", "stats": [75, 50, 80, 95, 110, 80]}, {"fam": 11, "stage": 3, "name": "카릴리아", "base": "팅카", "line": ["팅카", "벨프리아", "카릴리아"], "type": "풍", "grade": "희귀", "race": "종탑정령족", "sex": "♀", "desc": "울림을 바람 파동으로 바꿈. 시간관념 철저한 깐깐이→성가대장. \"정각입니다. 지각은 안 돼요.\"", "moves": "대종의 찬가(💫110|3 마비30%, 아군 HP 20% 회복)", "no": 33, "img": "113", "stats": [75, 50, 80, 95, 110, 80]}, {"fam": 12, "stage": 1, "name": "님비", "base": "님비", "line": ["님비", "큐뮬리아", "셀로라"], "type": "풍", "grade": "영웅", "race": "하늘고래족", "sex": "♀", "desc": "구름 위를 유영하고 기압을 조작. 느긋한 몽상가→하늘을 품는 여왕. \"후아암… 구름 보러 갈래요?\" 낮잠 필수.", "moves": "구름 꼬리(⚔️45|15), 뭉게 쿠션(✨|5 2턴 받는 피해 절반)", "no": 34, "img": "121", "stats": [120, 70, 100, 90, 115, 45]}, {"fam": 12, "stage": 2, "name": "큐뮬리아", "base": "님비", "line": ["님비", "큐뮬리아", "셀로라"], "type": "풍", "grade": "영웅", "race": "하늘고래족", "sex": "♀", "desc": "구름 위를 유영하고 기압을 조작. 느긋한 몽상가→하늘을 품는 여왕. \"후아암… 구름 보러 갈래요?\" 낮잠 필수.", "moves": "기압 낙하(💫85|8 상대 속도-1)", "no": 35, "img": "122", "stats": [120, 70, 100, 90, 115, 45]}, {"fam": 12, "stage": 3, "name": "셀로라", "base": "님비", "line": ["님비", "큐뮬리아", "셀로라"], "type": "풍", "grade": "영웅", "race": "하늘고래족", "sex": "♀", "desc": "구름 위를 유영하고 기압을 조작. 느긋한 몽상가→하늘을 품는 여왕. \"후아암… 구름 보러 갈래요?\" 낮잠 필수.", "moves": "천공 고래의 노래(💫130|2 아군 HP 30% 회복)", "no": 36, "img": "123", "stats": [120, 70, 100, 90, 115, 45]}, {"fam": 13, "stage": 1, "name": "퍼프캡", "base": "퍼프캡", "line": ["퍼프캡", "마이셀라", "마이코라"], "type": "지", "grade": "일반", "race": "버섯족", "sex": "♀", "desc": "포자로 재우거나 회복, 균사로 먼 정보를 읽음. 졸린 은둔형→숲의 현자. \"…zZ… 아, 왔어?\" 비 오는 날 활발.", "moves": "포자 뿌리기(💫35|15 수면15%), 회복 포자(✨|8 HP 25% 회복)", "no": 37, "img": "131", "stats": [80, 50, 80, 80, 95, 55]}, {"fam": 13, "stage": 2, "name": "마이셀라", "base": "퍼프캡", "line": ["퍼프캡", "마이셀라", "마이코라"], "type": "지", "grade": "일반", "race": "버섯족", "sex": "♀", "desc": "포자로 재우거나 회복, 균사로 먼 정보를 읽음. 졸린 은둔형→숲의 현자. \"…zZ… 아, 왔어?\" 비 오는 날 활발.", "moves": "균사 그물(💫70|8 상대 속도-1)", "no": 38, "img": "132", "stats": [80, 50, 80, 80, 95, 55]}, {"fam": 13, "stage": 3, "name": "마이코라", "base": "퍼프캡", "line": ["퍼프캡", "마이셀라", "마이코라"], "type": "지", "grade": "일반", "race": "버섯족", "sex": "♀", "desc": "포자로 재우거나 회복, 균사로 먼 정보를 읽음. 졸린 은둔형→숲의 현자. \"…zZ… 아, 왔어?\" 비 오는 날 활발.", "moves": "포자의 숲(💫100|3 수면40%)", "no": 39, "img": "133", "stats": [80, 50, 80, 80, 95, 55]}, {"fam": 14, "stage": 1, "name": "펩스", "base": "펩스", "line": ["펩스", "배스천", "시타드렉스"], "type": "지", "grade": "일반", "race": "성벽골렘족", "sex": "♂", "desc": "몸의 돌을 재조립해 방벽을 쌓음. 고지식한 원칙주의→물러서지 않는 철벽. \"원칙은 원칙이다.\" 귀여운 것에 얼굴이 붉어짐.", "moves": "돌주먹(⚔️40|15), 벽돌 쌓기(✨|8 방어+2)", "no": 40, "img": "141", "stats": [80, 85, 125, 35, 80, 35]}, {"fam": 14, "stage": 2, "name": "배스천", "base": "펩스", "line": ["펩스", "배스천", "시타드렉스"], "type": "지", "grade": "일반", "race": "성벽골렘족", "sex": "♂", "desc": "몸의 돌을 재조립해 방벽을 쌓음. 고지식한 원칙주의→물러서지 않는 철벽. \"원칙은 원칙이다.\" 귀여운 것에 얼굴이 붉어짐.", "moves": "성벽 돌진(⚔️75|8 방어+1)", "no": 41, "img": "142", "stats": [80, 85, 125, 35, 80, 35]}, {"fam": 14, "stage": 3, "name": "시타드렉스", "base": "펩스", "line": ["펩스", "배스천", "시타드렉스"], "type": "지", "grade": "일반", "race": "성벽골렘족", "sex": "♂", "desc": "몸의 돌을 재조립해 방벽을 쌓음. 고지식한 원칙주의→물러서지 않는 철벽. \"원칙은 원칙이다.\" 귀여운 것에 얼굴이 붉어짐.", "moves": "난공불락(✨|2 1턴 모든 피해 무효 후 반격 ⚔️100)", "no": 42, "img": "143", "stats": [80, 85, 125, 35, 80, 35]}, {"fam": 15, "stage": 1, "name": "젬미", "base": "젬미", "line": ["젬미", "프리즈멜", "크리스탈리아"], "type": "지", "grade": "희귀", "race": "수정족", "sex": "♀", "desc": "결정 피부로 빛을 굴절, 짧은 미래를 엿봄. 허세 신비주의→말을 아끼는 예언자. \"후후, 내 눈엔 이미 보여.\" 예지가 빗나가면 얼굴을 가리고 당황함.", "moves": "수정 파편(💫45|15), 예지(✨|5 다음 공격 회피)", "no": 43, "img": "151", "stats": [65, 45, 80, 120, 95, 85]}, {"fam": 15, "stage": 2, "name": "프리즈멜", "base": "젬미", "line": ["젬미", "프리즈멜", "크리스탈리아"], "type": "지", "grade": "희귀", "race": "수정족", "sex": "♀", "desc": "결정 피부로 빛을 굴절, 짧은 미래를 엿봄. 허세 신비주의→말을 아끼는 예언자. \"후후, 내 눈엔 이미 보여.\" 예지가 빗나가면 얼굴을 가리고 당황함.", "moves": "프리즘 광선(💫80|8)", "no": 44, "img": "152", "stats": [65, 45, 80, 120, 95, 85]}, {"fam": 15, "stage": 3, "name": "크리스탈리아", "base": "젬미", "line": ["젬미", "프리즈멜", "크리스탈리아"], "type": "지", "grade": "희귀", "race": "수정족", "sex": "♀", "desc": "결정 피부로 빛을 굴절, 짧은 미래를 엿봄. 허세 신비주의→말을 아끼는 예언자. \"후후, 내 눈엔 이미 보여.\" 예지가 빗나가면 얼굴을 가리고 당황함.", "moves": "운명 결정체(💫120|3 상대 특방 무시)", "no": 45, "img": "153", "stats": [65, 45, 80, 120, 95, 85]}, {"fam": 16, "stage": 1, "name": "키도", "base": "키도", "line": ["키도", "크래건", "몬타리온"], "type": "지", "grade": "희귀", "race": "산양족", "sex": "♂", "desc": "절벽 등반, 박치기, 산악에서 강해짐. 고집 센 의리파→약속을 지키는 왕. \"약속은 끝까지 간다!\" 높은 곳에서 힘이 솟음.", "moves": "박치기(⚔️50|15), 버티기(✨|3 한 번 HP 1로 생존)", "no": 46, "img": "161", "stats": [85, 120, 95, 40, 70, 85]}, {"fam": 16, "stage": 2, "name": "크래건", "base": "키도", "line": ["키도", "크래건", "몬타리온"], "type": "지", "grade": "희귀", "race": "산양족", "sex": "♂", "desc": "절벽 등반, 박치기, 산악에서 강해짐. 고집 센 의리파→약속을 지키는 왕. \"약속은 끝까지 간다!\" 높은 곳에서 힘이 솟음.", "moves": "낙석 돌진(⚔️85|8)", "no": 47, "img": "162", "stats": [85, 120, 95, 40, 70, 85]}, {"fam": 16, "stage": 3, "name": "몬타리온", "base": "키도", "line": ["키도", "크래건", "몬타리온"], "type": "지", "grade": "희귀", "race": "산양족", "sex": "♂", "desc": "절벽 등반, 박치기, 산악에서 강해짐. 고집 센 의리파→약속을 지키는 왕. \"약속은 끝까지 간다!\" 높은 곳에서 힘이 솟음.", "moves": "산왕의 일격(⚔️130|2 반동 HP 15%)", "no": 48, "img": "163", "stats": [85, 120, 95, 40, 70, 85]}, {"fam": 17, "stage": 1, "name": "샤디", "base": "샤디", "line": ["샤디", "비트렐", "로사리아"], "type": "빛", "grade": "일반", "race": "채색유리족", "sex": "♀", "desc": "빛을 쪼갬. 몽상가→성당 수호자.", "moves": "색유리 빛(💫40|15) 분광(✨|8 무작위 능력+1)", "no": 49, "img": "171", "stats": [60, 45, 65, 110, 85, 80]}, {"fam": 17, "stage": 2, "name": "비트렐", "base": "샤디", "line": ["샤디", "비트렐", "로사리아"], "type": "빛", "grade": "일반", "race": "채색유리족", "sex": "♀", "desc": "빛을 쪼갬. 몽상가→성당 수호자.", "moves": "칠색 광선(💫75|8)", "no": 50, "img": "172", "stats": [60, 45, 65, 110, 85, 80]}, {"fam": 17, "stage": 3, "name": "로사리아", "base": "샤디", "line": ["샤디", "비트렐", "로사리아"], "type": "빛", "grade": "일반", "race": "채색유리족", "sex": "♀", "desc": "빛을 쪼갬. 몽상가→성당 수호자.", "moves": "장미창의 심판(💫115|3)", "no": 51, "img": "173", "stats": [60, 45, 65, 110, 85, 80]}, {"fam": 18, "stage": 1, "name": "트윙킷", "base": "트윙킷", "line": ["트윙킷", "스텔리스", "콘스텔라"], "type": "빛", "grade": "희귀", "race": "별고양이족", "sex": "♀", "desc": "순간이동. 게으름뱅이→고고한 별의 기사.", "moves": "별 할퀴기(⚔️45|15) 별빛 도약(✨|8 속도+1 회피)", "no": 52, "img": "181", "stats": [65, 100, 60, 80, 65, 125]}, {"fam": 18, "stage": 2, "name": "스텔리스", "base": "트윙킷", "line": ["트윙킷", "스텔리스", "콘스텔라"], "type": "빛", "grade": "희귀", "race": "별고양이족", "sex": "♀", "desc": "순간이동. 게으름뱅이→고고한 별의 기사.", "moves": "유성 발톱(⚔️80|8 선공)", "no": 53, "img": "182", "stats": [65, 100, 60, 80, 65, 125]}, {"fam": 18, "stage": 3, "name": "콘스텔라", "base": "트윙킷", "line": ["트윙킷", "스텔리스", "콘스텔라"], "type": "빛", "grade": "희귀", "race": "별고양이족", "sex": "♀", "desc": "순간이동. 게으름뱅이→고고한 별의 기사.", "moves": "성좌 강림(💫120|3)", "no": 54, "img": "183", "stats": [65, 100, 60, 80, 65, 125]}, {"fam": 19, "stage": 1, "name": "메인", "base": "메인", "line": ["메인", "레온하트", "아우렐리온"], "type": "빛", "grade": "영웅", "race": "황금사자족", "sex": "♂", "desc": "포효로 아군 고양. 허세 꼬맹이→왕의 그릇.", "moves": "금갈기 돌진(⚔️50|15) 포효(✨|8 아군 공격+1 상대 공격-1)", "no": 55, "img": "191", "stats": [85, 130, 85, 60, 75, 105]}, {"fam": 19, "stage": 2, "name": "레온하트", "base": "메인", "line": ["메인", "레온하트", "아우렐리온"], "type": "빛", "grade": "영웅", "race": "황금사자족", "sex": "♂", "desc": "포효로 아군 고양. 허세 꼬맹이→왕의 그릇.", "moves": "사자왕의 발톱(⚔️90|8)", "no": 56, "img": "192", "stats": [85, 130, 85, 60, 75, 105]}, {"fam": 19, "stage": 3, "name": "아우렐리온", "base": "메인", "line": ["메인", "레온하트", "아우렐리온"], "type": "빛", "grade": "영웅", "race": "황금사자족", "sex": "♂", "desc": "포효로 아군 고양. 허세 꼬맹이→왕의 그릇.", "moves": "광휘의 왕도(⚔️140|2 아군 공격+1)", "no": 57, "img": "193", "stats": [85, 130, 85, 60, 75, 105]}, {"fam": 20, "stage": 1, "name": "뱃시", "base": "뱃시", "line": ["뱃시", "베스페라", "이클립시아"], "type": "어둠", "grade": "일반", "race": "종탑박쥐족", "sex": "♀", "desc": "초음파 탐지, 어둠 속 시야. 낮엔 잠꾸러기 밤엔 하이텐션→밤의 공녀. \"(낮)쿨… (밤)신난다아!\"", "moves": "흡혈 깨물기(⚔️40|15 피해 절반 회복), 초음파(✨|8 혼란30%)", "no": 58, "img": "201", "stats": [60, 85, 55, 70, 60, 120]}, {"fam": 20, "stage": 2, "name": "베스페라", "base": "뱃시", "line": ["뱃시", "베스페라", "이클립시아"], "type": "어둠", "grade": "일반", "race": "종탑박쥐족", "sex": "♀", "desc": "초음파 탐지, 어둠 속 시야. 낮엔 잠꾸러기 밤엔 하이텐션→밤의 공녀. \"(낮)쿨… (밤)신난다아!\"", "moves": "월하 급강하(⚔️75|8 밤 ×1.5)", "no": 59, "img": "202", "stats": [60, 85, 55, 70, 60, 120]}, {"fam": 20, "stage": 3, "name": "이클립시아", "base": "뱃시", "line": ["뱃시", "베스페라", "이클립시아"], "type": "어둠", "grade": "일반", "race": "종탑박쥐족", "sex": "♀", "desc": "초음파 탐지, 어둠 속 시야. 낮엔 잠꾸러기 밤엔 하이텐션→밤의 공녀. \"(낮)쿨… (밤)신난다아!\"", "moves": "월식(💫110|3 3턴 어둠 기술 ×1.5)", "no": 60, "img": "203", "stats": [60, 85, 55, 70, 60, 120]}, {"fam": 21, "stage": 1, "name": "코르비", "base": "코르비", "line": ["코르비", "라벨", "코르비누스"], "type": "어둠", "grade": "일반", "race": "까마귀족", "sex": "♂", "desc": "반짝이 수집, 정보를 훔치고 깃털을 던짐. 시니컬한 독설가→정을 숨긴 책사. \"흥, 정보는 공짜가 아니야.\"", "moves": "깃털 투척(⚔️40|15), 훔쳐보기(✨|5 상대 기술 간파, 다음 공격 위력+50%)", "no": 61, "img": "211", "stats": [65, 90, 65, 80, 65, 90]}, {"fam": 21, "stage": 2, "name": "라벨", "base": "코르비", "line": ["코르비", "라벨", "코르비누스"], "type": "어둠", "grade": "일반", "race": "까마귀족", "sex": "♂", "desc": "반짝이 수집, 정보를 훔치고 깃털을 던짐. 시니컬한 독설가→정을 숨긴 책사. \"흥, 정보는 공짜가 아니야.\"", "moves": "흑우 난무(⚔️25×3|8)", "no": 62, "img": "212", "stats": [65, 90, 65, 80, 65, 90]}, {"fam": 21, "stage": 3, "name": "코르비누스", "base": "코르비", "line": ["코르비", "라벨", "코르비누스"], "type": "어둠", "grade": "일반", "race": "까마귀족", "sex": "♂", "desc": "반짝이 수집, 정보를 훔치고 깃털을 던짐. 시니컬한 독설가→정을 숨긴 책사. \"흥, 정보는 공짜가 아니야.\"", "moves": "까마귀의 책략(💫110|3 상대 능력 상승 빼앗기)", "no": 63, "img": "213", "stats": [65, 90, 65, 80, 65, 90]}, {"fam": 22, "stage": 1, "name": "스티치", "base": "스티치", "line": ["스티치", "마리오넬", "포셀레인"], "type": "어둠", "grade": "희귀", "race": "인형족", "sex": "♀", "desc": "손끝 마력 실로 조종, 관절에 이음매. 감정을 배우는 무표정→웃으면 무서운 공주. \"…이게 웃음이야?\" 웃음을 연습 중.", "moves": "마력 실(💫45|15 속도-1 20%), 꼭두각시(✨|5 상대 직전 기술 2턴 봉인)", "no": 64, "img": "221", "stats": [70, 50, 75, 115, 90, 90]}, {"fam": 22, "stage": 2, "name": "마리오넬", "base": "스티치", "line": ["스티치", "마리오넬", "포셀레인"], "type": "어둠", "grade": "희귀", "race": "인형족", "sex": "♀", "desc": "손끝 마력 실로 조종, 관절에 이음매. 감정을 배우는 무표정→웃으면 무서운 공주. \"…이게 웃음이야?\" 웃음을 연습 중.", "moves": "실 꿰매기(💫80|8)", "no": 65, "img": "222", "stats": [70, 50, 75, 115, 90, 90]}, {"fam": 22, "stage": 3, "name": "포셀레인", "base": "스티치", "line": ["스티치", "마리오넬", "포셀레인"], "type": "어둠", "grade": "희귀", "race": "인형족", "sex": "♀", "desc": "손끝 마력 실로 조종, 관절에 이음매. 감정을 배우는 무표정→웃으면 무서운 공주. \"…이게 웃음이야?\" 웃음을 연습 중.", "moves": "인형극의 막(💫120|3 상대 1턴 자해)", "no": 66, "img": "223", "stats": [70, 50, 75, 115, 90, 90]}, {"fam": 23, "stage": 1, "name": "웨비", "base": "웨비", "line": ["웨비", "실크라", "녹터넬"], "type": "어둠", "grade": "영웅", "race": "밤거미족", "sex": "♀", "desc": "독과 거미줄 결계, 실로 무엇이든 짬. 요염하고 계산적→품은 자를 지키는 모성. \"어머, 귀여운 아이.\" 뜨개질이 취미.", "moves": "독니(💫45|15 독30%), 거미줄 결계(✨|8 상대 속도-2)", "no": 67, "img": "231", "stats": [80, 60, 80, 130, 95, 95]}, {"fam": 23, "stage": 2, "name": "실크라", "base": "웨비", "line": ["웨비", "실크라", "녹터넬"], "type": "어둠", "grade": "영웅", "race": "밤거미족", "sex": "♀", "desc": "독과 거미줄 결계, 실로 무엇이든 짬. 요염하고 계산적→품은 자를 지키는 모성. \"어머, 귀여운 아이.\" 뜨개질이 취미.", "moves": "흑견사 포박(💫85|8 2턴 도망 불가)", "no": 68, "img": "232", "stats": [80, 60, 80, 130, 95, 95]}, {"fam": 23, "stage": 3, "name": "녹터넬", "base": "웨비", "line": ["웨비", "실크라", "녹터넬"], "type": "어둠", "grade": "영웅", "race": "밤거미족", "sex": "♀", "desc": "독과 거미줄 결계, 실로 무엇이든 짬. 요염하고 계산적→품은 자를 지키는 모성. \"어머, 귀여운 아이.\" 뜨개질이 취미.", "moves": "밤비단 고치(💫130|2 독+수면)", "no": 69, "img": "233", "stats": [80, 60, 80, 130, 95, 95]}, {"fam": 24, "stage": 1, "name": "램비", "base": "램비", "line": ["램비", "플리시아", "라나벨"], "type": "무", "grade": "일반", "race": "양족", "sex": "♀", "desc": "양털 방어·재우기. 잔소리꾼→대모.", "moves": "털뭉치 치기(⚔️40|15) 자장가(✨|5 수면40%)", "no": 70, "img": "241", "stats": [85, 60, 100, 55, 100, 45]}, {"fam": 24, "stage": 2, "name": "플리시아", "base": "램비", "line": ["램비", "플리시아", "라나벨"], "type": "무", "grade": "일반", "race": "양족", "sex": "♀", "desc": "양털 방어·재우기. 잔소리꾼→대모.", "moves": "양털 성벽(✨|8 방·특방+1)", "no": 71, "img": "242", "stats": [85, 60, 100, 55, 100, 45]}, {"fam": 24, "stage": 3, "name": "라나벨", "base": "램비", "line": ["램비", "플리시아", "라나벨"], "type": "무", "grade": "일반", "race": "양족", "sex": "♀", "desc": "양털 방어·재우기. 잔소리꾼→대모.", "moves": "구름 양떼(⚔️100|3 아군 HP25%)", "no": 72, "img": "243", "stats": [85, 60, 100, 55, 100, 45]}, {"fam": 25, "stage": 1, "name": "스퀴키", "base": "스퀴키", "line": ["스퀴키", "케일라", "클라비사"], "type": "무", "grade": "일반", "race": "열쇠쥐족", "sex": "♀", "desc": "아이템 탐지. 수집광→대담한 괴도.", "moves": "앞니 깨물기(⚔️40|15 선공) 해제(✨|8 자신 이상·하락 해제)", "no": 73, "img": "251", "stats": [55, 90, 55, 55, 60, 125]}, {"fam": 25, "stage": 2, "name": "케일라", "base": "스퀴키", "line": ["스퀴키", "케일라", "클라비사"], "type": "무", "grade": "일반", "race": "열쇠쥐족", "sex": "♀", "desc": "아이템 탐지. 수집광→대담한 괴도.", "moves": "소매치기(⚔️70|8 아이템 획득)", "no": 74, "img": "252", "stats": [55, 90, 55, 55, 60, 125]}, {"fam": 25, "stage": 3, "name": "클라비사", "base": "스퀴키", "line": ["스퀴키", "케일라", "클라비사"], "type": "무", "grade": "일반", "race": "열쇠쥐족", "sex": "♀", "desc": "아이템 탐지. 수집광→대담한 괴도.", "moves": "만능 열쇠(⚔️110|3 방어 상승 무시)", "no": 75, "img": "253", "stats": [55, 90, 55, 55, 60, 125]}, {"fam": 26, "stage": 1, "name": "패치", "base": "패치", "line": ["패치", "머머", "마스커리온"], "type": "무", "grade": "희귀", "race": "의태족", "sex": "♂", "desc": "기술 모방. 장난꾼→가면 아래 진심.", "moves": "의태 할퀴기(⚔️45|15) 흉내(✨|5 상대 직전 기술 사용)", "no": 76, "img": "261", "stats": [75, 85, 80, 85, 80, 85]}, {"fam": 26, "stage": 2, "name": "머머", "base": "패치", "line": ["패치", "머머", "마스커리온"], "type": "무", "grade": "희귀", "race": "의태족", "sex": "♂", "desc": "기술 모방. 장난꾼→가면 아래 진심.", "moves": "변색 위장(✨|5 회피+2)", "no": 77, "img": "262", "stats": [75, 85, 80, 85, 80, 85]}, {"fam": 26, "stage": 3, "name": "마스커리온", "base": "패치", "line": ["패치", "머머", "마스커리온"], "type": "무", "grade": "희귀", "race": "의태족", "sex": "♂", "desc": "기술 모방. 장난꾼→가면 아래 진심.", "moves": "천의 가면(✨|2 상대 최강기 ×1.5)", "no": 78, "img": "263", "stats": [75, 85, 80, 85, 80, 85]}, {"fam": 27, "stage": 3, "name": "솔라리아", "base": "솔라리아", "line": ["솔라리아"], "type": "빛", "grade": "전설", "race": "", "sex": "♀", "desc": "태양의 성기사. 800년 전 아비살리아를 봉인하고 빛의 성역에서 잠들어 봉인을 지탱한다. 3학년, 일곱 시련을 넘긴 자에게만 계약을 허락한다.", "moves": "", "no": 79, "img": "273", "stats": [1200, 400, 380, 420, 380, 300]}, {"fam": 28, "stage": 3, "name": "아비살리아", "base": "아비살리아", "line": ["아비살리아"], "type": "어둠", "grade": "전설", "race": "", "sex": "♀", "desc": "심연의 흑기사. 북쪽 균열 아래 봉인된 최종 보스. 포획 불가. 흑월회가 구원자로 숭배한다.", "moves": "", "no": 80, "img": "283", "stats": [2000, 460, 420, 500, 420, 340]}];
 const TC = ["화","수","풍","지","빛","어둠","무","전설"];
 const RN = ["Ⅰ","Ⅱ","Ⅲ","Ⅳ","Ⅴ","Ⅵ","Ⅶ","Ⅷ"];
 const ST = ["기본체","1진화","최종"];
@@ -534,11 +663,11 @@ function register(){
   log.innerHTML = "";
   const line = (c, h) => { const d = document.createElement("div"); d.className = "ln " + c; d.innerHTML = h; log.append(d); };
   if (!text.trim()){ line("no", "코드를 붙여넣어 주세요."); return; }
-  const found = parse(text);
-  if (!found.length){ line("bad", "읽을 수 있는 코드가 없어요. <code>AC·이름·단계C</code> 형식인지 확인해 주세요."); return; }
-  const before = counts().c;
+  const found = parse(text), bfound = parseBadges(text);
+  if (!found.length && !bfound.length){ line("bad", "읽을 수 있는 코드가 없어요. <code>AC·이름·단계C</code> 또는 <code>BG·교수이름</code> 형식인지 확인해 주세요."); return; }
+  const before = counts().c, bBefore = bCount();
   const doneBefore = new Set([...new Set(D.map(e => e.fam))].filter(famDone));
-  const queue = [];
+  const queue = [], bq = [];
   found.forEach(f => {
     if (f.bad){ line("bad", "알 수 없는 코드 <b>" + esc(f.bad) + "</b>"); return; }
     const cur = v(f.e.no);
@@ -550,16 +679,34 @@ function register(){
       line(cur ? "up" : "ok", (cur ? "▲ 목격 → 확인 " : f.flag === 2 ? "✔ 새로 확인 " : "◐ 새로 목격 ") + nm);
     } else line("no", "이미 기록됨 " + nm);
   });
-  if (!queue.length) return;
-  save(); $("#ta").value = "";
+  bfound.forEach(f => {
+    if (f.bad){ line("bad", "알 수 없는 배지 코드 <b>" + esc(f.bad) + "</b>"); return; }
+    const b = f.b;
+    if (hasB(b.id)){ line("no", "이미 받은 배지 <b>" + esc(b.name) + "</b>"); return; }
+    B[b.id] = {t: Date.now(), n: 1}; bq.push(b);
+    line("up", "🏅 배지 획득 <b>" + esc(b.name) + "</b> · " + esc(b.prof) + (b.id === "master" ? " 학장" : " 교수"));
+  });
+  if (!queue.length && !bq.length) return;
+  save(); saveB(); $("#ta").value = "";
   const newDone = [...new Set(D.map(e => e.fam))].filter(f => famDone(f) && !doneBefore.has(f));
-  play(queue, () => {
+  const bPhase = () => {
+    playBadges(bq, () => {
+      renderBadges(bq.map(b => b.id));
+      const m = badgeMile(bBefore, bCount(), bq.some(b => b.id === "master"));
+      if (m) setTimeout(() => toastX(m[0], m[1], m[2]), 600);
+      if (bq.length) setTimeout(() => $("#bhall").scrollIntoView({block: "center", behavior: RM ? "auto" : "smooth"}), 150);
+    });
+  };
+  const cPhase = () => {
     render(queue.map(q => q.e.no), newDone);
     const after = counts().c;
     const hit = MILES.filter(m => before < m && after >= m).pop();
     if (hit) setTimeout(() => toast(hit), 700);
-  });
+  };
+  if (queue.length) play(queue, () => { cPhase(); if (bq.length) setTimeout(bPhase, hit4(before) ? 3200 : 300); else renderBadges(); });
+  else { bPhase(); }
 }
+const hit4 = before => MILES.some(m => before < m && counts().c >= m);
 
 /* ---------- reveal overlay ---------- */
 let RQ = [], RI = 0, rTimer = null, rDone = null;
@@ -619,12 +766,14 @@ $("#rvSkip").onclick = ev => { ev.stopPropagation(); end(); };
 
 /* ---------- toast ---------- */
 let toT = null;
+function toastX(lab, title, sub){
+  $("#toM").textContent = lab; $("#toT").textContent = title; $("#toS").textContent = sub;
+  const t = $("#toast"); t.classList.add("on"); sfx.mile();
+  clearTimeout(toT); toT = setTimeout(() => t.classList.remove("on"), 4600);
+}
 function toast(m){
   const tt = TITLES.filter(t => t[0] <= m).pop()[1];
-  $("#toM").textContent = m; $("#toT").textContent = m === 80 ? "도감 완성!" : "도감 " + m + "칸 달성!";
-  $("#toS").textContent = "새 칭호 · " + tt;
-  const t = $("#toast"); t.classList.add("on"); sfx.mile();
-  clearTimeout(toT); toT = setTimeout(() => t.classList.remove("on"), 4200);
+  toastX(m, m === 80 ? "도감 완성!" : "도감 " + m + "칸 달성!", "새 칭호 · " + tt);
 }
 
 /* ---------- render ---------- */
@@ -676,7 +825,7 @@ function cardHTML(e){
 }
 function render(fresh, newDone){
   fresh = fresh || []; newDone = newDone || [];
-  renderCover();
+  renderCover(); renderBadges();
   const book = $("#book"); book.innerHTML = "";
   const {c, s} = counts();
   if (c + s === 0){
@@ -806,12 +955,18 @@ function closeMd(){
 }
 $("#md").addEventListener("click", ev => { if (ev.target.id === "md") closeMd(); });
 document.addEventListener("keydown", ev => {
+  if ($("#bv").classList.contains("on")){
+    if (ev.key === "Escape") endBadges();
+    else if (ev.key === "Enter" || ev.key === " " || ev.key === "ArrowRight"){ ev.preventDefault(); nextBadge(); }
+    return;
+  }
   if ($("#rv").classList.contains("on")){
     if (ev.key === "Escape") end();
     else if (ev.key === "Enter" || ev.key === " " || ev.key === "ArrowRight"){ ev.preventDefault(); next(); }
     return;
   }
   if (!$("#md").classList.contains("on")) return;
+  if (curNo === null && ev.key.startsWith("Arrow")) return;
   const idx = D.findIndex(z => z.no === curNo);
   if (ev.key === "Escape") closeMd();
   else if (ev.key === "ArrowLeft" && idx > 0) openMd(D[idx - 1].no);
@@ -827,25 +982,207 @@ document.addEventListener("keydown", ev => {
 
 /* ---------- save code ---------- */
 function encode(){
-  const b = new Uint8Array(21); let sum = 0;
+  const b = new Uint8Array(22); let sum = 0;
   D.forEach((e, i) => { b[i >> 2] |= v(e.no) << ((i & 3) * 2); });
-  for (let i = 0; i < 20; i++) sum = (sum + b[i] * (i + 1)) & 255;
-  b[20] = sum;
-  return "ACS1-" + btoa(String.fromCharCode(...b)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  BGALL.forEach((g, i) => { if (hasB(g.id)) b[20] |= 1 << i; });
+  for (let i = 0; i < 21; i++) sum = (sum + b[i] * (i + 1)) & 255;
+  b[21] = sum;
+  return "ACS2-" + btoa(String.fromCharCode(...b)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 function decode(s){
   s = s.trim();
-  if (!/^ACS1-[A-Za-z0-9_-]{28}$/.test(s)) return null;
+  let n = 20, legacy = false;
+  if (/^ACS1-[A-Za-z0-9_-]{28}$/.test(s)) legacy = true;
+  else if (!/^ACS2-[A-Za-z0-9_-]{30}$/.test(s)) return null;
   let bin; try { bin = atob(s.slice(5).replace(/-/g, "+").replace(/_/g, "/")); } catch(e){ return null; }
-  if (bin.length !== 21) return null;
+  const len = legacy ? 21 : 22;
+  if (bin.length !== len) return null;
   const b = [...bin].map(c => c.charCodeAt(0)); let sum = 0;
-  for (let i = 0; i < 20; i++) sum = (sum + b[i] * (i + 1)) & 255;
-  if (sum !== b[20]) return null;
-  const out = {};
+  const m = legacy ? 20 : 21;
+  for (let i = 0; i < m; i++) sum = (sum + b[i] * (i + 1)) & 255;
+  if (sum !== b[m]) return null;
+  const out = {}, bg = [];
   D.forEach((e, i) => { const x = (b[i >> 2] >> ((i & 3) * 2)) & 3; if (x === 1 || x === 2) out[e.no] = x; });
-  return out;
+  if (!legacy) BGALL.forEach((g, i) => { if (b[20] & (1 << i)) bg.push(g.id); });
+  return {out, bg};
 }
 const tm = (t, c) => { const m = $("#tm"); m.textContent = t; m.className = "msg " + (c || ""); };
+
+/* ---------- badges (교수 배지전) ---------- */
+const BG = [
+  {id:"ember", prof:"공방장", role:"기술 공방 · 마도기술자", type:"화", name:"불씨", gl:"火", team:["칸델라리아","벌크란","파이어룬"], rule:"3턴마다 화 속성 기술 위력 ×1.2", weak:"수", quote:"후후~ 첫 도전자네~? 내 불꽃을 견디면 배지를 줄게~"},
+  {id:"drop", prof:"엘리노어", role:"보건실 · 소환수 생태학", type:"수", name:"물방울", gl:"水", team:["아켈","글라시안","옥타비아"], rule:"매 턴 끝 소환수 HP 5% 회복", weak:"지", quote:"다치면 바로 치료해 줄게요. 그러니까 전력으로 와요."},
+  {id:"feather", prof:"시엘", role:"비행학 · 신임 교수", type:"풍", name:"깃털", gl:"風", team:["제피린","게일문드","카릴리아"], rule:"첫 턴 항상 선공", weak:"화", quote:"어이, 후배! 바람보다 빨리 올 수 있겠어?"},
+  {id:"stone", prof:"마가렛", role:"배틀 실습 · 기숙사 총감", type:"지", name:"초석", gl:"地", team:["몬타리온","크리스탈리아","시타드렉스"], rule:"첫 피격 피해 절반", weak:"풍", quote:"배지는 성적표와 같습니다. 정당하게 따내십시오."},
+  {id:"dawn", prof:"레이먼드", role:"1학년 담임 · 소환학", type:"빛", name:"여명", gl:"光", team:["로사리아","콘스텔라","아우렐리온"], rule:"마지막 1마리가 위기일 때 전 능력 +1", weak:"어둠", quote:"아… 귀찮은데. 뭐, 한 판만 하자."},
+  {id:"dusk", prof:"빈센트", role:"결계·저주학 · 신임 교수", type:"어둠", name:"그믐", gl:"暗", team:["코르비누스","포셀레인","이클립시아"], rule:"2턴마다 상대에게 상태이상", weak:"빛", quote:"…그믐 아래에서, 정중히 환영합니다."},
+  {id:"fist", prof:"그레타", role:"체력단련 교관 · 신임 교수", type:"무", name:"주먹", gl:"無", team:["라나벨","클라비사","마스커리온"], rule:"상대의 능력 변화 무효", weak:"", quote:"와하하! 머리 쓰지 말고 몸으로 부딪쳐라, 신입!"}
+];
+const MASTER = {id:"master", prof:"오스왈드", role:"학장", type:"전설", name:"마스터 인장", gl:"極", team:["셀로라","녹터넬","칼데리아"], rule:"배지 7개 보유자만 도전 · 에이스 Lv60~65", weak:"", quote:"허허, 일곱 개를 다 모았구먼. 이 늙은이의 소환수도 보여 주지."};
+const BGALL = BG.concat([MASTER]);
+const bById = {}, bKey = {};
+BGALL.forEach(b => { bById[b.id] = b; [b.prof, b.name, b.id].forEach(k => bKey[k] = b); });
+BG.forEach(b => bKey[b.type] = b);
+["학장","마스터","인정전","마스터인장"].forEach(k => bKey[k] = MASTER);
+const LSB = "ac_badges_v1";
+let B = {};   // id -> {t, n}
+const hasB = id => !!B[id];
+const bCount = () => BG.filter(b => B[b.id]).length;
+function loadB(){ try { const r = localStorage.getItem(LSB); if (r) B = JSON.parse(r) || {}; } catch(e){ memOnly = true; } }
+function saveB(){ try { localStorage.setItem(LSB, JSON.stringify(B)); } catch(e){ memOnly = true; } }
+const WEAK = {화:"수", 수:"지", 풍:"화", 지:"풍", 빛:"어둠", 어둠:"빛"};
+
+function gearPath(cx, cy, r1, r2, n){
+  let d = "";
+  for (let i = 0; i < n * 2; i++){
+    const a = Math.PI * i / n - Math.PI / 2, r = i % 2 ? r2 : r1;
+    d += (i ? "L" : "M") + (cx + Math.cos(a) * r).toFixed(1) + " " + (cy + Math.sin(a) * r).toFixed(1);
+  }
+  return d + "Z";
+}
+const GEAR = gearPath(60, 62, 52, 47, 14), GEAR2 = gearPath(60, 62, 52, 49, 14);
+let medalUid = 0;
+function medal(b, on, cls){
+  const u = "m" + (++medalUid), c = b.id === "master" ? "var(--gold-hi)" : "var(--t-" + b.type + ")";
+  const art = "<img class='art' src='img/badge_" + b.id + ".webp' alt='' loading='lazy' hidden onload=\"this.hidden=false;this.parentNode.classList.add('has')\" onerror=\"this.remove()\">";
+  return "<div class='medal2 " + (on ? "on" : "lock") + " " + (cls || "") + "' style='--tc:" + c + "'>" +
+    "<svg viewBox='0 0 120 150' aria-hidden='true'><defs>" +
+    "<linearGradient id='" + u + "g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' style='stop-color:#fff4cf'/><stop offset='.45' style='stop-color:#d9b25f'/><stop offset='1' style='stop-color:#8c6726'/></linearGradient>" +
+    "<radialGradient id='" + u + "d' cx='.38' cy='.3' r='.9'><stop offset='0' style='stop-color:color-mix(in srgb," + c + " 55%,#fff)'/><stop offset='.55' style='stop-color:" + c + "'/><stop offset='1' style='stop-color:color-mix(in srgb," + c + " 35%,#0b1027)'/></radialGradient></defs>" +
+    "<path d='M38 92 L28 146 L48 134 L58 148 L64 98Z' style='fill:color-mix(in srgb," + c + " 70%,#0b1027)'/>" +
+    "<path d='M82 92 L92 146 L72 134 L62 148 L56 98Z' style='fill:color-mix(in srgb," + c + " 45%,#0b1027)'/>" +
+    "<path d='" + GEAR + "' fill='url(#" + u + "g)'/>" +
+    "<circle cx='60' cy='62' r='43' fill='#0b1027' opacity='.55'/>" +
+    "<circle cx='60' cy='62' r='41' fill='url(#" + u + "d)'/>" +
+    "<circle cx='60' cy='62' r='41' fill='none' stroke='url(#" + u + "g)' stroke-width='2.5'/>" +
+    "<circle cx='60' cy='62' r='35' fill='none' style='stroke:#fff' stroke-opacity='.35' stroke-width='.8' stroke-dasharray='1.5 3'/>" +
+    "<text class='gl' x='60' y='77' text-anchor='middle' font-size='44' style='fill:#fff6dc' fill-opacity='.92' stroke='#0b1027' stroke-opacity='.35' stroke-width='1.2' paint-order='stroke'>" + b.gl + "</text>" +
+    "<path d='M60 14 l2.4 5 5.4.8-3.9 3.8.9 5.4-4.8-2.6-4.8 2.6.9-5.4-3.9-3.8 5.4-.8z' fill='url(#" + u + "g)' transform='translate(0 -9) scale(1)' opacity='.95'/>" +
+    "</svg>" + art + "</div>";
+}
+
+function parseBadges(text){
+  const res = [], re = /BG\s*[·・\-_.:/•]\s*([가-힣]+)/g; let m;
+  while ((m = re.exec(text))){
+    const b = bKey[m[1]] || bKey[m[1].replace(/(교수|선생|님)$/, "")];
+    res.push(b ? {b} : {bad: m[0]});
+  }
+  return res;
+}
+
+function renderBadges(freshIds){
+  freshIds = freshIds || [];
+  const n = bCount(), m = hasB("master");
+  $("#bhCnt").innerHTML = n + "<small>/ 7</small>";
+  $("#nB").textContent = n;
+  $("#grad").className = "gradchip" + (m ? " on m" : n >= 3 ? " on" : "");
+  $("#grad").textContent = m ? "🎓 에테르나 마스터" : "🎓 졸업 가능";
+  $("#tkFill").style.width = (n / 7 * 100) + "%";
+  $("#tkPips").innerHTML = [1,2,3,4,5,6,7].map(i => "<i class='pip" + (n >= i ? " on" : "") + "' style='left:" + (i / 7 * 100) + "%'></i>").join("") +
+    "<span class='mk" + (n >= 3 ? " on" : "") + "' style='left:" + (3 / 7 * 100) + "%'><b>3개</b>졸업 가능</span>" +
+    "<span class='mk e" + (n >= 7 ? " on" : "") + "' style='left:" + (7 / 7 * 100 - 3) + "%'><b>7개</b>인정전 개방</span>";
+  let st;
+  if (m) st = "<span class='tag'>MASTER</span>학장 인정전까지 돌파했습니다. 모두의 로망, 에테르나 마스터입니다.";
+  else if (n === 7) st = "<span class='tag'>OPEN</span>배지 7개 완성! 학장 오스왈드의 인정전에 도전할 수 있어요.";
+  else if (n >= 3) st = "<span class='tag'>졸업 자격</span>졸업 기준을 채웠어요. 마스터까지 " + (7 - n) + "개 남았습니다.";
+  else if (n > 0) st = "배지 " + n + "개 · 졸업 기준(3개)까지 " + (3 - n) + "개 남았어요.";
+  else st = "아직 배지가 없어요. 1학년 여름 합숙이 끝나면 교수에게 배지전을 신청할 수 있습니다.";
+  $("#bStat").innerHTML = st;
+  const g = $("#bGrid"); g.innerHTML = "";
+  BG.forEach(b => {
+    const on = hasB(b.id), el = document.createElement("button");
+    el.className = "bslot" + (on ? " on" : "") + (freshIds.includes(b.id) ? " drop" : "");
+    el.style.setProperty("--tc", "var(--t-" + b.type + ")");
+    el.setAttribute("aria-label", b.prof + " 교수 " + b.name + " 배지 " + (on ? "획득" : "미획득") + " 상세 보기");
+    el.innerHTML = medal(b, on) + (on && B[b.id].n ? "<span class='newb'>NEW</span>" : "") +
+      "<span class='pn'>" + b.prof + "</span><span class='bn'><i>" + b.type + "</i>" + b.name + "</span><span class='bs'>" + (on ? "획득 ✓" : "도전 전") + "</span>";
+    el.onclick = () => openBadge(b.id, el);
+    g.append(el);
+  });
+  const ms = $("#bMaster"), open = n === 7 && !m;
+  ms.className = "mstr" + (m ? " on" : open ? " open" : "");
+  ms.innerHTML = medal(MASTER, m) + "<span><span class='mt'>FINAL · 학장 인정전</span><br><span class='mn'>마스터 인장</span><br><span class='md2'>" +
+    (m ? "에테르나 마스터 · 모든 교수를 꺾고 졸업한 이의 증표" : open ? "일곱 배지가 모였습니다. 오스왈드 학장이 기다립니다." : "배지 7개를 모은 자만 도전할 수 있어요. (" + n + "/7)") + "</span></span>" +
+    "<span class='mb'>" + (m ? "획득 ✓" : open ? "도전 가능" : "잠김") + "</span>";
+  ms.onclick = () => openBadge("master", ms);
+}
+
+function openBadge(id, from){
+  if (from) lastFocus = from;
+  curNo = null;
+  const b = bById[id], on = hasB(id), isM = id === "master";
+  if (on && B[id].n){ delete B[id].n; saveB(); const nb = document.querySelector(".bslot.on .newb"); renderBadges(); }
+  const pg = $("#page"); pg.style.setProperty("--tc", isM ? "var(--gold-hi)" : "var(--t-" + b.type + ")");
+  const pimg = "<img src='img/prof_" + id + ".webp' alt='" + esc(b.prof) + " 교수' onerror=\"this.remove()\">";
+  const art = "<div class='bm-art'><div class='ph'><b>" + b.gl + "</b><span>" + esc(b.prof) + (isM ? " 학장" : " 교수") + "</span></div>" + pimg + "</div>";
+  const team = "<div class='team'>" + b.team.map((nm, i) => {
+    const e = byName[nm];
+    return "<figure" + (i === 2 ? " class='ace'" : "") + ">" + (e ? "<img src='img/" + e.img + ".webp' alt='' loading='lazy'>" : "") + "<figcaption>" + esc(nm) + "</figcaption></figure>";
+  }).join("") + "</div>";
+  const wk = isM ? "" : b.weak ? "<li><b>추천 속성</b><span>" + b.weak + " (" + b.type + " 교수에게 효과가 굉장했다!)</span></li>" : "<li><b>추천 속성</b><span>상성 없음 · 정면 승부</span></li>";
+  const lv = isM ? "<li><b>상대 Lv</b><span>셀로라·녹터넬·칼데리아 Lv60~65</span></li>" : "<li><b>상대 Lv</b><span>에이스 Lv = 18 + 내 배지 수 × 6 (나머지 −3)</span></li><li><b>상대 팀</b><span>내 배지 0~2개면 1진화 2마리, 3개부터 최종진화 3마리</span></li>";
+  pg.innerHTML = "<button class='xbtn' id='mx' aria-label='닫기'>×</button>" +
+    "<div class='pg-l'>" + art + "<div class='blk'><h4>TEAM · 교수의 소환수</h4>" + team + "</div></div>" +
+    "<div class='pg-r'><div class='pg-no'><span>" + (isM ? "FINAL" : "BADGE " + (BG.indexOf(b) + 1) + " / 7") + " · " + (isM ? "학장" : b.type + " 속성") + "</span><span class='st " + (on ? "c" : "") + "'>" + (on ? "획득" : "도전 전") + "</span></div>" +
+    "<div style='display:flex;gap:16px;align-items:center'>" + medal(b, on, "big2") + "<div><h2 id='mt'>" + esc(b.name) + "</h2><p class='cat'>" + esc(b.prof) + " · " + esc(b.role) + "</p></div></div>" +
+    "<p class='quote'>“" + esc(b.quote) + "”</p>" +
+    "<div class='blk'><h4>FIELD RULE · 교수의 규칙</h4><ul class='rules'><li><b>필드 규칙</b><span>" + esc(b.rule) + "</span></li>" + wk + lv + "</ul></div>" +
+    "<div class='meta'><span>" + (on ? "획득 " + (B[id].t ? new Date(B[id].t).toLocaleDateString("ko-KR") : "이전 기록") : "승리하면 채팅에 배지 코드가 나와요") + "</span><span>코드 <code>BG·" + esc(b.prof) + "</code></span></div></div>";
+  const md = $("#md"); md.classList.add("on"); md.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden";
+  pg.scrollTop = 0; $("#mx").onclick = closeMd; $("#mx").focus();
+}
+
+/* badge reveal overlay */
+let BQ = [], BI = 0, bTimer = null, bDone = null;
+function playBadges(q, done){
+  if (!q.length){ done(); return; }
+  if (RM){ done(); return; }
+  BQ = q; BI = 0; bDone = done;
+  const bv = $("#bv"); bv.classList.add("on"); bv.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden";
+  showBadge();
+}
+function showBadge(){
+  const b = BQ[BI], bv = $("#bv"), isM = b.id === "master";
+  bv.classList.remove("play");
+  bv.style.setProperty("--tc", isM ? "var(--gold-hi)" : "var(--t-" + b.type + ")");
+  $("#bvT").textContent = isM ? "FINAL SEAL · 마스터 인장" : "BADGE EARNED · " + b.type + " 속성";
+  $("#bvM").innerHTML = medal(b, true);
+  $("#bvP").textContent = isM ? "에테르나 마스터" : b.prof + " 교수의 " + b.name + " 배지";
+  $("#bvB").textContent = isM ? "학장 오스왈드의 인정전을 돌파했다." : "배지 " + bCount() + " / 7";
+  $("#bvQ").textContent = "“" + (isM ? "이 섬의 이야기는, 이제 자네 것이네." : b.quote) + "”";
+  $("#bvPg").textContent = (BI + 1) + " / " + BQ.length;
+  $("#bvNext").textContent = BI + 1 < BQ.length ? "다음" : "배지 회랑으로";
+  const old = bv.querySelectorAll(".pt"); old.forEach(x => x.remove());
+  const pal = isM ? ["#ff7ab6","#ffd56b","#7fffd4","#7fb2ff","#d58bff"] : null;
+  for (let i = 0; i < (isM ? 56 : 34); i++){
+    const p = document.createElement("i"); p.className = "pt";
+    const a = Math.random() * Math.PI * 2, r = 120 + Math.random() * 300;
+    p.style.setProperty("--dx", Math.cos(a) * r + "px"); p.style.setProperty("--dy", Math.sin(a) * r + "px");
+    p.style.setProperty("--d", (1.1 + Math.random() * .5) + "s");
+    if (pal) p.style.setProperty("--pc", pal[i % pal.length]);
+    const sz = 3 + Math.random() * 6; p.style.width = p.style.height = sz + "px";
+    bv.append(p);
+  }
+  void bv.offsetWidth; bv.classList.add("play");
+  clearTimeout(bTimer);
+  sfx.rise(); setTimeout(() => { if (bv.classList.contains("play")) sfx.reveal(true); }, 1500); setTimeout(() => { if (bv.classList.contains("play")) sfx.stamp(); }, 2100);
+  bTimer = setTimeout(nextBadge, 6200);
+}
+function nextBadge(){ clearTimeout(bTimer); if (BI + 1 < BQ.length){ BI++; showBadge(); } else endBadges(); }
+function endBadges(){
+  clearTimeout(bTimer);
+  const bv = $("#bv"); bv.classList.remove("on", "play"); bv.setAttribute("aria-hidden", "true"); document.body.style.overflow = "";
+  const d = bDone; bDone = null; if (d) d();
+}
+$("#bv").addEventListener("click", ev => { if (ev.target.id === "bvSkip") return; if (ev.target.id === "bvNext" || !ev.target.closest(".ctrl")) nextBadge(); });
+$("#bvSkip").onclick = ev => { ev.stopPropagation(); endBadges(); };
+
+function badgeMile(before, after, masterNow){
+  if (masterNow) return ["極", "에테르나 마스터!", "학장 인정전 돌파 · 모두의 로망을 이뤘어요"];
+  if (before < 7 && after >= 7) return ["7", "배지 7개 완성!", "학장 오스왈드의 인정전이 열렸어요"];
+  if (before < 3 && after >= 3) return ["🎓", "졸업 자격 획득!", "배지 3개 · 이제 졸업평가를 통과할 수 있어요"];
+  return null;
+}
 
 /* ---------- wire ---------- */
 $("#go").onclick = register;
@@ -861,17 +1198,18 @@ $("#cp").onclick = async () => {
 $("#ld").onclick = () => {
   const box = $("#sv");
   if (box.hasAttribute("readonly")){ box.removeAttribute("readonly"); box.value = ""; box.focus(); tm("저장 코드를 붙여넣고 [불러오기]를 한 번 더 누르세요."); return; }
-  const o = decode(box.value);
+  const dec = decode(box.value), o = dec && dec.out;
   if (!o){ tm("올바른 저장 코드가 아니에요. 처음부터 끝까지 그대로 붙여넣어 주세요.", "bad"); return; }
   let n = 0;
   Object.keys(o).forEach(k => { if (v(k) < o[k]){ S[k] = {v: o[k], t: Date.now()}; n++; } });
-  save(); render(); box.setAttribute("readonly", ""); tm(n + "칸을 불러와 합쳤어요.", "ok");
+  let nb = 0; dec.bg.forEach(id => { if (!hasB(id)){ B[id] = {t: Date.now()}; nb++; } });
+  save(); saveB(); render(); box.setAttribute("readonly", ""); tm(n + "칸" + (nb ? "과 배지 " + nb + "개" : "") + "를 불러와 합쳤어요.", "ok");
 };
 let rsArm = false;
 $("#rs").onclick = () => {
   const b = $("#rs");
   if (!rsArm){ rsArm = true; b.textContent = "정말 초기화? 한 번 더"; setTimeout(() => { rsArm = false; b.textContent = "전부 초기화"; }, 4000); return; }
-  S = {}; save(); rsArm = false; b.textContent = "전부 초기화"; render(); tm("도감을 초기화했어요.", "ok");
+  S = {}; B = {}; save(); saveB(); rsArm = false; b.textContent = "전부 초기화"; render(); tm("도감을 초기화했어요.", "ok");
 };
 
 /* ---------- sky ---------- */
@@ -896,7 +1234,7 @@ $("#rs").onclick = () => {
   size(); addEventListener("resize", size); requestAnimationFrame(draw);
 })();
 
-load(); render();
+load(); loadB(); render();
 if (memOnly) tm("이 환경에서는 브라우저 저장이 막혀 있어요. 저장 코드를 직접 보관해 주세요.", "bad");
 </script>
 </body>
