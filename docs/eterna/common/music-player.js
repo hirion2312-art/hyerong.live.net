@@ -364,7 +364,8 @@
   })();
   window.EternaMusic = { open: function () { open(true); }, play: play, pause: pause, tracks: TRACKS,
     playIndex: function (i) { if (i === st.idx) { toggle(); return; } pos = order.indexOf(i); load(i, true); },
-    state: function () { return { idx: st.idx, playing: !au.paused }; } };
+    state: function () { return { idx: st.idx, playing: !au.paused }; },
+    duck: function (on) { if (au.paused) return; fadeTo(on ? st.vol * .22 : st.vol, on ? 500 : 1400); } };
   function emit() { document.dispatchEvent(new CustomEvent("eterna-music", { detail: { idx: st.idx, playing: !au.paused } })); }
   au.addEventListener("play", emit); au.addEventListener("pause", emit); au.addEventListener("loadstart", emit);
 })();
