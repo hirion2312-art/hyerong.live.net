@@ -6,7 +6,7 @@
   var TRACKS = [
     { t: "에테르나", s: "메인 테마", g: "ORIGINAL SOUND TRACK", f: "music/01_aeterna.mp3", c: "#d9b25f" },
     { t: "에테르나 아카데미", s: "아카데미 테마", g: "ORIGINAL SOUND TRACK", f: "music/02_academy.mp3", c: "#8fb7ff" },
-    { t: "비어 있는 도감", s: "오프닝 주제가", g: "ORIGINAL SOUND TRACK", f: "music/03_empty_codex.mp3", c: "#ffd37a" },
+    { t: "비어 있는 도감", s: "오프닝 주제가", g: "ORIGINAL SOUND TRACK", f: "music/03_empty_codex.mp3", c: "#ffd37a", open: true },
     { t: "너와 처음 만난 날", s: "파트너 테마", g: "ORIGINAL SOUND TRACK", f: "music/04_first_met.mp3", c: "#ffb38f" },
     { t: "에테르나 들길", s: "필드 테마", g: "ORIGINAL SOUND TRACK", f: "music/05_field_a.mp3", c: "#9be37a" },
     { t: "에테르나 들길 · 두 번째 길", s: "필드 테마 · 확장", g: "ORIGINAL SOUND TRACK", f: "music/06_field_b.mp3", c: "#8fe3b0" },
@@ -26,7 +26,7 @@
 #mp{--c:#d9b25f;position:fixed;z-index:70;left:0;right:0;bottom:0;pointer-events:none;font-family:var(--f-body,'Noto Sans KR',sans-serif);color:#efe7d2}\
 #mp button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent}\
 #mp button:focus-visible,#mp input:focus-visible{outline:2px solid var(--c);outline-offset:2px;border-radius:8px}\
-.mp-pill{pointer-events:auto;position:relative;margin:0 auto 12px;margin-bottom:calc(12px + env(safe-area-inset-bottom,0px));width:min(560px,calc(100% - 24px));display:grid;grid-template-columns:auto 1fr auto auto auto;align-items:center;gap:10px;padding:8px 10px 10px 8px;border-radius:20px;border:1px solid rgba(217,178,95,.34);background:linear-gradient(180deg,rgba(24,32,70,.88),rgba(10,14,34,.92));backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);box-shadow:0 14px 40px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.07);transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .3s}\
+.mp-pill{pointer-events:auto;position:relative;margin:0 auto 12px;margin-bottom:calc(12px + env(safe-area-inset-bottom,0px));width:min(620px,calc(100% - 20px));display:grid;grid-template-columns:auto 1fr auto auto auto;align-items:center;gap:12px;padding:10px 12px 14px 10px;border-radius:24px;border:1px solid rgba(217,178,95,.34);background:linear-gradient(180deg,rgba(24,32,70,.88),rgba(10,14,34,.92));backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);box-shadow:0 14px 40px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.07);transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .3s}\
 .mp-pill.hide{transform:translateY(130%);opacity:0;pointer-events:none}\
 .mp-disc{--sz:46px;position:relative;width:var(--sz);height:var(--sz);border-radius:50%;flex:none;display:grid;place-items:center;font-size:calc(var(--sz)*.42);color:rgba(255,255,255,.92);text-shadow:0 1px 6px rgba(0,0,0,.5);background:radial-gradient(circle at 50% 50%,#0b1026 0 14%,transparent 15%),conic-gradient(from 20deg,var(--c),#0b1026 30%,var(--c) 52%,#0b1026 78%,var(--c));box-shadow:0 0 0 2px rgba(255,255,255,.1),0 6px 18px rgba(0,0,0,.45),0 0 20px -4px var(--c);animation:mpSpin 9s linear infinite;animation-play-state:paused}\
 .mp-disc::after{content:'';position:absolute;inset:34%;border-radius:50%;background:#0b1026;box-shadow:inset 0 0 0 2px var(--c)}\
@@ -34,17 +34,17 @@
 .playing .mp-disc,.playing .mp-disc span{animation-play-state:running}\
 @keyframes mpSpin{to{transform:rotate(360deg)}}\
 .mp-meta{min-width:0;display:grid;gap:1px;text-align:left;cursor:pointer}\
-.mp-meta b{font-size:13.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\
-.mp-meta small{font-size:11px;color:#a3abcc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\
-.mp-ib{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:#cdd3f0;transition:background .2s,color .2s,transform .15s}\
+.mp-meta b{font-size:16px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\
+.mp-meta small{font-size:12.5px;color:#a3abcc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\
+.mp-ib{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#cdd3f0;transition:background .2s,color .2s,transform .15s}\
 .mp-ib:hover{background:rgba(255,255,255,.08);color:#fff}.mp-ib:active{transform:scale(.92)}\
-.mp-ib svg{width:20px;height:20px;fill:currentColor}\
-#mp .mp-play{width:42px;height:42px;background:linear-gradient(145deg,#f4dfa6,var(--c));color:#1a1405!important;box-shadow:0 4px 14px -2px var(--c)}\
+.mp-ib svg{width:24px;height:24px;fill:currentColor}\
+#mp .mp-play{width:56px;height:56px;background:linear-gradient(145deg,#f4dfa6,var(--c));color:#1a1405!important;box-shadow:0 4px 14px -2px var(--c)}\
 #mp .mp-play:hover{background:linear-gradient(145deg,#fff2c9,var(--c))!important}\
-.mp-play svg{width:22px;height:22px}\
-.mp-mini-bar{position:absolute;left:14px;right:14px;bottom:3px;height:3px;border-radius:3px;background:rgba(255,255,255,.1);overflow:hidden}\
+.mp-play svg{width:26px;height:26px}\
+.mp-mini-bar{position:absolute;left:16px;right:16px;bottom:5px;height:4px;border-radius:3px;background:rgba(255,255,255,.1);overflow:hidden}\
 .mp-mini-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--c),#fff2c9);border-radius:3px}\
-.mp-cov{width:46px;height:46px;border-radius:12px;overflow:hidden;flex:none;cursor:pointer;box-shadow:0 0 0 1px rgba(255,255,255,.14),0 6px 16px rgba(0,0,0,.45),0 0 18px -6px var(--c)}\
+.mp-cov{width:58px;height:58px;border-radius:15px;overflow:hidden;flex:none;cursor:pointer;box-shadow:0 0 0 1px rgba(255,255,255,.14),0 6px 16px rgba(0,0,0,.45),0 0 18px -6px var(--c)}\
 .mp-cov img,.mp-row .ic img{width:100%;height:100%;object-fit:cover;display:block}\
 .mp-art{overflow:visible}\
 .mp-art .mp-disc{position:absolute;inset:0;width:100%;height:100%;transition:transform .7s cubic-bezier(.2,.8,.2,1)}\
@@ -56,8 +56,12 @@
 .playing .mp-eq{display:flex}.mp-eq i{flex:1;background:var(--c);border-radius:1px;height:30%;animation:mpEq 1s ease-in-out infinite}\
 .mp-eq i:nth-child(2){animation-delay:-.4s}.mp-eq i:nth-child(3){animation-delay:-.7s}\
 @keyframes mpEq{0%,100%{height:25%}50%{height:100%}}\
-.mp-fab{pointer-events:auto;position:absolute;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));width:50px;height:50px;border-radius:50%;display:none;place-items:center;border:1px solid rgba(217,178,95,.4);background:rgba(14,20,48,.9);backdrop-filter:blur(10px);box-shadow:0 8px 24px rgba(0,0,0,.5);font-size:20px}\
-.mp-fab.show{display:grid}\
+.mp-fab{pointer-events:auto;position:absolute;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));height:64px;padding:0 22px 0 8px;border-radius:99px;display:none;align-items:center;gap:10px;border:1px solid rgba(244,223,166,.6);background:linear-gradient(145deg,rgba(40,52,110,.96),rgba(14,20,48,.96));backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,.55),0 0 0 4px rgba(217,178,95,.14),0 0 30px -4px var(--c);font-size:15px;font-weight:700;color:#f4dfa6;letter-spacing:.02em}\
+.mp-fab img{width:48px;height:48px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px rgba(244,223,166,.5)}\
+.mp-fab::before{content:'';position:absolute;inset:-6px;border-radius:99px;border:2px solid var(--c);opacity:.6;animation:mpFab 1.8s ease-out infinite;pointer-events:none}\
+@keyframes mpFab{from{transform:scale(.96);opacity:.7}to{transform:scale(1.12,1.3);opacity:0}}\
+.mp-fab:active{transform:scale(.96)}\
+.mp-fab.show{display:flex}\
 \
 .mp-sheet{pointer-events:none;position:fixed;inset:0;z-index:71;display:grid;align-items:end;justify-items:center;visibility:hidden;transition:visibility 0s .4s}\
 .mp-open .mp-sheet{visibility:visible;transition-delay:0s;pointer-events:auto}\
@@ -117,9 +121,9 @@
 .mp-now{border-right:0;border-bottom:1px solid rgba(160,172,230,.14);padding:16px 18px 12px;gap:10px}\
 .mp-art{width:min(150px,34vw)}.mp-art .mp-disc{font-size:46px}.mp-vis{height:30px}\
 .mp-vol{display:none}.mp-lh{padding-top:12px}\
-.mp-pill{grid-template-columns:auto 1fr auto auto}.mp-pill .mp-prev{display:none}\
+.mp-pill{grid-template-columns:auto 1fr auto auto;gap:10px}.mp-pill .mp-prev{display:none}\
 }\
-@media(prefers-reduced-motion:reduce){.mp-disc,.mp-disc span,.mp-eq i,.mp-art::before{animation:none!important}.mp-card{transition-duration:.01s}}\
+@media(prefers-reduced-motion:reduce){.mp-disc,.mp-disc span,.mp-eq i,.mp-art::before,.mp-fab::before{animation:none!important}.mp-card{transition-duration:.01s}}\
 ";
   var sty = document.createElement("style"); sty.textContent = css; document.head.appendChild(sty);
 
@@ -143,7 +147,7 @@
       '<button class="mp-ib mp-play" data-a="play" aria-label="재생">' + ICON.play + '</button>' +
       '<div class="mp-mini-bar"><i id="mpMB"></i></div>' +
     '</div>' +
-    '<button class="mp-fab show" id="mpFab" aria-label="음악 열기">♪</button>' +
+    '<button class="mp-fab show" id="mpFab" aria-label="음악 열기"><img src="'+COVER_S+'" alt=""><span>♪ 음악 듣기</span></button>' +
     '<div class="mp-sheet" id="mpSheet"><div class="mp-back" id="mpBack"></div>' +
       '<div class="mp-card" role="dialog" aria-modal="true" aria-label="뮤직 플레이어"><div class="mp-glow"></div>' +
         '<div class="mp-now">' +
@@ -339,9 +343,21 @@
   requestAnimationFrame(frame);
 
   /* 시작 */
-  if (st.idx < 0 || st.idx >= TRACKS.length) st.idx = 0;
+  var OPEN = 0; TRACKS.forEach(function (t, i) { if (t.open) OPEN = i; });
+  st.idx = OPEN; st.t = 0;
   buildOrder(st.idx); renderList(); paint(); syncModes(); au.volume = st.vol;
   au.src = TRACKS[st.idx].f; if (st.t) au.addEventListener("loadedmetadata", function f() { au.removeEventListener("loadedmetadata", f); try { au.currentTime = st.t; } catch (e) {} });
   TRACKS.forEach(function (_, i) { if (i !== st.idx) setTimeout(function () { probe(i); }, 200 + i * 120); });
+  /* 입장 시 오프닝곡 자동 재생: 브라우저가 막으면 첫 터치/클릭/키 입력 때 시작 */
+  (function () {
+    var started = false;
+    function go() { if (started) return; started = true; off(); play(); }
+    var ev = ["pointerdown", "touchstart", "keydown", "wheel"];
+    function off() { ev.forEach(function (e) { removeEventListener(e, onG, true); }); }
+    function onG(e) { if (e.target && e.target.closest && e.target.closest("#mp")) { started = true; off(); return; } go(); }
+    ev.forEach(function (e) { addEventListener(e, onG, true); });
+    var p; try { au.volume = 0; p = au.play(); } catch (e) {}
+    if (p && p.then) p.then(function () { started = true; off(); wantPlay = true; ensureCtx(); fadeTo(st.vol, 1200); root.querySelector("#mpPill").classList.remove("hide"); $("mpFab").classList.remove("show"); }).catch(function () { setTimeout(function () { if (!started) toast("화면을 한 번 터치하면 오프닝 음악이 시작돼요 ♪"); }, 1500); });
+  })();
   window.EternaMusic = { open: function () { open(true); }, play: play, pause: pause, tracks: TRACKS };
 })();
