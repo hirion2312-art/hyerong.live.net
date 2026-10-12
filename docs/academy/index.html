@@ -323,7 +323,7 @@ textarea{resize:vertical;min-height:84px}
 
 <div class="wrap">
   <header class="bar">
-    <div class="brand"><img src="img/logo_s.webp" alt="소환수 아카데미"><small>ETERNA SUMMONERS' ACADEMY</small></div>
+    <div class="brand"><img src="img/logo_s.webp" alt="소환수 아카데미"><small>ETERNA ACADEMY</small></div>
     <ol class="steps" id="steps">
       <li data-s="1"><b>I</b><span>입학 등록</span></li>
       <li data-s="2"><b>II</b><span>학생증 발급</span></li>
@@ -437,7 +437,7 @@ function cardHTML(ex){
   const r = runes(S.id || p.name || "eterna");
   const g = { m: "남성", f: "여성", x: "밝히지 않음" }[p.gender] || "—";
   return `<div class="idcard ${ex ? "example" : ""}" id="idcard">
-    <div class="hdr"><div class="t">ETERNA SUMMONERS' ACADEMY</div><div class="row" style="gap:8px"><span class="k">학생증</span>${crestSVG}</div></div>
+    <div class="hdr"><div class="t">ETERNA ACADEMY</div><div class="row" style="gap:8px"><span class="k">학생증</span>${crestSVG}</div></div>
     <div class="photo">${p.photo ? `<img src="${p.photo}" alt="증명사진">` : `<span>${esc((nm || "?").slice(0, 1))}</span>`}</div>
     <dl class="info">
       <div class="w"><dt>NAME 성명</dt><dd class="name">${esc(nm)}</dd></div>
@@ -532,7 +532,7 @@ function hero(){
     </div>
     <article class="letter" aria-label="합격 통지서">
       <h3>합격 통지서</h3>
-      <p>귀하는 에테르나 소환 아카데미 협약력 301년도 신입생 선발 시험에 최종 합격하였기에 이를 통지합니다.</p>
+      <p>귀하는 에테르나 아카데미 협약력 301년도 신입생 선발 시험에 최종 합격하였기에 이를 통지합니다.</p>
       <p>은빛 갈매기호에 승선하여 섬에 도착한 뒤, 입학 등록과 소환 의식을 마치십시오. 계약은 지배가 아니라 공명입니다.</p>
       <div class="sig">Oswald E.</div>
       <div class="seal">ETERNA</div>
@@ -718,7 +718,7 @@ function altar(){
 function block(){
   const p = S.p, b = S.beast, st = stats(b);
   const g = { m: "남성", f: "여성", x: "밝히지 않음" }[p.gender];
-  return `[에테르나 소환 아카데미 | 입학 등록 결과]
+  return `[에테르나 아카데미 | 입학 등록 결과]
 이름: ${p.name}
 나이: ${p.age}
 성별: ${g}
