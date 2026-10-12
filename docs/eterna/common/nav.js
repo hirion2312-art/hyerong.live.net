@@ -10,9 +10,9 @@
     { k: "codex", t: "도감", h: BASE + "../../academy-codex/", i: '<path d="M4 5a2 2 0 0 1 2-2h5v18H6a2 2 0 0 1-2-2zm9-2h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5z"/>' }
   ];
   var css = "\
-#enav{--g:#c99a3e;--ink:#27305f;--glass:rgba(255,255,255,.62);--bd:rgba(255,255,255,.85);--sh:0 10px 30px -10px rgba(70,60,140,.35),0 2px 6px rgba(70,60,140,.08);--mute:#6a6f99;--act:linear-gradient(135deg,#fff6df,#f4dca4);\
+#enav{--g:#c99a3e;--ink:#27305f;--glass:rgba(246,243,250,.66);--bd:rgba(255,255,255,.75);--sh:0 10px 30px -10px rgba(70,60,140,.35),0 2px 6px rgba(70,60,140,.08);--mute:#6a6f99;--act:linear-gradient(135deg,#fff6df,#f4dca4);\
 position:fixed;z-index:65;left:50%;top:calc(10px + env(safe-area-inset-top,0px));transform:translateX(-50%);width:min(900px,calc(100% - 20px));display:flex;align-items:center;gap:6px;padding:6px 6px 6px 12px;border-radius:99px;\
-background:var(--glass);border:1px solid var(--bd);box-shadow:var(--sh);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .3s}\
+background:var(--glass);border:1px solid var(--bd);box-shadow:var(--sh);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;font-weight:700;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .3s}\
 #enav.dark{--ink:#f2e9d4;--glass:rgba(16,22,52,.6);--bd:rgba(217,178,95,.32);--sh:0 10px 30px -8px rgba(0,0,0,.55);--mute:#a3abcc;--act:linear-gradient(135deg,rgba(244,223,166,.22),rgba(217,178,95,.12))}\
 #enav.up{transform:translate(-50%,calc(-100% - 20px));opacity:0}\
 #enav a,#enav button{font:inherit;color:inherit;text-decoration:none;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}\
@@ -20,7 +20,7 @@ background:var(--glass);border:1px solid var(--bd);box-shadow:var(--sh);backdrop
 #enav .lg img{height:38px;width:auto;display:block;filter:drop-shadow(0 1px 1px rgba(40,40,110,.55)) drop-shadow(0 3px 8px rgba(80,70,160,.35));transition:transform .3s}\
 #enav .lg:hover img{transform:rotate(-3deg) scale(1.05)}\
 #enav nav{display:flex;gap:2px}\
-#enav nav a{position:relative;display:flex;align-items:center;gap:6px;padding:9px 15px;border-radius:99px;color:var(--mute);font-size:14px;font-weight:600;letter-spacing:-.01em;transition:color .2s,background .2s}\
+#enav nav a{position:relative;display:flex;align-items:center;gap:6px;padding:9px 15px;border-radius:99px;color:var(--mute);font-size:15.5px;font-weight:800;letter-spacing:-.01em;transition:color .2s,background .2s}\
 #enav nav a svg{width:16px;height:16px;fill:currentColor;opacity:.85}\
 #enav nav a:hover{color:var(--ink);background:rgba(255,255,255,.35)}\
 #enav.dark nav a:hover{background:rgba(255,255,255,.06)}\
@@ -32,7 +32,7 @@ background:var(--glass);border:1px solid var(--bd);box-shadow:var(--sh);backdrop
 #enav .tg button svg{width:19px;height:19px;fill:currentColor}\
 #enav .tg button.off{opacity:.45}\
 #enav a:focus-visible,#enav button:focus-visible{outline:2px solid var(--g);outline-offset:2px}\
-@media(max-width:640px){#enav{padding:5px 5px 5px 8px;gap:2px}#enav .lg img{height:30px}#enav nav a{padding:8px 9px;font-size:12.5px}#enav nav a svg{display:none}#enav .tg{margin-left:2px;padding-left:2px}#enav .tg button{width:34px;height:34px}#enav .tg button svg{width:17px;height:17px}}\
+@media(max-width:640px){#enav{padding:5px 5px 5px 8px;gap:2px}#enav .lg img{height:30px}#enav nav a{padding:8px 9px;font-size:14px}#enav nav a svg{display:none}#enav .tg{margin-left:2px;padding-left:2px}#enav .tg button{width:34px;height:34px}#enav .tg button svg{width:17px;height:17px}}\
 @media(max-width:360px){#enav .lg{display:none}#enav nav{margin-right:auto}}\
 ";
   var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
