@@ -2,28 +2,19 @@
    곡 추가: 아래 TRACKS에 한 줄 추가하고 music/ 폴더에 mp3를 넣으면 끝. (파일이 없으면 '준비 중'으로 흐리게 표시) */
 (function () {
   "use strict";
+  var COVER = "music/cover.jpg", COVER_S = "music/cover_s.jpg";
   var TRACKS = [
-    /* ── 명곡 ── */
-    { t: "에테르나", s: "메인 테마", g: "명곡", f: "music/01_main_theme.mp3", c: "#d9b25f", i: "✦" },
-    { t: "안개를 가르는 은빛 갈매기호", s: "항해 · 입학", g: "명곡", f: "music/02_silver_gull.mp3", c: "#8fb7ff", i: "⚓" },
-    { t: "너와 처음 만난 날", s: "파트너 테마", g: "명곡", f: "music/03_partner.mp3", c: "#ffb38f", i: "♡" },
-    { t: "일곱 갈래의 바람", s: "칠류의 노래", g: "명곡", f: "music/04_seven_winds.mp3", c: "#8fe3b0", i: "❖" },
-    { t: "승부다, 라이벌!", s: "라이벌 테마", g: "명곡", f: "music/05_rival.mp3", c: "#ff8f8f", i: "⚔" },
-    { t: "마스터의 길", s: "학장 인정전", g: "명곡", f: "music/06_master.mp3", c: "#c9a6ff", i: "♛" },
-    { t: "첫 페이지", s: "오프닝 주제가", g: "명곡", f: "music/07_first_page.mp3", c: "#ffd37a", i: "✎" },
-    { t: "졸업, 그리고", s: "엔딩 주제가", g: "명곡", f: "music/08_graduation.mp3", c: "#9fd8ff", i: "❀" },
-    /* ── 필드·배틀 BGM ── */
-    { t: "에테르나 들길", s: "야생지대 · 메인 필드", g: "필드 · 배틀", f: "music/bgm01_field.mp3", c: "#9be37a", i: "☘" },
-    { t: "바람 부는 풍차 고원", s: "풍 지역", g: "필드 · 배틀", f: "music/bgm02_windmill.mp3", c: "#8fe3b0", i: "❃" },
-    { t: "꺼지지 않는 잿불 화구", s: "화 · 지 지역", g: "필드 · 배틀", f: "music/bgm03_ember.mp3", c: "#ff9a5f", i: "♨" },
-    { t: "황혼 묘원의 밤길", s: "어둠 지역 · 야간", g: "필드 · 배틀", f: "music/bgm04_dusk.mp3", c: "#a58fff", i: "☾" },
-    { t: "에테르나 교정의 아침", s: "아카데미 메인", g: "필드 · 배틀", f: "music/bgm05_campus.mp3", c: "#ffe28f", i: "☀" },
-    { t: "야생 소환수 출현!", s: "야생 배틀", g: "필드 · 배틀", f: "music/bgm06_wild.mp3", c: "#ff8f8f", i: "!" },
-    { t: "교수 배지전", s: "보스 배틀", g: "필드 · 배틀", f: "music/bgm07_badge.mp3", c: "#ff6f6f", i: "✪" },
-    { t: "승리!", s: "배틀 승리", g: "필드 · 배틀", f: "music/bgm08_victory.mp3", c: "#ffd37a", i: "★" },
-    { t: "빛 속의 진화", s: "진화 연출", g: "필드 · 배틀", f: "music/bgm09_evolve.mp3", c: "#fff2c9", i: "✧" },
-    { t: "흑일", s: "심연의 기운", g: "필드 · 배틀", f: "music/bgm10_eclipse.mp3", c: "#7a7fb8", i: "●" }
+    { t: "에테르나", s: "메인 테마", g: "ORIGINAL SOUND TRACK", f: "music/01_aeterna.mp3", c: "#d9b25f" },
+    { t: "에테르나 아카데미", s: "아카데미 테마", g: "ORIGINAL SOUND TRACK", f: "music/02_academy.mp3", c: "#8fb7ff" },
+    { t: "비어 있는 도감", s: "오프닝 주제가", g: "ORIGINAL SOUND TRACK", f: "music/03_empty_codex.mp3", c: "#ffd37a" },
+    { t: "너와 처음 만난 날", s: "파트너 테마", g: "ORIGINAL SOUND TRACK", f: "music/04_first_met.mp3", c: "#ffb38f" },
+    { t: "에테르나 들길", s: "필드 테마", g: "ORIGINAL SOUND TRACK", f: "music/05_field_a.mp3", c: "#9be37a" },
+    { t: "에테르나 들길 · 두 번째 길", s: "필드 테마 · 확장", g: "ORIGINAL SOUND TRACK", f: "music/06_field_b.mp3", c: "#8fe3b0" },
+    { t: "에테르나의 일상", s: "교정의 하루", g: "ORIGINAL SOUND TRACK", f: "music/07_daily.mp3", c: "#ffe28f" },
+    { t: "승부다, 라이벌!", s: "라이벌 테마", g: "ORIGINAL SOUND TRACK", f: "music/08_rival.mp3", c: "#ff8f8f" },
+    { t: "다음 장에서 또 만나", s: "엔딩 주제가", g: "ORIGINAL SOUND TRACK", f: "music/09_next_chapter.mp3", c: "#9fd8ff" }
   ];
+
 
   var KEY = "eterna-music-v1", st = { vol: .7, idx: 0, t: 0, shuf: false, rep: 0 };
   try { var raw = JSON.parse(localStorage.getItem(KEY) || "{}"); for (var k in raw) st[k] = raw[k]; } catch (e) {}
@@ -48,11 +39,19 @@
 .mp-ib{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:#cdd3f0;transition:background .2s,color .2s,transform .15s}\
 .mp-ib:hover{background:rgba(255,255,255,.08);color:#fff}.mp-ib:active{transform:scale(.92)}\
 .mp-ib svg{width:20px;height:20px;fill:currentColor}\
-.mp-play{width:42px;height:42px;background:linear-gradient(145deg,#f4dfa6,var(--c));color:#1a1405!important;box-shadow:0 4px 14px -2px var(--c)}\
-.mp-play:hover{background:linear-gradient(145deg,#fff2c9,var(--c))!important}\
+#mp .mp-play{width:42px;height:42px;background:linear-gradient(145deg,#f4dfa6,var(--c));color:#1a1405!important;box-shadow:0 4px 14px -2px var(--c)}\
+#mp .mp-play:hover{background:linear-gradient(145deg,#fff2c9,var(--c))!important}\
 .mp-play svg{width:22px;height:22px}\
 .mp-mini-bar{position:absolute;left:14px;right:14px;bottom:3px;height:3px;border-radius:3px;background:rgba(255,255,255,.1);overflow:hidden}\
 .mp-mini-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--c),#fff2c9);border-radius:3px}\
+.mp-cov{width:46px;height:46px;border-radius:12px;overflow:hidden;flex:none;cursor:pointer;box-shadow:0 0 0 1px rgba(255,255,255,.14),0 6px 16px rgba(0,0,0,.45),0 0 18px -6px var(--c)}\
+.mp-cov img,.mp-row .ic img{width:100%;height:100%;object-fit:cover;display:block}\
+.mp-art{overflow:visible}\
+.mp-art .mp-disc{position:absolute;inset:0;width:100%;height:100%;transition:transform .7s cubic-bezier(.2,.8,.2,1)}\
+.playing .mp-art .mp-disc{transform:translateX(22%)}\
+.mp-cv{position:relative;width:100%;height:100%;object-fit:cover;border-radius:16px;display:block;z-index:1;box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.14),0 0 60px -10px var(--c)}\
+.mp-art{margin-right:0}\
+.mp-row .ic{overflow:hidden;background:none;padding:0}\
 .mp-eq{display:none;align-items:flex-end;gap:2px;height:16px;width:16px;margin-right:2px}\
 .playing .mp-eq{display:flex}.mp-eq i{flex:1;background:var(--c);border-radius:1px;height:30%;animation:mpEq 1s ease-in-out infinite}\
 .mp-eq i:nth-child(2){animation-delay:-.4s}.mp-eq i:nth-child(3){animation-delay:-.7s}\
@@ -70,8 +69,6 @@
 .mp-now{position:relative;overflow:hidden;overflow:clip;display:flex;flex-direction:column;align-items:center;gap:14px;padding:22px 24px 22px;text-align:center;border-right:1px solid rgba(160,172,230,.14);min-height:0}\
 .mp-top{width:100%;display:flex;align-items:center;justify-content:space-between;font-family:var(--f-latin,'Cinzel',serif);letter-spacing:.2em;font-size:10.5px;color:#a3abcc}\
 .mp-art{position:relative;width:min(250px,56vw);aspect-ratio:1;flex:none;margin-top:4px}\
-.mp-art .mp-disc{--sz:100%;width:100%;height:100%;font-size:72px}\
-.mp-art .mp-disc span{display:block}\
 .mp-art::before{content:'';position:absolute;inset:-10px;border-radius:50%;border:1px solid var(--c);opacity:.35;animation:mpPulse 2.6s ease-out infinite;animation-play-state:paused}\
 .playing .mp-art::before{animation-play-state:running}\
 @keyframes mpPulse{from{transform:scale(.96);opacity:.5}to{transform:scale(1.14);opacity:0}}\
@@ -139,7 +136,7 @@
   var root = document.createElement("div"); root.id = "mp";
   root.innerHTML =
     '<div class="mp-pill hide" id="mpPill">' +
-      '<div class="mp-disc" id="mpD1"><span></span></div>' +
+      '<div class="mp-cov" id="mpD1"><img src="'+COVER_S+'" alt=""></div>' +
       '<button class="mp-meta" id="mpMeta" aria-label="플레이어 열기"><b id="mpT1">-</b><small id="mpS1">-</small></button>' +
       '<div class="mp-eq" aria-hidden="true"><i></i><i></i><i></i></div>' +
       '<button class="mp-ib mp-prev" data-a="prev" aria-label="이전 곡">' + ICON.prev + '</button>' +
@@ -151,7 +148,7 @@
       '<div class="mp-card" role="dialog" aria-modal="true" aria-label="뮤직 플레이어"><div class="mp-glow"></div>' +
         '<div class="mp-now">' +
           '<div class="mp-top"><span>ETERNA MUSIC</span><span id="mpCnt">1 / 1</span></div>' +
-          '<div class="mp-art"><div class="mp-disc" id="mpD2"><span id="mpI2">♪</span></div></div>' +
+          '<div class="mp-art"><div class="mp-disc" id="mpD2"></div><img class="mp-cv" src="'+COVER+'" alt="앨범 표지"></div>' +
           '<canvas class="mp-vis" id="mpVis" aria-hidden="true"></canvas>' +
           '<div class="mp-title" id="mpT2">-</div><div class="mp-sub" id="mpS2">-</div>' +
           '<div class="mp-seek"><span id="mpCur">0:00</span><input class="mp-rng" id="mpSeek" type="range" min="0" max="1000" value="0" aria-label="재생 위치"><span id="mpDur">0:00</span></div>' +
@@ -188,7 +185,7 @@
     var h = "", last = "";
     TRACKS.forEach(function (tr, i) {
       if (tr.g !== last) { h += '<div class="mp-gh">' + tr.g + '</div>'; last = tr.g; }
-      h += '<button class="mp-row' + (avail[i] === false ? " na" : "") + '" data-i="' + i + '" style="--c:' + tr.c + '"><span class="n">' + (i + 1) + '</span><span class="ic">' + tr.i + '</span><span class="tx"><b>' + tr.t + '</b><small>' + tr.s + '</small></span><span class="du">' + (avail[i] === false ? "준비 중" : (durs[i] ? fmt(durs[i]) : "")) + '</span><span class="mp-eq"><i></i><i></i><i></i></span></button>';
+      h += '<button class="mp-row' + (avail[i] === false ? " na" : "") + '" data-i="' + i + '" style="--c:' + tr.c + '"><span class="n">' + (i + 1) + '</span><span class="ic"><img src="' + COVER_S + '" alt=""></span><span class="tx"><b>' + tr.t + '</b><small>' + tr.s + '</small></span><span class="du">' + (avail[i] === false ? "준비 중" : (durs[i] ? fmt(durs[i]) : "")) + '</span><span class="mp-eq"><i></i><i></i><i></i></span></button>';
     });
     $("mpList").innerHTML = h; markCur();
   }
@@ -204,12 +201,11 @@
     var tr = TRACKS[st.idx];
     root.style.setProperty("--c", tr.c);
     $("mpT1").textContent = $("mpT2").textContent = tr.t;
-    $("mpS1").textContent = $("mpS2").textContent = tr.g + " · " + tr.s;
-    $("mpS2").textContent = tr.s;
-    $("mpI2").textContent = tr.i; $("mpD1").firstChild.textContent = tr.i; $("mpD1").firstChild.style.display = "block";
+    $("mpS1").textContent = $("mpS2").textContent = tr.s;
+    
     $("mpCnt").textContent = (st.idx + 1) + " / " + TRACKS.length;
     markCur();
-    if ("mediaSession" in navigator) navigator.mediaSession.metadata = new MediaMetadata({ title: tr.t, artist: "에테르나 소환수 아카데미", album: tr.g });
+    if ("mediaSession" in navigator) navigator.mediaSession.metadata = new MediaMetadata({ title: tr.t, artist: "소환수 아카데미", album: "소환수 아카데미 OST", artwork: [{ src: COVER, sizes: "640x640", type: "image/jpeg" }] });
   }
   function setPlayUI() {
     var pl = !au.paused;
