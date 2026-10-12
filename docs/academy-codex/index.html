@@ -6,10 +6,13 @@
 <title>에테르나 도감 회랑</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Jua&family=Noto+Sans+KR:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<script>try{var t=localStorage.getItem("eterna-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<meta name="theme-color" content="#efe9f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#080b1b" media="(prefers-color-scheme: dark)">
 <style>
 /* Layout: 밤하늘 아래 펼친 소환수 도감. 표지(진행 링 · 칭호 · 속성 메달) → 코드 등록대 → 속성 장(章)별 계열 페이지(기본·1진화·최종 슬롯) → 기록 보관.
-   등록 시 전면 소환 연출(소환진 → 빛 → 공개 → 인장)이 한 장씩 재생된다. 어두운 단일 테마. */
+   등록 시 전면 소환 연출(소환진 → 빛 → 공개 → 인장)이 한 장씩 재생된다. 다크(밤) · 라이트(새벽) 지원. */
 :root{
   --night:#080b1b; --night-2:#0f1530; --deep:#161f45; --ink:#0b1026;
   --panel:rgba(16,22,50,.74); --line:rgba(217,178,95,.30); --line-soft:rgba(160,172,230,.15);
@@ -17,16 +20,16 @@
   --mana:#8fa2ff; --danger:#ff8f8f; --ok:#8fe3b0;
   --t-화:#ff8a4c; --t-수:#4cc3ff; --t-풍:#7fe0b4; --t-지:#d4a15a; --t-빛:#ffe28a; --t-어둠:#b48cff; --t-무:#d6d6e6; --t-전설:#f4dfa6;
   --f-body:"Noto Sans KR","Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-  --f-book:"Gowun Batang","Noto Serif KR",serif;
+  --f-book:"Jua","Noto Sans KR",sans-serif;
   --f-latin:"Cinzel","Times New Roman",serif;
   --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--night);color:var(--parch);font-family:var(--f-body);font-size:16px;line-height:1.65;overflow-x:hidden;word-break:keep-all;overflow-wrap:break-word;min-height:100%}
+body{background:var(--night);color:var(--parch);font-family:var(--f-body);font-weight:500;font-size:16.5px;line-height:1.7;font-synthesis-weight:none;transition:background .5s,color .5s;overflow-x:hidden;word-break:keep-all;overflow-wrap:break-word;min-height:100%}
 #sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-.wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding-inline:20px;padding-block:16px 80px}
+.wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding-inline:20px;padding-block:calc(84px + env(safe-area-inset-top,0px)) 130px}
 button,input,textarea{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
 h1,h2,h3,p{margin:0}
@@ -470,6 +473,63 @@ code{font-family:var(--f-mono);font-size:12.5px;background:rgba(143,162,255,.12)
   .medal{width:52px}.medal .hx{width:44px;height:50px}
   .chap-h h2{font-size:20px}
 }
+
+/* ===== 라이트(새벽) 테마 ===== */
+:root{--surf:linear-gradient(180deg,rgba(22,30,66,.72),rgba(12,17,40,.72));--field:rgba(8,11,27,.75);--cardbg:linear-gradient(160deg,#10173a,#0a0f26);--chipbg:rgba(8,11,27,.82);--hexin:linear-gradient(160deg,#18214a,#0b1027)}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --night:#efe9f1; --night-2:#fbf8f4; --deep:#e2dcef; --ink:#1d1630;
+  --panel:rgba(255,255,255,.72); --line:rgba(176,132,48,.4); --line-soft:rgba(70,72,140,.16);
+  --gold:#b78630; --gold-hi:#8f6219; --parch:#1f2650; --muted:#525888; --dim:#7a7fa6; --mana:#5f72e0; --danger:#c8434f; --ok:#1f9a62;
+  --t-화:#e8692c; --t-수:#1e9bd8; --t-풍:#2fae7c; --t-지:#b07a2e; --t-빛:#d6a51c; --t-어둠:#8a5ae0; --t-무:#8a8aa6; --t-전설:#c9962e;
+  --surf:linear-gradient(180deg,rgba(255,255,255,.82),rgba(255,255,255,.6)); --field:rgba(255,255,255,.85); --cardbg:linear-gradient(160deg,#ffffff,#f2eef8); --chipbg:rgba(255,255,255,.9); --hexin:linear-gradient(160deg,#ffffff,#eee9f6);
+  color-scheme:light}}
+:root[data-theme="light"]{
+  --night:#efe9f1; --night-2:#fbf8f4; --deep:#e2dcef; --ink:#1d1630;
+  --panel:rgba(255,255,255,.72); --line:rgba(176,132,48,.4); --line-soft:rgba(70,72,140,.16);
+  --gold:#b78630; --gold-hi:#8f6219; --parch:#1f2650; --muted:#525888; --dim:#7a7fa6; --mana:#5f72e0; --danger:#c8434f; --ok:#1f9a62;
+  --t-화:#e8692c; --t-수:#1e9bd8; --t-풍:#2fae7c; --t-지:#b07a2e; --t-빛:#d6a51c; --t-어둠:#8a5ae0; --t-무:#8a8aa6; --t-전설:#c9962e;
+  --surf:linear-gradient(180deg,rgba(255,255,255,.82),rgba(255,255,255,.6)); --field:rgba(255,255,255,.85); --cardbg:linear-gradient(160deg,#ffffff,#f2eef8); --chipbg:rgba(255,255,255,.9); --hexin:linear-gradient(160deg,#ffffff,#eee9f6);
+  color-scheme:light}
+.fam{background:var(--surf)}
+.entry textarea,.tools textarea{background:var(--field)}
+.card .in{background:var(--cardbg)}
+.card .no{background:var(--chipbg)}
+.medal .hx::after{background:var(--hexin)}
+.evo button,.team figure{background:var(--night-2)}
+.xbtn{background:var(--chipbg)}
+.bslot{background:color-mix(in srgb,var(--night-2) 60%,transparent)}
+.mstr{background:color-mix(in srgb,var(--night-2) 55%,transparent)}
+.track .pip{background:var(--night-2)}
+.tools{background:var(--panel)}
+#md{background:color-mix(in srgb,var(--night) 70%,rgba(4,6,16,.6))}
+:root[data-theme="light"] .cover,:root[data-theme="light"] .bhall,:root[data-theme="light"] .page{background:linear-gradient(160deg,#ffffff,#f4eff9 60%,#fbf3ea)}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .cover,:root:not([data-theme="dark"]) .bhall,:root:not([data-theme="dark"]) .page{background:linear-gradient(160deg,#ffffff,#f4eff9 60%,#fbf3ea)}}
+:root[data-theme="light"] .cover,:root[data-theme="light"] .bhall{box-shadow:0 30px 60px -36px rgba(60,50,120,.45)}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .cover,:root:not([data-theme="dark"]) .bhall{box-shadow:0 30px 60px -36px rgba(60,50,120,.45)}}
+/* 주아체 크기 보정 */
+.cv-tx h1{font-size:clamp(34px,5.6vw,54px);font-weight:400}
+.chap-h h2{font-size:28px;font-weight:400}
+.fam header h3{font-size:18px;font-weight:400}
+.entry h2,.tools h2,.bhall h2{font-size:23px;font-weight:400}
+.card .nm{font-family:var(--f-book);font-weight:400;font-size:15px}
+.rank .tt{font-size:19px;font-weight:400}
+.medal .hx i,.wax b,.bslot .pn,.mstr .mn,#bv .bp,#toast b,.pg-r h2,#rv .info h2{font-weight:400}
+.bslot .pn{font-size:17px}
+.mstr .mn{font-size:22px}
+.seal-btn{font-family:var(--f-book);font-weight:400;font-size:18px}
+/* ===== 홀로그램 카드 강화 ===== */
+.card .glit{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;mix-blend-mode:color-dodge;transition:opacity .3s;
+  background-image:radial-gradient(circle at 20% 30%,#fff 0 1px,transparent 1.6px),radial-gradient(circle at 70% 60%,#fff 0 1px,transparent 1.6px),radial-gradient(circle at 40% 80%,#fff 0 .8px,transparent 1.4px),radial-gradient(circle at 85% 20%,#fff 0 .8px,transparent 1.4px);
+  background-size:38px 38px,52px 52px,29px 29px,44px 44px;background-position:var(--mx) var(--my),calc(var(--mx) * -1) var(--my),var(--my) var(--mx),calc(var(--my) * -.6) calc(var(--mx) * .6)}
+.card.c:hover .glit{opacity:.9}
+.card.c.g-영웅 .glit,.card.c.g-전설 .glit,.card.c.st3 .glit{opacity:.45}
+.card .rainbow{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;mix-blend-mode:color-dodge;transition:opacity .35s;
+  background:linear-gradient(110deg,transparent 15%,rgba(255,80,160,.32) 30%,rgba(255,220,90,.32) 40%,rgba(90,255,190,.32) 50%,rgba(90,170,255,.32) 60%,rgba(200,110,255,.32) 70%,transparent 85%);background-size:260% 260%;background-position:var(--mx) var(--my)}
+.card.c:hover .rainbow{opacity:.75}
+.card.c.g-전설 .rainbow,.card.c.st3.g-영웅 .rainbow{opacity:.35;animation:holoSlide 5s ease-in-out infinite alternate}
+@keyframes holoSlide{from{background-position:0% 30%}to{background-position:100% 70%}}
+.card.c .in::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.card.c:hover .in{box-shadow:0 18px 30px -16px var(--tc),0 0 0 1px var(--tc)}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important}
 }
@@ -482,10 +542,6 @@ code{font-family:var(--f-mono);font-size:12.5px;background:rgba(143,162,255,.12)
 </defs></svg>
 
 <div class="wrap">
-  <div class="bar">
-    <div class="brand"><img src="img/logo_s.webp" alt="소환수 아카데미"><div><small>ETERNA SUMMONING ACADEMY</small><b>소환수 도감</b></div></div>
-    <button class="snd" id="snd" aria-pressed="false">🔈 효과음 끔</button>
-  </div>
 
   <section class="cover" aria-label="도감 진행">
     <span class="orn a"></span><span class="orn b"></span><span class="orn c"></span><span class="orn d"></span>
@@ -619,9 +675,9 @@ function counts(){ let c = 0, s = 0; D.forEach(e => { const x = v(e.no); if (x =
 const famDone = fam => D.filter(e => e.fam === fam).every(e => v(e.no) === 2);
 
 /* ---------- sound ---------- */
-let AC = null, sound = false;
+let AC = null;
 function tone(freqs, dur = .18, type = "triangle", gap = .09, vol = .12){
-  if (!sound || !AC) return;
+  if ((window.EternaSFX && !EternaSFX.on) || !AC) return;
   const t0 = AC.currentTime;
   freqs.forEach((f, i) => {
     const o = AC.createOscillator(), g = AC.createGain();
@@ -637,12 +693,7 @@ const sfx = {
   seen: () => tone([392, 330, 440], .25, "sine", .12, .07),
   mile: () => tone([659, 784, 988, 1319, 1568], .35, "triangle", .1, .1)
 };
-$("#snd").onclick = () => {
-  sound = !sound;
-  if (sound && !AC){ try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){ sound = false; } }
-  $("#snd").setAttribute("aria-pressed", sound); $("#snd").textContent = sound ? "🔊 효과음 켬" : "🔈 효과음 끔";
-  if (sound) tone([784, 1047], .12);
-};
+addEventListener("pointerdown", () => { if (window.EternaSFX && !EternaSFX.on) return; if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){} } if (AC && AC.state === "suspended") AC.resume(); }, { capture: true });
 
 /* ---------- parse ---------- */
 function parse(text){
@@ -821,7 +872,7 @@ function cardHTML(e){
   const img = x ? "<img src='img/" + e.img + ".webp' alt='" + (x === 2 ? esc(e.name) : "목격한 소환수의 흐린 모습") + "' loading='lazy' width='480' height='360'>" : "";
   const nm = x ? esc(e.name) : "???";
   const sub = e.grade === "전설" ? "전설" : ST[e.stage - 1];
-  return "<span class='in'><span class='ph'>" + img + (x === 0 ? "<b>" + pad(e.no) + "</b>" : x === 1 ? "<b>?</b>" : "") + "<span class='foil'></span></span>" +
+  return "<span class='in'><span class='ph'>" + img + (x === 0 ? "<b>" + pad(e.no) + "</b>" : x === 1 ? "<b>?</b>" : "") + "<span class='foil'></span><span class='rainbow'></span><span class='glit'></span></span>" +
     "<span class='no'>No." + pad(e.no) + "</span>" + (x === 2 && !(S[e.no] && S[e.no].n) ? "<span class='chk' aria-hidden='true'>✓</span>" : "") +
     (S[e.no] && S[e.no].n ? "<span class='newb'>NEW</span>" : "") +
     "<span class='nm'>" + nm + "<small>" + sub + (x === 1 ? " · 목격" : x === 0 ? " · 미발견" : "") + "</small></span></span>";
@@ -1225,9 +1276,11 @@ $("#rs").onclick = () => {
   function size(){ W = c.width = innerWidth; H = c.height = innerHeight; st = Array.from({length: Math.min(170, W / 8)}, () => ({x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.2 + .3, p: Math.random() * 6.28})); }
   function draw(t){
     x.clearRect(0, 0, W, H);
-    let g = x.createRadialGradient(W * .85, H * .05, 0, W * .85, H * .05, H); g.addColorStop(0, "rgba(80,100,210,.22)"); g.addColorStop(1, "rgba(8,11,27,0)"); x.fillStyle = g; x.fillRect(0, 0, W, H);
+    const LT = (() => { const a = document.documentElement.getAttribute("data-theme"); return a ? a === "light" : matchMedia("(prefers-color-scheme: light)").matches; })();
+    if (LT) { const lg = x.createLinearGradient(0, 0, 0, H); lg.addColorStop(0, "#b8c6ea"); lg.addColorStop(.5, "#ddd4ee"); lg.addColorStop(1, "#f3e8e3"); x.fillStyle = lg; x.fillRect(0, 0, W, H); }
+    let g = x.createRadialGradient(W * .85, H * .05, 0, W * .85, H * .05, H); g.addColorStop(0, LT ? "rgba(255,255,255,.45)" : "rgba(80,100,210,.22)"); g.addColorStop(1, "rgba(8,11,27,0)"); x.fillStyle = g; x.fillRect(0, 0, W, H);
     g = x.createRadialGradient(W * .1, H * .9, 0, W * .1, H * .9, H * .8); g.addColorStop(0, "rgba(160,90,200,.12)"); g.addColorStop(1, "rgba(8,11,27,0)"); x.fillStyle = g; x.fillRect(0, 0, W, H);
-    st.forEach(s => { x.globalAlpha = .3 + .4 * Math.sin(t / 1300 + s.p); x.fillStyle = "#d6dcff"; x.beginPath(); x.arc(s.x, s.y, s.r, 0, 6.28); x.fill(); });
+    st.forEach(s => { x.globalAlpha = (LT ? .15 : .3) + (LT ? .3 : .4) * Math.sin(t / 1300 + s.p); x.fillStyle = LT ? "#ffffff" : "#d6dcff"; x.beginPath(); x.arc(s.x, s.y, s.r, 0, 6.28); x.fill(); });
     x.globalAlpha = 1;
     if (!shoot && Math.random() < .004) shoot = {x: Math.random() * W * .8, y: Math.random() * H * .4, l: 0};
     if (shoot){
@@ -1244,6 +1297,8 @@ $("#rs").onclick = () => {
 load(); loadB(); render();
 if (memOnly) tm("이 환경에서는 브라우저 저장이 막혀 있어요. 저장 코드를 직접 보관해 주세요.", "bad");
 </script>
-<script src="../eterna/common/music-player.js?v=3" defer></script>
+<script src="../eterna/common/sfx.js"></script>
+<script src="../eterna/common/nav.js" data-site="codex"></script>
+<script src="../eterna/common/music-player.js?v=4" defer></script>
 </body>
 </html>
