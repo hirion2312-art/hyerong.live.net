@@ -2,23 +2,24 @@
    곡 추가: 아래 TRACKS에 한 줄 추가하고 music/ 폴더에 mp3를 넣으면 끝. (파일이 없으면 '준비 중'으로 흐리게 표시) */
 (function () {
   "use strict";
-  var COVER = "music/cover.jpg", COVER_S = "music/cover_s.jpg";
+  var BASE = (function () { var c = document.currentScript; if (c && c.src) return c.src.replace(/[^/]*$/, ""); return ""; })();
+  var COVER = BASE + "music/cover.jpg", COVER_S = BASE + "music/cover_s.jpg";
   var TRACKS = [
-    { t: "에테르나", s: "메인 테마", g: "ORIGINAL SOUND TRACK", f: "music/01_aeterna.mp3", c: "#d9b25f" },
-    { t: "에테르나 아카데미", s: "아카데미 테마", g: "ORIGINAL SOUND TRACK", f: "music/02_academy.mp3", c: "#8fb7ff" },
-    { t: "비어 있는 도감", s: "오프닝 주제가", g: "ORIGINAL SOUND TRACK", f: "music/03_empty_codex.mp3", c: "#ffd37a", open: true },
-    { t: "너와 처음 만난 날", s: "파트너 테마", g: "ORIGINAL SOUND TRACK", f: "music/04_first_met.mp3", c: "#ffb38f" },
-    { t: "에테르나 들길", s: "필드 테마", g: "ORIGINAL SOUND TRACK", f: "music/05_field_a.mp3", c: "#9be37a" },
-    { t: "에테르나 들길 · 두 번째 길", s: "필드 테마 · 확장", g: "ORIGINAL SOUND TRACK", f: "music/06_field_b.mp3", c: "#8fe3b0" },
-    { t: "에테르나의 일상", s: "교정의 하루", g: "ORIGINAL SOUND TRACK", f: "music/07_daily.mp3", c: "#ffe28f" },
-    { t: "승부다, 라이벌!", s: "라이벌 테마", g: "ORIGINAL SOUND TRACK", f: "music/08_rival.mp3", c: "#ff8f8f" },
-    { t: "다음 장에서 또 만나", s: "엔딩 주제가", g: "ORIGINAL SOUND TRACK", f: "music/09_next_chapter.mp3", c: "#9fd8ff" }
+    { t: "에테르나", s: "메인 테마", g: "ORIGINAL SOUND TRACK", f: BASE + "music/01_aeterna.mp3", c: "#d9b25f" },
+    { t: "에테르나 아카데미", s: "아카데미 테마", g: "ORIGINAL SOUND TRACK", f: BASE + "music/02_academy.mp3", c: "#8fb7ff" },
+    { t: "비어 있는 도감", s: "오프닝 주제가", g: "ORIGINAL SOUND TRACK", f: BASE + "music/03_empty_codex.mp3", c: "#ffd37a", open: true },
+    { t: "너와 처음 만난 날", s: "파트너 테마", g: "ORIGINAL SOUND TRACK", f: BASE + "music/04_first_met.mp3", c: "#ffb38f" },
+    { t: "에테르나 들길", s: "필드 테마", g: "ORIGINAL SOUND TRACK", f: BASE + "music/05_field_a.mp3", c: "#9be37a" },
+    { t: "에테르나 들길 · 두 번째 길", s: "필드 테마 · 확장", g: "ORIGINAL SOUND TRACK", f: BASE + "music/06_field_b.mp3", c: "#8fe3b0" },
+    { t: "에테르나의 일상", s: "교정의 하루", g: "ORIGINAL SOUND TRACK", f: BASE + "music/07_daily.mp3", c: "#ffe28f" },
+    { t: "승부다, 라이벌!", s: "라이벌 테마", g: "ORIGINAL SOUND TRACK", f: BASE + "music/08_rival.mp3", c: "#ff8f8f" },
+    { t: "다음 장에서 또 만나", s: "엔딩 주제가", g: "ORIGINAL SOUND TRACK", f: BASE + "music/09_next_chapter.mp3", c: "#9fd8ff" }
   ];
 
 
   var KEY = "eterna-music-v1", st = { vol: .7, idx: 0, t: 0, shuf: false, rep: 0 };
   try { var raw = JSON.parse(localStorage.getItem(KEY) || "{}"); for (var k in raw) st[k] = raw[k]; } catch (e) {}
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
+  function save() { st.at = Date.now(); st.on = !!(au && !au.paused); try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
 
   /* ───────── CSS ───────── */
   var css = "\
@@ -56,12 +57,12 @@
 .playing .mp-eq{display:flex}.mp-eq i{flex:1;background:var(--c);border-radius:1px;height:30%;animation:mpEq 1s ease-in-out infinite}\
 .mp-eq i:nth-child(2){animation-delay:-.4s}.mp-eq i:nth-child(3){animation-delay:-.7s}\
 @keyframes mpEq{0%,100%{height:25%}50%{height:100%}}\
-.mp-fab{pointer-events:auto;position:absolute;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));height:64px;padding:0 22px 0 8px;border-radius:99px;display:none;align-items:center;gap:10px;border:1px solid rgba(244,223,166,.6);background:linear-gradient(145deg,rgba(40,52,110,.96),rgba(14,20,48,.96));backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,.55),0 0 0 4px rgba(217,178,95,.14),0 0 30px -4px var(--c);font-size:15px;font-weight:700;color:#f4dfa6;letter-spacing:.02em}\
+#mp .mp-fab{pointer-events:auto;position:absolute;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));height:64px;padding:0 22px 0 8px;border-radius:99px;display:none;align-items:center;gap:10px;border:1px solid rgba(244,223,166,.6);background:linear-gradient(145deg,rgba(40,52,110,.96),rgba(14,20,48,.96));backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,.55),0 0 0 4px rgba(217,178,95,.14),0 0 30px -4px var(--c);font-size:15px;font-weight:700;color:#f4dfa6;letter-spacing:.02em}\
 .mp-fab img{width:48px;height:48px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px rgba(244,223,166,.5)}\
 .mp-fab::before{content:'';position:absolute;inset:-6px;border-radius:99px;border:2px solid var(--c);opacity:.6;animation:mpFab 1.8s ease-out infinite;pointer-events:none}\
 @keyframes mpFab{from{transform:scale(.96);opacity:.7}to{transform:scale(1.12,1.3);opacity:0}}\
 .mp-fab:active{transform:scale(.96)}\
-.mp-fab.show{display:flex}\
+#mp .mp-fab.show{display:flex}\
 \
 .mp-sheet{pointer-events:none;position:fixed;inset:0;z-index:71;display:grid;align-items:end;justify-items:center;visibility:hidden;transition:visibility 0s .4s}\
 .mp-open .mp-sheet{visibility:visible;transition-delay:0s;pointer-events:auto}\
@@ -121,7 +122,7 @@
 .mp-now{border-right:0;border-bottom:1px solid rgba(160,172,230,.14);padding:16px 18px 12px;gap:10px}\
 .mp-art{width:min(150px,34vw)}.mp-art .mp-disc{font-size:46px}.mp-vis{height:30px}\
 .mp-vol{display:none}.mp-lh{padding-top:12px}\
-.mp-pill{grid-template-columns:auto 1fr auto auto;gap:10px}.mp-pill .mp-prev{display:none}\
+.mp-pill{grid-template-columns:auto 1fr auto auto;gap:10px}#mp .mp-fab{height:54px;padding:0 16px 0 6px;font-size:14px;right:12px}.mp-fab img{width:42px;height:42px}.mp-pill .mp-prev{display:none}\
 }\
 @media(prefers-reduced-motion:reduce){.mp-disc,.mp-disc span,.mp-eq i,.mp-art::before,.mp-fab::before{animation:none!important}.mp-card{transition-duration:.01s}}\
 ";
@@ -251,7 +252,8 @@
   function setRng(p, b) { var e = $("mpSeek"); e.style.setProperty("--p", p + "%"); e.style.setProperty("--b", Math.max(p, b) + "%"); }
 
   /* 이벤트 */
-  au.addEventListener("play", setPlayUI); au.addEventListener("pause", setPlayUI);
+  au.addEventListener("play", setPlayUI); au.addEventListener("pause", setPlayUI); au.addEventListener("pause", function () { if (!wantPlay) save(); });
+  addEventListener("pagehide", function () { st.t = au.currentTime || st.t; var on = !au.paused; save(); st.on = on; try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} });
   au.addEventListener("ended", function () { if (st.rep === 2) { au.currentTime = 0; play(); } else step(1, true); });
   au.addEventListener("loadedmetadata", function () { $("mpDur").textContent = fmt(au.duration); durs[st.idx] = au.duration; avail[st.idx] = true; });
   au.addEventListener("error", function () {
@@ -344,7 +346,8 @@
 
   /* 시작 */
   var OPEN = 0; TRACKS.forEach(function (t, i) { if (t.open) OPEN = i; });
-  st.idx = OPEN; st.t = 0;
+  var RESUME = st.at && Date.now() - st.at < 30 * 60 * 1000 && st.on && st.idx >= 0 && st.idx < TRACKS.length;
+  if (!RESUME) { st.idx = OPEN; st.t = 0; }
   buildOrder(st.idx); renderList(); paint(); syncModes(); au.volume = st.vol;
   au.src = TRACKS[st.idx].f; if (st.t) au.addEventListener("loadedmetadata", function f() { au.removeEventListener("loadedmetadata", f); try { au.currentTime = st.t; } catch (e) {} });
   TRACKS.forEach(function (_, i) { if (i !== st.idx) setTimeout(function () { probe(i); }, 200 + i * 120); });
@@ -359,5 +362,9 @@
     var p; try { au.volume = 0; p = au.play(); } catch (e) {}
     if (p && p.then) p.then(function () { started = true; off(); wantPlay = true; ensureCtx(); fadeTo(st.vol, 1200); root.querySelector("#mpPill").classList.remove("hide"); $("mpFab").classList.remove("show"); }).catch(function () { setTimeout(function () { if (!started) toast("화면을 한 번 터치하면 오프닝 음악이 시작돼요 ♪"); }, 1500); });
   })();
-  window.EternaMusic = { open: function () { open(true); }, play: play, pause: pause, tracks: TRACKS };
+  window.EternaMusic = { open: function () { open(true); }, play: play, pause: pause, tracks: TRACKS,
+    playIndex: function (i) { if (i === st.idx) { toggle(); return; } pos = order.indexOf(i); load(i, true); },
+    state: function () { return { idx: st.idx, playing: !au.paused }; } };
+  function emit() { document.dispatchEvent(new CustomEvent("eterna-music", { detail: { idx: st.idx, playing: !au.paused } })); }
+  au.addEventListener("play", emit); au.addEventListener("pause", emit); au.addEventListener("loadstart", emit);
 })();

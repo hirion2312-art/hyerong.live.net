@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>에테르나 아카데미 정문</title>
+<meta name="description" content="안개 너머의 섬, 에테르나 소환수 아카데미. 세계관 안내 · 입학 소환 · 소환수 도감으로 들어가는 정문.">
+<meta property="og:title" content="에테르나 아카데미 정문">
+<meta property="og:description" content="안개가 걷히는 새벽, 당신의 이름을 부를 첫 소환수가 기다린다.">
+<meta property="og:image" content="common/music/cover.jpg">
+<meta name="theme-color" content="#cfdcf7">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&family=Nanum+Brush+Script&display=swap">
+<style>
+/* 새벽빛 동화: OST 표지의 하늘(하늘색 → 라벤더 → 복숭아빛 노을)과 금박. 밝은 단일 테마. */
+:root{
+  color-scheme:light;
+  --sky:#cfe0fb; --sky-2:#e4e9fb; --lav:#d8cdf6; --lav-2:#b7a6ea; --peach:#ffdcc6; --rose:#f4bfd0;
+  --cream:#fffaf2; --paper:#fdf6e8; --paper-2:#f6ead2;
+  --ink:#252d5c; --ink-2:#434b84; --mute:#767ba6; --line:rgba(70,72,140,.14);
+  --gold:#c4953a; --gold-2:#e5c27a; --gold-hi:#fff1cf;
+  --f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-book:"Gowun Batang","Noto Serif KR",serif;
+  --f-latin:"Cinzel","Times New Roman",serif;
+  --f-hand:"Nanum Brush Script","Gowun Batang",cursive;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;word-break:keep-all;overflow-wrap:break-word;background:var(--cream);color:var(--ink);font:400 15.5px/1.75 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--f-book);font-weight:700;text-wrap:balance;margin:0;letter-spacing:-.01em}
+::selection{background:var(--lav);color:var(--ink)}
+.wrap{width:min(1120px,100%);margin:0 auto;padding-inline:20px}
+
+/* ───── 안개 인트로 ───── */
+#intro{position:fixed;inset:0;z-index:90;display:grid;place-items:center;pointer-events:auto;cursor:pointer;overflow:hidden;
+  background:radial-gradient(ellipse at 50% 60%,#fff 0,#f2eefc 40%,#dcd6f4 100%)}
+#intro .fog{position:absolute;width:140vmax;height:80vmax;border-radius:50%;filter:blur(40px);opacity:.95;transition:transform 2.2s var(--ease),opacity 2s}
+#intro .f1{left:-70vmax;top:-10vmax;background:radial-gradient(closest-side,#fff,rgba(255,255,255,.0))}
+#intro .f2{right:-70vmax;top:10vmax;background:radial-gradient(closest-side,#f6f1ff,rgba(246,241,255,0))}
+#intro .f3{left:-20vmax;bottom:-50vmax;background:radial-gradient(closest-side,#ffeede,rgba(255,238,222,0))}
+#intro .mark{position:relative;text-align:center;transition:opacity .9s,transform 1.4s var(--ease)}
+#intro .mark img{width:min(340px,70vw);margin:0 auto;filter:drop-shadow(0 6px 24px rgba(110,90,200,.35));animation:introIn 1.4s var(--ease) both}
+#intro .mark p{margin:14px 0 0;font:500 12px/1 var(--f-latin);letter-spacing:.42em;color:var(--mute);animation:introIn 1.4s .35s var(--ease) both}
+@keyframes introIn{from{opacity:0;transform:translateY(14px) scale(.96);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+#intro.go{background:transparent;pointer-events:none;transition:background 1.6s}
+#intro.go .f1{transform:translateX(-80vmax)}#intro.go .f2{transform:translateX(80vmax)}#intro.go .f3{transform:translateY(60vmax)}
+#intro.go .fog{opacity:0}
+#intro.go .mark{opacity:0;transform:translateY(-30px) scale(1.06)}
+#intro.gone{display:none}
+
+/* ───── 히어로 ───── */
+.hero{position:relative;min-height:100svh;display:grid;align-items:end;overflow:hidden;isolation:isolate;
+  background:linear-gradient(180deg,#9fbff0 0%,#c8d3f6 30%,#e9d6ef 52%,#ffe4d2 70%,var(--cream) 100%)}
+.hero .blur{position:absolute;inset:-6% -6% auto;height:78%;width:112%;object-fit:cover;filter:blur(30px) saturate(1.2);opacity:.9;z-index:-3;transform:translate3d(0,var(--py,0),0)}
+.hero .art{position:absolute;left:50%;top:0;width:min(1240px,max(100%,180vw * .75));aspect-ratio:1080/560;transform:translate3d(calc(-50% + var(--mx,0px)),var(--py,0),0) scale(var(--sc,1));z-index:-2;
+  -webkit-mask:linear-gradient(90deg,transparent 0,#000 16%,#000 84%,transparent 100%),linear-gradient(180deg,#000 55%,transparent 98%);-webkit-mask-composite:source-in;
+  mask:linear-gradient(90deg,transparent 0,#000 16%,#000 84%,transparent 100%),linear-gradient(180deg,#000 55%,transparent 98%);mask-composite:intersect}
+.hero .art img{width:100%;height:100%;object-fit:cover}
+.hero .wash{position:absolute;inset:auto 0 0;height:60%;z-index:-1;background:linear-gradient(180deg,rgba(255,250,242,0) 0%,rgba(255,244,236,.55) 38%,rgba(255,250,242,.92) 72%,var(--cream) 100%)}
+.clouds{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.clouds i{position:absolute;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.9),rgba(255,255,255,0));filter:blur(8px);animation:drift linear infinite}
+.clouds i:nth-child(1){width:520px;height:160px;top:46%;left:-30%;animation-duration:68s}
+.clouds i:nth-child(2){width:420px;height:120px;top:58%;left:-40%;animation-duration:90s;animation-delay:-30s;opacity:.8}
+.clouds i:nth-child(3){width:640px;height:200px;top:66%;left:-50%;animation-duration:110s;animation-delay:-60s;opacity:.7}
+.clouds i:nth-child(4){width:300px;height:90px;top:20%;left:-30%;animation-duration:80s;animation-delay:-15s;opacity:.55}
+@keyframes drift{to{transform:translateX(170vw)}}
+#motes{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.hero-in{position:relative;width:min(760px,100%);margin:0 auto;padding:0 20px calc(64px + env(safe-area-inset-bottom,0px));text-align:center;display:grid;justify-items:center;gap:14px}
+.eyebrow{text-shadow:0 0 12px rgba(255,255,255,.9),0 0 2px #fff;display:inline-flex;align-items:center;gap:10px;margin:0;font:600 11.5px/1 var(--f-latin);letter-spacing:.34em;color:var(--ink-2)}
+.eyebrow::before,.eyebrow::after{content:"";width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.eyebrow::after{transform:scaleX(-1)}
+.logo-w{position:relative;width:min(520px,86vw);margin:-4px 0 -6px}
+.logo-w img{width:100%;filter:drop-shadow(0 10px 30px rgba(90,80,190,.35)) drop-shadow(0 0 2px rgba(255,255,255,.8))}
+.logo-w::after{content:"";position:absolute;inset:0;-webkit-mask:url(img/logo.webp) center/contain no-repeat;mask:url(img/logo.webp) center/contain no-repeat;
+  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.95) 50%,transparent 65%) -150% 0/250% 100% no-repeat;animation:shine 5.5s 2.6s ease-in-out infinite;mix-blend-mode:screen}
+@keyframes shine{0%{background-position:-150% 0}35%,100%{background-position:150% 0}}
+.lede{margin:0;font:400 clamp(15.5px,2.1vw,18px)/1.85 var(--f-book);color:var(--ink-2);text-wrap:balance}
+.lede b{color:var(--ink);font-weight:700}
+.cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:8px}
+.btn{position:relative;display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:99px;font:700 15.5px/1 var(--f-body);text-decoration:none;letter-spacing:-.01em;transition:transform .25s var(--ease),box-shadow .25s;overflow:hidden;isolation:isolate}
+.btn svg{width:18px;height:18px;fill:currentColor}
+.btn-p{color:#3a2a07;background:linear-gradient(135deg,#fff3d1 0%,#f0cf86 45%,#d6a74c 100%);box-shadow:0 12px 28px -10px rgba(196,149,58,.85),inset 0 1px 0 rgba(255,255,255,.9),inset 0 -2px 0 rgba(150,100,20,.25)}
+.btn-p::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.85) 50%,transparent 70%) -120% 0/250% 100% no-repeat;animation:shine 3.8s 3.2s ease-in-out infinite}
+.btn-g{color:var(--ink);background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.95);box-shadow:0 10px 24px -14px rgba(60,60,140,.5);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.btn:hover{transform:translateY(-2px)}
+.btn-p:hover{box-shadow:0 18px 34px -12px rgba(196,149,58,.95),inset 0 1px 0 #fff}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn:focus-visible,.portal:focus-visible,.trk:focus-visible{outline:3px solid var(--lav-2);outline-offset:3px}
+.cue{position:absolute;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:grid;justify-items:center;gap:4px;font:600 10px/1 var(--f-latin);letter-spacing:.3em;color:var(--mute);text-decoration:none}
+.cue i{width:1px;height:28px;background:linear-gradient(var(--gold),transparent);animation:cue 2s ease-in-out infinite;transform-origin:top}
+@keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+
+/* ───── 공통 섹션 ───── */
+section{position:relative}
+.sec{padding:clamp(72px,10vw,120px) 0}
+.sh{display:grid;justify-items:center;text-align:center;gap:10px;margin-bottom:clamp(30px,5vw,52px)}
+.sh .rn{font:600 11px/1 var(--f-latin);letter-spacing:.38em;color:var(--gold)}
+.sh h2{font-size:clamp(26px,4.2vw,40px);line-height:1.3;color:var(--ink)}
+.sh p{margin:0;max-width:34em;color:var(--mute);font-size:15px}
+.orn{display:flex;align-items:center;gap:10px;color:var(--gold)}
+.orn::before,.orn::after{content:"";width:60px;height:1px;background:linear-gradient(90deg,transparent,currentColor)}
+.orn::after{transform:scaleX(-1)}
+.orn svg{width:14px;height:14px;fill:currentColor}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+/* ───── 초대장 ───── */
+.letter-s{background:linear-gradient(180deg,var(--cream),#f8f1fb 60%,var(--cream))}
+.letter{position:relative;width:min(720px,100%);margin:0 auto;padding:clamp(34px,6vw,56px) clamp(24px,6vw,64px) clamp(30px,5vw,46px);border-radius:6px;
+  background:linear-gradient(180deg,#fffdf7,var(--paper) 70%,var(--paper-2));box-shadow:0 30px 60px -30px rgba(80,60,40,.35),0 2px 0 rgba(255,255,255,.8) inset,0 0 0 1px rgba(196,149,58,.25);
+  transform:rotate(-.6deg)}
+.letter::before{content:"";position:absolute;inset:12px;border:1px solid rgba(196,149,58,.4);border-radius:3px;pointer-events:none;
+  -webkit-mask:linear-gradient(#000,#000);}
+.letter::after{content:"";position:absolute;inset:16px;border:1px dashed rgba(196,149,58,.22);border-radius:2px;pointer-events:none}
+.letter .to{font:600 11px/1 var(--f-latin);letter-spacing:.3em;color:var(--gold);margin:0 0 18px}
+.letter h3{font-size:clamp(21px,3vw,26px);color:var(--ink);margin-bottom:16px}
+.letter p{font:400 16px/2 var(--f-book);color:#4a4466;margin:0 0 14px}
+.letter .sign{display:flex;justify-content:flex-end;align-items:flex-end;gap:16px;margin-top:22px}
+.letter .sign div{text-align:right;font-size:12px;color:var(--mute);line-height:1.5}
+.letter .sign b{display:block;font:400 34px/1 var(--f-hand);color:#3d3570;margin-top:6px}
+.seal{position:absolute;right:clamp(14px,5vw,40px);top:-28px;width:78px;height:78px;border-radius:50%;display:grid;place-items:center;transform:rotate(12deg);
+  background:radial-gradient(circle at 35% 30%,#d97a8c,#a33a55 60%,#7c2240);box-shadow:0 8px 18px -6px rgba(120,30,60,.6),inset 0 -4px 8px rgba(0,0,0,.25),inset 0 3px 6px rgba(255,255,255,.3)}
+.seal::before{content:"";position:absolute;inset:8px;border-radius:50%;border:2px solid rgba(255,220,225,.45)}
+.seal svg{width:34px;height:34px;fill:rgba(255,230,234,.85);filter:drop-shadow(0 1px 0 rgba(0,0,0,.3))}
+
+/* ───── 세 개의 문 ───── */
+.gates{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2.4vw,26px)}
+.portal{--rx:0deg;--ry:0deg;--mx:50%;--my:50%;--c:#8fa8f0;position:relative;display:block;text-decoration:none;color:#fff;perspective:900px;min-width:0}
+.portal .in{position:relative;aspect-ratio:3/4.15;border-radius:24px;overflow:hidden;transform:rotateX(var(--rx)) rotateY(var(--ry));transform-style:preserve-3d;transition:transform .5s var(--ease),box-shadow .4s;
+  box-shadow:0 26px 50px -24px rgba(50,40,120,.55),0 0 0 1px rgba(255,255,255,.6);background:#2a2f63}
+.portal:hover .in{box-shadow:0 34px 70px -26px rgba(50,40,120,.7),0 0 0 2px var(--gold-2),0 0 40px -6px var(--c)}
+.portal .in>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--op,50% 30%);transition:transform 1.2s var(--ease)}
+.portal:hover .in>img{transform:scale(1.07)}
+.portal .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,20,60,0) 35%,rgba(22,24,64,.55) 62%,rgba(18,18,52,.92) 100%)}
+.portal .holo{position:absolute;inset:0;mix-blend-mode:color-dodge;opacity:0;transition:opacity .4s;
+  background:radial-gradient(circle at var(--mx) var(--my),rgba(255,255,255,.55),transparent 38%),
+  linear-gradient(115deg,transparent 20%,rgba(255,180,220,.35) 35%,rgba(160,220,255,.35) 48%,rgba(255,240,170,.35) 60%,transparent 75%);background-size:100% 100%,220% 220%;background-position:0 0,var(--mx) var(--my)}
+.portal:hover .holo{opacity:1}
+.portal .frame{position:absolute;inset:10px;border-radius:17px;border:1px solid rgba(255,236,190,.45);pointer-events:none}
+.portal .frame::before,.portal .frame::after{content:"";position:absolute;width:22px;height:22px;border:2px solid var(--gold-2);opacity:.9}
+.portal .frame::before{left:-2px;top:-2px;border-right:0;border-bottom:0;border-radius:10px 0 0 0}
+.portal .frame::after{right:-2px;bottom:-2px;border-left:0;border-top:0;border-radius:0 0 10px 0}
+.portal .num{position:absolute;left:22px;top:20px;font:700 13px/1 var(--f-latin);letter-spacing:.3em;color:var(--gold-hi);text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.portal .tag{position:absolute;right:20px;top:17px;padding:5px 10px;border-radius:99px;font-size:11px;font-weight:700;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.portal .txt{position:absolute;left:0;right:0;bottom:0;padding:22px 22px 24px;transform:translateZ(40px)}
+.portal .txt small{display:block;font:600 10.5px/1 var(--f-latin);letter-spacing:.3em;color:var(--gold-2);margin-bottom:8px}
+.portal .txt h3{font-size:clamp(22px,2.4vw,27px);line-height:1.25;color:#fff;margin-bottom:8px;text-shadow:0 2px 12px rgba(0,0,0,.4)}
+.portal .txt p{margin:0;font-size:13.5px;line-height:1.65;color:rgba(240,238,255,.86)}
+.portal .go{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-size:13px;font-weight:700;color:var(--gold-hi)}
+.portal .go i{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:rgba(255,241,207,.18);border:1px solid rgba(255,241,207,.5);transition:transform .3s var(--ease),background .3s;font-style:normal}
+.portal:hover .go i{transform:translateX(5px);background:var(--gold-2);color:#3a2a07}
+
+/* ───── 숫자 띠 ───── */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:clamp(36px,6vw,64px)}
+.stat{position:relative;text-align:center;padding:22px 10px 20px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.5));border:1px solid #fff;box-shadow:0 14px 30px -22px rgba(60,60,140,.5)}
+.stat b{display:block;font:700 clamp(30px,4.4vw,44px)/1 var(--f-latin);background:linear-gradient(180deg,#d3a24a,#9c6f22);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:8px;font-size:13px;color:var(--ink-2);font-weight:600}
+.stat small{display:block;font-size:11.5px;color:var(--mute)}
+
+/* ───── 진화 ───── */
+.evo-s{background:linear-gradient(180deg,var(--cream),#fff3ea 40%,#f6eefc 100%);overflow:hidden}
+.evo{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:clamp(8px,1.6vw,18px);max-width:980px;margin:0 auto}
+.ev{margin:0;position:relative;border-radius:22px;overflow:hidden;aspect-ratio:3/4;background:#fff;box-shadow:0 20px 40px -24px rgba(90,50,40,.5),0 0 0 1px rgba(255,255,255,.9);transition:transform .7s var(--ease),box-shadow .7s,filter .7s;filter:saturate(.75) brightness(.95)}
+.ev img{width:100%;height:100%;object-fit:cover}
+.ev figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 12px;text-align:center;background:linear-gradient(transparent,rgba(30,20,40,.75));color:#fff}
+.ev figcaption small{display:block;font:600 10px/1 var(--f-latin);letter-spacing:.25em;color:var(--gold-2);margin-bottom:5px}
+.ev figcaption b{font:700 17px/1.2 var(--f-book)}
+.ev.on{transform:translateY(-10px) scale(1.04);filter:none;box-shadow:0 30px 60px -24px rgba(200,120,40,.65),0 0 0 2px var(--gold-2),0 0 46px -8px #ffb36b}
+.ev .flash{position:absolute;inset:0;background:radial-gradient(circle,#fff 0,rgba(255,240,200,.6) 30%,transparent 70%);opacity:0;pointer-events:none}
+.ev.on .flash{animation:flash 1s var(--ease)}
+@keyframes flash{0%{opacity:.9}100%{opacity:0}}
+.arw{width:clamp(18px,3vw,40px);height:2px;background:linear-gradient(90deg,var(--gold-2),var(--gold));position:relative;border-radius:2px}
+.arw::after{content:"";position:absolute;right:-2px;top:-4px;border:5px solid transparent;border-left:7px solid var(--gold)}
+.arw i{position:absolute;top:-3px;left:0;width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 0 10px 3px #ffd88a;animation:run 2s linear infinite}
+@keyframes run{to{left:100%;opacity:0}}
+.evo-note{text-align:center;margin:26px auto 0;max-width:36em;color:var(--mute);font-size:14.5px}
+
+/* ───── 게시판 ───── */
+.board-s{background:linear-gradient(180deg,#f6eefc,#eef1fd)}
+.ticker{position:relative;overflow:hidden;margin:0 0 36px;border-block:1px solid rgba(196,149,58,.35);background:rgba(255,255,255,.55);padding:11px 0;font-size:13.5px;color:var(--ink-2);white-space:nowrap;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.ticker div{display:inline-flex;gap:46px;padding-left:46px;animation:tick 48s linear infinite}
+.ticker b{color:#b5463f;margin-right:8px;font-weight:800}
+@keyframes tick{to{transform:translateX(-50%)}}
+.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 20px}
+.note{--r:-1.2deg;--pin:#e06d7e;position:relative;padding:28px 22px 22px;border-radius:4px;background:#fffdf6;box-shadow:0 16px 28px -18px rgba(60,50,90,.55),0 1px 0 rgba(255,255,255,.9) inset;transform:rotate(var(--r));transition:transform .35s var(--ease),box-shadow .35s;min-width:0}
+.note:nth-child(2){--r:1.4deg;--pin:#6d8fe0;background:#f7fbff}
+.note:nth-child(3){--r:-.6deg;--pin:#e0b14d;background:#fffaf0}
+.note:nth-child(4){--r:.9deg;--pin:#7fc79a;background:#f6fff9}
+.note:nth-child(5){--r:-1.6deg;--pin:#b28fe0;background:#fbf7ff}
+.note:nth-child(6){--r:1.1deg;--pin:#e08f6d;background:#fff8f3}
+.note:hover{transform:rotate(0) translateY(-6px);box-shadow:0 26px 40px -20px rgba(60,50,90,.6)}
+.note::before{content:"";position:absolute;left:50%;top:-9px;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0 12%,var(--pin) 40%,rgba(0,0,0,.25) 100%);box-shadow:0 3px 5px rgba(0,0,0,.25)}
+.note .k{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.06em;padding:3px 8px;border-radius:4px;background:color-mix(in srgb,var(--pin) 16%,#fff);color:color-mix(in srgb,var(--pin) 70%,#222);margin-bottom:10px}
+.note h3{font-size:17.5px;line-height:1.4;margin-bottom:8px;color:var(--ink)}
+.note p{margin:0;font-size:13.5px;line-height:1.7;color:#5a5f86}
+.note .by{display:block;margin-top:12px;font:400 20px/1 var(--f-hand);color:#7a6aa8;text-align:right}
+
+/* ───── OST ───── */
+.ost-s{background:radial-gradient(ellipse at 20% 0%,#e6dcfb 0,transparent 55%),radial-gradient(ellipse at 90% 100%,#ffe2d2 0,transparent 55%),#f4f0fc}
+.ost{display:grid;grid-template-columns:minmax(260px,400px) 1fr;gap:clamp(26px,5vw,60px);align-items:center}
+.rec{position:relative;width:100%;max-width:400px;aspect-ratio:1;margin:0 auto}
+.rec .vinyl{position:absolute;inset:4% -6% 4% 20%;border-radius:50%;background:radial-gradient(circle,#1b1f3d 0 16%,#c99a3e 16.5% 17.5%,#14172e 18% 100%),#14172e;
+  box-shadow:0 20px 40px -18px rgba(20,20,60,.6);transition:transform 1s var(--ease)}
+.rec .vinyl::before{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-radial-gradient(circle,rgba(255,255,255,.04) 0 1px,transparent 1px 4px),conic-gradient(from 30deg,transparent,rgba(255,255,255,.18) 10%,transparent 22%,transparent 50%,rgba(255,255,255,.12) 60%,transparent 72%)}
+.rec.play .vinyl{transform:translateX(18%);animation:spin 6s linear infinite}
+@keyframes spin{to{transform:translateX(18%) rotate(360deg)}}
+.rec .cover{position:relative;width:86%;border-radius:14px;box-shadow:0 30px 60px -24px rgba(40,30,100,.7),0 0 0 1px rgba(255,255,255,.7)}
+.ost h2{font-size:clamp(26px,3.6vw,36px);margin:8px 0 6px}
+.ost .rn{font:600 11px/1 var(--f-latin);letter-spacing:.38em;color:var(--gold)}
+.ost>div>p{color:var(--mute);margin:0 0 18px;font-size:14.5px}
+.trks{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.trk{width:100%;display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:12px;padding:10px 14px;border-radius:14px;border:0;background:transparent;font:inherit;color:inherit;text-align:left;cursor:pointer;transition:background .2s}
+.trk:hover{background:rgba(255,255,255,.75)}
+.trk .n{font:600 12px/1 var(--f-latin);color:var(--mute);text-align:center}
+.trk b{font-size:15px;font-weight:700;color:var(--ink);display:block;line-height:1.35}
+.trk small{font-size:12px;color:var(--mute)}
+.trk .d{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.trk.cur{background:#fff;box-shadow:0 10px 24px -16px rgba(60,60,140,.5),inset 3px 0 0 var(--gold)}
+.trk.cur .n{color:var(--gold)}
+.eq{display:none;align-items:flex-end;gap:2px;height:14px;width:14px;margin:0 auto}
+.eq i{flex:1;background:var(--gold);border-radius:1px;animation:eqq 1s ease-in-out infinite}
+.eq i:nth-child(2){animation-delay:-.4s}.eq i:nth-child(3){animation-delay:-.7s}
+@keyframes eqq{0%,100%{height:25%}50%{height:100%}}
+.trk.cur.pl .eq{display:flex}.trk.cur.pl .n span{display:none}
+
+/* ───── 푸터 ───── */
+footer{padding:64px 0 calc(130px + env(safe-area-inset-bottom,0px));text-align:center;background:linear-gradient(180deg,#f4f0fc,#e3e4f8);color:var(--mute);font-size:13px}
+footer img{width:170px;margin:0 auto 16px;opacity:.95}
+footer nav{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 22px;margin:0 0 18px}
+footer nav a{text-decoration:none;font-weight:600;color:var(--ink-2)}
+footer nav a:hover{color:var(--gold)}
+footer .by{font:600 10.5px/1 var(--f-latin);letter-spacing:.34em}
+
+/* ───── 반응형 ───── */
+@media(max-width:900px){
+  .gates{grid-template-columns:1fr;max-width:520px;margin:0 auto}
+  .portal .in{aspect-ratio:16/11}
+  .board{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ost{grid-template-columns:1fr}
+  .rec{max-width:300px}
+}
+@media(max-width:640px){
+  .hero{align-items:end}
+  .hero .art{width:200vw;top:6vh}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .board{grid-template-columns:1fr}
+  .evo{grid-template-columns:1fr auto 1fr auto 1fr;gap:6px}
+  .ev{border-radius:14px}
+  .ev figcaption{padding:20px 4px 8px}.ev figcaption b{font-size:13px}.ev figcaption small{font-size:8px;letter-spacing:.12em}
+  .letter{transform:none}
+  .seal{width:62px;height:62px;top:-22px}
+  .btn{padding:14px 22px;font-size:15px}
+  .eyebrow{font-size:10px;letter-spacing:.2em;gap:8px}.eyebrow::before,.eyebrow::after{width:18px}
+  .hero-in{padding-bottom:calc(104px + env(safe-area-inset-bottom,0px))}
+  .hero .art{width:180vw}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+}
+body.lite .clouds i:nth-child(n+3){display:none}
+body.lite .btn-g,body.lite .portal .tag{backdrop-filter:none;-webkit-backdrop-filter:none}
+</style>
+</head>
+<body>
+
+<div id="intro" aria-hidden="true">
+  <div class="fog f1"></div><div class="fog f2"></div><div class="fog f3"></div>
+  <div class="mark"><img src="img/logo.webp" alt=""><p>THE MIST IS LIFTING</p></div>
+</div>
+
+<main>
+<section class="hero" id="top">
+  <img class="blur" src="img/hero_blur.webp" alt="" aria-hidden="true">
+  <div class="art" aria-hidden="true"><img src="img/hero.webp" alt="" fetchpriority="high"></div>
+  <div class="clouds" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <canvas id="motes" aria-hidden="true"></canvas>
+  <div class="wash" aria-hidden="true"></div>
+  <div class="hero-in">
+    <p class="eyebrow rv">ETERNA SUMMONING ACADEMY</p>
+    <h1 class="logo-w rv"><img src="img/logo.webp" alt="소환수 아카데미"></h1>
+    <p class="lede rv">안개가 걷히는 새벽, 은빛 갈매기호가 섬에 닿습니다.<br><b>당신의 이름을 부를 첫 번째 소환수</b>가 제단 위에서 기다리고 있어요.</p>
+    <div class="cta rv">
+      <a class="btn btn-p" href="../academy/" data-sfx="sparkle"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 6.3L21 9l-5 4.4L17.5 20 12 16.6 6.5 20 8 13.4 3 9l6.6-.7z"/></svg>입학 소환 시작하기</a>
+      <a class="btn btn-g" href="../academy-guide/" data-sfx="page">세계관 둘러보기</a>
+    </div>
+  </div>
+  <a class="cue" href="#letter" aria-label="아래로">SCROLL<i></i></a>
+</section>
+
+<section class="sec letter-s" id="letter">
+  <div class="wrap">
+    <article class="letter rv">
+      <div class="seal" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.5 3.2A9 9 0 1 0 20.8 15 7 7 0 0 1 14.5 3.2z"/></svg></div>
+      <p class="to">LETTER OF ADMISSION</p>
+      <h3>안개 너머의 신입생에게</h3>
+      <p>이 편지가 당신에게 닿았다면, 에테르나의 안개가 당신을 불렀다는 뜻입니다. 이 섬에서는 누구나 제단 위에 손을 올려 단 하나의 파트너를 만나게 됩니다. 어떤 소환수가 응답할지는 아무도 알 수 없지요.</p>
+      <p>해와 달과 별의 기숙사, 일곱 교수의 배지, 그리고 아직 아무도 채우지 못한 여든 칸의 도감이 당신을 기다립니다. 넘어져도 괜찮습니다. 이곳의 이야기는 언제나 둘이서 쓰는 것이니까요.</p>
+      <div class="sign"><div>에테르나 소환수 아카데미 학장<b>오스왈드 에버하트</b></div></div>
+    </article>
+  </div>
+</section>
+
+<section class="sec" id="gates" style="padding-top:clamp(40px,6vw,70px)">
+  <div class="wrap">
+    <div class="sh rv"><span class="rn">THREE GATES</span><h2>어느 문으로 들어가시겠어요?</h2><div class="orn"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 6.3L21 9l-5 4.4L17.5 20 12 16.6 6.5 20 8 13.4 3 9l6.6-.7z"/></svg></div></div>
+    <div class="gates">
+      <a class="portal rv" href="../academy-guide/" data-sfx="page" style="--c:#9fc0ff;--op:50% 22%">
+        <div class="in"><img src="img/p_guide.webp" alt="" loading="lazy"><div class="shade"></div><div class="holo"></div><div class="frame"></div>
+          <span class="num">Ⅰ</span><span class="tag">처음이라면 여기</span>
+          <div class="txt"><small>GUIDE</small><h3>세계관 안내서</h3><p>섬의 지도, 일곱 교수와 동기·선배, 기숙사와 소환의 규칙까지.</p><span class="go">안내서 펼치기 <i>→</i></span></div></div>
+      </a>
+      <a class="portal rv" href="../academy/" data-sfx="sparkle" style="--c:#ffd27a;--op:50% 20%">
+        <div class="in"><img src="img/p_enroll.webp" alt="" loading="lazy"><div class="shade"></div><div class="holo"></div><div class="frame"></div>
+          <span class="num">Ⅱ</span><span class="tag">입학식 진행 중</span>
+          <div class="txt"><small>ENROLLMENT</small><h3>입학 소환</h3><p>제단에 손을 올리고 나의 첫 파트너를 소환해 학생증을 받으세요.</p><span class="go">소환하러 가기 <i>→</i></span></div></div>
+      </a>
+      <a class="portal rv" href="../academy-codex/" data-sfx="page" style="--c:#ffe08a;--op:50% 18%">
+        <div class="in"><img src="img/p_codex.webp" alt="" loading="lazy"><div class="shade"></div><div class="holo"></div><div class="frame"></div>
+          <span class="num">Ⅲ</span><span class="tag">80칸</span>
+          <div class="txt"><small>CODEX</small><h3>소환수 도감 회랑</h3><p>채팅에서 만난 소환수를 기록하고, 교수 배지를 하나씩 모으는 곳.</p><span class="go">도감 열기 <i>→</i></span></div></div>
+      </a>
+    </div>
+    <div class="stats">
+      <div class="stat rv"><b data-n="80">0</b><span>소환수</span><small>7속성 + 전설</small></div>
+      <div class="stat rv"><b data-n="7">0</b><span>교수 배지</span><small>3개면 졸업</small></div>
+      <div class="stat rv"><b data-n="3">0</b><span>기숙사</span><small>해 · 달 · 별</small></div>
+      <div class="stat rv"><b data-n="2">0</b><span>전설</span><small>새벽과 심연</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec evo-s" id="evo">
+  <div class="wrap">
+    <div class="sh rv"><span class="rn">GROW TOGETHER</span><h2>한 장씩, 함께 자라는 이야기</h2><p>작은 촛불이 천 개의 촛불이 되기까지. 소환수는 당신과 보낸 시간만큼 진화합니다.</p></div>
+    <div class="evo rv" id="evoRow">
+      <figure class="ev"><img src="img/evo1.webp" alt="위카" loading="lazy"><div class="flash"></div><figcaption><small>STAGE Ⅰ</small><b>위카</b></figcaption></figure>
+      <span class="arw" aria-hidden="true"><i></i></span>
+      <figure class="ev"><img src="img/evo2.webp" alt="탤로윈" loading="lazy"><div class="flash"></div><figcaption><small>STAGE Ⅱ</small><b>탤로윈</b></figcaption></figure>
+      <span class="arw" aria-hidden="true"><i></i></span>
+      <figure class="ev"><img src="img/evo3.webp" alt="칸델라리아" loading="lazy"><div class="flash"></div><figcaption><small>FINAL</small><b>칸델라리아</b></figcaption></figure>
+    </div>
+    <p class="evo-note rv">기본체는 기술 2개로 시작해, 진화할 때마다 새 기술을 하나씩 깨웁니다. 최종 진화에서는 그 소환수만의 궁극기가 열려요.</p>
+  </div>
+</section>
+
+<section class="sec board-s" id="board">
+  <div class="ticker" aria-label="속보"><div id="tick"></div></div>
+  <div class="wrap">
+    <div class="sh rv"><span class="rn">NOTICE BOARD</span><h2>신문부 게시판</h2><p>신문부 부장 루시가 오늘도 뭔가를 붙여 놓았습니다.</p></div>
+    <div class="board" id="board-list"></div>
+  </div>
+</section>
+
+<section class="sec ost-s" id="ost">
+  <div class="wrap ost">
+    <div class="rec rv" id="rec"><div class="vinyl"></div><img class="cover" src="common/music/cover.jpg" alt="소환수 아카데미 오리지널 사운드트랙 표지" loading="lazy"></div>
+    <div class="rv">
+      <span class="rn">ORIGINAL SOUND TRACK</span>
+      <h2>에테르나의 노래</h2>
+      <p>오프닝부터 엔딩까지, 섬의 하루를 담은 아홉 곡. 어느 사이트에서든 이어서 들을 수 있어요.</p>
+      <ul class="trks" id="trks"></ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="img/logo.webp" alt="소환수 아카데미" loading="lazy">
+    <nav><a href="../academy-guide/">세계관 안내서</a><a href="../academy/">입학 소환</a><a href="../academy-codex/">소환수 도감</a><a href="#ost">OST</a></nav>
+    <p class="by">MADE BY HIRION · ETERNA SUMMONING ACADEMY</p>
+  </div>
+</footer>
+
+<script src="common/sfx.js"></script>
+<script src="common/nav.js" data-site="hub" data-tone="light"></script>
+<script src="common/music-player.js" defer></script>
+<script>
+(function () {
+  "use strict";
+  var RM = matchMedia("(prefers-reduced-motion:reduce)").matches;
+  /* 저사양 자동 완화: 코어·메모리가 적거나, 실제 프레임이 느리면 lite */
+  var LITE = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || (navigator.deviceMemory && navigator.deviceMemory <= 3);
+  if (LITE) document.body.classList.add("lite");
+
+  /* ── 인트로 (세션당 한 번) ── */
+  var intro = document.getElementById("intro"), seen = false;
+  try { seen = sessionStorage.getItem("eterna-intro") === "1"; } catch (e) {}
+  function lift() { if (intro.classList.contains("go")) return; intro.classList.add("go"); setTimeout(function () { intro.classList.add("gone"); }, 2200); try { sessionStorage.setItem("eterna-intro", "1"); } catch (e) {} reveal(); }
+  if (seen || RM) { intro.classList.add("gone"); } else { intro.addEventListener("click", lift); setTimeout(lift, 1900); }
+
+  /* ── 등장 애니메이션 ── */
+  var io;
+  function reveal() {
+    if (io) return;
+    io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); if (e.target.querySelector && e.target.querySelector("[data-n]")) count(e.target.querySelector("[data-n]")); } }); }, { threshold: .14, rootMargin: "0px 0px -6% 0px" });
+    var els = document.querySelectorAll(".rv"), d = 0;
+    els.forEach(function (el) { if (el.closest(".hero-in")) { el.style.transitionDelay = (d++ * .14) + "s"; } else if (el.parentElement && el.parentElement.classList.contains("gates") || el.classList.contains("stat")) { el.style.transitionDelay = (Array.prototype.indexOf.call(el.parentElement.children, el) * .12) + "s"; } io.observe(el); });
+  }
+  if (seen || RM) reveal();
+  function count(el) { var n = +el.dataset.n, t0 = performance.now(), dur = 1200; (function f(t) { var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(n * e); if (p < 1) requestAnimationFrame(f); })(t0); }
+
+  /* ── 히어로 패럴랙스 ── */
+  var hero = document.querySelector(".hero"), art = hero.querySelector(".art"), blur = hero.querySelector(".blur"), mx = 0, tmx = 0;
+  if (!RM) {
+    addEventListener("pointermove", function (e) { if (e.pointerType === "mouse") tmx = (e.clientX / innerWidth - .5) * -24; }, { passive: true });
+    (function loop() {
+      mx += (tmx - mx) * .06; var y = Math.min(scrollY, innerHeight);
+      art.style.setProperty("--mx", mx.toFixed(2) + "px"); art.style.setProperty("--py", (y * .35).toFixed(1) + "px"); art.style.setProperty("--sc", (1 + y / innerHeight * .06).toFixed(4));
+      blur.style.setProperty("--py", (y * .2).toFixed(1) + "px");
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  /* ── 빛가루 ── */
+  var cv = document.getElementById("motes"), cx = cv.getContext("2d"), P = [], W, H, DPR = Math.min(2, devicePixelRatio || 1);
+  function size() { W = cv.clientWidth; H = cv.clientHeight; cv.width = W * DPR; cv.height = H * DPR; cx.setTransform(DPR, 0, 0, DPR, 0, 0); }
+  function spawn(init) { return { x: Math.random() * W, y: init ? Math.random() * H : H + 10, r: Math.random() * 1.8 + .6, vy: -(Math.random() * .35 + .12), vx: (Math.random() - .5) * .2, ph: Math.random() * 6.28, tw: Math.random() * .03 + .01, star: Math.random() < .18, hue: Math.random() < .5 ? "255,226,160" : (Math.random() < .5 ? "255,255,255" : "214,200,255") }; }
+  size(); addEventListener("resize", size);
+  var N = RM ? 0 : (LITE ? 26 : (innerWidth < 640 ? 40 : 80));
+  for (var i = 0; i < N; i++) P.push(spawn(true));
+  var slow = 0, last = performance.now(), visible = true;
+  new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }).observe(hero);
+  function draw(t) {
+    requestAnimationFrame(draw);
+    var dt = t - last; last = t;
+    if (dt > 34) { if (++slow > 90 && P.length > 20) { P.length = 20; document.body.classList.add("lite"); } } else if (slow > 0) slow--;
+    if (!visible || !N) return;
+    cx.clearRect(0, 0, W, H);
+    for (var i = 0; i < P.length; i++) {
+      var p = P[i]; p.x += p.vx + Math.sin(t / 1600 + p.ph) * .15; p.y += p.vy; p.ph += p.tw;
+      if (p.y < -10) P[i] = p = spawn(false);
+      var a = (.35 + .65 * Math.abs(Math.sin(p.ph))) * Math.min(1, (H - p.y) / 120) * Math.min(1, p.y / 80);
+      if (p.star) {
+        var s = p.r * 3.2 * (.6 + .4 * Math.sin(p.ph * 2));
+        cx.strokeStyle = "rgba(" + p.hue + "," + a + ")"; cx.lineWidth = .8; cx.beginPath(); cx.moveTo(p.x - s, p.y); cx.lineTo(p.x + s, p.y); cx.moveTo(p.x, p.y - s); cx.lineTo(p.x, p.y + s); cx.stroke();
+      }
+      var g = cx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 4); g.addColorStop(0, "rgba(" + p.hue + "," + a + ")"); g.addColorStop(1, "rgba(" + p.hue + ",0)");
+      cx.fillStyle = g; cx.beginPath(); cx.arc(p.x, p.y, p.r * 4, 0, 6.283); cx.fill();
+    }
+  }
+  requestAnimationFrame(draw);
+
+  /* ── 포털 카드 기울기 + 홀로 ── */
+  document.querySelectorAll(".portal").forEach(function (el) {
+    el.addEventListener("pointermove", function (e) { if (RM || e.pointerType !== "mouse") return; var r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height; el.style.setProperty("--ry", ((x - .5) * 14) + "deg"); el.style.setProperty("--rx", ((.5 - y) * 12) + "deg"); el.style.setProperty("--mx", (x * 100) + "%"); el.style.setProperty("--my", (y * 100) + "%"); });
+    el.addEventListener("pointerleave", function () { el.style.setProperty("--ry", "0deg"); el.style.setProperty("--rx", "0deg"); });
+    el.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse" && window.EternaSFX) EternaSFX.play("hover"); });
+  });
+
+  /* ── 진화 순환 ── */
+  var evs = document.querySelectorAll("#evoRow .ev"), ei = 0, evT;
+  function evo() { evs.forEach(function (e, i) { e.classList.toggle("on", i === ei); }); ei = (ei + 1) % evs.length; }
+  new IntersectionObserver(function (e) { clearInterval(evT); if (e[0].isIntersecting && !RM) { evo(); evT = setInterval(evo, 2200); } else if (RM) evs[2].classList.add("on"); }, { threshold: .35 }).observe(document.getElementById("evoRow"));
+  evs.forEach(function (e, i) { e.addEventListener("click", function () { ei = i; evo(); if (window.EternaSFX) EternaSFX.play("sparkle"); }); });
+
+  /* ── 게시판 ── */
+  var NOTES = [
+    ["입학 안내", "올해 신입생 소환식", "은빛 갈매기호가 닿는 날 아침, 대강당 제단에서 열립니다. 늦으면 소환수가 먼저 잠들어요.", "신문부 루시"],
+    ["관측 소식", "하늘이 잠깐 어두워져도", "천문탑에서 흑일의 징조가 관측되었다는 소문. 학생회는 '아직 걱정할 단계 아님'이라고 발표했습니다.", "신문부 루시"],
+    ["보건실", "다친 소환수는 언제든", "밤늦게라도 문을 두드리세요. 따뜻한 우유와 붕대가 준비되어 있습니다.", "엘리노어 바렛"],
+    ["공방", "소환 구슬 수리 접수 중", "금이 간 구슬, 빛이 약해진 구슬 모두 받습니다. 단, 수리 중 폭발은 책임지지 않음.", "공방장"],
+    ["배지전", "일곱 교수에게 도전하라", "배지는 연구실 앞 게시판에서 일정을 확인하고 신청하세요. 세 개를 모으면 졸업 자격이 주어집니다.", "학생회"],
+    ["소문", "여든 번째 칸의 비밀", "삼백 년 동안 아무도 도감을 다 채우지 못했다고. 마지막 칸을 채우면 무슨 일이 일어날까?", "익명 제보"]
+  ];
+  document.getElementById("board-list").innerHTML = NOTES.map(function (n) { return '<article class="note rv"><span class="k">' + n[0] + '</span><h3>' + n[1] + '</h3><p>' + n[2] + '</p><span class="by">— ' + n[3] + '</span></article>'; }).join("");
+  var TICK = ["<b>속보</b>은빛 갈매기호, 오늘 새벽 에테르나 항구 입항", "<b>날씨</b>오전 안개 · 오후 맑음 · 밤에 유성우 가능성", "<b>학생회</b>해 · 달 · 별 기숙사 배정표 대강당 게시", "<b>도감</b>신입생 첫 소환 기록, 도감 회랑에서 등록 가능", "<b>매점</b>소환수 간식 '별사탕 쿠키' 재입고"];
+  var th = TICK.map(function (t) { return "<span>" + t + "</span>"; }).join("");
+  document.getElementById("tick").innerHTML = th + th;
+
+  /* ── OST 목록 (플레이어와 연동) ── */
+  function fmt(s) { s = Math.round(s); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); }
+  var DUR = ["3:13", "2:38", "2:43", "3:02", "1:49", "2:14", "2:12", "2:52", "2:46"];
+  function buildOst() {
+    var M = window.EternaMusic; if (!M) return setTimeout(buildOst, 120);
+    var ul = document.getElementById("trks");
+    ul.innerHTML = M.tracks.map(function (t, i) { return '<li><button class="trk" data-i="' + i + '"><span class="n"><span>' + String(i + 1).padStart(2, "0") + '</span><span class="eq"><i></i><i></i><i></i></span></span><span><b>' + t.t + '</b><small>' + t.s + '</small></span><span class="d">' + (DUR[i] || "") + '</span></button></li>'; }).join("");
+    ul.addEventListener("click", function (e) { var b = e.target.closest(".trk"); if (!b) return; M.playIndex(+b.dataset.i); });
+    function sync() { var s = M.state(); ul.querySelectorAll(".trk").forEach(function (b) { var c = +b.dataset.i === s.idx; b.classList.toggle("cur", c); b.classList.toggle("pl", c && s.playing); }); document.getElementById("rec").classList.toggle("play", s.playing); }
+    document.addEventListener("eterna-music", sync); sync();
+  }
+  buildOst();
+})();
+</script>
+</body>
+</html>
