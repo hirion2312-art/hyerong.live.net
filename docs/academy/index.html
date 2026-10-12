@@ -180,6 +180,9 @@ textarea{resize:vertical;min-height:84px}
 .beast h2{font-family:var(--f-display);font-weight:800;font-size:40px;margin:0;line-height:1.1;text-shadow:0 0 24px var(--tc)}
 .beast .race{color:var(--muted);font-size:14px}
 .beast .line{font-family:var(--f-display);font-size:16.5px;margin:14px 0;padding:12px 16px;border-left:2px solid var(--tc);background:rgba(255,255,255,.03)}
+.hpcard{display:grid;gap:8px;margin:12px 0}.hpcard .hpl{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--muted)}.hpcard .hpl b{font-family:var(--f-mono);font-size:18px;color:var(--parch,#f3e9d2);font-variant-numeric:tabular-nums}
+.hpcard .hpbar{height:8px;border-radius:8px;background:rgba(255,255,255,.08);overflow:hidden}.hpcard .hpbar i{display:block;height:100%;width:100%;border-radius:8px;background:linear-gradient(90deg,var(--tc),color-mix(in srgb,var(--tc) 45%,#fff));transform-origin:left;animation:grow 1.2s .4s cubic-bezier(.2,.8,.2,1) both}
+.hpcard p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.6}
 .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 28px;font-size:13px;margin:12px 0}
 .stat{display:grid;grid-template-columns:2.6em minmax(0,1fr) 3ch;gap:8px;align-items:center}
 .stat b{font-weight:400;color:var(--muted)}
@@ -232,7 +235,7 @@ textarea{resize:vertical;min-height:84px}
 .dorm h3{font-family:var(--f-display);font-weight:800;font-size:22px;margin:0;color:var(--c)}
 .dorm .ty{font-family:var(--f-latin);font-size:11px;letter-spacing:.2em;color:var(--muted);margin:2px 0 10px}
 .dorm p{margin:0;font-size:14px;color:var(--parch)}
-.cal{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;position:relative}
+.cal{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;position:relative}
 .cal::before{content:"";position:absolute;left:0;right:0;top:11px;height:1px;background:linear-gradient(90deg,var(--line),var(--line-soft))}
 .cal li{position:relative;padding:34px 12px 0 0;min-width:0}
 .cal li::before{content:"";position:absolute;left:0;top:5px;width:13px;height:13px;border-radius:50%;background:var(--night);border:2px solid var(--gold)}
@@ -358,19 +361,19 @@ const ORIGINS = {
   "노크티스 밤의 공국": "북서 황혼지대. 어둠 속성 소환사 가문이 많아 은근한 편견을 받는다."
 };
 const BEASTS = [
-  { id:"wicka", base:[70, 45, 70, 85, 100, 70], n:"위카", t:"화", g:"f", race:"촛불족", role:"지원형", evo:3, trait:"머리 위 불꽃이 감정에 따라 색이 바뀌고, 촛농으로 상처를 덮어 응급 치료를 한다.", per:"겁 많은 울보. 울면 촛농이 흐른다.", line:"히, 히익…! 저, 저를 불러 주신 거예요? 열, 열심히… 할게요!", sk:[["촛불 점화","💫40","15","화상 10%"],["촛농 붕대","✨","5","HP 25% 회복"]] },
-  { id:"flint", base:[65, 110, 80, 45, 55, 85], n:"플린트", t:"화", g:"m", race:"화덕도마뱀족", role:"공격형", trait:"꼬리 불로 금속을 달궈 동료의 장비를 잠시 강화한다.", per:"무뚝뚝한 일벌레인데 칭찬에 약하다.", line:"…뭘 봐. 소환했으면 일이나 시켜.", sk:[["불씨 망치","⚔️45","15","화상 10%"],["달군 비늘","✨","10","방어 +1"]] },
-  { id:"flip", base:[75, 45, 70, 80, 100, 70], n:"플립", t:"수", g:"f", race:"샘물정령족", role:"지원형", trait:"아카데미 분수에서 태어났다. 물로 치유하고 잠시 투명해질 수 있다.", per:"교내 소문을 다 꿰는 수다쟁이.", line:"와, 드디어! 있잖아, 너 이름 뭐야? 기숙사는? 아 잠깐, 나부터 소개할게!", sk:[["물방울 튀기기","💫40","15",""],["맑은 샘","✨","5","HP 30% 회복"]] },
-  { id:"otto", base:[60, 95, 60, 50, 60, 115], n:"오토", t:"수", g:"m", race:"수달족", role:"속도형", trait:"물속 잠행에 능하고, 반짝이는 조개와 돌을 모은다.", per:"못 말리는 장난꾸러기.", line:"헤헷, 반짝이는 거 있어? 없어? 그럼 같이 찾으러 가자!", sk:[["물살 박치기","⚔️40","15","선공"],["조개 던지기","⚔️25×2","10","2회 공격"]] },
-  { id:"quilla", base:[55, 60, 55, 95, 60, 120], n:"퀼라", t:"풍", g:"f", race:"전령새족", role:"속도형", trait:"아카데미 우편 담당 종족. 초고속 비행과 바람 칼날을 쓴다.", per:"늘 덜렁대는 배달부.", line:"배달 왔습니다~! 앗, 편지가 아니라 제가 배달된 거구나!", sk:[["바람 칼날","💫40","15",""],["속달","✨","8","속도 +1"]] },
-  { id:"wally", base:[70, 85, 80, 70, 70, 75], n:"월리", t:"풍", g:"m", race:"풍차정령족", role:"균형형", trait:"등의 날개바퀴로 바람을 모아 증폭한다.", per:"산만한 낙천가.", line:"와아, 바람 좋다! 우리 어디 갈까? 저기? 아니 저기!", sk:[["회전 바람","⚔️40","15",""],["순풍","✨","8","아군 속도 +1"]] },
-  { id:"puffcap", base:[80, 50, 80, 80, 95, 55], n:"퍼프캡", t:"지", g:"f", race:"버섯족", role:"지원형", trait:"포자로 잠재우거나 회복시키고, 땅속 균사로 먼 곳의 정보를 읽는다.", per:"늘 졸린 은둔형.", line:"…으음. 소환된 거야? …조금만 더 자고 시작하면 안 돼?", sk:[["포자 뿌리기","💫35","15","수면 15%"],["회복 포자","✨","8","HP 25% 회복"]] },
-  { id:"peps", base:[80, 85, 125, 35, 80, 35], n:"펩스", t:"지", g:"m", race:"성벽골렘족", role:"방어형", trait:"몸의 돌을 재조립해 방벽을 쌓는다. 방어는 최고.", per:"고지식한 원칙주의자.", line:"계약자 확인. 규정에 따라 지금부터 당신을 수호하겠습니다.", sk:[["돌주먹","⚔️40","15",""],["벽돌 쌓기","✨","8","방어 +2"]] },
-  { id:"shardy", base:[60, 45, 65, 110, 85, 80], n:"샤디", t:"빛", g:"f", race:"채색유리족", role:"특공형", trait:"몸에 스테인드글라스 무늬가 있고, 빛을 여러 색으로 쪼개 쓴다.", per:"낭만적인 몽상가.", line:"빛이 이렇게 많은 색으로 쏟아지다니… 운명적인 만남이네요!", sk:[["색유리 빛","💫40","15",""],["분광","✨","8","무작위 능력 +1"]] },
-  { id:"batsy", base:[60, 85, 55, 70, 60, 120], n:"뱃시", t:"어둠", g:"f", race:"종탑박쥐족", role:"속도형", trait:"초음파로 주변을 탐지하고 어둠 속에서도 잘 본다.", per:"낮엔 잠꾸러기, 밤엔 하이텐션.", line:"후아암… 낮이잖아… 밤 되면 엄청 놀아 줄게… 쿨…", sk:[["흡혈 깨물기","⚔️40","15","준 피해 절반 회복"],["초음파","✨","8","혼란 30%"]] },
-  { id:"corby", base:[65, 90, 65, 80, 65, 90], n:"코르비", t:"어둠", g:"m", race:"까마귀족", role:"균형형", trait:"반짝이는 것을 모으고 정보를 훔치며, 깃털을 던진다.", per:"시니컬한 독설가.", line:"흥, 하필 너냐. …뭐, 반짝이는 거 몇 개 주면 따라가 줄게.", sk:[["깃털 투척","⚔️40","15",""],["훔쳐보기","✨","5","다음 공격 위력 +50%"]] },
-  { id:"lamby", base:[85, 60, 100, 55, 100, 45], n:"램비", t:"무", g:"f", race:"양족", role:"방어형", trait:"양털 쿠션으로 막고 재운다. 기숙사 관리에 특화되어 있다.", per:"모두를 챙기는 잔소리꾼.", line:"어머, 손이 차갑잖아! 밥은 먹었니? 이제부터 내가 챙길 거야.", sk:[["털뭉치 박치기","⚔️40","15",""],["자장가","✨","5","수면 40%"]] },
-  { id:"squeaky", base:[55, 90, 55, 55, 60, 125], n:"스퀴키", t:"무", g:"f", race:"열쇠쥐족", role:"속도형", trait:"어떤 자물쇠든 열고 숨겨진 물건을 찾아낸다.", per:"겁 많은 수집광.", line:"찍, 찌익…! 무, 무서운 사람 아니죠? …그 열쇠 예쁘다.", sk:[["앞니 깨물기","⚔️40","15","선공"],["해제","✨","8","상태이상·능력 하락 해제"]] }
+  { id:"wicka", n:"위카", t:"화", g:"f", race:"촛불족", role:"치유·지원", evo:3, trait:"머리 위 불꽃이 감정에 따라 색이 바뀌고, 촛농으로 상처를 덮어 응급 치료를 한다.", per:"겁 많은 울보. 울면 촛농이 흐른다.", line:"히, 히익…! 저, 저를 불러 주신 거예요? 열, 열심히… 할게요!", sk:[["촛불 점화", "작은 불꽃을 쏘아 화상을 남긴다"], ["촛농 붕대", "촛농으로 상처를 덮어 체력을 조금 회복"]] },
+  { id:"flint", n:"플린트", t:"화", g:"m", race:"화덕도마뱀족", role:"돌격", trait:"꼬리 불로 금속을 달궈 동료의 장비를 잠시 강화한다.", per:"무뚝뚝한 일벌레인데 칭찬에 약하다.", line:"…뭘 봐. 소환했으면 일이나 시켜.", sk:[["불씨 망치", "달군 꼬리로 내려쳐 화상을 남긴다"], ["달군 비늘", "비늘을 달궈 다음 공격을 버틴다"]] },
+  { id:"flip", n:"플립", t:"수", g:"f", race:"샘물정령족", role:"치유·지원", trait:"아카데미 분수에서 태어났다. 물로 치유하고 잠시 투명해질 수 있다.", per:"교내 소문을 다 꿰는 수다쟁이.", line:"와, 드디어! 있잖아, 너 이름 뭐야? 기숙사는? 아 잠깐, 나부터 소개할게!", sk:[["물방울 튀기기", "물방울을 튀겨 상대의 시야를 흐린다"], ["맑은 샘", "맑은 샘물로 체력을 회복"]] },
+  { id:"otto", n:"오토", t:"수", g:"m", race:"수달족", role:"기동", trait:"물속 잠행에 능하고, 반짝이는 조개와 돌을 모은다.", per:"못 말리는 장난꾸러기.", line:"헤헷, 반짝이는 거 있어? 없어? 그럼 같이 찾으러 가자!", sk:[["물살 박치기", "물살을 타고 누구보다 먼저 들이받는다"], ["조개 던지기", "조개를 연달아 두 번 던진다"]] },
+  { id:"quilla", n:"퀼라", t:"풍", g:"f", race:"전령새족", role:"기동", trait:"아카데미 우편 담당 종족. 초고속 비행과 바람 칼날을 쓴다.", per:"늘 덜렁대는 배달부.", line:"배달 왔습니다~! 앗, 편지가 아니라 제가 배달된 거구나!", sk:[["바람 칼날", "날카로운 바람을 날린다"], ["속달", "날갯짓으로 몸이 가벼워져 먼저 움직인다"]] },
+  { id:"wally", n:"월리", t:"풍", g:"m", race:"풍차정령족", role:"만능", trait:"등의 날개바퀴로 바람을 모아 증폭한다.", per:"산만한 낙천가.", line:"와아, 바람 좋다! 우리 어디 갈까? 저기? 아니 저기!", sk:[["회전 바람", "날개바퀴를 돌려 회오리를 일으킨다"], ["순풍", "등 뒤로 바람을 보내 동료를 재빠르게 한다"]] },
+  { id:"puffcap", n:"퍼프캡", t:"지", g:"f", race:"버섯족", role:"치유·지원", trait:"포자로 잠재우거나 회복시키고, 땅속 균사로 먼 곳의 정보를 읽는다.", per:"늘 졸린 은둔형.", line:"…으음. 소환된 거야? …조금만 더 자고 시작하면 안 돼?", sk:[["포자 뿌리기", "포자를 흩뿌려 상대를 졸리게 한다"], ["회복 포자", "따뜻한 포자로 체력을 회복"]] },
+  { id:"peps", n:"펩스", t:"지", g:"m", race:"성벽골렘족", role:"수호", trait:"몸의 돌을 재조립해 방벽을 쌓는다. 방어는 최고.", per:"고지식한 원칙주의자.", line:"계약자 확인. 규정에 따라 지금부터 당신을 수호하겠습니다.", sk:[["돌주먹", "단단한 돌주먹을 꽂는다"], ["벽돌 쌓기", "몸의 돌로 벽을 쌓아 다음 피해를 줄인다"]] },
+  { id:"shardy", n:"샤디", t:"빛", g:"f", race:"채색유리족", role:"마법", trait:"몸에 스테인드글라스 무늬가 있고, 빛을 여러 색으로 쪼개 쓴다.", per:"낭만적인 몽상가.", line:"빛이 이렇게 많은 색으로 쏟아지다니… 운명적인 만남이네요!", sk:[["색유리 빛", "빛을 굴절시켜 일곱 빛깔로 쏜다"], ["분광", "빛을 갈라 상대를 현혹한다"]] },
+  { id:"batsy", n:"뱃시", t:"어둠", g:"f", race:"종탑박쥐족", role:"기동", trait:"초음파로 주변을 탐지하고 어둠 속에서도 잘 본다.", per:"낮엔 잠꾸러기, 밤엔 하이텐션.", line:"후아암… 낮이잖아… 밤 되면 엄청 놀아 줄게… 쿨…", sk:[["흡혈 깨물기", "깨물어 준 피해만큼 조금 회복"], ["초음파", "귀를 찢는 소리로 상대를 혼란에 빠뜨린다"]] },
+  { id:"corby", n:"코르비", t:"어둠", g:"m", race:"까마귀족", role:"만능", trait:"반짝이는 것을 모으고 정보를 훔치며, 깃털을 던진다.", per:"시니컬한 독설가.", line:"흥, 하필 너냐. …뭐, 반짝이는 거 몇 개 주면 따라가 줄게.", sk:[["깃털 투척", "날 선 깃털을 던진다"], ["훔쳐보기", "상대의 다음 수를 읽어 다음 공격을 강하게"]] },
+  { id:"lamby", n:"램비", t:"무", g:"f", race:"양족", role:"수호", trait:"양털 쿠션으로 막고 재운다. 기숙사 관리에 특화되어 있다.", per:"모두를 챙기는 잔소리꾼.", line:"어머, 손이 차갑잖아! 밥은 먹었니? 이제부터 내가 챙길 거야.", sk:[["털뭉치 박치기", "폭신한 털뭉치로 들이받는다"], ["자장가", "나른한 노래로 상대를 재운다"]] },
+  { id:"squeaky", n:"스퀴키", t:"무", g:"f", race:"열쇠쥐족", role:"기동", trait:"어떤 자물쇠든 열고 숨겨진 물건을 찾아낸다.", per:"겁 많은 수집광.", line:"찍, 찌익…! 무, 무서운 사람 아니죠? …그 열쇠 예쁘다.", sk:[["앞니 깨물기", "재빨리 먼저 깨문다"], ["해제", "걸린 상태이상을 딸깍 풀어 준다"]] }
 ];
 const TRAITS = ["신중한","열혈","다정한","냉철한","장난기","노력파","느긋한","호기심","자존심","겁쟁이","리더형","독서광"];
 const WISHES = [["화","따뜻한 불꽃"],["수","맑은 물결"],["풍","자유로운 바람"],["지","단단한 대지"],["빛","눈부신 빛"],["어둠","고요한 밤"],["무","포근한 일상"],["","운명에 맡김"]];
@@ -428,7 +431,8 @@ function explode(x, y, color, n = 160){ const d = Math.min(devicePixelRatio || 1
 function setStep(n){ S.step = n; document.querySelectorAll("#steps li").forEach(li => { const s = +li.dataset.s; li.className = s === n ? "on" : s < n ? "done" : ""; }); }
 function toast(m){ const t = $("#toast"); t.textContent = m; t.classList.add("on"); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove("on"), 2200); }
 const tcol = t => getComputedStyle(document.documentElement).getPropertyValue(TYPES[t]).trim();
-function stats(b){ const r = b.base, L = 5; return { HP: r[0] * 2 + L * 5, 공격: r[1] + L * 2, 방어: r[2] + L * 2, 특공: r[3] + L * 2, 특방: r[4] + L * 2, 속도: r[5] + L * 2 }; }
+function stats(b){ return { HP: 40 + 5 * 6 }; }
+const hpHTML = c => `<div class="hpcard" style="--tc:${c}"><div class="hpl"><span>Lv 5 · 최대 체력</span><b>❤️ 70 / 70</b></div><div class="hpbar"><i></i></div><p>배틀에서 숫자로 남는 건 체력뿐. 최대 HP = 40 + Lv × 6, 진화하면 더 늘어난다. 나머지는 상성과 작전, 그리고 둘의 유대가 정한다.</p></div>`;
 function runes(seed){ let h = 0; for (const c of seed) h = (h * 31 + c.charCodeAt(0)) >>> 0; return Array.from({ length: 36 }, (_, i) => { h = (h * 1103515245 + 12345) >>> 0; return 25 + (h % 75); }); }
 const crestSVG = `<svg class="crest" viewBox="-30 -30 60 60" aria-hidden="true"><circle r="27" fill="none" stroke="#d9b25f" stroke-width="1.5"/><path d="M0-22 4-6 20-10 8 2 14 18 0 8-14 18-8 2-20-10-4-6Z" fill="#f4dfa6"/></svg>`;
 
@@ -469,6 +473,7 @@ const CAL = [
   ["봄 1일","입학식 · 소환 의식","첫 파트너와 계약하고 기숙사가 정해집니다."],
   ["봄 25일","신입생 친선전","1학년 1:1 배틀. 동행 소환수는 한 마리."],
   ["여름 10~16일","야외 합숙","동기들과 조를 짜서 속성 지역에서 포획 실습."],
+  ["여름 17일~","교수 배지전 개방","교수 일곱 명에게 도전. 배지 3개면 졸업, 7개면 학장 인정전."],
   ["가을 20~25일","에테르나 컵","전교 토너먼트 3:3. 우승자는 소원 하나."],
   ["겨울 15일 · 22일","기말평가 · 흑일","시험과 실습 배틀. 그리고 겨울 22일 정오."]
 ];
@@ -480,7 +485,7 @@ function lore(){
   <section class="sec"><div class="sec-head"><div><span class="eyebrow">기숙사 배정</span><h2>파트너의 속성이 사는 곳을 정합니다</h2><p>월말 결산에서 점수 1위를 한 동은 한 달 동안 식당 디저트 특전을 받습니다.</p></div></div>
     <div class="dorms">${DORMS.map(d => `<article class="dorm" style="--c:${d[3]}"><h3>${d[1]}</h3><div class="ty">${d[2]}</div><p>${d[4]}</p></article>`).join("")}</div></section>
   <section class="sec"><div class="sec-head"><div><span class="eyebrow">1학년 일정</span><h2>입학부터 겨울까지</h2></div></div>
-    <ol class="cal">${CAL.map((c, i) => `<li class="${i === 4 ? "dark" : ""}"><time>${c[0]}</time><b>${c[1]}</b><span>${c[2]}</span></li>`).join("")}</ol></section>
+    <ol class="cal">${CAL.map((c, i) => `<li class="${i === CAL.length - 1 ? "dark" : ""}"><time>${c[0]}</time><b>${c[1]}</b><span>${c[2]}</span></li>`).join("")}</ol></section>
   <div class="cta-end"><h2>제단은 준비되어 있습니다.</h2><button class="cta" id="go2" type="button">입학 등록 시작</button></div>`;
 }
 function openMon(id){
@@ -491,9 +496,8 @@ function openMon(id){
     <div class="bd"><div class="eyebrow" style="color:${c}">${b.t} 속성 · 일반</div><h3>${b.n}</h3><div class="hint" style="margin-bottom:10px">${b.race} ${b.g === "f" ? "♀" : "♂"} · ${b.role}</div>
       <p style="margin:0 0 6px">${b.trait}</p><p class="hint" style="margin:0 0 10px">성격: ${b.per}</p>
       <p class="line" style="font-family:var(--f-display);margin:10px 0;padding:10px 14px;border-left:2px solid ${c};background:rgba(255,255,255,.03)">“${esc(b.line)}”</p>
-      <div class="statwrap" style="--tc:${c}">${radar(st, c)}<div class="stats">${Object.entries(st).map(([k, v]) => `<div class="stat"><b>${k}</b><s><i style="transform:scaleX(${Math.min(v / 180, 1)})"></i></s><span>${v}</span></div>`).join("")}</div></div>
-      <div class="skills">${b.sk.map(s => `<div class="skill"><span><b>${s[0]}</b> <span class="hint">${s[3]}</span></span><span class="k">${s[1]} | ${s[2]}/${s[2]}</span></div>`).join("")}</div>
-      <p class="hint" style="margin:10px 0 0">Lv 5 기준 수치입니다.</p></div></div>`;
+      ${hpHTML(c)}
+      <div class="skills">${b.sk.map(s => `<div class="skill"><span><b>${s[0]}</b> <span class="hint">${s[1]}</span></span></div>`).join("")}</div></div></div>`;
   const close = () => { m.hidden = true; m.innerHTML = ""; removeEventListener("keydown", esck); m._from && m._from.focus && m._from.focus(); };
   const esck = e => { if (e.key === "Escape") close(); };
   addEventListener("keydown", esck);
@@ -728,9 +732,8 @@ function block(){
 자기소개: ${p.intro || "-"}
 학번: ${S.id} · 입학 협약력 301년 봄
 기숙사: ${S.dorm}의 동
-파트너: ${b.n} (${b.t}·일반·${b.race}${b.g === "f" ? "♀" : "♂"}·${b.role}) Lv 5 · XP 0/20
-스탯: HP ${st.HP}/${st.HP} · 공 ${st.공격} · 방 ${st.방어} · 특공 ${st.특공} · 특방 ${st.특방} · 속 ${st.속도}
-고유기: ${b.sk.map(s => `${s[0]}(${s[1]}|${s[2]}/${s[2]})${s[3] ? " " + s[3] : ""}`).join(" / ")}
+파트너: ${b.n} (${b.t}·일반·${b.race}${b.g === "f" ? "♀" : "♂"}) Lv 5 · ❤️${st.HP}/${st.HP}
+기술: ${b.sk.map(s => `${s[0]}(${s[1]})`).join(" / ")}
 첫 대사: "${b.line}"`;
 }
 
@@ -748,7 +751,7 @@ function result(fromSave){
         <p class="line">“${esc(b.line)}”</p>
         <p style="margin:0 0 6px">${b.trait}</p>
         <p class="hint" style="margin:0">성격: ${b.per}</p>
-        <div class="statwrap">${radar(st, col)}<div class="stats">${Object.entries(st).map(([k, v]) => `<div class="stat"><b>${k}</b><s><i style="transform:scaleX(${Math.min(v / max, 1)})"></i></s><span>${v}</span></div>`).join("")}</div></div>
+        ${hpHTML(col)}
         <div class="skills">${b.sk.map(s => `<div class="skill"><span><b>${s[0]}</b> <span class="hint">${s[3]}</span></span><span class="k">${s[1]} | ${s[2]}/${s[2]}</span></div>`).join("")}</div>
         <p class="evo">진화 계열: <b>${b.n}</b> → <b>???</b> (Lv 16) → <b>???</b> (Lv 36)</p>
       </div>
