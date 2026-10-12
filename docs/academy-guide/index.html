@@ -509,6 +509,8 @@ a{color:var(--gold-hi)}
           <dt>계약</dt><dd>마나를 나누는 유대. 손등에 계약 문장(紋章)이 새겨진다</dd>
           <dt>공명</dt><dd>계약이 깊어진 상태. 레벨과 공명이 기준을 넘으면 진화한다</dd>
           <dt>계약석</dt><dd>약해진 야생 소환수와 계약할 때 쓰는 소모품</dd>
+          <dt>소환 구슬</dt><dd>계약 문장 속 작은 구슬. "나와", "돌아와" 한마디에 소환수가 빛이 되어 드나든다. 함께 걷는 건 최대 셋</dd>
+          <dt>계약 상한</dt><dd>1학년 6 · 2학년 8 · 3학년 12. 넘치면 하나를 자연으로 돌려보낸다(도감 기록은 남는다)</dd>
         </dl>
         <div class="tiers">
           <div style="--c:var(--t-none)"><b>일반</b><span>입학 소환, 야생, 별의 우물</span></div>
@@ -647,11 +649,11 @@ a{color:var(--gold-hi)}
       <article style="--c:var(--t-none)"><span class="medal" data-g="無"></span><h3>그레타</h3><em>주먹 배지 · 무</em><p>신임 체력 교관. 호쾌하게 웃고 몸으로 가르친다.</p><small>능력 변화 무효</small></article>
       <article class="master" style="--c:var(--gold-hi)"><span class="medal" data-g="極"></span><h3>오스왈드 학장</h3><em>인정전 · 배지 7개 보유자만</em><p>15대 학장. 아무도 본 적 없는 그의 소환수가 이 승부에서 처음 모습을 드러낸다.</p><small>셀로라 · 녹터넬 · 칼데리아, Lv 60~65</small></article>
     </div>
-    <p class="bg-note">오후에 신청하면 순서는 자유. 지면 7일 뒤에 다시 도전할 수 있다. 3대3, 소환수 교체 가능.</p>
+    <p class="bg-note">1학년 여름 합숙이 끝나면 열린다. 오후에 신청하면 순서는 자유, 지면 7일 뒤 재도전. 3대3, 교체 가능. 교수는 도전자가 가진 배지 수만큼 본기를 꺼낸다. 이기면 배지와 상금, 그리고 그 교수의 전수 기술 하나.</p>
   </section>
 
   <section class="chap" id="cast">
-    <div class="chap-head"><span class="chap-num">VII</span><h2>섬에서 만날 사람들</h2><p>동기 여덟, 선배 여섯, 교수 넷(나머지 교수 셋은 앞 장에서 소개). 카드를 누르면 자세한 소개가 열린다.</p></div>
+    <div class="chap-head"><span class="chap-num">VII</span><h2>섬에서 만날 사람들</h2><p>동기 여덟, 선배 여섯, 교수 여덟. 카드를 누르면 자세한 소개가 열린다.</p></div>
     <div class="tabs" id="tabs" role="group" aria-label="인물 분류"></div>
     <div class="cast" id="castgrid"></div>
   </section>
@@ -726,7 +728,7 @@ const REGIONS = [
   { id:"crystal", n:"수정 협곡과 버섯숲", t:["지"], x:735, y:525, d:"집채만 한 버섯이 숲을 이루고, 협곡 벽마다 수정 광맥이 빛난다. 무너진 옛 성벽이 길을 가른다.", lv:"입구 5~15 · 깊은 곳 15~30", beasts:["퍼프캡","펩스","젬미","키도"] },
   { id:"cathedral", n:"유리 성당 언덕", t:["빛"], x:705, y:195, d:"스테인드글라스가 깨진 채로도 빛나는 성당 폐허. 해 질 녘이면 언덕 전체가 일곱 빛깔로 물든다.", lv:"입구 5~15 · 최심부 30~45", beasts:["샤디","트윙킷","메인"] },
   { id:"dusk", n:"황혼 묘원", t:["어둠"], x:170, y:270, d:"해가 지지 않는 저녁에 멈춘 땅. 종탑과 묘지, 거미줄 숲이 이어진다. 작년 흑일 밤 종이 저절로 울린 곳.", lv:"입구 5~15 · 최심부 30~45", beasts:["뱃시","코르비","웨비"] },
-  { id:"sanctum", n:"빛의 성역", t:["빛"], x:505, y:215, d:"섬의 최정상. 결계로 출입이 막혀 있다. 전설 솔라리아가 이곳에서 잠들어 있다고 전해진다.", lv:"출입 금지", beasts:["★ 솔라리아"], warn:"결계 구역 · 일곱 시련의 문장 없이는 들어갈 수 없다" },
+  { id:"sanctum", n:"빛의 성역", t:["빛"], x:505, y:215, d:"섬의 최정상. 결계로 출입이 막혀 있다. 전설 솔라리아가 이곳에서 잠들어 있다고 전해진다.", lv:"출입 금지", beasts:["★ 솔라리아"], warn:"결계 구역 · 흑일마다 정상에서 금빛 기둥이 솟는다" },
   { id:"rift", n:"심연의 균열", t:["어둠"], x:505, y:92, d:"섬 북쪽 바다 절벽. 그 아래에 아비살리아가 봉인되어 있다. 아카데미 최고 금지 구역.", lv:"출입 영구 금지", beasts:["☾ 아비살리아 (봉인)"], warn:"협약 제3조 · 출입 시 퇴학 및 계약 박탈" }
 ];
 const NATIONS = [
@@ -752,7 +754,7 @@ const FACIL = [
   ["명예의 전당","도감을 완성한 학생만 이름을 올리는 벽. 300년 동안 단 한 명도 없다.","전설의 학생","hall"]
 ];
 const DORMS = [["해","해의 동","화 · 빛 · 풍","var(--sun)","브루노, 미아, 루시, 제롬, 이리스"],["달","달의 동","수 · 어둠","var(--moon)","카일, 세라, 벨라, 노엘, 로제"],["별","별의 동","지 · 무","var(--star)","테오, 에밀리아, 울프, 아델"]];
-const YEAR = [["봄","var(--t-wind)","입학식과 소환 의식, 기숙사 배정. 봄 25일 신입생 친선전."],["여름","var(--t-water)","야외 합숙 실습. 속성 지역에서 야생 포획."],["가을","var(--t-fire)","에테르나 컵. 전교 토너먼트, 각국 귀빈 관람."],["겨울","var(--t-dark)","기말 평가. 그리고 동지 정오의 흑일."]];
+const YEAR = [["봄","var(--t-wind)","입학 소환과 기숙사 배정, 첫 주 수업. 봄 25일 신입생 친선전."],["여름","var(--t-water)","10~16일 야외 합숙 실습. 합숙이 끝나면 교수 배지전이 열린다."],["가을","var(--t-fire)","20~25일 에테르나 컵. 전교 토너먼트, 각국 귀빈 관람."],["겨울","var(--t-dark)","15일 기말 평가. 22일, 동지 정오의 흑일."]];
 const CHRON = [
   ["태초","","칠류가 흐르기 시작하다","세계를 일곱 갈래의 마나가 흐르기 시작한다. 땅마다 소환수가 깨어난다."],
   ["약 1200년 전","공명의 시대","처음으로 계약을 맺다","대륙 사람들이 처음 소환수와 계약을 맺는다. 서로를 이해하는 '공명'이라는 개념이 생긴다."],
@@ -842,15 +844,31 @@ const CAST = [
     per:"다정한 보건실 선생이자 생태학 교수. 학생들의 고민과 연애 상담을 들어 준다. 다친 소환수를 보면 표정이 확 바뀐다.",
     say:["다쳤어요? 이리 와요, 금방 나을 거예요."], life:"보건실엔 늘 차 향기가 감돈다. 테오와 세라의 스승.",
     looks:[["현재","흰 가운의 보건 선생"]] }
+  ,{ id:"smith", n:"공방장", s:"공방장", age:0, g:"교수", dorm:"-", role:"기술 공방 · 마도기술", origin:"그라움 산악국", pt:["파이어룬","firerune","불나방족 · 화 · 최종진화"],
+    per:"도도하고 여유로운 마도기술자. 말끝을 늘이며 남의 기술을 깎아내리지만, 낭만 있는 기술 앞에선 약해진다. 불씨 배지의 주인.",
+    say:["어머, 그걸 기술이라 부르는 거야~?"], life:"기술 공방에 산다. 학생이 들고 온 기술안을 채점해 주고, 첫 주 다섯째 날엔 도감 쓰는 법을 가르친다.",
+    looks:[["현재","고글을 이마에 올린 가죽 앞치마의 마도기술자"]] }
+  ,{ id:"ciel", n:"시엘", s:"시엘", age:0, g:"교수", dorm:"-", role:"신임 · 비행학", origin:"알려지지 않음", pt:["카릴리아","","종탑정령족 · 풍 · 최종진화"],
+    per:"올해 새로 온 비행학 교수. 학생에게 반말하는 시원시원한 누나. 겁먹은 학생을 등 떠밀어 뛰게 만든다. 깃털 배지의 주인.",
+    say:["야, 겁먹지 말고 뛰어!"], life:"옥상 테라스가 교실. 바람 좋은 날엔 수업이 비행 연습으로 바뀐다.",
+    looks:[["현재","깃털 장식 비행 재킷의 민트빛 포니테일"]] }
+  ,{ id:"vincent", n:"빈센트", s:"빈센트", age:0, g:"교수", dorm:"-", role:"신임 · 저주학", origin:"노크티스 밤의 공국", pt:["이클립시아","","종탑박쥐족 · 어둠 · 최종진화"],
+    per:"음침한 독설가. 말끝마다 가시가 돋아 흑월회 간첩이라는 소문이 돈다. 속은 누구보다 학생 걱정이 많다. 그믐 배지의 주인.",
+    say:["…죽고 싶은 표정이군."], life:"촛불 켠 강의실에 부적을 걸어 둔다. 저주 풀이 상담은 밤에만 받는다.",
+    looks:[["현재","보랏빛 로브와 흰 장갑, 테 없는 안경"]] }
+  ,{ id:"greta", n:"그레타", s:"그레타", age:0, g:"교수", dorm:"-", role:"신임 · 체력 교관", origin:"와일드런 부족연합", pt:["마스커리온","","카멜레온족 · 무 · 최종진화"],
+    per:"호쾌하게 웃고 몸으로 가르치는 체력 교관. 능력치 놀음이 통하지 않는 정면 승부형. 주먹 배지의 주인.",
+    say:["뛰어! 뛰면 답이 나온다!"], life:"아침마다 운동장에서 호루라기를 분다. 지각생은 운동장 열 바퀴.",
+    looks:[["현재","운동복 재킷과 호루라기, 은회색 짧은 머리"]] }
 ];
 const EDGES = [
   ["you","kyle","라이벌"],["kyle","bruno","매번 도전, 매번 패배"],["bruno","sera","짝사랑"],["mia","bruno","소문 확산"],["mia","lucy","신문부 사제"],
   ["you","theo","도감 경쟁"],["theo","eleanor","애제자"],["sera","eleanor","애제자"],["noel","bella","유독 친절"],["emilia","wolf","야식 장사 제안"],
   ["jerome","bruno","의형제"],["jerome","you","형 자처"],["iris","rose","앙숙 · 유일한 맞수"],["adel","iris","오른팔"],["adel","rose","뒷수습"],
-  ["raymond","margaret","게으름 vs 원칙"],["raymond","eleanor","졸업 동기"],["you","bruno","절친"],["you","sera","히로인"],["iris","you","넘어야 할 벽"],["rose","you","숨은 스승"],["oswald","raymond","학장과 교수진"]
+  ["raymond","margaret","게으름 vs 원칙"],["raymond","eleanor","졸업 동기"],["you","bruno","절친"],["you","sera","히로인"],["iris","you","넘어야 할 벽"],["rose","you","숨은 스승"],["oswald","raymond","학장과 교수진"],["vincent","bella","같은 고향"],["ciel","greta","신임 동기"],["smith","theo","기술 상담"]
 ];
 const POS = { you:[500,345], kyle:[330,235], bruno:[300,400], sera:[425,500], mia:[150,470], theo:[650,470], bella:[700,250], noel:[860,170], emilia:[830,420], wolf:[910,560],
-  jerome:[150,290], lucy:[110,620], iris:[380,80], rose:[620,80], adel:[500,165], oswald:[880,60], raymond:[700,620], margaret:[880,650], eleanor:[530,630] };
+  jerome:[150,290], lucy:[110,620], iris:[380,80], rose:[620,80], adel:[500,165], oswald:[880,60], raymond:[700,620], margaret:[880,650], eleanor:[530,630], smith:[300,640], ciel:[945,300], vincent:[760,130], greta:[945,450] };
 
 /* ---------------- 칠류 성좌 ---------------- */
 const star = $("#star");
@@ -984,7 +1002,7 @@ $("#tabs").innerHTML = GROUPS.map(([g, l], i) => `<button type="button" data-g="
 $("#castgrid").innerHTML = CAST.map(c => `<button type="button" class="who" data-id="${c.id}" data-g="${c.g}" style="--dc:${DC[c.dorm]}">
   <img src="img/c/${c.id}.webp" alt="${c.n}" loading="lazy">
   ${c.dorm !== "-" ? `<span class="dorm-dot" aria-label="${c.dorm}의 동">${c.dorm}</span>` : ""}
-  <span class="tx"><span class="role">${c.role}</span><b>${c.s}</b><span class="meta">${c.g === "교수" ? "교수" : c.g === "동기" ? "1학년" : c.g} · ${c.age}세</span><span class="q">“${esc(c.say[0])}”</span></span></button>`).join("");
+  <span class="tx"><span class="role">${c.role}</span><b>${c.s}</b><span class="meta">${c.g === "교수" ? "교수" : c.g === "동기" ? "1학년" : c.g}${c.age ? " · " + c.age + "세" : ""}</span><span class="q">“${esc(c.say[0])}”</span></span></button>`).join("");
 $("#tabs").onclick = e => { const b = e.target.closest("button"); if (!b) return; const g = b.dataset.g;
   [...$("#tabs").children].forEach(x => x.setAttribute("aria-pressed", x === b));
   document.querySelectorAll("#castgrid .who").forEach(w => { w.hidden = !!g && w.dataset.g !== g; }); };
@@ -999,7 +1017,7 @@ function openCast(id){
     <div class="hd"><img src="img/c/${c.id}_w.webp" alt="${c.n}"></div>
     <div class="bd"><div>
       <div class="role">${c.role}${c.dorm !== "-" ? ` · ${c.dorm}의 동` : ""}</div><h3>${c.n}</h3>
-      <div class="hint">${c.g === "교수" ? "교수" : c.g === "동기" ? "1학년 동기" : c.g + " 선배"} · ${c.age}세 · ${c.origin}</div>
+      <div class="hint">${c.g === "교수" ? "교수" : c.g === "동기" ? "1학년 동기" : c.g + " 선배"}${c.age ? " · " + c.age + "세" : ""} · ${c.origin}</div>
       <div class="say">${c.say.map(s => `<span>“${esc(s)}”</span>`).join("")}</div>
       <p>${c.per}</p><p>${c.life}</p>
       <h4>${c.g === "교수" ? "모습" : "학년별 모습"}</h4><ul class="looks">${c.looks.map(([a, b]) => `<li><b>${a}</b><span>${b}</span></li>`).join("")}</ul>
