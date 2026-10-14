@@ -17,7 +17,7 @@
   ];
 
 
-  var KEY = "eterna-music-v1", st = { vol: .7, idx: 0, t: 0, shuf: false, rep: 0 };
+  var KEY = "eterna-music-v2", st = { vol: .35, idx: 0, t: 0, shuf: false, rep: 0 };
   try { var raw = JSON.parse(localStorage.getItem(KEY) || "{}"); for (var k in raw) st[k] = raw[k]; } catch (e) {}
   function save() { st.at = Date.now(); st.on = !!(au && !au.paused && !au.muted); try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
 
@@ -384,7 +384,7 @@
 
   /* 시작 */
   var OPEN = 0; TRACKS.forEach(function (t, i) { if (t.open) OPEN = i; });
-  var win = st.at && Date.now() - st.at < 30 * 60 * 1000;
+  var win = st.at && Date.now() - st.at < 90 * 1000;
   RESUME = !!(win && (st.on || st.paused) && st.idx >= 0 && st.idx < TRACKS.length);
   userPaused = !!(RESUME && st.paused && !st.on);
   if (!RESUME) { st.idx = OPEN; st.t = 0; st.paused = false; }
